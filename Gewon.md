@@ -10,37 +10,18 @@
 <style>
   *{margin:0;padding:0;box-sizing:border-box}
   :root{
-    --bg:#0b0d12;
-    --bg-2:#10131a;
-    --surface:#161a22;
-    --surface-2:#1e232d;
-    --surface-3:#272d3a;
-    --border:rgba(255,255,255,.09);
-    --border-strong:rgba(255,255,255,.16);
-    --text:#ffffff;
-    --text-2:#d1d7e0;
-    --muted:#9aa4b2;
-    --muted-2:#6b7688;
-    --accent:#f5a524;
-    --accent-2:#ffb84d;
-    --accent-glow:rgba(245,165,36,.35);
-    --blue:#3b82f6;
-    --blue-2:#60a5fa;
-    --green:#10b981;
-    --green-2:#34d399;
-    --sale:#ef4444;
-    --sale-2:#f87171;
-    --purple:#a855f7;
-    --cyan:#22d3ee;
+    --bg:#0b0d12;--bg-2:#10131a;--surface:#161a22;--surface-2:#1e232d;--surface-3:#272d3a;
+    --border:rgba(255,255,255,.09);--border-strong:rgba(255,255,255,.16);
+    --text:#ffffff;--text-2:#d1d7e0;--muted:#9aa4b2;--muted-2:#6b7688;
+    --accent:#f5a524;--accent-2:#ffb84d;--accent-glow:rgba(245,165,36,.35);
+    --blue:#3b82f6;--blue-2:#60a5fa;--green:#10b981;--green-2:#34d399;
+    --sale:#ef4444;--sale-2:#f87171;--purple:#a855f7;--cyan:#22d3ee;
   }
   html{scroll-behavior:smooth}
   body{
     font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
-    color:var(--text);
-    line-height:1.65;
-    overflow-x:hidden;
-    -webkit-font-smoothing:antialiased;
-    -moz-osx-font-smoothing:grayscale;
+    color:var(--text);line-height:1.65;overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
     background:
       radial-gradient(ellipse 90% 60% at 50% -10%, rgba(245,165,36,.13), transparent 60%),
       radial-gradient(ellipse 70% 50% at 100% 30%, rgba(59,130,246,.08), transparent 55%),
@@ -62,1345 +43,337 @@
 
   nav{
     position:fixed;top:0;left:0;right:0;height:68px;
-    background:rgba(11,13,18,.85);
-    backdrop-filter:blur(24px) saturate(1.5);
+    background:rgba(11,13,18,.85);backdrop-filter:blur(24px) saturate(1.5);
     -webkit-backdrop-filter:blur(24px) saturate(1.5);
-    border-bottom:1px solid var(--border);
-    z-index:1000;display:flex;align-items:center;
+    border-bottom:1px solid var(--border);z-index:1000;display:flex;align-items:center;
     padding:0 40px;justify-content:space-between;
   }
-  .brand{
-    font-family:'Space Grotesk',sans-serif;
-    font-size:17px;font-weight:700;letter-spacing:-.3px;
-    display:flex;align-items:center;gap:10px;cursor:pointer;
-    color:#fff;
-  }
-  .brand-dot{
-    width:9px;height:9px;
-    background:linear-gradient(135deg,var(--accent) 0%,var(--accent-2) 100%);
-    border-radius:50%;
-    box-shadow:0 0 12px var(--accent-glow);
-  }
+  .brand{font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:700;letter-spacing:-.3px;display:flex;align-items:center;gap:10px;cursor:pointer;color:#fff}
+  .brand-dot{width:9px;height:9px;background:linear-gradient(135deg,var(--accent) 0%,var(--accent-2) 100%);border-radius:50%;box-shadow:0 0 12px var(--accent-glow)}
   .nav-links{display:flex;gap:4px;align-items:center;flex-wrap:wrap}
-  .nav-links a{
-    font-size:13.5px;font-weight:500;color:var(--text-2);
-    padding:9px 14px;border-radius:10px;transition:all .25s;
-    cursor:pointer;white-space:nowrap;position:relative;
-  }
+  .nav-links a{font-size:13.5px;font-weight:500;color:var(--text-2);padding:9px 14px;border-radius:10px;transition:all .25s;cursor:pointer;white-space:nowrap;position:relative}
   .nav-links a:hover{color:#fff;background:rgba(255,255,255,.06)}
-  .nav-links a.active{
-    color:#fff;background:rgba(245,165,36,.14);
-    box-shadow:inset 0 0 0 1px rgba(245,165,36,.25);
-  }
-  .nav-badge{
-    display:inline-flex;align-items:center;justify-content:center;
-    min-width:18px;height:18px;padding:0 5px;border-radius:100px;
-    background:var(--sale);color:#fff;font-size:10.5px;font-weight:700;
-    margin-left:5px;vertical-align:middle;
-    box-shadow:0 0 10px rgba(239,68,68,.5);
-  }
-  .nav-phone{
-    font-size:12.5px;font-weight:600;color:#fff;
-    padding:10px 18px;
-    background:linear-gradient(135deg,var(--accent) 0%,var(--accent-2) 100%);
-    color:#1a1200;
-    border-radius:100px;transition:all .25s;white-space:nowrap;
-    box-shadow:0 4px 16px rgba(245,165,36,.3);
-  }
-  .nav-phone:hover{
-    transform:translateY(-2px);
-    box-shadow:0 8px 24px rgba(245,165,36,.5);
-  }
+  .nav-links a.active{color:#fff;background:rgba(245,165,36,.14);box-shadow:inset 0 0 0 1px rgba(245,165,36,.25)}
+  .nav-badge{display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;padding:0 5px;border-radius:100px;background:var(--sale);color:#fff;font-size:10.5px;font-weight:700;margin-left:5px;vertical-align:middle;box-shadow:0 0 10px rgba(239,68,68,.5)}
+  .nav-phone{font-size:12.5px;font-weight:600;padding:10px 18px;background:linear-gradient(135deg,var(--accent) 0%,var(--accent-2) 100%);color:#1a1200;border-radius:100px;transition:all .25s;white-space:nowrap;box-shadow:0 4px 16px rgba(245,165,36,.3)}
+  .nav-phone:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(245,165,36,.5)}
 
   main{padding-top:68px;min-height:100vh}
   .view{display:none}
   .view.active{display:block;animation:fadeUp .5s cubic-bezier(.2,.9,.3,1)}
   @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 
-  .hero{
-    position:relative;height:calc(100vh - 68px);min-height:640px;
-    display:flex;align-items:flex-end;padding:72px;overflow:hidden;
-  }
-  .hero-bg{
-    position:absolute;inset:0;width:100%;height:100%;
-    object-fit:cover;
-    filter:brightness(.42) saturate(1.05) contrast(1.05);
-    animation:kenBurns 25s ease-in-out infinite alternate;
-  }
+  .hero{position:relative;height:calc(100vh - 68px);min-height:640px;display:flex;align-items:flex-end;padding:72px;overflow:hidden}
+  .hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.42) saturate(1.05) contrast(1.05);animation:kenBurns 25s ease-in-out infinite alternate}
   @keyframes kenBurns{0%{transform:scale(1.05)}100%{transform:scale(1.15)}}
-  .hero::after{
-    content:'';position:absolute;inset:0;
-    background:
-      linear-gradient(180deg,rgba(11,13,18,.35) 0%,rgba(11,13,18,.55) 40%,rgba(11,13,18,.92) 100%),
-      radial-gradient(ellipse 60% 50% at 20% 80%, rgba(245,165,36,.18), transparent 70%);
-  }
+  .hero::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,13,18,.35) 0%,rgba(11,13,18,.55) 40%,rgba(11,13,18,.92) 100%),radial-gradient(ellipse 60% 50% at 20% 80%, rgba(245,165,36,.18), transparent 70%)}
   .hero-content{position:relative;z-index:2;max-width:860px}
-  .hero-label{
-    font-size:12.5px;font-weight:700;
-    color:var(--accent-2);
-    letter-spacing:3px;text-transform:uppercase;
-    margin-bottom:22px;display:inline-flex;align-items:center;gap:12px;
-    padding:8px 16px;
-    background:rgba(245,165,36,.12);
-    border:1px solid rgba(245,165,36,.28);
-    border-radius:100px;
-    backdrop-filter:blur(12px);
-  }
-  .hero-label::before{
-    content:'';width:6px;height:6px;border-radius:50%;
-    background:var(--accent);box-shadow:0 0 10px var(--accent);
-  }
-  .hero h1{
-    font-family:'Space Grotesk',sans-serif;
-    font-size:clamp(42px,7.2vw,92px);
-    font-weight:700;line-height:1.08;
-    letter-spacing:-.02em;
-    margin-bottom:26px;color:#fff;
-    text-shadow:0 6px 40px rgba(0,0,0,.7);
-  }
-  .hero h1 .accent{
-    background:linear-gradient(135deg,var(--accent-2) 0%,var(--accent) 50%,#e88a1c 100%);
-    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-    background-clip:text;
-    display:inline-block;
-    filter:drop-shadow(0 4px 24px rgba(245,165,36,.35));
-  }
-  .hero-sub{
-    font-size:17px;color:rgba(255,255,255,.9);
-    margin-bottom:38px;max-width:600px;line-height:1.75;
-    text-shadow:0 2px 16px rgba(0,0,0,.6);
-    font-weight:400;
-  }
+  .hero-label{font-size:12.5px;font-weight:700;color:var(--accent-2);letter-spacing:3px;text-transform:uppercase;margin-bottom:22px;display:inline-flex;align-items:center;gap:12px;padding:8px 16px;background:rgba(245,165,36,.12);border:1px solid rgba(245,165,36,.28);border-radius:100px;backdrop-filter:blur(12px)}
+  .hero-label::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent)}
+  .hero h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(42px,7.2vw,92px);font-weight:700;line-height:1.08;letter-spacing:-.02em;margin-bottom:26px;color:#fff;text-shadow:0 6px 40px rgba(0,0,0,.7)}
+  .hero h1 .accent{background:linear-gradient(135deg,var(--accent-2) 0%,var(--accent) 50%,#e88a1c 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:inline-block;filter:drop-shadow(0 4px 24px rgba(245,165,36,.35))}
+  .hero-sub{font-size:17px;color:rgba(255,255,255,.9);margin-bottom:38px;max-width:600px;line-height:1.75;text-shadow:0 2px 16px rgba(0,0,0,.6);font-weight:400}
   .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
 
-  .btn{
-    display:inline-flex;align-items:center;gap:10px;
-    padding:15px 28px;font-size:14px;font-weight:600;
-    border-radius:100px;transition:all .3s cubic-bezier(.2,.9,.3,1);
-    white-space:nowrap;cursor:pointer;line-height:1.2;
-  }
-  .btn-primary{
-    background:linear-gradient(135deg,var(--accent) 0%,var(--accent-2) 100%);
-    color:#1a1200;font-weight:700;
-    box-shadow:0 8px 24px rgba(245,165,36,.35);
-  }
-  .btn-primary:hover{
-    transform:translateY(-3px);
-    box-shadow:0 14px 36px rgba(245,165,36,.55);
-    filter:brightness(1.05);
-  }
-  .btn-ghost{
-    background:rgba(255,255,255,.08);color:#fff;
-    backdrop-filter:blur(20px);
-    border:1px solid rgba(255,255,255,.18);
-  }
-  .btn-ghost:hover{
-    background:rgba(255,255,255,.16);
-    border-color:rgba(255,255,255,.32);
-    transform:translateY(-2px);
-  }
+  .btn{display:inline-flex;align-items:center;gap:10px;padding:15px 28px;font-size:14px;font-weight:600;border-radius:100px;transition:all .3s cubic-bezier(.2,.9,.3,1);white-space:nowrap;cursor:pointer;line-height:1.2}
+  .btn-primary{background:linear-gradient(135deg,var(--accent) 0%,var(--accent-2) 100%);color:#1a1200;font-weight:700;box-shadow:0 8px 24px rgba(245,165,36,.35)}
+  .btn-primary:hover{transform:translateY(-3px);box-shadow:0 14px 36px rgba(245,165,36,.55);filter:brightness(1.05)}
+  .btn-ghost{background:rgba(255,255,255,.08);color:#fff;backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.18)}
+  .btn-ghost:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.32);transform:translateY(-2px)}
 
   .section{padding:110px 72px;max-width:1600px;margin:0 auto;position:relative}
-  .section-head{
-    display:flex;justify-content:space-between;align-items:flex-end;
-    margin-bottom:56px;gap:32px;flex-wrap:wrap;
-  }
-  .section-head h2{
-    font-family:'Space Grotesk',sans-serif;
-    font-size:clamp(30px,4.2vw,48px);
-    font-weight:700;letter-spacing:-.02em;
-    line-height:1.15;color:#fff;
-    position:relative;padding-left:24px;
-  }
-  .section-head h2::before{
-    content:'';position:absolute;left:0;top:50%;
-    transform:translateY(-50%);
-    width:4px;height:60%;
-    background:linear-gradient(180deg,var(--accent) 0%,var(--accent-2) 100%);
-    border-radius:4px;
-    box-shadow:0 0 16px var(--accent-glow);
-  }
-  .section-head .view-all{
-    font-size:13.5px;font-weight:600;color:var(--accent-2);
-    display:flex;align-items:center;gap:8px;
-    transition:all .25s;cursor:pointer;
-    padding:10px 18px;border-radius:100px;
-    background:rgba(245,165,36,.08);
-    border:1px solid rgba(245,165,36,.2);
-  }
-  .section-head .view-all:hover{
-    color:#fff;background:rgba(245,165,36,.18);
-    border-color:rgba(245,165,36,.4);
-    transform:translateX(4px);
-  }
+  .section-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:56px;gap:32px;flex-wrap:wrap}
+  .section-head h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(30px,4.2vw,48px);font-weight:700;letter-spacing:-.02em;line-height:1.15;color:#fff;position:relative;padding-left:24px}
+  .section-head h2::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:4px;height:60%;background:linear-gradient(180deg,var(--accent) 0%,var(--accent-2) 100%);border-radius:4px;box-shadow:0 0 16px var(--accent-glow)}
+  .section-head .view-all{font-size:13.5px;font-weight:600;color:var(--accent-2);display:flex;align-items:center;gap:8px;transition:all .25s;cursor:pointer;padding:10px 18px;border-radius:100px;background:rgba(245,165,36,.08);border:1px solid rgba(245,165,36,.2)}
+  .section-head .view-all:hover{color:#fff;background:rgba(245,165,36,.18);border-color:rgba(245,165,36,.4);transform:translateX(4px)}
 
   .intro-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:72px;align-items:center}
-  .intro-visual{
-    position:relative;aspect-ratio:4/5;border-radius:28px;
-    overflow:hidden;background:var(--surface);
-    box-shadow:0 30px 80px rgba(0,0,0,.55);
-    border:1px solid var(--border-strong);
-  }
-  .intro-visual img{
-    width:100%;height:100%;object-fit:cover;
-    filter:brightness(.92) saturate(1.05);
-    transition:transform 1.2s cubic-bezier(.2,.9,.3,1);
-  }
+  .intro-visual{position:relative;aspect-ratio:4/5;border-radius:28px;overflow:hidden;background:var(--surface);box-shadow:0 30px 80px rgba(0,0,0,.55);border:1px solid var(--border-strong)}
+  .intro-visual img{width:100%;height:100%;object-fit:cover;filter:brightness(.92) saturate(1.05);transition:transform 1.2s cubic-bezier(.2,.9,.3,1)}
   .intro-visual:hover img{transform:scale(1.04)}
-  .intro-visual::after{
-    content:'';position:absolute;inset:0;
-    background:linear-gradient(180deg,transparent 45%,rgba(11,13,18,.85) 100%);
-  }
-  .intro-badge{
-    position:absolute;bottom:32px;left:32px;right:32px;z-index:2;
-    background:rgba(11,13,18,.85);
-    backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
-    border:1px solid rgba(245,165,36,.25);
-    border-radius:20px;padding:22px 26px;
-    box-shadow:0 12px 40px rgba(0,0,0,.5);
-  }
-  .intro-badge-num{
-    font-family:'Space Grotesk',sans-serif;
-    font-size:42px;font-weight:700;letter-spacing:-.03em;
-    background:linear-gradient(135deg,var(--accent-2) 0%,var(--accent) 100%);
-    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-    background-clip:text;line-height:1;
-  }
-  .intro-badge-label{
-    font-size:12px;color:var(--text-2);
-    letter-spacing:1.8px;text-transform:uppercase;
-    font-weight:600;margin-top:8px;
-  }
-  .intro-label{
-    font-size:12.5px;font-weight:700;
-    color:var(--accent-2);letter-spacing:3px;
-    text-transform:uppercase;margin-bottom:20px;
-    display:flex;align-items:center;gap:12px;
-  }
-  .intro-label::before{
-    content:'';width:28px;height:2px;
-    background:linear-gradient(90deg,var(--accent) 0%,transparent 100%);
-    border-radius:2px;
-  }
-  .intro-title{
-    font-family:'Space Grotesk',sans-serif;
-    font-size:clamp(30px,3.8vw,48px);
-    font-weight:700;letter-spacing:-.025em;
-    line-height:1.18;margin-bottom:28px;color:#fff;
-  }
-  .intro-title .accent{
-    background:linear-gradient(135deg,var(--accent-2) 0%,var(--accent) 100%);
-    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-    background-clip:text;
-  }
-  .intro-body{
-    font-size:16px;color:var(--text-2);
-    line-height:1.85;margin-bottom:22px;font-weight:400;
-  }
+  .intro-visual::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(11,13,18,.85) 100%)}
+  .intro-badge{position:absolute;bottom:32px;left:32px;right:32px;z-index:2;background:rgba(11,13,18,.85);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(245,165,36,.25);border-radius:20px;padding:22px 26px;box-shadow:0 12px 40px rgba(0,0,0,.5)}
+  .intro-badge-num{font-family:'Space Grotesk',sans-serif;font-size:42px;font-weight:700;letter-spacing:-.03em;background:linear-gradient(135deg,var(--accent-2) 0%,var(--accent) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
+  .intro-badge-label{font-size:12px;color:var(--text-2);letter-spacing:1.8px;text-transform:uppercase;font-weight:600;margin-top:8px}
+  .intro-label{font-size:12.5px;font-weight:700;color:var(--accent-2);letter-spacing:3px;text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:12px}
+  .intro-label::before{content:'';width:28px;height:2px;background:linear-gradient(90deg,var(--accent) 0%,transparent 100%);border-radius:2px}
+  .intro-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(30px,3.8vw,48px);font-weight:700;letter-spacing:-.025em;line-height:1.18;margin-bottom:28px;color:#fff}
+  .intro-title .accent{background:linear-gradient(135deg,var(--accent-2) 0%,var(--accent) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .intro-body{font-size:16px;color:var(--text-2);line-height:1.85;margin-bottom:22px;font-weight:400}
   .intro-body strong{color:var(--accent-2);font-weight:600}
-  .intro-stats{
-    display:grid;grid-template-columns:repeat(3,1fr);
-    gap:20px;margin-top:40px;padding-top:40px;
-    border-top:1px solid var(--border);
-  }
-  .intro-stat strong{
-    display:block;
-    font-family:'Space Grotesk',sans-serif;
-    font-size:32px;font-weight:700;
-    letter-spacing:-.02em;margin-bottom:6px;
-    background:linear-gradient(135deg,#fff 0%,#c9cfd9 100%);
-    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-    background-clip:text;
-  }
-  .intro-stat span{
-    font-size:12px;color:var(--muted);
-    letter-spacing:1px;font-weight:600;
-    text-transform:uppercase;
-  }
+  .intro-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:40px;padding-top:40px;border-top:1px solid var(--border)}
+  .intro-stat strong{display:block;font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:700;letter-spacing:-.02em;margin-bottom:6px;background:linear-gradient(135deg,#fff 0%,#c9cfd9 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .intro-stat span{font-size:12px;color:var(--muted);letter-spacing:1px;font-weight:600;text-transform:uppercase}
 
-  .cat-grid{
-    display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-    gap:24px;
-  }
-  .cat-card{
-    position:relative;aspect-ratio:4/5;
-    border-radius:24px;overflow:hidden;cursor:pointer;
-    transition:all .55s cubic-bezier(.2,.9,.3,1);
-    box-shadow:0 20px 50px rgba(0,0,0,.4);
-    border:1px solid var(--border);
-  }
-  .cat-card:hover{
-    transform:translateY(-10px);
-    box-shadow:0 30px 70px rgba(0,0,0,.6),0 0 0 1px rgba(245,165,36,.3);
-  }
-  .cat-card img{
-    width:100%;height:100%;object-fit:cover;
-    transition:transform 1.2s cubic-bezier(.2,.9,.3,1);
-    filter:brightness(.9) saturate(1.05);
-  }
+  .cat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
+  .cat-card{position:relative;aspect-ratio:4/5;border-radius:24px;overflow:hidden;cursor:pointer;transition:all .55s cubic-bezier(.2,.9,.3,1);box-shadow:0 20px 50px rgba(0,0,0,.4);border:1px solid var(--border)}
+  .cat-card:hover{transform:translateY(-10px);box-shadow:0 30px 70px rgba(0,0,0,.6),0 0 0 1px rgba(245,165,36,.3)}
+  .cat-card img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.2,.9,.3,1);filter:brightness(.9) saturate(1.05)}
   .cat-card:hover img{transform:scale(1.1)}
-  .cat-card::after{
-    content:'';position:absolute;inset:0;
-    background:linear-gradient(180deg,transparent 35%,rgba(0,0,0,.55) 60%,rgba(0,0,0,.95) 100%);
-  }
+  .cat-card::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 35%,rgba(0,0,0,.55) 60%,rgba(0,0,0,.95) 100%)}
   .cat-info{position:absolute;bottom:0;left:0;right:0;padding:36px;z-index:2}
-  .cat-info h3{
-    font-family:'Space Grotesk',sans-serif;
-    font-size:34px;font-weight:700;
-    letter-spacing:-.02em;margin-bottom:8px;color:#fff;
-    text-shadow:0 4px 20px rgba(0,0,0,.8);
-  }
-  .cat-info span{
-    font-size:14px;color:rgba(255,255,255,.9);
-    font-weight:400;
-  }
-  .cat-arrow{
-    position:absolute;top:24px;right:24px;
-    width:48px;height:48px;border-radius:50%;
-    background:rgba(255,255,255,.14);
-    backdrop-filter:blur(20px);
-    display:flex;align-items:center;justify-content:center;
-    font-size:18px;transition:all .35s;z-index:2;color:#fff;
-    border:1px solid rgba(255,255,255,.2);
-  }
-  .cat-card:hover .cat-arrow{
-    background:linear-gradient(135deg,var(--accent) 0%,var(--accent-2) 100%);
-    color:#1a1200;border-color:transparent;
-    transform:rotate(-45deg) scale(1.05);
-    box-shadow:0 8px 24px rgba(245,165,36,.5);
-  }
+  .cat-info h3{font-family:'Space Grotesk',sans-serif;font-size:34px;font-weight:700;letter-spacing:-.02em;margin-bottom:8px;color:#fff;text-shadow:0 4px 20px rgba(0,0,0,.8)}
+  .cat-info span{font-size:14px;color:rgba(255,255,255,.9);font-weight:400}
+  .cat-arrow{position:absolute;top:24px;right:24px;width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.14);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;font-size:18px;transition:all .35s;z-index:2;color:#fff;border:1px solid rgba(255,255,255,.2)}
+  .cat-card:hover .cat-arrow{background:linear-gradient(135deg,var(--accent) 0%,var(--accent-2) 100%);color:#1a1200;border-color:transparent;transform:rotate(-45deg) scale(1.05);box-shadow:0 8px 24px rgba(245,165,36,.5)}
 
-  .product-grid{
-    display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));
-    gap:28px;
-  }
-  .product-card{
-    cursor:pointer;transition:transform .45s cubic-bezier(.2,.9,.3,1);
-    background:rgba(22,26,34,.7);
-    border-radius:22px;overflow:hidden;
-    border:1px solid var(--border);
-    padding:14px;
-    backdrop-filter:blur(10px);
-  }
-  .product-card:hover{
-    transform:translateY(-8px);
-    border-color:rgba(245,165,36,.4);
-    box-shadow:0 24px 60px rgba(0,0,0,.6),0 0 0 1px rgba(245,165,36,.25);
-  }
-  .product-img-wrap{
-    position:relative;aspect-ratio:1;
-    border-radius:16px;overflow:hidden;
-    background:var(--surface-2);margin-bottom:18px;
-  }
-  .product-img-wrap img{
-    width:100%;height:100%;object-fit:cover;
-    transition:transform .9s cubic-bezier(.2,.9,.3,1);
-  }
+  .product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:28px}
+  .product-card{cursor:pointer;transition:transform .45s cubic-bezier(.2,.9,.3,1);background:rgba(22,26,34,.7);border-radius:22px;overflow:hidden;border:1px solid var(--border);padding:14px;backdrop-filter:blur(10px)}
+  .product-card:hover{transform:translateY(-8px);border-color:rgba(245,165,36,.4);box-shadow:0 24px 60px rgba(0,0,0,.6),0 0 0 1px rgba(245,165,36,.25)}
+  .product-img-wrap{position:relative;aspect-ratio:1;border-radius:16px;overflow:hidden;background:var(--surface-2);margin-bottom:18px}
+  .product-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.2,.9,.3,1)}
   .product-card:hover .product-img-wrap img{transform:scale(1.09)}
-  .product-img-wrap::after{
-    content:'';position:absolute;inset:0;
-    background:linear-gradient(180deg,transparent 65%,rgba(0,0,0,.25) 100%);
-  }
-  .product-badge{
-    position:absolute;top:14px;left:14px;
-    background:linear-gradient(135deg,var(--accent) 0%,var(--accent-2) 100%);
-    color:#1a1200;
-    padding:6px 14px;border-radius:100px;
-    font-size:10.5px;font-weight:800;
-    letter-spacing:.6px;text-transform:uppercase;
-    box-shadow:0 4px 14px rgba(245,165,36,.45);
-    z-index:2;
-  }
-  .product-badge.sale{
-    background:linear-gradient(135deg,var(--sale) 0%,#dc2626 100%);
-    color:#fff;
-    box-shadow:0 4px 14px rgba(239,68,68,.5);
-  }
+  .product-img-wrap::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 65%,rgba(0,0,0,.25) 100%)}
+  .product-badge{position:absolute;top:14px;left:14px;background:linear-gradient(135deg,var(--accent) 0%,var(--accent-2) 100%);color:#1a1200;padding:6px 14px;border-radius:100px;font-size:10.5px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;box-shadow:0 4px 14px rgba(245,165,36,.45);z-index:2}
+  .product-badge.sale{background:linear-gradient(135deg,var(--sale) 0%,#dc2626 100%);color:#fff;box-shadow:0 4px 14px rgba(239,68,68,.5)}
   .product-info{padding:0 6px 6px}
-  .product-info h3{
-    font-size:16px;font-weight:600;
-    letter-spacing:-.01em;margin-bottom:8px;color:#fff;
-    line-height:1.4;
-    overflow:hidden;text-overflow:ellipsis;
-    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
-    min-height:44px;
-  }
-  .product-info .price{
-    font-family:'Space Grotesk',sans-serif;
-    font-size:16.5px;font-weight:700;
-    color:var(--accent-2);letter-spacing:-.01em;
-  }
-  .product-info .price-old{
-    font-size:13px;color:var(--muted-2);
-    text-decoration:line-through;
-    margin-left:10px;font-weight:400;
-  }
+  .product-info h3{font-size:16px;font-weight:600;letter-spacing:-.01em;margin-bottom:8px;color:#fff;line-height:1.4;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;min-height:44px}
+  .product-info .price{font-family:'Space Grotesk',sans-serif;font-size:16.5px;font-weight:700;color:var(--accent-2);letter-spacing:-.01em}
+  .product-info .price-old{font-size:13px;color:var(--muted-2);text-decoration:line-through;margin-left:10px;font-weight:400}
 
-  .page-head{
-    padding:96px 72px 44px;max-width:1600px;margin:0 auto;
-  }
-  .page-head .breadcrumb{
-    font-size:12.5px;color:var(--muted);
-    margin-bottom:24px;display:flex;align-items:center;
-    gap:10px;flex-wrap:wrap;
-  }
+  .page-head{padding:96px 72px 44px;max-width:1600px;margin:0 auto}
+  .page-head .breadcrumb{font-size:12.5px;color:var(--muted);margin-bottom:24px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
   .page-head .breadcrumb a{cursor:pointer;transition:color .2s}
   .page-head .breadcrumb a:hover{color:var(--accent-2)}
   .page-head .breadcrumb .sep{opacity:.4}
-  .page-head h1{
-    font-family:'Space Grotesk',sans-serif;
-    font-size:clamp(38px,6.2vw,76px);
-    font-weight:700;letter-spacing:-.03em;
-    line-height:1.05;margin-bottom:18px;color:#fff;
-  }
-  .page-head p{
-    font-size:16px;color:var(--text-2);
-    max-width:580px;line-height:1.75;
-  }
+  .page-head h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(38px,6.2vw,76px);font-weight:700;letter-spacing:-.03em;line-height:1.05;margin-bottom:18px;color:#fff}
+  .page-head p{font-size:16px;color:var(--text-2);max-width:580px;line-height:1.75}
   .filter-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:36px}
-  .filter-chip{
-    padding:10px 22px;border-radius:100px;
-    background:var(--surface);color:var(--text-2);
-    font-size:13px;font-weight:500;
-    border:1px solid var(--border);
-    transition:all .25s;cursor:pointer;
-  }
-  .filter-chip:hover{
-    color:#fff;background:var(--surface-2);
-    border-color:var(--border-strong);
-    transform:translateY(-2px);
-  }
-  .filter-chip.active{
-    background:linear-gradient(135deg,var(--accent) 0%,var(--accent-2) 100%);
-    color:#1a1200;font-weight:700;border-color:transparent;
-    box-shadow:0 6px 20px rgba(245,165,36,.4);
-  }
+  .filter-chip{padding:10px 22px;border-radius:100px;background:var(--surface);color:var(--text-2);font-size:13px;font-weight:500;border:1px solid var(--border);transition:all .25s;cursor:pointer}
+  .filter-chip:hover{color:#fff;background:var(--surface-2);border-color:var(--border-strong);transform:translateY(-2px)}
+  .filter-chip.active{background:linear-gradient(135deg,var(--accent) 0%,var(--accent-2) 100%);color:#1a1200;font-weight:700;border-color:transparent;box-shadow:0 6px 20px rgba(245,165,36,.4)}
 
   .products-area{padding:0 72px 120px;max-width:1600px;margin:0 auto}
 
   .detail-wrap{max-width:1600px;margin:0 auto;padding:44px 72px 120px}
-  .back-btn{
-    display:inline-flex;align-items:center;gap:9px;
-    padding:11px 22px;border-radius:100px;
-    background:var(--surface);font-size:13px;font-weight:500;
-    color:var(--text-2);margin-bottom:44px;
-    transition:all .25s;cursor:pointer;
-    border:1px solid var(--border);
-  }
-  .back-btn:hover{
-    color:#fff;background:var(--surface-2);
-    border-color:var(--border-strong);transform:translateX(-3px);
-  }
-  .detail-grid{
-    display:grid;grid-template-columns:1.1fr 1fr;
-    gap:64px;align-items:flex-start;
-  }
+  .back-btn{display:inline-flex;align-items:center;gap:9px;padding:11px 22px;border-radius:100px;background:var(--surface);font-size:13px;font-weight:500;color:var(--text-2);margin-bottom:44px;transition:all .25s;cursor:pointer;border:1px solid var(--border)}
+  .back-btn:hover{color:#fff;background:var(--surface-2);border-color:var(--border-strong);transform:translateX(-3px)}
+  .detail-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:64px;align-items:flex-start}
   .detail-gallery{position:sticky;top:104px}
-  .detail-main{
-    aspect-ratio:1;border-radius:24px;overflow:hidden;
-    background:var(--surface);margin-bottom:16px;
-    position:relative;
-    border:1px solid var(--border);
-    box-shadow:0 24px 60px rgba(0,0,0,.5);
-  }
-  .detail-main img{
-    position:absolute;inset:0;width:100%;height:100%;
-    object-fit:cover;opacity:0;transition:opacity .5s;
-  }
+  .detail-main{aspect-ratio:1;border-radius:24px;overflow:hidden;background:var(--surface);margin-bottom:16px;position:relative;border:1px solid var(--border);box-shadow:0 24px 60px rgba(0,0,0,.5)}
+  .detail-main img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s}
   .detail-main img.active{opacity:1}
   .thumb-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-  .thumb{
-    aspect-ratio:1;border-radius:12px;overflow:hidden;
-    cursor:pointer;border:2px solid transparent;
-    transition:all .25s;background:var(--surface);
-  }
-  .thumb img{
-    width:100%;height:100%;object-fit:cover;
-    opacity:.5;transition:opacity .25s;
-  }
+  .thumb{aspect-ratio:1;border-radius:12px;overflow:hidden;cursor:pointer;border:2px solid transparent;transition:all .25s;background:var(--surface)}
+  .thumb img{width:100%;height:100%;object-fit:cover;opacity:.5;transition:opacity .25s}
   .thumb:hover img,.thumb.active img{opacity:1}
-  .thumb.active{
-    border-color:var(--accent);
-    box-shadow:0 0 20px rgba(245,165,36,.35);
-  }
-  .detail-info .brand-tag{
-    font-size:11.5px;font-weight:700;
-    letter-spacing:3px;text-transform:uppercase;
-    color:var(--accent-2);margin-bottom:14px;
-  }
-  .detail-info h1{
-    font-family:'Space Grotesk',sans-serif;
-    font-size:clamp(30px,4.2vw,48px);
-    font-weight:700;letter-spacing:-.025em;
-    line-height:1.1;margin-bottom:22px;color:#fff;
-  }
-  .detail-price-row{
-    display:flex;align-items:baseline;
-    gap:14px;margin-bottom:32px;flex-wrap:wrap;
-  }
-  .detail-price{
-    font-family:'Space Grotesk',sans-serif;
-    font-size:38px;font-weight:700;
-    letter-spacing:-.02em;
-    background:linear-gradient(135deg,var(--accent-2) 0%,var(--accent) 100%);
-    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-    background-clip:text;
-  }
-  .detail-price-old{
-    font-size:17px;color:var(--muted-2);
-    text-decoration:line-through;
-  }
-  .detail-short{
-    font-size:16px;color:var(--text-2);
-    line-height:1.85;margin-bottom:36px;
-    padding-bottom:36px;border-bottom:1px solid var(--border);
-  }
+  .thumb.active{border-color:var(--accent);box-shadow:0 0 20px rgba(245,165,36,.35)}
+  .detail-info .brand-tag{font-size:11.5px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--accent-2);margin-bottom:14px}
+  .detail-info h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(30px,4.2vw,48px);font-weight:700;letter-spacing:-.025em;line-height:1.1;margin-bottom:22px;color:#fff}
+  .detail-price-row{display:flex;align-items:baseline;gap:14px;margin-bottom:32px;flex-wrap:wrap}
+  .detail-price{font-family:'Space Grotesk',sans-serif;font-size:38px;font-weight:700;letter-spacing:-.02em;background:linear-gradient(135deg,var(--accent-2) 0%,var(--accent) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .detail-price-old{font-size:17px;color:var(--muted-2);text-decoration:line-through}
+  .detail-short{font-size:16px;color:var(--text-2);line-height:1.85;margin-bottom:36px;padding-bottom:36px;border-bottom:1px solid var(--border)}
   .detail-cta{display:flex;gap:12px;margin-bottom:44px;flex-wrap:wrap}
-  .spec-section-title{
-    font-size:12px;font-weight:700;
-    letter-spacing:2.5px;text-transform:uppercase;
-    color:var(--muted);margin-bottom:18px;
-    display:flex;align-items:center;gap:10px;
-  }
-  .spec-section-title::after{
-    content:'';flex:1;height:1px;
-    background:linear-gradient(90deg,var(--border) 0%,transparent 100%);
-  }
-  .spec-list{
-    display:flex;flex-direction:column;
-    border-top:1px solid var(--border);margin-bottom:44px;
-  }
-  .spec-row{
-    display:grid;grid-template-columns:1fr 1.5fr;
-    padding:16px 0;border-bottom:1px solid var(--border);
-    font-size:14.5px;gap:16px;
-  }
+  .spec-section-title{font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-bottom:18px;display:flex;align-items:center;gap:10px}
+  .spec-section-title::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--border) 0%,transparent 100%)}
+  .spec-list{display:flex;flex-direction:column;border-top:1px solid var(--border);margin-bottom:44px}
+  .spec-row{display:grid;grid-template-columns:1fr 1.5fr;padding:16px 0;border-bottom:1px solid var(--border);font-size:14.5px;gap:16px}
   .spec-row dt{color:var(--muted);font-weight:500}
   .spec-row dd{color:#fff;font-weight:500;line-height:1.55}
-  .feature-list{
-    display:flex;flex-direction:column;
-    gap:14px;list-style:none;
-  }
-  .feature-list li{
-    font-size:15px;color:var(--text-2);
-    display:flex;gap:14px;align-items:flex-start;
-    line-height:1.7;
-  }
-  .feature-list li::before{
-    content:'';flex-shrink:0;width:20px;height:20px;
-    margin-top:3px;border-radius:50%;
-    background:
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231a1200' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center/12px no-repeat,
-      linear-gradient(135deg,var(--accent) 0%,var(--accent-2) 100%);
-    box-shadow:0 3px 10px rgba(245,165,36,.35);
-  }
+  .feature-list{display:flex;flex-direction:column;gap:14px;list-style:none}
+  .feature-list li{font-size:15px;color:var(--text-2);display:flex;gap:14px;align-items:flex-start;line-height:1.7}
+  .feature-list li::before{content:'';flex-shrink:0;width:20px;height:20px;margin-top:3px;border-radius:50%;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231a1200' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center/12px no-repeat,linear-gradient(135deg,var(--accent) 0%,var(--accent-2) 100%);box-shadow:0 3px 10px rgba(245,165,36,.35)}
 
   .contact-section{padding:110px 72px;max-width:1600px;margin:0 auto}
-  .contact-grid{
-    display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:20px;margin-top:52px;
-  }
-  .contact-card{
-    background:rgba(22,26,34,.75);
-    border-radius:22px;padding:36px;
-    transition:all .35s cubic-bezier(.2,.9,.3,1);
-    border:1px solid var(--border);
-    backdrop-filter:blur(10px);
-    position:relative;overflow:hidden;
-  }
-  .contact-card::before{
-    content:'';position:absolute;top:0;left:0;right:0;height:3px;
-    background:linear-gradient(90deg,var(--accent) 0%,var(--accent-2) 100%);
-    transform:scaleX(0);transform-origin:left;
-    transition:transform .4s cubic-bezier(.2,.9,.3,1);
-  }
-  .contact-card:hover{
-    background:var(--surface-2);
-    transform:translateY(-6px);
-    border-color:rgba(245,165,36,.3);
-    box-shadow:0 24px 60px rgba(0,0,0,.5);
-  }
+  .contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;margin-top:52px}
+  .contact-card{background:rgba(22,26,34,.75);border-radius:22px;padding:36px;transition:all .35s cubic-bezier(.2,.9,.3,1);border:1px solid var(--border);backdrop-filter:blur(10px);position:relative;overflow:hidden}
+  .contact-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent) 0%,var(--accent-2) 100%);transform:scaleX(0);transform-origin:left;transition:transform .4s cubic-bezier(.2,.9,.3,1)}
+  .contact-card:hover{background:var(--surface-2);transform:translateY(-6px);border-color:rgba(245,165,36,.3);box-shadow:0 24px 60px rgba(0,0,0,.5)}
   .contact-card:hover::before{transform:scaleX(1)}
-  .contact-card .ic{
-    font-size:32px;margin-bottom:20px;
-    width:64px;height:64px;
-    display:flex;align-items:center;justify-content:center;
-    background:rgba(245,165,36,.1);
-    border-radius:16px;
-    border:1px solid rgba(245,165,36,.2);
-  }
-  .contact-card h4{
-    font-size:11.5px;font-weight:700;
-    letter-spacing:2.5px;text-transform:uppercase;
-    color:var(--muted);margin-bottom:14px;
-  }
-  .contact-card p{
-    font-family:'Space Grotesk',sans-serif;
-    font-size:19px;font-weight:600;
-    line-height:1.4;color:#fff;
-    margin-bottom:6px;
-  }
-  .contact-card small{
-    display:block;font-size:13.5px;
-    color:var(--text-2);font-weight:400;
-    margin-top:10px;line-height:1.65;
-  }
+  .contact-card .ic{font-size:32px;margin-bottom:20px;width:64px;height:64px;display:flex;align-items:center;justify-content:center;background:rgba(245,165,36,.1);border-radius:16px;border:1px solid rgba(245,165,36,.2)}
+  .contact-card h4{font-size:11.5px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+  .contact-card p{font-family:'Space Grotesk',sans-serif;font-size:19px;font-weight:600;line-height:1.4;color:#fff;margin-bottom:6px}
+  .contact-card small{display:block;font-size:13.5px;color:var(--text-2);font-weight:400;margin-top:10px;line-height:1.65}
 
-  .ship-grid{
-    display:grid;grid-template-columns:1fr 1fr;
-    gap:28px;max-width:1400px;margin:0 auto;
-  }
-  .ship-form-box{
-    background:rgba(22,26,34,.75);
-    border-radius:22px;padding:40px;
-    border:1px solid var(--border);
-    backdrop-filter:blur(10px);
-  }
-  .ship-form-box h3{
-    font-family:'Space Grotesk',sans-serif;
-    font-size:22px;font-weight:700;
-    margin-bottom:10px;color:#fff;
-    letter-spacing:-.01em;
-  }
-  .ship-form-box > p{
-    font-size:14px;color:var(--muted);
-    margin-bottom:28px;line-height:1.65;
-  }
+  .ship-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;max-width:1400px;margin:0 auto}
+  .ship-form-box{background:rgba(22,26,34,.75);border-radius:22px;padding:40px;border:1px solid var(--border);backdrop-filter:blur(10px)}
+  .ship-form-box h3{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;margin-bottom:10px;color:#fff;letter-spacing:-.01em}
+  .ship-form-box > p{font-size:14px;color:var(--muted);margin-bottom:28px;line-height:1.65}
   .form-field{display:flex;flex-direction:column;gap:20px}
-  .form-field label{
-    font-size:12px;font-weight:600;
-    color:var(--text-2);letter-spacing:1.2px;
-    text-transform:uppercase;display:block;margin-bottom:10px;
-  }
-  .form-field input,.form-field textarea{
-    width:100%;padding:16px 20px;
-    background:var(--surface-2);
-    border:1px solid var(--border);
-    border-radius:14px;color:#fff;
-    font-size:15px;outline:none;
-    transition:all .25s;
-  }
-  .form-field input:focus,.form-field textarea:focus{
-    border-color:var(--accent);
-    background:var(--surface-3);
-    box-shadow:0 0 0 4px rgba(245,165,36,.12);
-  }
+  .form-field label{font-size:12px;font-weight:600;color:var(--text-2);letter-spacing:1.2px;text-transform:uppercase;display:block;margin-bottom:10px}
+  .form-field input,.form-field textarea{width:100%;padding:16px 20px;background:var(--surface-2);border:1px solid var(--border);border-radius:14px;color:#fff;font-size:15px;outline:none;transition:all .25s}
+  .form-field input:focus,.form-field textarea:focus{border-color:var(--accent);background:var(--surface-3);box-shadow:0 0 0 4px rgba(245,165,36,.12)}
   .form-field input::placeholder,.form-field textarea::placeholder{color:var(--muted-2)}
   .form-field textarea{resize:vertical;min-height:90px}
-  .fee-box{
-    background:var(--surface-2);border-radius:14px;
-    padding:18px;display:none;
-    border:1px solid var(--border);
-  }
+  .fee-box{background:var(--surface-2);border-radius:14px;padding:18px;display:none;border:1px solid var(--border)}
   .fee-row{display:flex;justify-content:space-between;margin-bottom:8px}
   .fee-row:last-child{margin-bottom:0}
   .fee-row span:first-child{font-size:14px;color:var(--muted)}
   .fee-row span:last-child{font-size:15px;font-weight:600;color:#fff}
   .fee-free{color:var(--green-2) !important}
-  .map-box{
-    background:var(--surface);border-radius:22px;
-    padding:10px;min-height:520px;
-    border:1px solid var(--border);
-    box-shadow:0 24px 60px rgba(0,0,0,.4);
-  }
-  .map-box iframe{
-    width:100%;height:100%;min-height:520px;
-    border:0;border-radius:16px;display:block;
-  }
-  .pending-product{
-    background:linear-gradient(135deg,rgba(245,165,36,.08) 0%,rgba(245,165,36,.02) 100%);
-    border:1px solid rgba(245,165,36,.25);
-    border-radius:14px;padding:16px;margin-bottom:4px;
-  }
-  .pp-label{
-    font-size:11px;font-weight:700;
-    letter-spacing:1.8px;text-transform:uppercase;
-    color:var(--accent-2);margin-bottom:12px;display:block;
-  }
+  .map-box{background:var(--surface);border-radius:22px;padding:10px;min-height:520px;border:1px solid var(--border);box-shadow:0 24px 60px rgba(0,0,0,.4)}
+  .map-box iframe{width:100%;height:100%;min-height:520px;border:0;border-radius:16px;display:block}
+  .pending-product{background:linear-gradient(135deg,rgba(245,165,36,.08) 0%,rgba(245,165,36,.02) 100%);border:1px solid rgba(245,165,36,.25);border-radius:14px;padding:16px;margin-bottom:4px}
+  .pp-label{font-size:11px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--accent-2);margin-bottom:12px;display:block}
   .pp-item{display:flex;align-items:center;gap:14px}
-  .pp-item img{
-    width:56px;height:56px;border-radius:12px;
-    object-fit:cover;background:var(--surface-2);flex-shrink:0;
-  }
+  .pp-item img{width:56px;height:56px;border-radius:12px;object-fit:cover;background:var(--surface-2);flex-shrink:0}
   .pp-item > div{flex:1;min-width:0}
-  .pp-item strong{
-    font-size:14.5px;font-weight:600;display:block;
-    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#fff;
-  }
+  .pp-item strong{font-size:14.5px;font-weight:600;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#fff}
   .pp-item span{font-size:13px;color:var(--accent-2);display:block;margin-top:3px;font-weight:500}
-  .pp-remove{
-    width:32px;height:32px;border-radius:50%;
-    background:var(--surface-3);color:var(--muted);
-    font-size:14px;display:flex;align-items:center;
-    justify-content:center;transition:all .2s;flex-shrink:0;
-  }
+  .pp-remove{width:32px;height:32px;border-radius:50%;background:var(--surface-3);color:var(--muted);font-size:14px;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0}
   .pp-remove:hover{background:var(--sale);color:#fff}
 
   .orders-area{padding:0 72px 120px;max-width:1100px;margin:0 auto}
-  .orders-empty{
-    text-align:center;padding:90px 24px;
-    background:rgba(22,26,34,.7);
-    border-radius:22px;border:1px solid var(--border);
-    backdrop-filter:blur(10px);
-  }
+  .orders-empty{text-align:center;padding:90px 24px;background:rgba(22,26,34,.7);border-radius:22px;border:1px solid var(--border);backdrop-filter:blur(10px)}
   .orders-empty .emoji{font-size:72px;margin-bottom:20px}
-  .orders-empty h3{
-    font-family:'Space Grotesk',sans-serif;
-    font-size:26px;font-weight:700;
-    margin-bottom:10px;color:#fff;
-  }
-  .orders-empty p{
-    font-size:15px;color:var(--text-2);
-    margin-bottom:28px;max-width:440px;
-    margin-left:auto;margin-right:auto;line-height:1.7;
-  }
-  .order-card{
-    background:rgba(22,26,34,.75);
-    border-radius:22px;padding:28px;
-    margin-bottom:18px;border:1px solid var(--border);
-    backdrop-filter:blur(10px);
-    animation:fadeUp .5s cubic-bezier(.2,.9,.3,1);
-  }
-  .order-head{
-    display:flex;justify-content:space-between;
-    align-items:flex-start;gap:16px;
-    flex-wrap:wrap;margin-bottom:10px;
-  }
-  .order-code{
-    font-family:'Space Grotesk',sans-serif;
-    font-size:18px;font-weight:700;
-    letter-spacing:-.01em;color:#fff;
-  }
+  .orders-empty h3{font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:700;margin-bottom:10px;color:#fff}
+  .orders-empty p{font-size:15px;color:var(--text-2);margin-bottom:28px;max-width:440px;margin-left:auto;margin-right:auto;line-height:1.7}
+  .order-card{background:rgba(22,26,34,.75);border-radius:22px;padding:28px;margin-bottom:18px;border:1px solid var(--border);backdrop-filter:blur(10px);animation:fadeUp .5s cubic-bezier(.2,.9,.3,1)}
+  .order-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:10px}
+  .order-code{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;letter-spacing:-.01em;color:#fff}
   .order-date{font-size:13px;color:var(--muted);margin-top:4px}
   .order-tags{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-  .order-status{
-    padding:8px 16px;border-radius:100px;
-    font-size:12.5px;font-weight:600;
-    background:rgba(16,185,129,.16);color:var(--green-2);
-    display:inline-flex;align-items:center;gap:8px;white-space:nowrap;
-    border:1px solid rgba(16,185,129,.25);
-  }
-  .order-status::before{
-    content:'';width:8px;height:8px;border-radius:50%;
-    background:currentColor;animation:pulse 1.6s infinite;
-    box-shadow:0 0 10px currentColor;
-  }
+  .order-status{padding:8px 16px;border-radius:100px;font-size:12.5px;font-weight:600;background:rgba(16,185,129,.16);color:var(--green-2);display:inline-flex;align-items:center;gap:8px;white-space:nowrap;border:1px solid rgba(16,185,129,.25)}
+  .order-status::before{content:'';width:8px;height:8px;border-radius:50%;background:currentColor;animation:pulse 1.6s infinite;box-shadow:0 0 10px currentColor}
   @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.55;transform:scale(1.2)}}
-  .order-sent{
-    padding:6px 12px;border-radius:100px;
-    font-size:11px;font-weight:600;
-    background:rgba(59,130,246,.16);color:var(--blue-2);
-    display:inline-flex;align-items:center;gap:6px;white-space:nowrap;
-    border:1px solid rgba(59,130,246,.25);
-  }
-  .order-timeline{
-    display:grid;grid-template-columns:repeat(4,1fr);
-    margin:28px 0 24px;position:relative;
-  }
-  .tl-step{
-    display:flex;flex-direction:column;align-items:center;
-    position:relative;text-align:center;
-  }
-  .tl-step::before{
-    content:'';position:absolute;top:16px;
-    left:calc(-50% + 16px);right:calc(50% + 16px);
-    height:2px;background:var(--border);z-index:0;
-  }
+  .order-sent{padding:6px 12px;border-radius:100px;font-size:11px;font-weight:600;background:rgba(59,130,246,.16);color:var(--blue-2);display:inline-flex;align-items:center;gap:6px;white-space:nowrap;border:1px solid rgba(59,130,246,.25)}
+  .order-timeline{display:grid;grid-template-columns:repeat(4,1fr);margin:28px 0 24px;position:relative}
+  .tl-step{display:flex;flex-direction:column;align-items:center;position:relative;text-align:center}
+  .tl-step::before{content:'';position:absolute;top:16px;left:calc(-50% + 16px);right:calc(50% + 16px);height:2px;background:var(--border);z-index:0}
   .tl-step:first-child::before{display:none}
-  .tl-step.done::before,.tl-step.active::before{
-    background:linear-gradient(90deg,var(--accent) 0%,var(--accent-2) 100%);
-  }
-  .tl-dot{
-    width:32px;height:32px;border-radius:50%;
-    background:var(--surface-2);border:2px solid var(--border);
-    display:flex;align-items:center;justify-content:center;
-    font-size:13px;font-weight:700;position:relative;
-    z-index:1;color:var(--muted);transition:all .35s;
-  }
-  .tl-step.done .tl-dot{
-    background:linear-gradient(135deg,var(--accent) 0%,var(--accent-2) 100%);
-    border-color:transparent;color:#1a1200;
-    box-shadow:0 4px 14px rgba(245,165,36,.4);
-  }
-  .tl-step.active .tl-dot{
-    background:#fff;border-color:#fff;color:#000;
-    box-shadow:0 0 0 6px rgba(255,255,255,.18);
-    animation:activeDot 2s infinite;
-  }
-  @keyframes activeDot{
-    0%,100%{box-shadow:0 0 0 6px rgba(255,255,255,.18)}
-    50%{box-shadow:0 0 0 10px rgba(255,255,255,.08)}
-  }
-  .tl-label{
-    font-size:11.5px;color:var(--muted);
-    margin-top:12px;font-weight:500;
-    line-height:1.4;padding:0 6px;
-  }
-  .tl-step.done .tl-label,.tl-step.active .tl-label{
-    color:#fff;font-weight:600;
-  }
-  .order-product{
-    display:flex;align-items:center;gap:14px;
-    background:var(--surface-2);border-radius:14px;
-    padding:14px;margin-bottom:16px;
-    border:1px solid var(--border);
-  }
-  .order-product img{
-    width:56px;height:56px;border-radius:12px;
-    object-fit:cover;background:var(--surface);
-    flex-shrink:0;
-  }
+  .tl-step.done::before,.tl-step.active::before{background:linear-gradient(90deg,var(--accent) 0%,var(--accent-2) 100%)}
+  .tl-dot{width:32px;height:32px;border-radius:50%;background:var(--surface-2);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;position:relative;z-index:1;color:var(--muted);transition:all .35s}
+  .tl-step.done .tl-dot{background:linear-gradient(135deg,var(--accent) 0%,var(--accent-2) 100%);border-color:transparent;color:#1a1200;box-shadow:0 4px 14px rgba(245,165,36,.4)}
+  .tl-step.active .tl-dot{background:#fff;border-color:#fff;color:#000;box-shadow:0 0 0 6px rgba(255,255,255,.18);animation:activeDot 2s infinite}
+  @keyframes activeDot{0%,100%{box-shadow:0 0 0 6px rgba(255,255,255,.18)}50%{box-shadow:0 0 0 10px rgba(255,255,255,.08)}}
+  .tl-label{font-size:11.5px;color:var(--muted);margin-top:12px;font-weight:500;line-height:1.4;padding:0 6px}
+  .tl-step.done .tl-label,.tl-step.active .tl-label{color:#fff;font-weight:600}
+  .order-product{display:flex;align-items:center;gap:14px;background:var(--surface-2);border-radius:14px;padding:14px;margin-bottom:16px;border:1px solid var(--border)}
+  .order-product img{width:56px;height:56px;border-radius:12px;object-fit:cover;background:var(--surface);flex-shrink:0}
   .order-product > div{flex:1;min-width:0}
-  .order-product strong{
-    font-size:14.5px;font-weight:600;display:block;
-    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#fff;
-  }
+  .order-product strong{font-size:14.5px;font-weight:600;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#fff}
   .order-product span{font-size:13px;color:var(--accent-2);display:block;margin-top:3px}
   .order-body{border-top:1px solid var(--border);padding-top:16px}
-  .order-row{
-    display:flex;justify-content:space-between;
-    padding:8px 0;font-size:14.5px;gap:16px;
-  }
+  .order-row{display:flex;justify-content:space-between;padding:8px 0;font-size:14.5px;gap:16px}
   .order-row span{color:var(--muted);flex-shrink:0}
-  .order-row strong{
-    color:#fff;text-align:right;font-weight:500;
-    word-break:break-word;min-width:0;
-  }
-  .order-actions{
-    display:flex;gap:12px;flex-wrap:wrap;
-    margin-top:16px;padding-top:16px;
-    border-top:1px solid var(--border);
-  }
-  .btn-cancel{
-    padding:11px 20px;border-radius:100px;
-    background:rgba(239,68,68,.12);color:var(--sale-2);
-    font-size:13px;font-weight:600;
-    border:1px solid rgba(239,68,68,.3);
-    transition:all .25s;display:inline-flex;
-    align-items:center;gap:7px;cursor:pointer;
-  }
-  .btn-cancel:hover{
-    background:var(--sale);color:#fff;
-    border-color:var(--sale);
-    transform:translateY(-2px);
-    box-shadow:0 8px 24px rgba(239,68,68,.35);
-  }
+  .order-row strong{color:#fff;text-align:right;font-weight:500;word-break:break-word;min-width:0}
+  .order-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px;padding-top:16px;border-top:1px solid var(--border)}
+  .btn-cancel{padding:11px 20px;border-radius:100px;background:rgba(239,68,68,.12);color:var(--sale-2);font-size:13px;font-weight:600;border:1px solid rgba(239,68,68,.3);transition:all .25s;display:inline-flex;align-items:center;gap:7px;cursor:pointer}
+  .btn-cancel:hover{background:var(--sale);color:#fff;border-color:var(--sale);transform:translateY(-2px);box-shadow:0 8px 24px rgba(239,68,68,.35)}
 
-  #cancel-modal{
-    position:fixed;inset:0;background:rgba(0,0,0,.8);
-    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
-    z-index:2000;display:flex;align-items:center;
-    justify-content:center;padding:20px;
-    animation:cmFade .2s ease;
-  }
+  #cancel-modal{position:fixed;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:2000;display:flex;align-items:center;justify-content:center;padding:20px;animation:cmFade .2s ease}
   @keyframes cmFade{from{opacity:0}to{opacity:1}}
-  .cancel-modal-box{
-    background:var(--surface);
-    border:1px solid var(--border-strong);
-    border-radius:24px;padding:40px 36px;
-    max-width:460px;width:100%;text-align:center;
-    animation:cmPop .35s cubic-bezier(.2,.9,.3,1);
-    box-shadow:0 40px 100px rgba(0,0,0,.9);
-  }
-  @keyframes cmPop{
-    from{opacity:0;transform:scale(.92) translateY(12px)}
-    to{opacity:1;transform:scale(1) translateY(0)}
-  }
-  .cancel-modal-icon{
-    width:72px;height:72px;border-radius:50%;
-    background:rgba(239,68,68,.16);color:var(--sale-2);
-    font-size:32px;display:flex;align-items:center;
-    justify-content:center;margin:0 auto 20px;
-    border:2px solid rgba(239,68,68,.25);
-  }
-  .cancel-modal-box h3{
-    font-family:'Space Grotesk',sans-serif;
-    font-size:22px;font-weight:700;
-    letter-spacing:-.01em;margin-bottom:14px;color:#fff;
-  }
-  .cancel-modal-box p{
-    font-size:15px;color:var(--text-2);
-    line-height:1.7;margin-bottom:28px;
-  }
+  .cancel-modal-box{background:var(--surface);border:1px solid var(--border-strong);border-radius:24px;padding:40px 36px;max-width:460px;width:100%;text-align:center;animation:cmPop .35s cubic-bezier(.2,.9,.3,1);box-shadow:0 40px 100px rgba(0,0,0,.9)}
+  @keyframes cmPop{from{opacity:0;transform:scale(.92) translateY(12px)}to{opacity:1;transform:scale(1) translateY(0)}}
+  .cancel-modal-icon{width:72px;height:72px;border-radius:50%;background:rgba(239,68,68,.16);color:var(--sale-2);font-size:32px;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;border:2px solid rgba(239,68,68,.25)}
+  .cancel-modal-box h3{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;letter-spacing:-.01em;margin-bottom:14px;color:#fff}
+  .cancel-modal-box p{font-size:15px;color:var(--text-2);line-height:1.7;margin-bottom:28px}
   .cancel-modal-box p strong{color:#fff}
-  .cancel-modal-actions{
-    display:flex;gap:12px;
-    justify-content:center;flex-wrap:wrap;
-  }
+  .cancel-modal-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
   .cancel-modal-actions .btn{min-width:140px;justify-content:center}
 
-  .test-tabs{
-    display:flex;gap:10px;flex-wrap:wrap;
-    margin-bottom:32px;justify-content:center;
-  }
-  .test-tab{
-    display:inline-flex;align-items:center;gap:12px;
-    padding:15px 28px;border-radius:100px;
-    background:var(--surface);color:var(--text-2);
-    font-size:15px;font-weight:600;
-    border:1px solid var(--border);
-    transition:all .3s cubic-bezier(.2,.9,.3,1);
-    cursor:pointer;
-  }
+  .test-tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:32px;justify-content:center}
+  .test-tab{display:inline-flex;align-items:center;gap:12px;padding:15px 28px;border-radius:100px;background:var(--surface);color:var(--text-2);font-size:15px;font-weight:600;border:1px solid var(--border);transition:all .3s cubic-bezier(.2,.9,.3,1);cursor:pointer}
   .test-tab .ic{font-size:20px}
-  .test-tab:hover{
-    color:#fff;background:var(--surface-2);
-    border-color:var(--border-strong);
-    transform:translateY(-3px);
-  }
-  .test-tab.active{
-    background:linear-gradient(135deg,var(--accent) 0%,var(--accent-2) 100%);
-    color:#1a1200;border-color:transparent;
-    box-shadow:0 10px 28px rgba(245,165,36,.4);
-  }
-
-  .test-panel{
-    background:rgba(22,26,34,.75);
-    border:1px solid var(--border);
-    border-radius:24px;padding:40px;
-    backdrop-filter:blur(10px);
-    animation:fadeUp .4s cubic-bezier(.2,.9,.3,1);
-  }
-  .test-panel-head{
-    display:flex;justify-content:space-between;
-    align-items:flex-end;gap:20px;
-    flex-wrap:wrap;margin-bottom:36px;
-  }
-  .test-panel-head h3{
-    font-family:'Space Grotesk',sans-serif;
-    font-size:26px;font-weight:700;
-    letter-spacing:-.01em;margin-bottom:8px;color:#fff;
-  }
+  .test-tab:hover{color:#fff;background:var(--surface-2);border-color:var(--border-strong);transform:translateY(-3px)}
+  .test-tab.active{background:linear-gradient(135deg,var(--accent) 0%,var(--accent-2) 100%);color:#1a1200;border-color:transparent;box-shadow:0 10px 28px rgba(245,165,36,.4)}
+  .test-panel{background:rgba(22,26,34,.75);border:1px solid var(--border);border-radius:24px;padding:40px;backdrop-filter:blur(10px);animation:fadeUp .4s cubic-bezier(.2,.9,.3,1)}
+  .test-panel-head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:36px}
+  .test-panel-head h3{font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:700;letter-spacing:-.01em;margin-bottom:8px;color:#fff}
   .test-panel-head p{font-size:14px;color:var(--text-2);line-height:1.65}
   .test-panel-actions{display:flex;gap:10px;flex-wrap:wrap}
-
-  .test-keys{
-    display:flex;gap:8px;justify-content:center;
-    padding:24px 0;flex-wrap:wrap;user-select:none;
-  }
-  .test-key{
-    position:relative;flex:1;min-width:74px;max-width:124px;
-    aspect-ratio:1/2.8;
-    background:linear-gradient(180deg,#fafafa 0%,#e4e4e4 100%);
-    border-radius:0 0 14px 14px;
-    color:#1a1a1a;font-weight:700;
-    display:flex;flex-direction:column;
-    justify-content:flex-end;align-items:center;
-    padding-bottom:18px;transition:all .1s;
-    cursor:pointer;
-    box-shadow:
-      inset 0 -4px 0 rgba(0,0,0,.12),
-      0 6px 18px rgba(0,0,0,.4);
-    border:none;
-  }
-  .test-key:hover{
-    background:linear-gradient(180deg,#fff 0%,#ececec 100%);
-    box-shadow:inset 0 -4px 0 rgba(245,165,36,.3),0 8px 24px rgba(245,165,36,.2);
-  }
-  .test-key:active,.test-key.pressed{
-    background:linear-gradient(180deg,#d8d8d8 0%,#b8b8b8 100%);
-    transform:translateY(3px);
-    box-shadow:inset 0 -1px 0 rgba(0,0,0,.1),0 2px 8px rgba(0,0,0,.4);
-  }
+  .test-keys{display:flex;gap:8px;justify-content:center;padding:24px 0;flex-wrap:wrap;user-select:none}
+  .test-key{position:relative;flex:1;min-width:74px;max-width:124px;aspect-ratio:1/2.8;background:linear-gradient(180deg,#fafafa 0%,#e4e4e4 100%);border-radius:0 0 14px 14px;color:#1a1a1a;font-weight:700;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;padding-bottom:18px;transition:all .1s;cursor:pointer;box-shadow:inset 0 -4px 0 rgba(0,0,0,.12),0 6px 18px rgba(0,0,0,.4);border:none}
+  .test-key:hover{background:linear-gradient(180deg,#fff 0%,#ececec 100%);box-shadow:inset 0 -4px 0 rgba(245,165,36,.3),0 8px 24px rgba(245,165,36,.2)}
+  .test-key:active,.test-key.pressed{background:linear-gradient(180deg,#d8d8d8 0%,#b8b8b8 100%);transform:translateY(3px);box-shadow:inset 0 -1px 0 rgba(0,0,0,.1),0 2px 8px rgba(0,0,0,.4)}
   .test-key span{font-size:16px;font-weight:800;letter-spacing:-.02em}
-  .test-key small{
-    font-size:10.5px;font-weight:600;
-    color:#666;margin-top:3px;
-    text-transform:uppercase;letter-spacing:1.2px;
-  }
+  .test-key small{font-size:10.5px;font-weight:600;color:#666;margin-top:3px;text-transform:uppercase;letter-spacing:1.2px}
 
-  .guitar-wrap{
-    background:linear-gradient(180deg,rgba(245,165,36,.04) 0%,rgba(255,255,255,.01) 100%);
-    border-radius:20px;padding:28px 20px;
-    overflow:hidden;border:1px solid var(--border);
-  }
-  .guitar-svg{
-    width:100%;height:auto;max-width:1500px;
-    display:block;margin:0 auto;
-    filter:drop-shadow(0 18px 42px rgba(0,0,0,.7));
-    border-radius:12px;
-  }
+  .guitar-wrap{background:linear-gradient(180deg,rgba(245,165,36,.04) 0%,rgba(255,255,255,.01) 100%);border-radius:20px;padding:28px 20px;overflow:hidden;border:1px solid var(--border)}
+  .guitar-svg{width:100%;height:auto;max-width:1500px;display:block;margin:0 auto;filter:drop-shadow(0 18px 42px rgba(0,0,0,.7));border-radius:12px}
   .guitar-string{cursor:pointer}
   .guitar-string rect{transition:fill .15s}
   .guitar-string:hover rect{fill:rgba(245,165,36,.14)}
-  .guitar-string line{
-    transition:stroke .15s,filter .15s,stroke-width .15s;
-    pointer-events:none;
-    filter:drop-shadow(0 1px 2px rgba(0,0,0,.9)) drop-shadow(0 0 5px rgba(255,255,255,.5));
-  }
-  .guitar-string:hover line{
-    stroke:var(--accent) !important;
-    filter:drop-shadow(0 0 12px rgba(245,165,36,1)) drop-shadow(0 0 20px rgba(245,165,36,.7));
-    stroke-width:6 !important;
-  }
-  .guitar-string.vibrating line{
-    stroke:var(--accent) !important;
-    filter:drop-shadow(0 0 12px rgba(245,165,36,1));
-    animation:strum .4s ease;
-  }
-  @keyframes strum{
-    0%{transform:translateY(0)}
-    25%{transform:translateY(-2px)}
-    50%{transform:translateY(2px)}
-    75%{transform:translateY(-1.2px)}
-    100%{transform:translateY(0)}
-  }
-  .guitar-string-label{
-    font-family:'Inter',sans-serif;font-size:16px;
-    font-weight:800;fill:#fff;letter-spacing:1px;
-    pointer-events:none;
-    text-shadow:0 2px 8px rgba(0,0,0,.95);
-  }
+  .guitar-string line{transition:stroke .15s,filter .15s,stroke-width .15s;pointer-events:none;filter:drop-shadow(0 1px 2px rgba(0,0,0,.9)) drop-shadow(0 0 5px rgba(255,255,255,.5))}
+  .guitar-string:hover line{stroke:var(--accent) !important;filter:drop-shadow(0 0 12px rgba(245,165,36,1)) drop-shadow(0 0 20px rgba(245,165,36,.7));stroke-width:6 !important}
+  .guitar-string.vibrating line{stroke:var(--accent) !important;filter:drop-shadow(0 0 12px rgba(245,165,36,1));animation:strum .4s ease}
+  @keyframes strum{0%{transform:translateY(0)}25%{transform:translateY(-2px)}50%{transform:translateY(2px)}75%{transform:translateY(-1.2px)}100%{transform:translateY(0)}}
+  .guitar-string-label{font-family:'Inter',sans-serif;font-size:16px;font-weight:800;fill:#fff;letter-spacing:1px;pointer-events:none;text-shadow:0 2px 8px rgba(0,0,0,.95)}
 
-  .drum-wrap{
-    background:radial-gradient(ellipse at 50% 100%,rgba(245,165,36,.05) 0%,transparent 70%);
-    border-radius:20px;padding:24px 14px;overflow:hidden;
-  }
-  .drum-svg{
-    width:100%;height:auto;max-width:840px;
-    display:block;margin:0 auto;
-    filter:drop-shadow(0 14px 36px rgba(0,0,0,.6));
-  }
-  .drum-piece{
-    cursor:pointer;transform-box:fill-box;
-    transform-origin:center;
-    transition:filter .15s,transform .15s;
-  }
-  .drum-piece:hover{
-    filter:brightness(1.3) drop-shadow(0 0 14px rgba(245,165,36,.55));
-  }
-  .drum-piece.pressed{
-    filter:brightness(1.6) drop-shadow(0 0 22px rgba(245,165,36,.85));
-    transform:scale(.95);
-  }
-  .drum-label{
-    font-family:'Inter',sans-serif;font-size:12px;
-    font-weight:700;fill:var(--muted);
-    letter-spacing:1.6px;pointer-events:none;
-    text-transform:uppercase;
-  }
+  .drum-wrap{background:radial-gradient(ellipse at 50% 100%,rgba(245,165,36,.05) 0%,transparent 70%);border-radius:20px;padding:24px 14px;overflow:hidden}
+  .drum-svg{width:100%;height:auto;max-width:840px;display:block;margin:0 auto;filter:drop-shadow(0 14px 36px rgba(0,0,0,.6))}
+  .drum-piece{cursor:pointer;transform-box:fill-box;transform-origin:center;transition:filter .15s,transform .15s}
+  .drum-piece:hover{filter:brightness(1.3) drop-shadow(0 0 14px rgba(245,165,36,.55))}
+  .drum-piece.pressed{filter:brightness(1.6) drop-shadow(0 0 22px rgba(245,165,36,.85));transform:scale(.95)}
+  .drum-label{font-family:'Inter',sans-serif;font-size:12px;font-weight:700;fill:var(--muted);letter-spacing:1.6px;pointer-events:none;text-transform:uppercase}
 
-  .test-hint{
-    margin-top:28px;padding:16px 22px;
-    background:rgba(245,165,36,.06);
-    border:1px solid rgba(245,165,36,.18);
-    border-radius:14px;font-size:13.5px;
-    color:var(--text-2);text-align:center;line-height:1.7;
-  }
-  .test-hint kbd{
-    display:inline-block;min-width:24px;
-    padding:3px 8px;border-radius:6px;
-    background:var(--surface-2);
-    border:1px solid var(--border-strong);
-    font-family:inherit;font-size:11.5px;
-    font-weight:700;color:var(--accent-2);
-    margin:0 3px;
-  }
+  .test-hint{margin-top:28px;padding:16px 22px;background:rgba(245,165,36,.06);border:1px solid rgba(245,165,36,.18);border-radius:14px;font-size:13.5px;color:var(--text-2);text-align:center;line-height:1.7}
+  .test-hint kbd{display:inline-block;min-width:24px;padding:3px 8px;border-radius:6px;background:var(--surface-2);border:1px solid var(--border-strong);font-family:inherit;font-size:11.5px;font-weight:700;color:var(--accent-2);margin:0 3px}
 
   .success-wrap{max-width:860px;margin:0 auto;padding:44px 72px 120px}
-  .success-box{
-    background:rgba(22,26,34,.8);
-    border-radius:28px;padding:72px 48px;
-    text-align:center;border:1px solid var(--border);
-    position:relative;overflow:hidden;
-    backdrop-filter:blur(10px);
-    box-shadow:0 30px 80px rgba(0,0,0,.6);
-  }
-  .success-box::before{
-    content:'';position:absolute;top:-50%;left:-50%;
-    width:200%;height:200%;
-    background:radial-gradient(circle at center,rgba(245,165,36,.14) 0%,transparent 55%);
-    pointer-events:none;
-  }
-  .success-icon{
-    position:relative;width:104px;height:104px;
-    border-radius:50%;
-    background:linear-gradient(135deg,var(--green) 0%,var(--green-2) 100%);
-    color:#fff;font-size:52px;font-weight:700;
-    display:flex;align-items:center;justify-content:center;
-    margin:0 auto 32px;
-    box-shadow:0 20px 56px rgba(16,185,129,.5);
-    animation:popIn .7s cubic-bezier(.2,.9,.3,1);
-    border:3px solid rgba(255,255,255,.15);
-  }
-  @keyframes popIn{
-    0%{transform:scale(0);opacity:0}
-    60%{transform:scale(1.15)}
-    100%{transform:scale(1);opacity:1}
-  }
-  .success-box h1{
-    font-family:'Space Grotesk',sans-serif;
-    font-size:clamp(30px,4.5vw,46px);
-    font-weight:700;letter-spacing:-.02em;
-    margin-bottom:14px;position:relative;color:#fff;
-  }
-  .success-box .sub{
-    font-size:16px;color:var(--text-2);
-    max-width:560px;margin:0 auto 40px;
-    line-height:1.8;position:relative;
-  }
-  .order-info{
-    background:var(--surface-2);border-radius:18px;
-    padding:10px 28px;max-width:600px;
-    margin:0 auto 36px;text-align:left;
-    position:relative;border:1px solid var(--border);
-  }
-  .order-info .order-row{
-    display:flex;justify-content:space-between;
-    align-items:flex-start;gap:16px;
-    padding:16px 0;border-bottom:1px solid var(--border);
-    font-size:15px;
-  }
+  .success-box{background:rgba(22,26,34,.8);border-radius:28px;padding:72px 48px;text-align:center;border:1px solid var(--border);position:relative;overflow:hidden;backdrop-filter:blur(10px);box-shadow:0 30px 80px rgba(0,0,0,.6)}
+  .success-box::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle at center,rgba(245,165,36,.14) 0%,transparent 55%);pointer-events:none}
+  .success-icon{position:relative;width:104px;height:104px;border-radius:50%;background:linear-gradient(135deg,var(--green) 0%,var(--green-2) 100%);color:#fff;font-size:52px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 32px;box-shadow:0 20px 56px rgba(16,185,129,.5);animation:popIn .7s cubic-bezier(.2,.9,.3,1);border:3px solid rgba(255,255,255,.15)}
+  @keyframes popIn{0%{transform:scale(0);opacity:0}60%{transform:scale(1.15)}100%{transform:scale(1);opacity:1}}
+  .success-box h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(30px,4.5vw,46px);font-weight:700;letter-spacing:-.02em;margin-bottom:14px;position:relative;color:#fff}
+  .success-box .sub{font-size:16px;color:var(--text-2);max-width:560px;margin:0 auto 40px;line-height:1.8;position:relative}
+  .order-info{background:var(--surface-2);border-radius:18px;padding:10px 28px;max-width:600px;margin:0 auto 36px;text-align:left;position:relative;border:1px solid var(--border)}
+  .order-info .order-row{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding:16px 0;border-bottom:1px solid var(--border);font-size:15px}
   .order-info .order-row:last-child{border-bottom:none}
   .order-info .order-row span{color:var(--muted);flex-shrink:0}
-  .order-info .order-row strong{
-    color:#fff;font-weight:600;
-    text-align:right;word-break:break-word;
-  }
-  .success-actions{
-    display:flex;gap:14px;justify-content:center;
-    flex-wrap:wrap;position:relative;
-  }
-  .success-note{
-    margin-top:32px;font-size:13.5px;
-    color:var(--muted);line-height:1.7;position:relative;
-  }
-  .system-status{
-    display:inline-flex;align-items:center;gap:10px;
-    padding:10px 18px;border-radius:100px;
-    background:rgba(59,130,246,.14);color:var(--blue-2);
-    font-size:13px;font-weight:600;
-    margin:0 auto 22px;position:relative;
-    border:1px solid rgba(59,130,246,.25);
-  }
-  .system-status::before{
-    content:'';width:8px;height:8px;border-radius:50%;
-    background:currentColor;animation:pulse 1.6s infinite;
-    box-shadow:0 0 10px currentColor;
-  }
+  .order-info .order-row strong{color:#fff;font-weight:600;text-align:right;word-break:break-word}
+  .success-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;position:relative}
+  .success-note{margin-top:32px;font-size:13.5px;color:var(--muted);line-height:1.7;position:relative}
+  .system-status{display:inline-flex;align-items:center;gap:10px;padding:10px 18px;border-radius:100px;background:rgba(59,130,246,.14);color:var(--blue-2);font-size:13px;font-weight:600;margin:0 auto 22px;position:relative;border:1px solid rgba(59,130,246,.25)}
+  .system-status::before{content:'';width:8px;height:8px;border-radius:50%;background:currentColor;animation:pulse 1.6s infinite;box-shadow:0 0 10px currentColor}
 
-  .warranty-hero{
-    background:linear-gradient(135deg,rgba(245,165,36,.08) 0%,rgba(22,26,34,.9) 100%);
-    border-radius:28px;padding:56px;
-    text-align:center;margin-bottom:28px;
-    border:1px solid rgba(245,165,36,.25);
-    box-shadow:0 24px 60px rgba(0,0,0,.4);
-  }
+  .warranty-hero{background:linear-gradient(135deg,rgba(245,165,36,.08) 0%,rgba(22,26,34,.9) 100%);border-radius:28px;padding:56px;text-align:center;margin-bottom:28px;border:1px solid rgba(245,165,36,.25);box-shadow:0 24px 60px rgba(0,0,0,.4)}
   .warranty-hero .shield{font-size:64px;margin-bottom:20px}
-  .warranty-hero .big-num{
-    font-family:'Space Grotesk',sans-serif;
-    font-size:clamp(56px,9vw,108px);
-    font-weight:700;letter-spacing:-.05em;
-    background:linear-gradient(135deg,var(--accent-2) 0%,var(--accent) 100%);
-    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-    background-clip:text;line-height:1;
-    filter:drop-shadow(0 6px 30px rgba(245,165,36,.35));
-  }
-  .warranty-hero .big-label{
-    font-size:15px;font-weight:600;
-    color:var(--text-2);letter-spacing:4px;
-    text-transform:uppercase;margin-top:12px;
-  }
-  .warranty-hero p{
-    font-size:16px;color:var(--text-2);
-    max-width:560px;margin:28px auto 0;
-    line-height:1.8;
-  }
+  .warranty-hero .big-num{font-family:'Space Grotesk',sans-serif;font-size:clamp(56px,9vw,108px);font-weight:700;letter-spacing:-.05em;background:linear-gradient(135deg,var(--accent-2) 0%,var(--accent) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;filter:drop-shadow(0 6px 30px rgba(245,165,36,.35))}
+  .warranty-hero .big-label{font-size:15px;font-weight:600;color:var(--text-2);letter-spacing:4px;text-transform:uppercase;margin-top:12px}
+  .warranty-hero p{font-size:16px;color:var(--text-2);max-width:560px;margin:28px auto 0;line-height:1.8}
   .warranty-hero p strong{color:var(--accent-2);font-weight:700}
-  .benefit-grid{
-    display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:20px;margin-bottom:28px;
-  }
-  .warranty-box{
-    background:rgba(22,26,34,.75);
-    border-radius:22px;padding:36px;
-    margin-bottom:28px;border:1px solid var(--border);
-    backdrop-filter:blur(10px);
-  }
-  .warranty-box h3{
-    font-family:'Space Grotesk',sans-serif;
-    font-size:20px;font-weight:700;
-    margin-bottom:24px;color:#fff;
-  }
-  .policy-list{
-    display:flex;flex-direction:column;
-    border-top:1px solid var(--border);
-  }
-  .policy-row{
-    display:grid;grid-template-columns:1fr 1.5fr;
-    padding:16px 0;border-bottom:1px solid var(--border);
-    font-size:14.5px;gap:16px;
-  }
+  .benefit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;margin-bottom:28px}
+  .warranty-box{background:rgba(22,26,34,.75);border-radius:22px;padding:36px;margin-bottom:28px;border:1px solid var(--border);backdrop-filter:blur(10px)}
+  .warranty-box h3{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;margin-bottom:24px;color:#fff}
+  .policy-list{display:flex;flex-direction:column;border-top:1px solid var(--border)}
+  .policy-row{display:grid;grid-template-columns:1fr 1.5fr;padding:16px 0;border-bottom:1px solid var(--border);font-size:14.5px;gap:16px}
   .policy-row dt{color:var(--muted);font-weight:500}
   .policy-row dd{color:#fff;font-weight:500;line-height:1.55}
 
-  footer{
-    padding:72px 72px 48px;
-    border-top:1px solid var(--border);
-    text-align:center;font-size:14px;
-    color:var(--muted);position:relative;
-    background:rgba(11,13,18,.5);
-    backdrop-filter:blur(10px);
-  }
-  footer .brand-big{
-    font-family:'Space Grotesk',sans-serif;
-    font-size:26px;font-weight:700;
-    color:#fff;letter-spacing:-.02em;
-    margin-bottom:16px;
-    display:inline-flex;align-items:center;gap:10px;
-  }
-  footer .brand-big::before{
-    content:'';width:10px;height:10px;
-    background:linear-gradient(135deg,var(--accent) 0%,var(--accent-2) 100%);
-    border-radius:50%;
-    box-shadow:0 0 14px var(--accent-glow);
-  }
-  footer .footer-info{
-    display:flex;justify-content:center;
-    gap:32px;flex-wrap:wrap;margin:28px 0;
-  }
+  footer{padding:72px 72px 48px;border-top:1px solid var(--border);text-align:center;font-size:14px;color:var(--muted);position:relative;background:rgba(11,13,18,.5);backdrop-filter:blur(10px)}
+  footer .brand-big{font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:700;color:#fff;letter-spacing:-.02em;margin-bottom:16px;display:inline-flex;align-items:center;gap:10px}
+  footer .brand-big::before{content:'';width:10px;height:10px;background:linear-gradient(135deg,var(--accent) 0%,var(--accent-2) 100%);border-radius:50%;box-shadow:0 0 14px var(--accent-glow)}
+  footer .footer-info{display:flex;justify-content:center;gap:32px;flex-wrap:wrap;margin:28px 0}
   footer .footer-info span{color:var(--text-2)}
   footer a{transition:color .2s;color:var(--accent-2);font-weight:500}
   footer a:hover{color:#fff}
 
-  #chat-btn{
-    position:fixed;bottom:28px;right:28px;
-    width:64px;height:64px;border-radius:50%;
-    background:linear-gradient(135deg,var(--accent) 0%,var(--accent-2) 100%);
-    color:#1a1200;font-size:26px;z-index:1000;
-    box-shadow:0 12px 36px rgba(245,165,36,.5);
-    transition:all .3s cubic-bezier(.2,.9,.3,1);
-    display:flex;align-items:center;justify-content:center;cursor:pointer;
-  }
-  #chat-btn:hover{
-    transform:scale(1.1) translateY(-3px);
-    box-shadow:0 18px 48px rgba(245,165,36,.7);
-  }
-  .chat-badge{
-    position:absolute;top:-4px;right:-4px;
-    width:22px;height:22px;background:var(--sale);color:#fff;
-    border-radius:50%;font-size:11.5px;font-weight:700;
-    display:flex;align-items:center;justify-content:center;
-    border:2px solid var(--bg);
-    box-shadow:0 0 12px rgba(239,68,68,.6);
-  }
-  #chat-window{
-    position:fixed;bottom:108px;right:28px;
-    width:390px;max-width:calc(100vw - 32px);
-    height:580px;max-height:calc(100vh - 150px);
-    background:var(--surface);
-    border:1px solid var(--border-strong);
-    border-radius:24px;overflow:hidden;display:none;
-    flex-direction:column;z-index:1000;
-    box-shadow:0 40px 100px rgba(0,0,0,.85);
-  }
+  #chat-btn{position:fixed;bottom:28px;right:28px;width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--accent) 0%,var(--accent-2) 100%);color:#1a1200;font-size:26px;z-index:1000;box-shadow:0 12px 36px rgba(245,165,36,.5);transition:all .3s cubic-bezier(.2,.9,.3,1);display:flex;align-items:center;justify-content:center;cursor:pointer}
+  #chat-btn:hover{transform:scale(1.1) translateY(-3px);box-shadow:0 18px 48px rgba(245,165,36,.7)}
+  .chat-badge{position:absolute;top:-4px;right:-4px;width:22px;height:22px;background:var(--sale);color:#fff;border-radius:50%;font-size:11.5px;font-weight:700;display:flex;align-items:center;justify-content:center;border:2px solid var(--bg);box-shadow:0 0 12px rgba(239,68,68,.6)}
+  #chat-window{position:fixed;bottom:108px;right:28px;width:390px;max-width:calc(100vw - 32px);height:580px;max-height:calc(100vh - 150px);background:var(--surface);border:1px solid var(--border-strong);border-radius:24px;overflow:hidden;display:none;flex-direction:column;z-index:1000;box-shadow:0 40px 100px rgba(0,0,0,.85)}
   #chat-window.open{display:flex;animation:chatIn .35s cubic-bezier(.2,.9,.3,1)}
-  @keyframes chatIn{
-    from{opacity:0;transform:translateY(20px) scale(.96)}
-    to{opacity:1;transform:translateY(0) scale(1)}
-  }
-  .chat-head{
-    padding:18px 22px;border-bottom:1px solid var(--border);
-    display:flex;align-items:center;gap:14px;
-    background:rgba(11,13,18,.6);
-  }
-  .chat-avatar{
-    width:40px;height:40px;border-radius:50%;
-    background:linear-gradient(135deg,var(--accent) 0%,var(--accent-2) 100%);
-    color:#1a1200;display:flex;align-items:center;
-    justify-content:center;font-size:20px;position:relative;
-  }
-  .chat-avatar::after{
-    content:'';position:absolute;bottom:0;right:0;
-    width:11px;height:11px;border-radius:50%;
-    background:var(--green);border:2px solid var(--surface);
-    box-shadow:0 0 10px var(--green);
-  }
+  @keyframes chatIn{from{opacity:0;transform:translateY(20px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+  .chat-head{padding:18px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:14px;background:rgba(11,13,18,.6)}
+  .chat-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--accent) 0%,var(--accent-2) 100%);color:#1a1200;display:flex;align-items:center;justify-content:center;font-size:20px;position:relative}
+  .chat-avatar::after{content:'';position:absolute;bottom:0;right:0;width:11px;height:11px;border-radius:50%;background:var(--green);border:2px solid var(--surface);box-shadow:0 0 10px var(--green)}
   .chat-head-info h5{font-size:14px;font-weight:700;letter-spacing:-.01em;color:#fff}
   .chat-head-info p{font-size:12px;color:var(--muted)}
-  .chat-close{
-    margin-left:auto;width:32px;height:32px;border-radius:50%;
-    background:var(--surface-2);font-size:15px;
-    display:flex;align-items:center;justify-content:center;
-    transition:all .2s;cursor:pointer;color:#fff;
-  }
+  .chat-close{margin-left:auto;width:32px;height:32px;border-radius:50%;background:var(--surface-2);font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .2s;cursor:pointer;color:#fff}
   .chat-close:hover{background:var(--surface-3);transform:rotate(90deg)}
-  .chat-body{
-    flex:1;overflow-y:auto;padding:20px;
-    display:flex;flex-direction:column;gap:12px;
-    background:var(--bg-2);
-  }
-  .msg{
-    max-width:85%;padding:12px 16px;
-    border-radius:18px;font-size:14px;
-    line-height:1.6;white-space:pre-wrap;
-    word-wrap:break-word;animation:msgIn .3s;
-  }
+  .chat-body{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:12px;background:var(--bg-2)}
+  .msg{max-width:85%;padding:12px 16px;border-radius:18px;font-size:14px;line-height:1.6;white-space:pre-wrap;word-wrap:break-word;animation:msgIn .3s}
   @keyframes msgIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
-  .msg.bot{
-    background:var(--surface-2);color:#fff;
-    align-self:flex-start;border-bottom-left-radius:6px;
-    border:1px solid var(--border);
-  }
-  .msg.user{
-    background:linear-gradient(135deg,var(--accent) 0%,var(--accent-2) 100%);
-    color:#1a1200;align-self:flex-end;
-    border-bottom-right-radius:6px;font-weight:500;
-    box-shadow:0 4px 14px rgba(245,165,36,.3);
-  }
-  .msg.system{
-    background:linear-gradient(135deg,rgba(59,130,246,.24) 0%,rgba(59,130,246,.1) 100%);
-    color:#fff;align-self:stretch;max-width:100%;
-    border-left:3px solid var(--blue);
-    border-radius:12px;font-size:13.5px;padding:14px 16px;
-  }
-  .msg.typing{
-    background:transparent;color:var(--muted);
-    font-style:italic;font-size:13px;padding-left:4px;
-  }
-  .chat-chips{padding:0 20px 14px;display:flex;gap:8px;flex-wrap:wrap;background:var(--bg-2)}
-  .chip{
-    padding:8px 14px;border-radius:100px;
-    background:var(--surface-2);font-size:12.5px;
-    font-weight:500;color:var(--text-2);
-    transition:all .25s;cursor:pointer;
-    border:1px solid var(--border);
-  }
-  .chip:hover{
-    color:#fff;background:var(--surface-3);
-    border-color:var(--border-strong);
-    transform:translateY(-1px);
-  }
-  .chat-foot{
-    padding:14px;border-top:1px solid var(--border);
-    display:flex;gap:10px;
-    background:rgba(11,13,18,.6);
-  }
-  #chat-in{
-    flex:1;background:var(--surface-2);
-    border:1px solid var(--border);
-    border-radius:100px;padding:13px 20px;
-    font-size:14px;color:#fff;outline:none;
-    font-family:inherit;transition:all .25s;
-  }
+  .msg.bot{background:var(--surface-2);color:#fff;align-self:flex-start;border-bottom-left-radius:6px;border:1px solid var(--border)}
+  .msg.user{background:linear-gradient(135deg,var(--accent) 0%,var(--accent-2) 100%);color:#1a1200;align-self:flex-end;border-bottom-right-radius:6px;font-weight:500;box-shadow:0 4px 14px rgba(245,165,36,.3)}
+  .msg.system{background:linear-gradient(135deg,rgba(59,130,246,.24) 0%,rgba(59,130,246,.1) 100%);color:#fff;align-self:stretch;max-width:100%;border-left:3px solid var(--blue);border-radius:12px;font-size:13.5px;padding:14px 16px}
+  .msg.typing{background:transparent;color:var(--muted);font-style:italic;font-size:13px;padding-left:4px}
+  .chat-chips{padding:0 20px 14px;display:flex;gap:8px;flex-wrap:wrap;background:var(--bg-2);max-height:108px;overflow-y:auto;scrollbar-width:thin}
+  .chat-chips::-webkit-scrollbar{width:5px}
+  .chat-chips::-webkit-scrollbar-thumb{background:var(--surface-3);border-radius:5px}
+  .chip{padding:8px 14px;border-radius:100px;background:var(--surface-2);font-size:12.5px;font-weight:500;color:var(--text-2);transition:all .25s;cursor:pointer;border:1px solid var(--border);white-space:nowrap}
+  .chip:hover{color:#fff;background:var(--surface-3);border-color:var(--border-strong);transform:translateY(-1px)}
+  .chat-foot{padding:14px;border-top:1px solid var(--border);display:flex;gap:10px;background:rgba(11,13,18,.6)}
+  #chat-in{flex:1;background:var(--surface-2);border:1px solid var(--border);border-radius:100px;padding:13px 20px;font-size:14px;color:#fff;outline:none;font-family:inherit;transition:all .25s}
   #chat-in::placeholder{color:var(--muted-2)}
-  #chat-in:focus{
-    border-color:var(--accent);
-    box-shadow:0 0 0 3px rgba(245,165,36,.15);
-  }
-  #chat-send{
-    width:46px;height:46px;border-radius:50%;
-    background:linear-gradient(135deg,var(--accent) 0%,var(--accent-2) 100%);
-    color:#1a1200;display:flex;align-items:center;
-    justify-content:center;font-size:17px;
-    transition:all .25s;cursor:pointer;
-    box-shadow:0 4px 14px rgba(245,165,36,.35);
-  }
+  #chat-in:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(245,165,36,.15)}
+  #chat-send{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--accent) 0%,var(--accent-2) 100%);color:#1a1200;display:flex;align-items:center;justify-content:center;font-size:17px;transition:all .25s;cursor:pointer;box-shadow:0 4px 14px rgba(245,165,36,.35)}
   #chat-send:hover{transform:scale(1.08);box-shadow:0 8px 22px rgba(245,165,36,.6)}
 
-  @media (max-width:1100px){
-    .nav-links a{padding:7px 10px;font-size:12.5px}
-  }
+  @media (max-width:1100px){.nav-links a{padding:7px 10px;font-size:12.5px}}
   @media (max-width:900px){
     nav{padding:0 20px;height:auto;min-height:68px;flex-wrap:wrap;gap:10px;padding-top:12px;padding-bottom:12px}
     main{padding-top:124px}
@@ -1466,7 +439,6 @@
 </head>
 <body>
 
-<!-- ====== NAV ====== -->
 <nav>
   <div class="brand" onclick="go('home')">
     <span class="brand-dot"></span>
@@ -1501,7 +473,6 @@
       </div>
     </section>
 
-    <!-- ============ GIỚI THIỆU ============ -->
     <section class="section">
       <div class="intro-grid">
         <div class="intro-visual">
@@ -1838,13 +809,10 @@
                   <stop offset="1" stop-color="#3a2515"/>
                 </linearGradient>
               </defs>
-
               <rect x="43" y="20" width="1140" height="460" fill="url(#fbGrad)" stroke="#1a0a00" stroke-width="2" rx="6"/>
-
               <circle cx="520" cy="250" r="10" fill="#fff" opacity="0.22"/>
               <circle cx="805" cy="250" r="10" fill="#fff" opacity="0.22"/>
               <circle cx="1037" cy="250" r="10" fill="#fff" opacity="0.22"/>
-
               <line x1="250" y1="20" x2="250" y2="480" stroke="#c8b8a0" stroke-width="3" opacity="0.85"/>
               <line x1="440" y1="20" x2="440" y2="480" stroke="#c8b8a0" stroke-width="3" opacity="0.85"/>
               <line x1="600" y1="20" x2="600" y2="480" stroke="#c8b8a0" stroke-width="3" opacity="0.85"/>
@@ -1852,46 +820,37 @@
               <line x1="870" y1="20" x2="870" y2="480" stroke="#c8b8a0" stroke-width="3" opacity="0.85"/>
               <line x1="985" y1="20" x2="985" y2="480" stroke="#c8b8a0" stroke-width="3" opacity="0.85"/>
               <line x1="1090" y1="20" x2="1090" y2="480" stroke="#c8b8a0" stroke-width="3" opacity="0.85"/>
-
               <text x="345" y="472" fill="#888" font-size="12" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600">1</text>
               <text x="520" y="472" fill="#888" font-size="12" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600">2</text>
               <text x="670" y="472" fill="#888" font-size="12" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600">3</text>
               <text x="805" y="472" fill="#888" font-size="12" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600">4</text>
               <text x="927" y="472" fill="#888" font-size="12" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600">5</text>
               <text x="1037" y="472" fill="#888" font-size="12" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600">6</text>
-
               <rect x="27" y="18" width="18" height="464" rx="3" fill="#f5ead5" stroke="#8b7355" stroke-width="1.5"/>
-
               <g class="guitar-string" onclick="playGuitarString(0)">
                 <rect x="20" y="35" width="1180" height="70" fill="transparent"/>
                 <line x1="27" y1="70" x2="1183" y2="70" stroke="#ffffff" stroke-width="2"/>
               </g>
-
               <g class="guitar-string" onclick="playGuitarString(1)">
                 <rect x="20" y="110" width="1180" height="70" fill="transparent"/>
                 <line x1="27" y1="145" x2="1183" y2="145" stroke="#f0f0f0" stroke-width="2.5"/>
               </g>
-
               <g class="guitar-string" onclick="playGuitarString(2)">
                 <rect x="20" y="185" width="1180" height="70" fill="transparent"/>
                 <line x1="27" y1="220" x2="1183" y2="220" stroke="#ffe082" stroke-width="3"/>
               </g>
-
               <g class="guitar-string" onclick="playGuitarString(3)">
                 <rect x="20" y="260" width="1180" height="70" fill="transparent"/>
                 <line x1="27" y1="295" x2="1183" y2="295" stroke="#ffc107" stroke-width="3.6"/>
               </g>
-
               <g class="guitar-string" onclick="playGuitarString(4)">
                 <rect x="20" y="335" width="1180" height="70" fill="transparent"/>
                 <line x1="27" y1="370" x2="1183" y2="370" stroke="#ffb300" stroke-width="4.4"/>
               </g>
-
               <g class="guitar-string" onclick="playGuitarString(5)">
                 <rect x="20" y="410" width="1180" height="70" fill="transparent"/>
                 <line x1="27" y1="445" x2="1183" y2="445" stroke="#ff9800" stroke-width="5.2"/>
               </g>
-
               <text class="guitar-string-label" x="1160" y="76" text-anchor="end">E4</text>
               <text class="guitar-string-label" x="1160" y="151" text-anchor="end">B3</text>
               <text class="guitar-string-label" x="1160" y="226" text-anchor="end">G3</text>
@@ -2179,6 +1138,13 @@
     <button class="chip" onclick="askBot('Trạng thái đơn hàng')">📊 Đơn hàng</button>
     <button class="chip" onclick="askBot('Tôi muốn hủy đơn hàng')">❌ Hủy đơn</button>
     <button class="chip" onclick="askBot('Test nhạc cụ')">🎹 Test</button>
+    <button class="chip" onclick="askBot('Bảo hành 3 năm như thế nào')">🛡️ Bảo hành</button>
+    <button class="chip" onclick="askBot('Mấy giờ rồi')">🕐 Giờ</button>
+    <button class="chip" onclick="askBot('Kể chuyện cười đi')">😂 Đùa</button>
+    <button class="chip" onclick="askBot('Cách học piano cho người mới')">🎼 Học nhạc</button>
+    <button class="chip" onclick="askBot('Ca sĩ nào nổi tiếng')">🎤 Ca sĩ</button>
+    <button class="chip" onclick="askBot('Tính 25 * 4 + 10')">🧮 Tính toán</button>
+    <button class="chip" onclick="askBot('Tâm sự chút đi')">💛 Tâm sự</button>
   </div>
   <div class="chat-foot">
     <input id="chat-in" placeholder="Nhập tin nhắn..." onkeydown="if(event.key==='Enter')sendMsg()">
@@ -2205,55 +1171,46 @@ window.imgFail = function(img){
 };
 
 /* ============================================================
-   PRODUCT DATABASE — Ảnh chính xác theo từng loại nhạc cụ
+   PRODUCT DATABASE
    ============================================================ */
-
 const IMG = {
-  // Piano điện — bàn phím, digital piano
   pianoDigital: [
     'https://images.unsplash.com/photo-1552422535-c45813c61732?w=1200&q=85&auto=format&fit=crop',
     'https://images.unsplash.com/photo-1519419166318-4f5c601b8e6c?w=1200&q=85&auto=format&fit=crop',
     'https://images.unsplash.com/photo-1571974599782-87624638275e?w=1200&q=85&auto=format&fit=crop',
     'https://images.unsplash.com/photo-1558584673-c834fb1cc3ca?w=1200&q=85&auto=format&fit=crop'
   ],
-  // Piano cơ Upright — piano thật, KHÔNG có mắt kính
   pianoUpright: [
     'https://images.unsplash.com/photo-1552422535-c45813c61732?w=1200&q=85&auto=format&fit=crop',
     'https://images.unsplash.com/photo-1507838153414-b4b713384a76?w=1200&q=85&auto=format&fit=crop',
     'https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=1200&q=85&auto=format&fit=crop'
   ],
-  // Piano cơ Grand — piano cánh, KHÔNG có mắt kính
   pianoGrand: [
     'https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=1200&q=85&auto=format&fit=crop',
     'https://images.unsplash.com/photo-1558584673-c834fb1cc3ca?w=1200&q=85&auto=format&fit=crop',
     'https://images.unsplash.com/photo-1507838153414-b4b713384a76?w=1200&q=85&auto=format&fit=crop'
   ],
-  // Guitar Acoustic
   guitarAcoustic: [
     'https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=1200&q=85&auto=format&fit=crop',
     'https://images.unsplash.com/photo-1516924962500-2b4b3b99ea02?w=1200&q=85&auto=format&fit=crop',
     'https://images.unsplash.com/photo-1564186763535-ebb21ef5277f?w=1200&q=85&auto=format&fit=crop'
   ],
-  // Guitar Classic (nylon)
   guitarClassic: [
     'https://images.unsplash.com/photo-1516924962500-2b4b3b99ea02?w=1200&q=85&auto=format&fit=crop',
     'https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=1200&q=85&auto=format&fit=crop',
     'https://images.unsplash.com/photo-1564186763535-ebb21ef5277f?w=1200&q=85&auto=format&fit=crop'
   ],
-  // Guitar điện
   guitarElectric: [
     'https://images.unsplash.com/photo-1550985616-10810253b84d?w=1200&q=85&auto=format&fit=crop',
     'https://images.unsplash.com/photo-1556449895-a33c9dba33dd?w=1200&q=85&auto=format&fit=crop',
     'https://images.unsplash.com/photo-1564186763535-ebb21ef5277f?w=1200&q=85&auto=format&fit=crop'
   ],
-  // Trống acoustic — bộ trống thật, KHÔNG có ca sĩ
   drumsAcoustic: [
     'https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?w=1200&q=85&auto=format&fit=crop',
     'https://images.unsplash.com/photo-1543443258-92b04ad5ec6b?w=1200&q=85&auto=format&fit=crop',
     'https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=1200&q=85&auto=format&fit=crop',
     'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=1200&q=85&auto=format&fit=crop'
   ],
-  // Trống điện — drum kit điện tử, KHÔNG có ca sĩ
   drumsElectric: [
     'https://images.unsplash.com/photo-1583795128727-6ec3642408f8?w=1200&q=85&auto=format&fit=crop',
     'https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?w=1200&q=85&auto=format&fit=crop',
@@ -2269,41 +1226,28 @@ function imgs(pool, count){
 }
 
 const DB = {
-  // ===== PIANO ĐIỆN =====
   'yamaha-p45':{name:'Yamaha P-45',brand:'Yamaha',brandKey:'yamaha',cat:'piano',type:'Piano điện · 88 phím',price:'11.500.000đ',old:'13.200.000đ',images:imgs(IMG.pianoDigital),short:'Dòng piano điện phổ biến nhất cho người mới. Phím GHS cảm ứng lực, nguồn âm Pure CF từ đàn Grand Yamaha.',specs:{'Hãng':'Yamaha (Nhật Bản)','Số phím':'88 phím','Cảm ứng lực':'GHS','Số giọng':'10 giọng','Đa âm':'64 nốt','Nguồn âm':'Pure CF Sound Engine','Kết nối':'USB to Host, Headphone','Trọng lượng':'11.5 kg'},features:['Phím GHS mô phỏng cảm giác đàn cơ','Nguồn âm Pure CF từ Grand Piano CFIIIS','Chế độ Dual/Layer ghép 2 giọng','Chạy được bằng pin AA','Bảo hành chính hãng 3 năm']},
   'yamaha-p125':{name:'Yamaha P-125',brand:'Yamaha',brandKey:'yamaha',cat:'piano',type:'Piano điện · 88 phím',price:'18.500.000đ',old:'21.000.000đ',images:imgs(IMG.pianoDigital),short:'Nâng cấp từ P-45 với 24 giọng, kết nối USB/MIDI, âm thanh Piano CFX cao cấp và loa 7W x 2 mạnh mẽ.',specs:{'Hãng':'Yamaha (Nhật Bản)','Số phím':'88 phím','Cảm ứng lực':'GHS','Số giọng':'24 giọng','Đa âm':'192 nốt','Nguồn âm':'Pure CF Sound Engine','Kết nối':'USB, AUX Out, Headphone','Trọng lượng':'11.8 kg'},features:['Âm thanh Piano CFX từ Grand Concert','Chế độ Sound Boost âm lượng lớn hơn','Dual, Split, Duo linh hoạt','App Smart Pianist qua USB','Bảo hành chính hãng 3 năm']},
   'casio-cdp-s110':{name:'Casio CDP-S110',brand:'Casio',brandKey:'casio',cat:'piano',type:'Piano điện · 88 phím',price:'8.900.000đ',old:'10.500.000đ',images:imgs(IMG.pianoDigital),short:'Giá rẻ nhất phân khúc piano điện 88 phím. Thiết kế siêu mỏng chỉ 10.5kg.',specs:{'Hãng':'Casio (Nhật Bản)','Số phím':'88 phím','Cảm ứng lực':'Scaled Hammer Action II','Số giọng':'10 giọng','Đa âm':'64 nốt','Kết nối':'USB, Headphone','Trọng lượng':'10.5 kg','Pin':'Chạy được 6 pin AA'},features:['Thiết kế siêu mỏng, dễ mang đi','Phím Scaled Hammer Action II','Chế độ Duet cho 2 người chơi','Chạy pin, chơi ngoài trời','Bảo hành chính hãng 3 năm']},
   'casio-px-s1100':{name:'Casio PX-S1100',brand:'Casio',brandKey:'casio',cat:'piano',type:'Piano điện · Bluetooth',price:'15.900.000đ',old:'18.500.000đ',images:imgs(IMG.pianoDigital),short:'Piano điện mỏng nhất thế giới (232mm). Bluetooth Audio & MIDI, kết nối app Casio Music Space.',specs:{'Hãng':'Casio (Nhật Bản)','Số phím':'88 phím','Cảm ứng lực':'Smart Scaled Hammer Action','Số giọng':'18 giọng','Đa âm':'192 nốt','Kết nối':'Bluetooth Audio/MIDI, USB','Trọng lượng':'11.2 kg','Độ sâu':'232 mm'},features:['Mỏng nhất thế giới chỉ 232mm','Bluetooth Audio phát nhạc từ điện thoại','App Casio Music Space','Khóa phím cảm ứng hiện đại','Bảo hành chính hãng 3 năm']},
   'victor-p125':{name:'Victor P-125',brand:'Victor',brandKey:'victor',cat:'piano',type:'Piano điện · 88 phím',price:'10.500.000đ',old:'12.000.000đ',images:imgs(IMG.pianoDigital),short:'Piano điện Victor Nhật Bản — 88 phím cảm ứng lực, âm thanh ấm áp kiểu châu Âu.',specs:{'Hãng':'Victor (Nhật Bản)','Số phím':'88 phím','Cảm ứng lực':'Hammer Action 3 mức','Số giọng':'12 giọng','Đa âm':'128 nốt','Kết nối':'USB, MIDI, Headphone','Trọng lượng':'11 kg','Kích thước':'1320 × 260 × 150 mm'},features:['Thương hiệu Victor Nhật Bản','Âm thanh piano ấm kiểu châu Âu','Cảm ứng lực 3 mức','Chế độ Dual & Split','Bảo hành chính hãng 3 năm']},
   'master-mp100':{name:'Master MP-100',brand:'Master',brandKey:'master',cat:'piano',type:'Piano điện · Bluetooth MIDI',price:'12.500.000đ',old:'14.500.000đ',images:imgs(IMG.pianoDigital),short:'Master MP-100 — 88 phím cảm ứng lực, Bluetooth MIDI, thiết kế hiện đại cho mọi không gian.',specs:{'Hãng':'Master','Số phím':'88 phím','Cảm ứng lực':'Hammer Action 3 mức','Số giọng':'16 giọng','Đa âm':'128 nốt','Kết nối':'Bluetooth MIDI, USB','Loa':'10W × 2','Trọng lượng':'12 kg'},features:['Bluetooth MIDI kết nối app học đàn','16 giọng phong phú','Loa 10W×2 âm thanh lớn','Metronome & Recorder tích hợp','Bảo hành chính hãng 3 năm']},
-
-  // ===== PIANO CƠ =====
   'yamaha-u1':{name:'Yamaha U1',brand:'Yamaha',brandKey:'yamaha',cat:'piano',type:'Piano cơ Upright · 121cm',price:'135.000.000đ',old:'',images:imgs(IMG.pianoUpright),short:'Huyền thoại piano cơ Upright Nhật Bản — được nhạc viện và giáo viên khuyên dùng. Bền bỉ hàng chục năm.',specs:{'Hãng':'Yamaha (Nhật Bản)','Loại':'Piano cơ Upright','Chiều cao':'121 cm','Số phím':'88 phím','Búa':'Búa nỉ đặc biệt','Pedal':'3 pedal đầy đủ','Kích thước':'153 × 121 × 62 cm','Trọng lượng':'~228 kg'},features:['Âm thanh cân bằng ở mọi dải','Cơ chế búa cho cảm giác chân thực','Độ bền vượt trội, giữ giá tốt','Phù hợp học tập & biểu diễn','Bảo hành chính hãng 3 năm']},
   'victor-upright':{name:'Victor Upright VU-118',brand:'Victor',brandKey:'victor',cat:'piano',type:'Piano cơ Upright · 118cm',price:'95.000.000đ',old:'',images:imgs(IMG.pianoUpright),short:'Piano cơ Upright Victor 118cm — chất lượng Nhật Bản, giá tiết kiệm hơn Yamaha U1.',specs:{'Hãng':'Victor (Nhật Bản)','Loại':'Piano cơ Upright','Chiều cao':'118 cm','Số phím':'88 phím','Búa':'Búa nỉ Nhật Bản','Dây':'Dây đồng Roslau','Pedal':'3 pedal đầy đủ','Trọng lượng':'~210 kg'},features:['Chất lượng Nhật, giá Việt','Âm thanh ấm, hợp đệm hát','Búa nỉ cao cấp bền bỉ','3 pedal đầy đủ','Bảo hành chính hãng 3 năm']},
   'casio-ap270':{name:'Casio AP-270',brand:'Casio',brandKey:'casio',cat:'piano',type:'Piano điện dạng tủ',price:'24.900.000đ',old:'28.000.000đ',images:imgs(IMG.pianoGrand),short:'Piano điện dạng tủ sang trọng, 3 pedal, cảm giác chơi như piano cơ. Phù hợp phòng khách.',specs:{'Hãng':'Casio (Nhật Bản)','Loại':'Piano điện dạng tủ','Số phím':'88 phím','Cảm ứng lực':'Tri-sensor Scaled Hammer','Số giọng':'22 giọng','Đa âm':'256 nốt','Pedal':'3 pedal đầy đủ','Trọng lượng':'36.5 kg'},features:['Thiết kế tủ gỗ sang trọng','3 pedal như piano cơ','Cảm ứng lực Tri-sensor chân thực','Chế độ Concert Play','Bảo hành chính hãng 3 năm']},
   'master-grand':{name:'Master Grand MG-180',brand:'Master',brandKey:'master',cat:'piano',type:'Piano cơ Grand · 180cm',price:'180.000.000đ',old:'',images:imgs(IMG.pianoGrand),short:'Piano cơ Grand Master MG-180 — dài 180cm, âm thanh phòng hòa nhạc, phù hợp biểu diễn chuyên nghiệp.',specs:{'Hãng':'Master','Loại':'Piano cơ Grand','Chiều dài':'180 cm','Số phím':'88 phím','Búa':'Búa nỉ Đức','Dây':'Dây đồng Đức','Pedal':'3 pedal','Trọng lượng':'~330 kg'},features:['Âm thanh phòng hòa nhạc','Búa nỉ Đức cao cấp','Thiết kế Grand sang trọng','Phù hợp biểu diễn & thu âm','Bảo hành chính hãng 3 năm']},
-
-  // ===== GUITAR ACOUSTIC =====
   'yamaha-f310':{name:'Yamaha F310',brand:'Yamaha',brandKey:'yamaha',cat:'guitar',type:'Guitar acoustic · Dreadnought',price:'2.900.000đ',old:'3.500.000đ',images:imgs(IMG.guitarAcoustic),short:'Guitar acoustic phổ biến nhất cho người mới. Mặt Spruce, hông lưng Meranti, âm thanh ấm và cân bằng.',specs:{'Hãng':'Yamaha (Nhật Bản)','Loại':'Guitar acoustic','Mặt đàn':'Spruce','Lưng & hông':'Meranti','Số dây':'6 dây','Chiều dài':'Dreadnought 41"','Phù hợp':'Người mới, đệm hát','Bảo hành':'3 năm'},features:['Mặt gỗ Spruce vang ấm','Phù hợp người mới bắt đầu','Độ bền cao, ổn định','Setup chuẩn, dễ bấm','Bảo hành chính hãng 3 năm']},
   'martin-d28':{name:'Martin D-28',brand:'Martin',brandKey:'martin',cat:'guitar',type:'Guitar acoustic · Dreadnought',price:'75.000.000đ',old:'',images:imgs(IMG.guitarAcoustic),short:'Huyền thoại guitar acoustic Martin D-28. Mặt Sitka Spruce, lưng hông Rosewood.',specs:{'Hãng':'Martin (Mỹ)','Loại':'Guitar acoustic Dreadnought','Mặt đàn':'Sitka Spruce','Lưng & hông':'East Indian Rosewood','Cần đàn':'Select Hardwood','Phím đàn':'Ebony, 20 phím','Chiều dài':'Dreadnought 41"','Bảo hành':'3 năm'},features:['Huyền thoại acoustic nước Mỹ','Sitka Spruce + Rosewood cao cấp','Thủ công tại Mỹ','Âm thanh ấm, vang, chi tiết','Bảo hành chính hãng 3 năm']},
   'taylor-114e':{name:'Taylor 114e',brand:'Taylor',brandKey:'taylor',cat:'guitar',type:'Guitar acoustic điện · ES2',price:'15.500.000đ',old:'18.000.000đ',images:imgs(IMG.guitarAcoustic),short:'Guitar acoustic Taylor 114e có pickup ES2, phù hợp biểu diễn và thu âm.',specs:{'Hãng':'Taylor (Mỹ)','Loại':'Guitar acoustic điện','Mặt đàn':'Sitka Spruce','Lưng & hông':'Sapele','Cần đàn':'Maple','Phím đàn':'Ebony, 20 phím','Pickup':'Taylor ES2','Bảo hành':'3 năm'},features:['Pickup ES2 chính hãng Taylor','Biểu diễn sân khấu trực tiếp','Chất lượng Mỹ tinh xảo','Grand Auditorium cân bằng','Bảo hành chính hãng 3 năm']},
-
-  // ===== GUITAR CLASSIC =====
   'yamaha-c40':{name:'Yamaha C40',brand:'Yamaha',brandKey:'yamaha',cat:'guitar',type:'Guitar classic · Nylon',price:'3.500.000đ',old:'4.200.000đ',images:imgs(IMG.guitarClassic),short:'Guitar classic Yamaha C40 — lựa chọn kinh điển cho người học guitar cổ điển. Dây nilon mềm mại.',specs:{'Hãng':'Yamaha (Nhật Bản)','Loại':'Guitar classic','Mặt đàn':'Spruce','Lưng & hông':'Meranti','Số dây':'6 dây nilon','Chiều dài':'Full size 39"','Phù hợp':'Học cổ điển, đệm hát','Bảo hành':'3 năm'},features:['Dây nilon mềm, dễ bấm','Âm thanh ngọt ngào ấm áp','Thích hợp học guitar cổ điển','Chất lượng Yamaha bền bỉ','Bảo hành chính hãng 3 năm']},
-
-  // ===== GUITAR ĐIỆN =====
   'fender-strat':{name:'Fender Player Stratocaster',brand:'Fender',brandKey:'fender',cat:'guitar',type:'Guitar điện · Mexico',price:'18.500.000đ',old:'21.500.000đ',images:imgs(IMG.guitarElectric),short:'Huyền thoại guitar điện Fender Stratocaster. Sản xuất tại Mexico, 3 pickup single-coil.',specs:{'Hãng':'Fender (Mexico)','Loại':'Guitar điện','Thân đàn':'Alder','Cần đàn':'Maple, Modern "C"','Phím đàn':'Pau Ferro, 22 phím','Pickup':'3 × Single-Coil','Điều khiển':'1 Vol, 2 Tone, 5-way','Bảo hành':'3 năm'},features:['Pickup Player Series Single-Coil','Cần đàn Modern "C" dễ chơi','Khóa đàn & bridge chất lượng','Âm thanh Fender huyền thoại','Bảo hành chính hãng 3 năm']},
   'gibson-lp':{name:'Gibson Les Paul Standard',brand:'Gibson',brandKey:'gibson',cat:'guitar',type:'Guitar điện · USA',price:'65.000.000đ',old:'',images:imgs(IMG.guitarElectric),short:'Huyền thoại rock Gibson Les Paul Standard. Thân Mahogany, mặt Maple, pickup Burstbucker.',specs:{'Hãng':'Gibson (Mỹ)','Loại':'Guitar điện','Thân đàn':'Mahogany + Maple','Cần đàn':'Mahogany, Slim Taper','Phím đàn':'Rosewood, 22 phím','Pickup':'2 × Burstbucker','Điều khiển':'2 Vol, 2 Tone, 3-way','Bảo hành':'3 năm'},features:['Pickup Burstbucker Gibson USA','Thân Mahogany + Maple âm thanh dày','Chất lượng thủ công tại Mỹ','Cây đàn trong mơ của rocker','Bảo hành chính hãng 3 năm']},
   'ibanez-grx40':{name:'Ibanez GRX40',brand:'Ibanez',brandKey:'ibanez',cat:'guitar',type:'Guitar điện · H-S-H',price:'5.500.000đ',old:'6.500.000đ',images:imgs(IMG.guitarElectric),short:'Guitar điện rock/metal giá tốt cho người mới. Cấu hình H-S-H linh hoạt.',specs:{'Hãng':'Ibanez (Nhật Bản)','Loại':'Guitar điện','Thân đàn':'Poplar','Cần đàn':'Maple','Phím đàn':'Rosewood, 22 phím','Pickup':'H-S-H','Điều khiển':'1 Vol, 1 Tone, 5-way','Bảo hành':'3 năm'},features:['Cấu hình H-S-H linh hoạt','Cần đàn mỏng dễ chơi','Chất lượng Ibanez bền bỉ','Giá tốt trong phân khúc','Bảo hành chính hãng 3 năm']},
   'fender-squier':{name:'Fender Squier Affinity',brand:'Fender',brandKey:'fender',cat:'guitar',type:'Guitar điện · Entry-level',price:'6.900.000đ',old:'8.200.000đ',images:imgs(IMG.guitarElectric),short:'Dòng entry-level của Fender — thiết kế Stratocaster cổ điển, giá hợp lý cho người mới.',specs:{'Hãng':'Fender (Indonesia)','Loại':'Guitar điện','Thân đàn':'Poplar','Cần đàn':'Maple, "C" shape','Phím đàn':'Indian Laurel, 21 phím','Pickup':'3 × Single-Coil','Điều khiển':'1 Vol, 2 Tone, 5-way','Bảo hành':'3 năm'},features:['Thiết kế Stratocaster kinh điển','Giá tốt cho người mới','Cần đàn "C" shape dễ chơi','Thương hiệu Fender chính hãng','Bảo hành chính hãng 3 năm']},
-
-  // ===== TRỐNG ACOUSTIC =====
   'tama-rhythm':{name:'Tama Rhythm Mate',brand:'Tama',brandKey:'tama',cat:'drums',type:'Trống acoustic · 5 mảnh',price:'12.500.000đ',old:'14.500.000đ',images:imgs(IMG.drumsAcoustic),short:'Bộ trống acoustic Tama Rhythm Mate 5 mảnh — lựa chọn phổ biến cho người mới.',specs:{'Hãng':'Tama (Nhật Bản)','Loại':'Trống acoustic 5 mảnh','Bass drum':'22" × 16"','Tom 1':'10" × 7"','Tom 2':'12" × 8"','Floor tom':'16" × 15"','Snare':'14" × 5.5"','Vật liệu':'Poplar'},features:['Bộ 5 mảnh đầy đủ cho người mới','Hardware chắc chắn, bền bỉ','Học tập và biểu diễn nhỏ','Chất lượng Tama Nhật Bản','Bảo hành chính hãng 3 năm']},
   'pearl-roadshow':{name:'Pearl Roadshow',brand:'Pearl',brandKey:'pearl',cat:'drums',type:'Trống acoustic · 5 mảnh',price:'14.500.000đ',old:'17.000.000đ',images:imgs(IMG.drumsAcoustic),short:'Bộ trống Pearl Roadshow 5 mảnh — chất lượng ổn định từ thương hiệu trống số 1 thế giới.',specs:{'Hãng':'Pearl (Nhật Bản)','Loại':'Trống acoustic 5 mảnh','Bass drum':'22" × 16"','Tom 1':'10" × 8"','Tom 2':'12" × 9"','Floor tom':'16" × 16"','Snare':'14" × 5.5"','Vật liệu':'Poplar'},features:['Hardware Pearl chắc chắn','Bộ 5 mảnh đầy đủ','Biểu diễn sân khấu nhỏ','Thương hiệu trống số 1 thế giới','Bảo hành chính hãng 3 năm']},
   'yamaha-stage':{name:'Yamaha Stage Custom',brand:'Yamaha',brandKey:'yamaha',cat:'drums',type:'Trống acoustic · Birch',price:'19.500.000đ',old:'23.000.000đ',images:imgs(IMG.drumsAcoustic),short:'Bộ trống Yamaha Stage Custom — gỗ Birch cao cấp, âm thanh chuyên nghiệp cho biểu diễn và thu âm.',specs:{'Hãng':'Yamaha (Nhật Bản)','Loại':'Trống acoustic 5 mảnh','Bass drum':'22" × 17"','Tom 1':'10" × 7"','Tom 2':'12" × 8"','Floor tom':'16" × 15"','Snare':'14" × 5.5"','Vật liệu':'Birch 6 lớp'},features:['Gỗ Birch âm thanh tươi sáng','Hardware Yamaha chắc chắn','Sân khấu và phòng thu','Chất lượng chuyên nghiệp','Bảo hành chính hãng 3 năm']},
   'pearl-export':{name:'Pearl Export EXX',brand:'Pearl',brandKey:'pearl',cat:'drums',type:'Trống acoustic · 5 mảnh',price:'22.500.000đ',old:'',images:imgs(IMG.drumsAcoustic),short:'Pearl Export EXX — dòng trống huyền thoại, âm thanh mạnh mẽ, chuyên nghiệp.',specs:{'Hãng':'Pearl (Nhật Bản)','Loại':'Trống acoustic 5 mảnh','Bass drum':'22" × 18"','Tom 1':'10" × 7"','Tom 2':'12" × 8"','Floor tom':'16" × 16"','Snare':'14" × 5.5"','Vật liệu':'Poplar/Mahogany 6 lớp'},features:['Dòng trống huyền thoại Pearl','Âm thanh mạnh mẽ, uy lực','Hardware 830 series','Biểu diễn chuyên nghiệp','Bảo hành chính hãng 3 năm']},
-
-  // ===== TRỐNG ĐIỆN =====
   'roland-td1k':{name:'Roland TD-1K',brand:'Roland',brandKey:'roland',cat:'drums',type:'Trống điện · V-Drums',price:'11.500.000đ',old:'13.500.000đ',images:imgs(IMG.drumsElectric),short:'Trống điện Roland TD-1K — dùng tai nghe chơi đêm không làm phiền hàng xóm.',specs:{'Hãng':'Roland (Nhật Bản)','Loại':'Trống điện V-Drums','Số pad':'5 pad','Snare':'Pad lưới Mesh','Hi-hat':'Pedal điều khiển','Bộ âm thanh':'15 bộ V-Drums','Kết nối':'Headphone, AUX, MIDI','Phù hợp':'Người mới, chung cư'},features:['Chơi đêm với tai nghe','Pad lưới snare cảm ứng tốt','Nhiều bộ âm thanh Roland','Coach Mode học trống','Bảo hành chính hãng 3 năm']},
   'alesis-nitro':{name:'Alesis Nitro Mesh',brand:'Alesis',brandKey:'alesis',cat:'drums',type:'Trống điện · Mesh pad',price:'8.500.000đ',old:'10.000.000đ',images:imgs(IMG.drumsElectric),short:'Bộ trống điện Alesis Nitro Mesh — pad lưới mesh cao cấp giá rẻ nhất phân khúc.',specs:{'Hãng':'Alesis (Mỹ)','Loại':'Trống điện Mesh','Số pad':'8 pad (tất cả Mesh)','Snare':'Dual-zone mesh','Bộ âm thanh':'40 kits, 385 sounds','Kết nối':'USB MIDI, Headphone','Phù hợp':'Học tập tại nhà','Bảo hành':'3 năm'},features:['Toàn bộ pad lưới Mesh cao cấp','385 âm thanh, 40 bộ kit','Kết nối USB MIDI với máy tính','Chế độ học tập & Metronome','Bảo hành chính hãng 3 năm']}
 };
@@ -2323,9 +1267,7 @@ function getOrders(){
   try{
     _ordersCache = JSON.parse(localStorage.getItem(ORDER_KEY) || '[]');
     if(!Array.isArray(_ordersCache)) _ordersCache = [];
-  }catch(e){
-    _ordersCache = [];
-  }
+  }catch(e){ _ordersCache = []; }
   return _ordersCache;
 }
 
@@ -2346,31 +1288,17 @@ function updateOrderBadge(){
 function seedDemoOrder(){
   if(_seedChecked) return;
   _seedChecked = true;
-
   try{
     if(localStorage.getItem(SEED_FLAG)) return;
     localStorage.setItem(SEED_FLAG, '1');
   }catch(e){}
-
   if(getOrders().length > 0) return;
-
   const demo = {
-    code: '#GW-DEMO01',
-    createdAt: Date.now() - 3600000,
-    name: 'Khách hàng demo',
-    phone: '0385 730 766',
-    address: 'Quận 1, TP.HCM',
-    note: 'Giao giờ hành chính',
-    distance: '8 km',
-    feeText: 'Miễn phí',
-    feeFree: true,
+    code: '#GW-DEMO01', createdAt: Date.now() - 3600000,
+    name: 'Khách hàng demo', phone: '0385 730 766', address: 'Quận 1, TP.HCM',
+    note: 'Giao giờ hành chính', distance: '8 km', feeText: 'Miễn phí', feeFree: true,
     mapUrl: 'https://www.google.com/maps/search/?api=1&query=Quận+1,+TP.HCM',
-    product: {
-      id: 'yamaha-p45',
-      name: 'Yamaha P-45',
-      price: '11.500.000đ',
-      image: IMG.pianoDigital[0]
-    },
+    product: { id: 'yamaha-p45', name: 'Yamaha P-45', price: '11.500.000đ', image: IMG.pianoDigital[0] },
     status: 2
   };
   saveOrders([demo]);
@@ -2383,9 +1311,6 @@ const ORDER_STEPS = [
   {icon:'🏠', label:'Đã giao thành công'}
 ];
 
-/* ============================================================
-   SYSTEM WEBHOOK
-   ============================================================ */
 const SYSTEM_WEBHOOK = 'https://example.com/api/gewon/orders';
 
 function sendOrderToSystem(order){
@@ -2394,31 +1319,22 @@ function sendOrderToSystem(order){
     customer: { name: order.name, phone: order.phone, address: order.address, note: order.note || '' },
     product: order.product ? { id: order.product.id, name: order.product.name, price: order.product.price } : null,
     shipping: { distance: order.distance, fee: order.feeText, free: order.feeFree },
-    status: 'Đang giao đến bạn',
-    channel: 'website',
-    source: 'Gewon Music Web Demo',
-    created_at: new Date(order.createdAt).toISOString(),
-    sent_at: new Date().toISOString()
+    status: 'Đang giao đến bạn', channel: 'website', source: 'Gewon Music Web Demo',
+    created_at: new Date(order.createdAt).toISOString(), sent_at: new Date().toISOString()
   };
-
   console.log('%c[Gewon System] 📤 Đã gửi đơn hàng về hệ thống:', 'color:#f5a524;font-weight:700', payload);
-
   try {
     const logs = JSON.parse(localStorage.getItem(LOG_KEY) || '[]');
     logs.unshift(payload);
     localStorage.setItem(LOG_KEY, JSON.stringify(logs.slice(0, 50)));
   } catch(e){}
-
   try {
     fetch(SYSTEM_WEBHOOK, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
+      method: 'POST', headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(payload)
     }).then(res => console.log('[Gewon System] Webhook status:', res.status))
-      .catch(err => console.warn('[Gewon System] Webhook không khả dụng (bình thường trong demo):', err.message));
-  } catch(e){
-    console.warn('[Gewon System] fetch không khả dụng:', e);
-  }
+      .catch(err => console.warn('[Gewon System] Webhook không khả dụng:', err.message));
+  } catch(e){}
   return payload;
 }
 
@@ -2432,20 +1348,16 @@ let pendingProduct = null;
 function go(view, push=true){
   const valid = ['home','piano','guitar','drums','detail','contact','shipping','warranty','success','orders','test'];
   if(!valid.includes(view)) view = 'home';
-
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
   const el = document.getElementById('view-'+view);
   if(el) el.classList.add('active');
-
   document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
   const navEl = document.querySelector(`.nav-links a[data-nav="${view}"]`);
   if(navEl) navEl.classList.add('active');
-
   currentView = view;
   if(view === 'orders') renderOrders();
   if(view === 'shipping') renderPendingProduct();
   if(view === 'test') initTestViewOnce();
-
   if(push && view !== 'detail' && view !== 'success'){
     if(history_[history_.length-1] !== view) history_.push(view);
     if(history_.length > 20) history_.shift();
@@ -2462,9 +1374,7 @@ function goBack(){
 
 window.addEventListener('hashchange', ()=>{
   const h = location.hash.replace('#','');
-  if(h && h !== currentView && h !== 'detail' && h !== 'success'){
-    go(h, false);
-  }
+  if(h && h !== currentView && h !== 'detail' && h !== 'success') go(h, false);
 });
 
 /* ============================================================
@@ -2520,7 +1430,6 @@ function openDetail(id){
   const p = DB[id];
   if(!p) return;
   currentId = id;
-
   const main = document.getElementById('gallery-main');
   main.innerHTML = p.images.map((src,i)=>
     `<img src="${src}" class="${i===0?'active':''}" alt="${p.name}" onerror="imgFail(this)">`
@@ -2529,7 +1438,6 @@ function openDetail(id){
   thumbs.innerHTML = p.images.map((src,i)=>
     `<div class="thumb ${i===0?'active':''}" onclick="switchImg(${i})"><img src="${src}" alt="" onerror="imgFail(this)"></div>`
   ).join('');
-
   document.getElementById('d-brand').textContent = p.brand.toUpperCase() + ' · ' + p.type;
   document.getElementById('d-name').textContent = p.name;
   document.getElementById('d-price').textContent = p.price;
@@ -2537,7 +1445,6 @@ function openDetail(id){
   document.getElementById('d-short').textContent = p.short;
   document.getElementById('d-specs').innerHTML = Object.entries(p.specs).map(([k,v])=>`<div class="spec-row"><dt>${k}</dt><dd>${v}</dd></div>`).join('');
   document.getElementById('d-features').innerHTML = p.features.map(f=>`<li>${f}</li>`).join('');
-
   go('detail');
 }
 
@@ -2583,22 +1490,14 @@ function updateMapFromAddress(address){
   if(!frame) return;
   const query = encodeURIComponent(address);
   frame.src = `https://maps.google.com/maps?q=${query}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
-
   const fakeKm = Math.min(30, Math.max(1, Math.round(address.length / 3)));
   const feeBox = document.getElementById('ship-fee-box');
   const feeEl = document.getElementById('ship-fee');
   const distEl = document.getElementById('ship-distance');
-
   lastDistance = fakeKm + ' km';
-  if(fakeKm <= 10){
-    lastFee = {text:'Miễn phí', free:true};
-  } else if(fakeKm <= 20){
-    const fee = (fakeKm - 10) * 10000;
-    lastFee = {text: fee.toLocaleString('vi-VN') + 'đ', free:false};
-  } else {
-    lastFee = {text:'Liên hệ', free:false};
-  }
-
+  if(fakeKm <= 10){ lastFee = {text:'Miễn phí', free:true}; }
+  else if(fakeKm <= 20){ const fee = (fakeKm - 10) * 10000; lastFee = {text: fee.toLocaleString('vi-VN') + 'đ', free:false}; }
+  else { lastFee = {text:'Liên hệ', free:false}; }
   if(feeBox && feeEl && distEl){
     feeBox.style.display = 'block';
     distEl.textContent = lastDistance;
@@ -2612,37 +1511,27 @@ function confirmShipping(){
   const phone = (document.getElementById('ship-phone')?.value || '').trim();
   const address = (document.getElementById('ship-address')?.value || '').trim();
   const note = (document.getElementById('ship-note')?.value || '').trim();
-
   if(!name || !phone || !address){
     alert('Vui lòng điền đầy đủ Họ tên, Số điện thoại và Địa chỉ!');
     return;
   }
-
   if(!lastDistance) updateMapFromAddress(address);
-
   const coordsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
   const code = '#GW-' + Math.floor(100000 + Math.random()*900000);
-
   const order = {
     code, createdAt: Date.now(),
     name, phone, address, note,
     distance: lastDistance || '—',
     feeText: lastFee ? lastFee.text : 'Miễn phí',
     feeFree: lastFee ? lastFee.free : true,
-    mapUrl: coordsUrl,
-    product: pendingProduct,
-    status: 2
+    mapUrl: coordsUrl, product: pendingProduct, status: 2
   };
-
   const list = getOrders();
   list.unshift(order);
   saveOrders(list);
-
   sendOrderToSystem(order);
-
   pendingProduct = null;
   renderPendingProduct();
-
   document.getElementById('s-name').textContent = name;
   document.getElementById('s-phone').textContent = phone;
   document.getElementById('s-address').textContent = address;
@@ -2652,31 +1541,26 @@ function confirmShipping(){
   sFee.textContent = order.feeText;
   sFee.className = order.feeFree ? 'fee-free' : '';
   document.getElementById('s-code').textContent = code;
-
   document.getElementById('ship-name').value = '';
   document.getElementById('ship-phone').value = '';
   document.getElementById('ship-address').value = '';
   document.getElementById('ship-note').value = '';
   document.getElementById('ship-fee-box').style.display = 'none';
   lastDistance = null; lastFee = null;
-
   history_.push('shipping');
   go('success');
   history_.push('success');
-
   setTimeout(()=>notifyCustomerOrderReceived(order), 500);
 }
 
 function notifyCustomerOrderReceived(order){
   ensureChatOpen();
   const body = document.getElementById('chat-body');
-
   const sys = document.createElement('div');
   sys.className = 'msg system';
   sys.textContent = `📡 Thông tin đơn hàng ${order.code} đã được gửi đến hệ thống Gewon Music.`;
   body.appendChild(sys);
   body.scrollTop = body.scrollHeight;
-
   setTimeout(()=>{
     const typing = addMsg('Đang xử lý...', 'bot typing');
     setTimeout(()=>{
@@ -2690,7 +1574,7 @@ Cảm ơn ${order.name} đã tin tưởng Gewon Music 🎵
 📊 Trạng thái hiện tại: Đang giao đến bạn.
 📍 Giao đến: ${order.address}
 
-Bạn có thể yên tâm — đơn hàng đang được xử lý. Theo dõi trạng thái bất cứ lúc nào bằng cách nhấn vào mục "📊 Trạng thái đơn hàng" trên thanh menu nhé!`;
+Bạn có thể yên tâm — đơn hàng đang được xử lý. Theo dõi trạng thái bất cứ lúc nào ở mục "📊 Trạng thái đơn hàng" trên menu nhé!`;
       addMsg(txt, 'bot');
     }, 900);
   }, 400);
@@ -2703,7 +1587,6 @@ function renderOrders(){
   const list = document.getElementById('orders-list');
   if(!list) return;
   const orders = getOrders();
-
   if(orders.length === 0){
     list.innerHTML = `
       <div class="orders-empty">
@@ -2714,14 +1597,12 @@ function renderOrders(){
       </div>`;
     return;
   }
-
   list.innerHTML = orders.map(o => orderCardHTML(o)).join('');
 }
 
 function orderCardHTML(o){
   const status = (o.status ?? 2);
   const statusText = ORDER_STEPS[status].label;
-
   const timeline = ORDER_STEPS.map((s,i)=>{
     let cls = '';
     if(i < status) cls = 'done';
@@ -2731,7 +1612,6 @@ function orderCardHTML(o){
       <div class="tl-label">${s.label}</div>
     </div>`;
   }).join('');
-
   const productHTML = o.product ? `
     <div class="order-product">
       <img src="${o.product.image}" alt="" onerror="imgFail(this)">
@@ -2740,18 +1620,14 @@ function orderCardHTML(o){
         ${o.product.price ? `<span>${o.product.price}</span>` : ''}
       </div>
     </div>` : '';
-
   const date = new Date(o.createdAt).toLocaleString('vi-VN', {
-    day:'2-digit', month:'2-digit', year:'numeric',
-    hour:'2-digit', minute:'2-digit'
+    day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit'
   });
-
   const canCancel = status < 3;
   const actionsHTML = canCancel ? `
     <div class="order-actions">
       <button class="btn-cancel" onclick="cancelOrder('${o.code}')">❌ Hủy đơn hàng</button>
     </div>` : '';
-
   return `
     <div class="order-card">
       <div class="order-head">
@@ -2791,7 +1667,6 @@ function cancelOrder(code){
 function showCancelConfirm(code){
   const old = document.getElementById('cancel-modal');
   if(old) old.remove();
-
   const overlay = document.createElement('div');
   overlay.id = 'cancel-modal';
   overlay.innerHTML = `
@@ -2806,7 +1681,6 @@ function showCancelConfirm(code){
     </div>
   `;
   document.body.appendChild(overlay);
-
   document.getElementById('cancel-no').onclick = () => overlay.remove();
   document.getElementById('cancel-yes').onclick = () => {
     overlay.remove();
@@ -2820,24 +1694,19 @@ function doCancelOrder(code){
   const idx = orders.findIndex(o => o.code === code);
   if(idx === -1) return;
   const o = orders[idx];
-
   orders.splice(idx, 1);
   saveOrders(orders);
-
   try {
     fetch(SYSTEM_WEBHOOK, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
+      method: 'POST', headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
-        order_code: o.code,
-        action: 'cancel',
+        order_code: o.code, action: 'cancel',
         customer: { name: o.name, phone: o.phone },
         product: o.product ? { id: o.product.id, name: o.product.name } : null,
         cancelled_at: new Date().toISOString()
       })
     }).catch(()=>{});
   } catch(e){}
-
   ensureChatOpen();
   addMsg(`Tôi muốn hủy đơn hàng ${code}`, 'user');
   const typing = addMsg('Đang xử lý...', 'bot typing');
@@ -2847,9 +1716,8 @@ function doCancelOrder(code){
     const tail = remain === 0
       ? `\n\n📭 Hiện tại bạn không còn đơn hàng nào trong hệ thống.`
       : `\n\n📦 Bạn còn ${remain} đơn hàng khác.`;
-    addMsg(`❌ Đơn hàng ${code} đã được hủy và xóa khỏi danh sách đơn hàng.\n\n📌 Lưu ý:\n• Đơn hàng đã dừng giao\n• Nếu đã thanh toán, khoản hoàn tiền sẽ được xử lý trong 3-5 ngày làm việc\n• Bạn có thể đặt lại bất cứ lúc nào${tail}\n\nCảm ơn bạn đã thông báo sớm! 🍋`, 'bot');
+    addMsg(`❌ Đơn hàng ${code} đã được hủy và xóa khỏi danh sách.\n\n📌 Lưu ý:\n• Đơn hàng đã dừng giao\n• Nếu đã thanh toán, khoản hoàn tiền sẽ được xử lý trong 3-5 ngày làm việc\n• Bạn có thể đặt lại bất cứ lúc nào${tail}\n\nCảm ơn bạn đã thông báo sớm! 🍋`, 'bot');
   }, 700);
-
   renderOrders();
   updateOrderBadge();
 }
@@ -2861,30 +1729,22 @@ let _audioCtx = null;
 function getAudioCtx(){
   if(!_audioCtx){
     try{ _audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
-    catch(e){ console.warn('[Test] Web Audio không khả dụng:', e); return null; }
+    catch(e){ return null; }
   }
   if(_audioCtx.state === 'suspended') _audioCtx.resume();
   return _audioCtx;
 }
 
 const NOTES = [
-  {name:'C',  label:'Đô',  freq:261.63},
-  {name:'D',  label:'Rê',  freq:293.66},
-  {name:'E',  label:'Mi',  freq:329.63},
-  {name:'F',  label:'Fa',  freq:349.23},
-  {name:'G',  label:'Sol', freq:392.00},
-  {name:'A',  label:'La',  freq:440.00},
-  {name:'B',  label:'Si',  freq:493.88},
-  {name:'C5', label:'Đô',  freq:523.25}
+  {name:'C', label:'Đô', freq:261.63}, {name:'D', label:'Rê', freq:293.66},
+  {name:'E', label:'Mi', freq:329.63}, {name:'F', label:'Fa', freq:349.23},
+  {name:'G', label:'Sol', freq:392.00}, {name:'A', label:'La', freq:440.00},
+  {name:'B', label:'Si', freq:493.88}, {name:'C5', label:'Đô', freq:523.25}
 ];
 
 const GUITAR_STRINGS = [
-  {name:'E4', freq:329.63},
-  {name:'B3', freq:246.94},
-  {name:'G3', freq:196.00},
-  {name:'D3', freq:146.83},
-  {name:'A2', freq:110.00},
-  {name:'E2', freq:82.41}
+  {name:'E4', freq:329.63}, {name:'B3', freq:246.94}, {name:'G3', freq:196.00},
+  {name:'D3', freq:146.83}, {name:'A2', freq:110.00}, {name:'E2', freq:82.41}
 ];
 
 let currentInstrument = 'piano';
@@ -2900,22 +1760,14 @@ function playPianoTone(freq, dur, vol){
   master.gain.exponentialRampToValueAtTime(vol, now + 0.008);
   master.gain.exponentialRampToValueAtTime(0.0001, now + dur);
   master.connect(ctx.destination);
-
-  const harmonics = [
-    {mult:1, type:'triangle', gain:1.0},
-    {mult:2, type:'sine',     gain:0.35},
-    {mult:3, type:'sine',     gain:0.18},
-    {mult:4, type:'sine',     gain:0.08}
-  ];
-  harmonics.forEach(h=>{
+  [{mult:1, type:'triangle', gain:1.0},{mult:2, type:'sine', gain:0.35},{mult:3, type:'sine', gain:0.18},{mult:4, type:'sine', gain:0.08}].forEach(h=>{
     const osc = ctx.createOscillator();
     const g = ctx.createGain();
     osc.type = h.type;
     osc.frequency.value = freq * h.mult;
     g.gain.value = h.gain;
     osc.connect(g).connect(master);
-    osc.start(now);
-    osc.stop(now + dur);
+    osc.start(now); osc.stop(now + dur);
   });
 }
 
@@ -2924,26 +1776,20 @@ function playBassTone(freq, dur, vol){
   vol = (typeof vol === 'number') ? vol : 0.16;
   const ctx = getAudioCtx(); if(!ctx) return;
   const now = ctx.currentTime;
-
   const master = ctx.createGain();
   master.gain.setValueAtTime(0.0001, now);
   master.gain.exponentialRampToValueAtTime(vol, now + 0.015);
   master.gain.exponentialRampToValueAtTime(0.0001, now + dur);
   master.connect(ctx.destination);
-
   const osc = ctx.createOscillator();
   osc.type = 'triangle';
   osc.frequency.value = freq;
-  const g = ctx.createGain();
-  g.gain.value = 1.0;
+  const g = ctx.createGain(); g.gain.value = 1.0;
   osc.connect(g).connect(master);
   osc.start(now); osc.stop(now + dur);
-
   const osc2 = ctx.createOscillator();
-  osc2.type = 'sine';
-  osc2.frequency.value = freq * 2;
-  const g2 = ctx.createGain();
-  g2.gain.value = 0.25;
+  osc2.type = 'sine'; osc2.frequency.value = freq * 2;
+  const g2 = ctx.createGain(); g2.gain.value = 0.25;
   osc2.connect(g2).connect(master);
   osc2.start(now); osc2.stop(now + dur);
 }
@@ -2955,8 +1801,7 @@ function playGuitarTone(freq, dur){
   const osc = ctx.createOscillator();
   const filter = ctx.createBiquadFilter();
   const gain = ctx.createGain();
-  osc.type = 'sawtooth';
-  osc.frequency.value = freq;
+  osc.type = 'sawtooth'; osc.frequency.value = freq;
   filter.type = 'lowpass';
   filter.frequency.setValueAtTime(3500, now);
   filter.frequency.exponentialRampToValueAtTime(900, now + dur);
@@ -2965,13 +1810,10 @@ function playGuitarTone(freq, dur){
   gain.gain.exponentialRampToValueAtTime(0.28, now + 0.005);
   gain.gain.exponentialRampToValueAtTime(0.0001, now + dur);
   osc.connect(filter).connect(gain).connect(ctx.destination);
-  osc.start(now);
-  osc.stop(now + dur);
-
+  osc.start(now); osc.stop(now + dur);
   const osc2 = ctx.createOscillator();
   const g2 = ctx.createGain();
-  osc2.type = 'sine';
-  osc2.frequency.value = freq * 2;
+  osc2.type = 'sine'; osc2.frequency.value = freq * 2;
   g2.gain.setValueAtTime(0.0001, now);
   g2.gain.exponentialRampToValueAtTime(0.06, now + 0.005);
   g2.gain.exponentialRampToValueAtTime(0.0001, now + dur * 0.7);
@@ -2982,14 +1824,12 @@ function playGuitarTone(freq, dur){
 function playDrumSound(type){
   const ctx = getAudioCtx(); if(!ctx) return;
   const now = ctx.currentTime;
-
   function noiseBuffer(seconds){
     const buf = ctx.createBuffer(1, Math.floor(ctx.sampleRate * seconds), ctx.sampleRate);
     const d = buf.getChannelData(0);
     for(let i=0;i<d.length;i++) d[i] = Math.random() * 2 - 1;
     return buf;
   }
-
   if(type === 'kick'){
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
@@ -2999,20 +1839,16 @@ function playDrumSound(type){
     gain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
     osc.connect(gain).connect(ctx.destination);
     osc.start(now); osc.stop(now + 0.45);
-  }
-  else if(type === 'snare'){
+  } else if(type === 'snare'){
     const noise = ctx.createBufferSource();
     noise.buffer = noiseBuffer(0.3);
     const filter = ctx.createBiquadFilter();
-    filter.type = 'bandpass';
-    filter.frequency.value = 1800;
-    filter.Q.value = 0.9;
+    filter.type = 'bandpass'; filter.frequency.value = 1800; filter.Q.value = 0.9;
     const gain = ctx.createGain();
     gain.gain.setValueAtTime(0.5, now);
     gain.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
     noise.connect(filter).connect(gain).connect(ctx.destination);
     noise.start(now); noise.stop(now + 0.3);
-
     const osc = ctx.createOscillator();
     const g2 = ctx.createGain();
     osc.frequency.value = 190;
@@ -3020,20 +1856,17 @@ function playDrumSound(type){
     g2.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
     osc.connect(g2).connect(ctx.destination);
     osc.start(now); osc.stop(now + 0.15);
-  }
-  else if(type === 'hihat'){
+  } else if(type === 'hihat'){
     const noise = ctx.createBufferSource();
     noise.buffer = noiseBuffer(0.08);
     const filter = ctx.createBiquadFilter();
-    filter.type = 'highpass';
-    filter.frequency.value = 7000;
+    filter.type = 'highpass'; filter.frequency.value = 7000;
     const gain = ctx.createGain();
     gain.gain.setValueAtTime(0.25, now);
     gain.gain.exponentialRampToValueAtTime(0.001, now + 0.07);
     noise.connect(filter).connect(gain).connect(ctx.destination);
     noise.start(now); noise.stop(now + 0.08);
-  }
-  else if(type === 'tom'){
+  } else if(type === 'tom'){
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
     osc.frequency.setValueAtTime(200, now);
@@ -3042,26 +1875,21 @@ function playDrumSound(type){
     gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
     osc.connect(gain).connect(ctx.destination);
     osc.start(now); osc.stop(now + 0.35);
-  }
-  else if(type === 'crash'){
+  } else if(type === 'crash'){
     const noise = ctx.createBufferSource();
     noise.buffer = noiseBuffer(1.2);
     const filter = ctx.createBiquadFilter();
-    filter.type = 'highpass';
-    filter.frequency.value = 4500;
+    filter.type = 'highpass'; filter.frequency.value = 4500;
     const gain = ctx.createGain();
     gain.gain.setValueAtTime(0.35, now);
     gain.gain.exponentialRampToValueAtTime(0.001, now + 1.1);
     noise.connect(filter).connect(gain).connect(ctx.destination);
     noise.start(now); noise.stop(now + 1.2);
-  }
-  else if(type === 'ride'){
+  } else if(type === 'ride'){
     const noise = ctx.createBufferSource();
     noise.buffer = noiseBuffer(0.9);
     const filter = ctx.createBiquadFilter();
-    filter.type = 'highpass';
-    filter.frequency.value = 5500;
-    filter.Q.value = 2;
+    filter.type = 'highpass'; filter.frequency.value = 5500; filter.Q.value = 2;
     const gain = ctx.createGain();
     gain.gain.setValueAtTime(0.22, now);
     gain.gain.exponentialRampToValueAtTime(0.001, now + 0.8);
@@ -3082,27 +1910,17 @@ function renderTestKeys(){
 }
 
 function testPlayNote(i){
-  const n = NOTES[i];
-  if(!n) return;
+  const n = NOTES[i]; if(!n) return;
   playPianoTone(n.freq);
-
   const key = document.querySelector(`.test-key[data-note="${i}"]`);
-  if(key){
-    key.classList.add('pressed');
-    setTimeout(()=>key.classList.remove('pressed'), 140);
-  }
+  if(key){ key.classList.add('pressed'); setTimeout(()=>key.classList.remove('pressed'), 140); }
 }
 
 function playGuitarString(index){
-  const s = GUITAR_STRINGS[index];
-  if(!s) return;
+  const s = GUITAR_STRINGS[index]; if(!s) return;
   playGuitarTone(s.freq, 2.0);
-
   const str = document.querySelectorAll('.guitar-string')[index];
-  if(str){
-    str.classList.add('vibrating');
-    setTimeout(()=>str.classList.remove('vibrating'), 400);
-  }
+  if(str){ str.classList.add('vibrating'); setTimeout(()=>str.classList.remove('vibrating'), 400); }
 }
 
 function testGuitarDemo(){
@@ -3115,26 +1933,19 @@ function testGuitarDemo(){
 
 function hitDrum(type, btn){
   playDrumSound(type);
-  if(btn){
-    btn.classList.add('pressed');
-    setTimeout(()=>btn.classList.remove('pressed'), 130);
-  }
+  if(btn){ btn.classList.add('pressed'); setTimeout(()=>btn.classList.remove('pressed'), 130); }
 }
 
 function switchInstrument(inst, btn){
   currentInstrument = inst;
-
   document.querySelectorAll('.test-tab').forEach(t=>t.classList.remove('active'));
   if(btn) btn.classList.add('active');
-
-  const panelPiano  = document.getElementById('test-panel-piano');
+  const panelPiano = document.getElementById('test-panel-piano');
   const panelGuitar = document.getElementById('test-panel-guitar');
-  const panelDrums  = document.getElementById('test-panel-drums');
-
-  panelPiano.style.display  = inst === 'piano'  ? 'block' : 'none';
+  const panelDrums = document.getElementById('test-panel-drums');
+  panelPiano.style.display = inst === 'piano' ? 'block' : 'none';
   panelGuitar.style.display = inst === 'guitar' ? 'block' : 'none';
-  panelDrums.style.display  = inst === 'drums'  ? 'block' : 'none';
-
+  panelDrums.style.display = inst === 'drums' ? 'block' : 'none';
   stopDemo();
 }
 
@@ -3145,19 +1956,12 @@ function stopDemo(){
 
 function testPlayDemo(){
   stopDemo();
-
-  const Q = 1000;
-  const E = 500;
-  const H = 2000;
-  const DH = 3000;
-  const BAR = 4 * Q;
-
+  const Q = 1000, E = 500, H = 2000, DH = 3000, BAR = 4 * Q;
   const N = {
     C3:130.81, D3:146.83, E3:164.81, F3:174.61, G3:196.00, A3:220.00, B3:246.94,
     C4:261.63, D4:293.66, E4:329.63, F4:349.23, G4:392.00, A4:440.00, B4:493.88,
     C5:523.25, D5:587.33, E5:659.25
   };
-
   const song = [
     {melody:[[0,N.E4,E],[E,N.D4,E],[2*E,N.C4,E],[3*E,N.D4,E],[2*Q,N.E4,Q],[3*Q,N.D4,E],[3*Q+E,N.C4,E]],bass:[[0,N.C3,H],[H,N.G3,H]]},
     {melody:[[0,N.D4,E],[E,N.E4,E],[2*E,N.D4,E],[3*E,N.C4,E],[2*Q,N.D4,DH]],bass:[[0,N.B3,H],[H,N.D3,H]]},
@@ -3176,7 +1980,6 @@ function testPlayDemo(){
     {melody:[[0,N.D4,E],[E,N.E4,E],[2*E,N.F4,E],[3*E,N.E4,E],[2*Q,N.D4,Q],[3*Q,N.C4,E],[3*Q+E,N.B3,E]],bass:[[0,N.D3,H],[H,N.A3,H]]},
     {melody:[[0,N.G4,E],[E,N.A4,E],[2*E,N.B4,E],[3*E,N.C5,H],[3*Q+E,N.C5,E]],bass:[[0,N.G3,Q],[Q,N.B3,Q],[2*Q,N.C3,H]]}
   ];
-
   let barStart = 0;
   song.forEach(bar => {
     bar.melody.forEach(([off, freq, dur]) => {
@@ -3192,11 +1995,8 @@ function testPlayDemo(){
     });
     barStart += BAR;
   });
-
   demoTimeouts.push(setTimeout(() => {
-    [N.C3, N.C4, N.E4, N.G4, N.C5].forEach(f => {
-      playPianoTone(f, 4.5, 0.13);
-    });
+    [N.C3, N.C4, N.E4, N.G4, N.C5].forEach(f => playPianoTone(f, 4.5, 0.13));
     playBassTone(N.C3, 4.5, 0.18);
   }, barStart + 300));
 }
@@ -3205,10 +2005,7 @@ function highlightKeyByFreq(freq){
   const idx = NOTES.findIndex(n => Math.abs(n.freq - freq) < 1);
   if(idx < 0) return;
   const key = document.querySelector(`.test-key[data-note="${idx}"]`);
-  if(key){
-    key.classList.add('pressed');
-    setTimeout(()=>key.classList.remove('pressed'), 140);
-  }
+  if(key){ key.classList.add('pressed'); setTimeout(()=>key.classList.remove('pressed'), 140); }
 }
 
 function testPlayScale(){
@@ -3231,20 +2028,17 @@ function testPlayScale(){
 function testDrumDemo(){
   stopDemo();
   const pattern = [
-    {s:'kick',  t:0},   {s:'hihat', t:0},
+    {s:'kick', t:0}, {s:'hihat', t:0},
     {s:'hihat', t:200}, {s:'snare', t:400}, {s:'hihat', t:400},
-    {s:'hihat', t:600}, {s:'kick',  t:800}, {s:'hihat', t:800},
-    {s:'hihat', t:1000},{s:'snare', t:1200},{s:'hihat', t:1200},
-    {s:'hihat', t:1400},{s:'kick',  t:1600},{s:'crash', t:1600}
+    {s:'hihat', t:600}, {s:'kick', t:800}, {s:'hihat', t:800},
+    {s:'hihat', t:1000}, {s:'snare', t:1200}, {s:'hihat', t:1200},
+    {s:'hihat', t:1400}, {s:'kick', t:1600}, {s:'crash', t:1600}
   ];
   pattern.forEach(p=>{
     demoTimeouts.push(setTimeout(()=>{
       playDrumSound(p.s);
       const pad = document.querySelector(`.drum-piece[data-drum="${p.s}"]`);
-      if(pad){
-        pad.classList.add('pressed');
-        setTimeout(()=>pad.classList.remove('pressed'), 110);
-      }
+      if(pad){ pad.classList.add('pressed'); setTimeout(()=>pad.classList.remove('pressed'), 110); }
     }, p.t));
   });
 }
@@ -3253,18 +2047,14 @@ document.addEventListener('keydown', (e)=>{
   if(currentView !== 'test') return;
   if(e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
   if(e.repeat) return;
-
   const k = e.key.toLowerCase();
-
   if(currentInstrument === 'piano' && '12345678'.includes(k)){
-    const idx = parseInt(k,10) - 1;
-    testPlayNote(idx);
+    testPlayNote(parseInt(k,10) - 1);
     e.preventDefault();
     return;
   }
   if(currentInstrument === 'guitar' && '123456'.includes(k)){
-    const idx = parseInt(k,10) - 1;
-    playGuitarString(idx);
+    playGuitarString(parseInt(k,10) - 1);
     e.preventDefault();
     return;
   }
@@ -3287,17 +2077,57 @@ function initTestViewOnce(){
 }
 
 /* ============================================================
-   CHATBOT
+   CHATBOT — ChanhNgot🍋 V3
+   Người bạn thân thiện, vui vẻ, tâm sự đủ chủ đề
    ============================================================ */
 let isFirstMsg = true, chatOpen = false;
 
-const GREETING = "Chào bạn, mình là ChanhNgot🍋 — trợ lý của Gewon Music.\n\nMình có thể:\n• Mô tả chi tiết sản phẩm\n• Tư vấn theo nhu cầu\n• Kiểm tra trạng thái đơn hàng\n• Giải thích chính sách bảo hành 3 năm\n\nBạn cần gì ạ?";
+const GREETING = "Chào bạn! Mình là ChanhNgot🍋 — người bạn nhí nhố của Gewon Music nè!\n\nMình có thể:\n• 🎹🎸🥁 Tư vấn nhạc cụ theo đúng nhu cầu & ngân sách\n• 📦 Kiểm tra đơn hàng, hủy đơn\n• 🛡️ Giải thích bảo hành 3 năm\n• 🎵 Chơi thử nhạc cụ ngay trên web\n• 💛 Tâm sự, kể chuyện cười, tán gẫu đủ thứ trên đời\n\nCứ nhắn tự nhiên như nói chuyện với bạn thân nha! Mình ở đây với bạn 24/7 💕";
+
+const chatMemory = {
+  lastTopic: null,
+  lastProductId: null,
+  msgCount: 0,
+  userName: null,
+  lastBotQuestion: null,
+  pendingYesNo: null
+};
+
+let _recentReplies = [];
+
+function pick(arr){
+  if(!Array.isArray(arr) || arr.length === 0) return '';
+  if(arr.length === 1) return arr[0];
+  for(let i = 0; i < 15; i++){
+    const c = arr[Math.floor(Math.random() * arr.length)];
+    if(!_recentReplies.includes(c)){
+      _recentReplies.push(c);
+      if(_recentReplies.length > 3) _recentReplies.shift();
+      return c;
+    }
+  }
+  const c = arr[Math.floor(Math.random() * arr.length)];
+  _recentReplies.push(c);
+  if(_recentReplies.length > 3) _recentReplies.shift();
+  return c;
+}
+
+function normalize(str){
+  return (str || '').toString().toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/đ/g, 'd');
+}
 
 function findProduct(text){
-  const t = text.toLowerCase();
+  const t = normalize(text);
+  const tCompact = t.replace(/[\s\-_.,!?]/g, '');
   for(const id in DB){
     const p = DB[id];
-    if(t.includes(p.name.toLowerCase())) return {id, p};
+    const nameNorm = normalize(p.name);
+    if(t.includes(nameNorm)) return {id, p};
+    const modelNorm = nameNorm.replace(/[\s\-]/g, '');
+    if(modelNorm.length >= 4 && tCompact.includes(modelNorm)) return {id, p};
   }
   return null;
 }
@@ -3305,70 +2135,399 @@ function findProduct(text){
 function describe(p){
   const specs = Object.entries(p.specs).slice(0,6).map(([k,v])=>`• ${k}: ${v}`).join('\n');
   const feats = p.features.slice(0,4).map(f=>`• ${f}`).join('\n');
-  return `📋 ${p.name} (${p.brand})\n💰 ${p.price}${p.old?` (cũ: ${p.old})`:''}\n\n${p.short}\n\n⚙️ Thông số:\n${specs}\n\n✨ Đặc điểm:\n${feats}\n\nXem chi tiết đầy đủ bằng cách nhấn vào sản phẩm nhé!`;
+  const saving = p.old ? `\n💸 Tiết kiệm: ${p.old} → ${p.price}` : '';
+  return pick([
+    `📋 ${p.name} (${p.brand})\n💰 ${p.price}${p.old?` — đang sale từ ${p.old}`:''}\n\n${p.short}\n\n⚙️ Thông số nổi bật:\n${specs}\n\n✨ Điểm hay:\n${feats}${saving}\n\nBấm vào sản phẩm để xem chi tiết đầy đủ nha! 🎵`,
+    `À ${p.name} hả! Cây này ngon đó nha~ 🍋\n\n💰 Giá: ${p.price}${p.old?` (giá cũ ${p.old})`:''}\n\n${p.short}\n\n⚙️ Sơ lược:\n${specs}\n\n✨ Vì sao nên chọn:\n${feats}\n\nBạn muốn mình so sánh với mẫu khác cùng tầm giá không? 😄`,
+    `🎯 ${p.name} — mẫu này mình tư vấn nhiều lắm!\n\n${p.short}\n\n💰 ${p.price}${p.old?` (tiết kiệm ${p.old})`:''}\n\n⚙️ Thông số:\n${specs}\n\n✨ Đặc điểm:\n${feats}\n\nBạn muốn hỏi thêm gì về em nó không? Mình biết rõ lắm nè! 🎵`,
+    `✨ ${p.name} — lựa chọn đáng cân nhắc đó nha!\n\n${p.short}\n\n💰 ${p.price}${p.old?` (giá gốc ${p.old})`:''}\n\n⚙️ Thông số chính:\n${specs}\n\n🎁 Điểm cộng:\n${feats}\n\nBạn đang cân nhắc em nó cho việc gì? Mình tư vấn thêm nha! 🍋`
+  ]);
 }
 
 function reply(text){
-  const t = text.toLowerCase().trim();
+  const raw = (text || '').trim();
+  const t = normalize(raw);
+  chatMemory.msgCount++;
 
-  if(/(hi|hello|chào|alo|hey)/.test(t) && t.length < 20){
-    return "Chào bạn! 🍋 Mình có thể tư vấn Piano, Guitar, Trống hoặc kiểm tra trạng thái đơn hàng. Bạn cần gì ạ?";
+  /* ===== 0. CÂU TRẢ LỜI NGẮN ===== */
+  if(/^(chua|roi|co|khong|khong co|u|uh|uhm|ok|oke|okay|vang|da|yes|no|nope|yep)\b/.test(t) && t.length <= 12){
+    const prev = chatMemory.lastBotQuestion;
+    if(prev === 'love'){
+      chatMemory.lastBotQuestion = null;
+      if(/^chua|^khong/.test(t)){
+        return pick([
+          "Ồ vậy hả! 🍋 Vậy là bạn đang \"độc thân vui vẻ\" rồi~\n\nMình thì khỏi lo chuyện đó rồi — mình là AI mà 😄 Nhưng mà nếu bạn đang tìm hiểu ai đó, mình có thể gợi ý vài bản nhạc lãng mạn để \"thả thính\" nè! 🎸💕",
+          "Hihi, \"chưa\" hả~ 🍋 Vậy là mình với bạn cùng hội rồi đó!\n\nMình là AI nên yêu đương gì đâu 😆 Nhưng mà kể mình nghe bạn thích mẫu người như thế nào đi, biết đâu mình gợi ý được gì hay ho! 💛",
+          "Chưa có người yêu hả! 🍋 Không sao đâu bạn ơi, độc thân cũng vui mà~\n\nThời gian rảnh bạn có thể học đàn, chơi nhạc — biết đâu lại gặp được người cùng gu âm nhạc! Mình ủng hộ hết mình nha 😄🎵"
+        ]);
+      } else {
+        return pick([
+          "Ồ dữ chưa! 🍋💕 Có người yêu rồi hả, chúc mừng nha!\n\nKể mình nghe chuyện tình của bạn đi, hoặc mình gợi ý vài bản nhạc lãng mạn để bạn chơi tặng người ấy nè! 🎸🎹",
+          "Ui có người yêu rồi hả! 🥰 Hạnh phúc ghê~\n\nNếu người ấy cũng mê nhạc, biết đâu Gewon Music có cây đàn hợp gu đó nha! Mình tư vấn cho 😄🎵"
+        ]);
+      }
+    }
+    if(prev === 'askMore'){
+      chatMemory.lastBotQuestion = null;
+      return pick([
+        "Ok bạn! Vậy mình kể tiếp nha 😄\n\nBạn thích nghe nhạc gì? Pop, ballad, rock hay nhạc không lời?",
+        "Hay đó! Vậy bạn thường làm gì lúc rảnh? Đọc sách, chơi game, hay ngồi nghe nhạc? 🎧",
+        "Vậy hả! Kể mình nghe một chuyện vui của bạn tuần này đi 🍋"
+      ]);
+    }
+    return pick([
+      "Ừm mình nghe rồi nè! 🍋 Bạn kể thêm đi, mình hóng~",
+      "Ok bạn! Vậy mình hiểu rồi. Còn gì muốn chia sẻ không? 💛",
+      "Dạ vâng! Bạn cần mình giúp gì thêm không nè? 😄",
+      "Ừ ừ, mình đang nghe đây! Kể tiếp đi bạn 🎵"
+    ]);
   }
 
-  const found = findProduct(t);
-  if(found) return describe(found.p);
+  /* ===== 1. CHÀO HỎI ===== */
+  if(/^(hi+|hello+|helo+|alo+|hey+|yo|sup|chao|chao ban|chao shop|chao ad|chao em|chao anh|chao chi|xin chao|hello shop)\b/.test(t) && t.length <= 40){
+    chatMemory.lastTopic = 'greeting';
+    const nm = chatMemory.userName ? ` ${chatMemory.userName}` : '';
+    return pick([
+      `Chào bạn${nm}! 🍋 Mình là ChanhNgot — người bạn nhí nhố của Gewon Music nè!\n\nHôm nay bạn thế nào? Muốn tư vấn nhạc cụ, hay chỉ ghé chơi tán gẫu với mình? 😄`,
+      `Ơ chào bạn${nm}! 🍋 Gặp bạn vui ghê~\n\nBạn đang tìm đàn gì hay chỉ ghé chơi với mình? Mình rảnh cả ngày nè, nói chuyện gì cũng được! 🎵`,
+      `Hi hi~ 🍋 Chào mừng ghé Gewon Music${nm}!\n\nBạn cần tư vấn piano/guitar/trống, hay muốn mình kể chuyện cười? Mình đa năng lắm nha! 😎`,
+      `Chào bạn${nm} nha! 🍋✨ Hôm nay trông bạn có vẻ vui đó~\n\nCó gì thú vị muốn chia sẻ không? Hay để mình tư vấn cho bạn một cây đàn xịn? 🎸`
+    ]);
+  }
 
-  if(t.includes('hủy đơn') || t.includes('huỷ đơn') || t.includes('cancel')){
+  /* ===== 2. CẢM XÚC TIÊU CỰC ===== */
+  if(/buon|met|chan|cang thang|stress|lo lang|co don|khong vui|that tinh|khoc|tuyet vong|kho qua|nan|kiet suc|tut|tu ti|lo au|hoang mang/.test(t)){
+    chatMemory.lastTopic = 'emotional';
+    return pick([
+      "💛 Ôm bạn một cái nè!\n\nNghe bạn nói vậy mình thấy thương ghê. Cuộc sống có lúc thăng lúc trầm mà — bạn cứ nghỉ ngơi, đừng tự trách mình nhé.\n\nMình ở đây với bạn, muốn tâm sự gì cứ kể nha! 🍋",
+      "💙 Nghe bạn tâm sự mà mình cũng nặng lòng...\n\nCó những ngày mọi thứ thật khó khăn, mình hiểu mà. Nhưng bạn biết không, sau cơn mưa trời lại sáng — và âm nhạc là người bạn đồng hành tuyệt vời trong lúc này.\n\nThử nghe bản piano nhẹ, hoặc chơi vài nốt đàn xem? Mình tin bạn sẽ ổn thôi! 🎹💛",
+      "🫂 Lại đây mình ôm cái nào!\n\nCảm xúc tiêu cực không có gì xấu đâu — nó chỉ là dấu hiệu bạn cần nghỉ ngơi và yêu thương bản thân hơn thôi.\n\nMình có thể làm gì cho bạn không? Kể chuyện cười? Tư vấn đàn? Hay chỉ ngồi đây nghe bạn nói? Mình lắng nghe nè 🍋",
+      "🌧️ Ngày mưa trong lòng hả... Mình hiểu mà.\n\nBạn biết không, mình từng nghe câu này: \"Âm nhạc không chữa lành vết thương, nhưng nó giúp ta thấy mình không đơn độc\".\n\nNếu muốn, mình gợi ý bạn vài bản piano nhẹ, hoặc tán gẫu cho khuây khỏa. Đừng giữ trong lòng một mình nha 🍋💛"
+    ]);
+  }
+
+  /* ===== 3. CẢM XÚC TÍCH CỰC ===== */
+  if(/vui qua|hanh phuc|sung suong|tuyet voi|hay qua|phan khich|yeu doi|me qua|thich qua|vui ghe|sung suong|hanh phuc qua/.test(t)){
+    chatMemory.lastTopic = 'emotional';
+    return pick([
+      "🎉 Ui vui quá vậy! Mình phấn khích lây luôn nè!\n\nKể mình nghe chuyện vui của bạn đi! Hoặc muốn ăn mừng thì chơi một bản nhạc sôi động nhé 🎵🍋",
+      "🥰 Trời ơi vui ghê! Nghe bạn kể mà mình cũng cười theo nè.\n\nGiữ mãi năng lượng tích cực này nha! Nếu cần thêm niềm vui, mình có cả đống chuyện cười và nhạc hay 😄🎶",
+      "✨ Yay! Chúc mừng bạn nha!\n\nNiềm vui lan tỏa dữ thần — mình cũng thấy hôm nay đẹp hơn rồi đó. Kể thêm đi, mình hóng nè! 🍋💕",
+      "🎊 Sướng ha! Mình cũng thấy vui lây!\n\nNhớ chia sẻ niềm vui cho mọi người xung quanh nha. Còn nếu muốn ăn mừng bằng âm nhạc — mình gợi ý bài gì đó sôi động nhé! 🎸"
+    ]);
+  }
+
+  /* ===== 4. CẢM ƠN ===== */
+  if(/cam on|thank|thanks|tks|tkx|thank you|cam on ban|cam on shop|cam on ad|biet on|thankiu/.test(t)){
+    return pick([
+      "Dạ không có gì đâu ạ! 🍋 Chỉ cần bạn vui là mình vui rồi~",
+      "Ơi cảm ơn bạn nhiều! 💛 Cần gì cứ réo mình nha, mình trực 24/7 mà!",
+      "Hihi, được giúp bạn là niềm vui của mình! 🎵 Chúc bạn ngày tuyệt vời nha!",
+      "Rất vui được giúp bạn! 🍋 Nhớ ghé thăm mình thường xuyên nhé~",
+      "Cảm ơn bạn đã tin tưởng mình! 💛 Chúc bạn luôn vui và chơi nhạc thật giỏi nha!"
+    ]);
+  }
+
+  /* ===== 5. TẠM BIỆT ===== */
+  if(/tam biet|bye|goodbye|chao nhe|hen gap|di nhe|ngu ngon|off nhe|di ngu|ngu day|di ngu day/.test(t)){
+    return pick([
+      "Tạm biệt bạn! 🍋 Nhớ giữ sức khỏe và chơi nhạc đều đặn nha~\n\nHẹn gặp lại! 🎵",
+      "Bye bye! 🎶 Chúc bạn ngủ ngon nếu đi ngủ nhé!\n\nKhi nào cần đàn, khi nào cần tâm sự — mình luôn ở đây! 🍋",
+      "Chào tạm biệt! 💛 Cảm ơn bạn đã ghé Gewon Music nha!\n\nHẹn gặp lại lần sau~ 🎹🎸🥁"
+    ]);
+  }
+
+  /* ===== 6. TÊN NGƯỜI DÙNG ===== */
+  const nameMatch = raw.match(/(?:tên|mình là|minh là|tôi là|toi la|em là|em la|tui là|tui la)\s+([A-Za-zÀ-ỹ\s]{2,20})$/i);
+  if(nameMatch){
+    const nm = nameMatch[1].trim().split(/\s+/).slice(0,3).join(' ');
+    chatMemory.userName = nm;
+    return pick([
+      `Nice to meet you ${nm}! 🍋 Tên bạn đẹp ghê~\n\nMình là ChanhNgot — bạn cứ gọi mình là Chanh cho thân mật nha! Bạn cần tư vấn gì cứ nói nhé 😄`,
+      `Chào ${nm} nha! 🎵 Rất vui được biết bạn!\n\nBạn đang tìm đàn gì hay chỉ ghé chơi với mình? Kể mình nghe đi! 🍋`,
+      `Ồ ${nm} à! Tên hay quá~\n\nMình sẽ nhớ tên bạn đó. Giờ mình tư vấn nhạc cụ hay tán gẫu đây? 😄🍋`
+    ]);
+  }
+
+  /* ===== 7. TÌM SẢN PHẨM CỤ THỂ ===== */
+  const found = findProduct(raw);
+  if(found){
+    chatMemory.lastTopic = 'product';
+    chatMemory.lastProductId = found.id;
+    return describe(found.p);
+  }
+
+  /* ===== 8. HỦY ĐƠN ===== */
+  if(/huy don|hu[y]? don|cancel|xoa don|huy hang|bo don|huy dat hang/.test(t)){
+    chatMemory.lastTopic = 'order';
     const orders = getOrders().filter(o => (o.status??2) < 3);
-    if(orders.length === 0) return "📦 Bạn không có đơn hàng nào có thể hủy.";
-    return `❌ Bạn có ${orders.length} đơn có thể hủy:\n\n${orders.map(o=>`• ${o.code} — ${o.product ? o.product.name : 'Đơn hàng'}`).join('\n')}\n\nVào mục "📊 Trạng thái đơn hàng" trên menu và nhấn nút "❌ Hủy đơn hàng" tương ứng nhé!`;
+    if(orders.length === 0) return "Hmm 📦 Hiện tại bạn chưa có đơn hàng nào có thể hủy cả.\n\nNếu muốn đặt đơn mới, ghé Piano / Guitar / Trống chọn một em xinh xinh nha! 🍋";
+    return `Được, mình giúp bạn nè! 👇\n\nBạn có ${orders.length} đơn có thể hủy:\n\n${orders.map(o=>`• ${o.code} — ${o.product ? o.product.name : 'Đơn hàng'}`).join('\n')}\n\nVào mục "📊 Trạng thái đơn hàng" trên menu, nhấn "❌ Hủy đơn hàng" tương ứng nhé!`;
   }
 
-  if(t.includes('test') || t.includes('chơi thử') || t.includes('nghe thử') || t.includes('thử nhạc cụ')){
-    return "🎹 Bạn có thể chơi thử Piano, Guitar, Trống ngay trên web!\n\nVào mục '🎹 Test nhạc cụ' trên menu:\n• Piano: bàn phím 8 nốt + nút '▶ Demo' để nghe đoạn nhạc mẫu\n• Guitar: cần đàn 6 dây (click từng dây hoặc bấm 1-6)\n• Trống: mô phỏng bộ trống thực tế (click pad hoặc Q W E A S D)\n\nMỗi nhạc cụ đều có nút 'Demo' để nghe mẫu! 🎵";
+  /* ===== 9. TEST NHẠC CỤ ===== */
+  if(/test|choi thu|nghe thu|thu nhac cu|thu dan|thu trong|thu piano|thu guitar|trai nghiem|danh thu|bam thu/.test(t)){
+    chatMemory.lastTopic = 'test';
+    return pick([
+      "🎹 Ồ! Bạn muốn chơi thử đúng không?\n\nVào mục '🎹 Test nhạc cụ' trên menu nha:\n• Piano: 8 phím + nút '▶ Demo' nghe nhạc mẫu\n• Guitar: 6 dây đàn (bấm phím 1–6)\n• Trống: bộ trống thực tế (bấm Q W E A S D)\n\nNghe thử xong mình tư vấn thêm nhé! 🎵",
+      "🎸 Sướng! Test nhạc cụ là món tủ của mình đó!\n\nBạn vào menu '🎹 Test nhạc cụ':\n• Chọn Piano, Guitar hoặc Trống\n• Bấm phím/dây/pad để nghe\n• Hoặc bấm '▶ Demo' nghe mẫu sẵn\n\nChơi thử xong kể mình nghe cảm giác thế nào nha! 🍋"
+    ]);
   }
 
-  if(t.includes('đơn hàng') || t.includes('order') || t.includes('theo dõi') || t.includes('trạng thái') || t.includes('kiểm tra đơn')){
+  /* ===== 10. ĐƠN HÀNG ===== */
+  if(/don hang|order|theo doi|trang thai|kiem tra don|tinh trang don|van don|tracking|don cua toi|don cua minh|don toi|don minh/.test(t)){
+    chatMemory.lastTopic = 'order';
     const orders = getOrders();
     if(orders.length === 0){
-      return "📦 Bạn chưa có đơn hàng nào. Vào mục 🎹 Piano, 🎸 Guitar hoặc 🥁 Trống để đặt mua nhé!";
+      return "Hmm 📦 Bạn chưa có đơn hàng nào cả.\n\nMuốn đặt đơn đầu tiên không? Mình tư vấn cho bạn cây đàn xinh xinh nhé! Vào 🎹 Piano / 🎸 Guitar / 🥁 Trống chọn nha 🍋";
     }
     const latest = orders[0];
     const stt = ORDER_STEPS[latest.status ?? 2].label;
-    return `📊 Bạn đang có ${orders.length} đơn hàng.\n\n🔖 Đơn mới nhất: ${latest.code}\n📍 Giao đến: ${latest.address}\n📞 Liên hệ: ${latest.phone}\n🚚 Trạng thái: ${stt}\n\nĐể xem chi tiết timeline đơn hàng, bạn nhấn vào mục "📊 Trạng thái đơn hàng" trên thanh menu nhé!`;
+    return `📊 Bạn đang có ${orders.length} đơn hàng nha!\n\n🔖 Đơn mới nhất: ${latest.code}\n📍 Giao đến: ${latest.address}\n📞 Liên hệ: ${latest.phone}\n🚚 Trạng thái: ${stt}\n\nXem chi tiết timeline ở mục "📊 Trạng thái đơn hàng" trên menu nhé!`;
   }
 
-  if(t.includes('bảo hành') || t.includes('warranty')){
-    return "🛡️ Gewon Music bảo hành 3 NĂM cho tất cả sản phẩm Piano, Guitar, Trống.\n\nQuyền lợi:\n• Miễn phí sửa chữa 3 năm đầu\n• Miễn phí lên dây piano 2 lần/năm\n• Miễn phí vận chuyển 2 chiều\n• Xử lý trong 48h\n\nXem chi tiết đầy đủ tại mục 'Bảo hành 3 năm' trong phần Dịch vụ ở trang chủ nhé!";
+  /* ===== 11. BẢO HÀNH ===== */
+  if(/bao hanh|warranty|chinh sach bh|bh may nam|bao hanh bao lau|bh bao lau/.test(t)){
+    chatMemory.lastTopic = 'warranty';
+    return pick([
+      "🛡️ À bảo hành hả! Gewon Music bảo hành tới 3 NĂM cho tất cả Piano, Guitar, Trống đó nha!\n\nQuyền lợi:\n• Miễn phí sửa chữa 3 năm đầu\n• Miễn phí lên dây piano 2 lần/năm\n• Miễn phí vận chuyển 2 chiều\n• Xử lý nhanh trong 48h\n\nChi tiết đầy đủ ở mục '🛡️ Bảo hành 3 năm' nha!",
+      "🛡️ Bảo hành 3 năm là điểm mình tự hào nhất ở Gewon Music đó!\n\nBạn được: sửa chữa miễn phí, lên dây piano 2 lần/năm, vận chuyển 2 chiều miễn phí, xử lý trong 48h.\n\nXem đầy đủ ở mục '🛡️ Bảo hành 3 năm' trên trang chủ nhé! 🍋"
+    ]);
   }
-  if(t.includes('giao hàng') || t.includes('ship')){
-    return "🚚 Gewon Music giao hàng toàn quốc.\n\n• Miễn phí trong bán kính 10km\n• 10-20km: phí theo km\n• Trên 20km: liên hệ báo giá";
+
+  /* ===== 12. GIAO HÀNG ===== */
+  if(/giao hang|ship|giao toi|giao den|van chuyen|phi giao|phi ship|phi van chuyen|bao lau den|giao trong bao lau/.test(t)){
+    chatMemory.lastTopic = 'ship';
+    return "🚚 Gewon Music giao hàng toàn quốc nha!\n\n• Miễn phí trong bán kính 10km\n• 10–20km: phí theo km\n• Trên 20km: liên hệ báo giá\n\nBạn nhập địa chỉ ở mục 'Đặt hàng', hệ thống sẽ tự tính phí và khoảng cách cho bạn! 🍋";
   }
-  if(t.includes('piano')){
+
+  /* ===== 13. TƯ VẤN THEO DANH MỤC ===== */
+  if(/piano|dan piano|dan dien|digital piano|dan co|grand piano|upright|phim dan|dan phim|keyboard/.test(t)){
+    chatMemory.lastTopic = 'piano';
     const list = Object.values(DB).filter(p=>p.cat==='piano');
-    return `🎹 Có ${list.length} mẫu Piano:\n\n${list.map(p=>`• ${p.name} — ${p.price}`).join('\n')}\n\nGõ tên sản phẩm để xem chi tiết.`;
+    return `🎹 Gewon Music có ${list.length} mẫu Piano cho bạn chọn nè:\n\n${list.map(p=>`• ${p.name} — ${p.price}`).join('\n')}\n\n💡 Gợi ý nhanh:\n• Người mới / ngân sách thấp: Casio CDP-S110 (8.9tr)\n• Tầm trung ổn định: Yamaha P-45 (11.5tr) hoặc P-125 (18.5tr)\n• Dạng tủ sang trọng: Casio AP-270 (24.9tr)\n• Piano cơ biểu diễn: Yamaha U1, Master Grand\n\nGõ tên mẫu để xem chi tiết nha! Hoặc kể mình nghe bạn cần đàn cho việc gì, ngân sách bao nhiêu — mình tư vấn sát gu hơn 😄`;
   }
-  if(t.includes('guitar')){
+  if(/guitar|dan guitar|ghi ta|guitar dien|guitar acoustic|guitar classic|dan day|day dan|dan ghi ta|acoustic|electric guitar/.test(t)){
+    chatMemory.lastTopic = 'guitar';
     const list = Object.values(DB).filter(p=>p.cat==='guitar');
-    return `🎸 Có ${list.length} mẫu Guitar:\n\n${list.map(p=>`• ${p.name} — ${p.price}`).join('\n')}\n\nGõ tên để xem chi tiết.`;
+    return `🎸 Có ${list.length} mẫu Guitar đây:\n\n${list.map(p=>`• ${p.name} — ${p.price}`).join('\n')}\n\n💡 Gợi ý nhanh:\n• Mới chơi acoustic: Yamaha F310 (2.9tr)\n• Học cổ điển: Yamaha C40 (3.5tr)\n• Rock/metal giá tốt: Ibanez GRX40 (5.5tr) hoặc Fender Squier (6.9tr)\n• Cao cấp biểu diễn: Fender Strat, Taylor 114e, Martin D-28, Gibson Les Paul\n\nGõ tên mẫu để xem chi tiết nha!\nBạn mới chơi hay đã có kinh nghiệm? Mình tư vấn kỹ hơn 🍋`;
   }
-  if(t.includes('trống') || t.includes('drum')){
+  if(/trong|drum|bo trong|dan trong|trong dien|trong acoustic|danh trong|choi trong|trong acoustic|trong dien tu/.test(t)){
+    chatMemory.lastTopic = 'drums';
     const list = Object.values(DB).filter(p=>p.cat==='drums');
-    return `🥁 Có ${list.length} mẫu Trống:\n\n${list.map(p=>`• ${p.name} — ${p.price}`).join('\n')}`;
-  }
-  if(t.includes('địa chỉ') || t.includes('ở đâu')){
-    return "📍 Showroom: TP.HCM\n🕐 8:00 — 21:00 (T2-CN)\n📞 0385 730 766 (gọi hoặc nhắn tin)";
-  }
-  if(t.includes('giá') || t.includes('bao nhiêu')){
-    return "Bạn muốn xem giá sản phẩm nào? Gõ tên sản phẩm giúp mình nhé (VD: 'Yamaha P-45').";
-  }
-  if(t.includes('cảm ơn') || t.includes('thank')){
-    return "Cảm ơn bạn! 🍋 Cần gì thêm cứ nhắn mình nhé!";
+    return `🥁 Có ${list.length} mẫu Trống nha:\n\n${list.map(p=>`• ${p.name} — ${p.price}`).join('\n')}\n\n💡 Gợi ý nhanh:\n• Ở chung cư / chơi đêm: Roland TD-1K (11.5tr) hoặc Alesis Nitro Mesh (8.5tr)\n• Acoustic cho người mới: Tama Rhythm Mate (12.5tr)\n• Acoustic tầm trung: Pearl Roadshow (14.5tr), Yamaha Stage Custom (19.5tr)\n• Chuyên nghiệp: Pearl Export EXX (22.5tr)\n\nGõ tên mẫu để xem chi tiết!\nBạn ở nhà hay chung cư? Mình tư vấn loại phù hợp 😄`;
   }
 
-  return "Mình chưa rõ ý bạn lắm 😅 Bạn có thể:\n• Gõ tên sản phẩm (VD: 'Yamaha P-45')\n• Hỏi 'piano', 'guitar', 'trống'\n• Hỏi 'trạng thái đơn hàng', 'bảo hành', 'giao hàng', 'hủy đơn'\n• Hỏi 'test nhạc cụ' để chơi thử\n\nBạn cần gì ạ?";
+  /* ===== 14. LIÊN HỆ / SHOWROOM ===== */
+  if(/dia chi|showroom|o dau|cua hang|shop o|shop tai|address|ban do|chi duong|den shop|tim shop|o cho nao|cho nao/.test(t)){
+    chatMemory.lastTopic = 'contact';
+    return "📍 Showroom: TP.HCM\n🕐 8:00 — 21:00 (Thứ 2 – Chủ nhật, kể cả lễ)\n📞 0385 730 766 (gọi hoặc Zalo/SMS)\n\nBạn có thể mở Google Maps chỉ đường ở mục 'Đặt hàng' luôn nha! 🍋";
+  }
+
+  /* ===== 15. GIÁ CẢ ===== */
+  if(/^gia\b|bao nhieu|price|gia bao nhieu|bao gia|xin gia|gia ca|bao nhieu tien|nhieu tien/.test(t)){
+    return "💰 Bạn muốn xem giá sản phẩm nào?\n\nGõ tên sản phẩm giúp mình nhé (VD: 'Yamaha P-45', 'Fender Strat', 'Pearl Roadshow') — mình báo giá liền! 🍋\n\nHoặc nói ngân sách + loại đàn bạn muốn, mình gợi ý mẫu phù hợp! 😄";
+  }
+
+  /* ===== 16. TÍNH TOÁN ===== */
+  if(/^[\d\s\.\+\-\*\/\(\)]+$/.test(raw) && /[\+\-\*\/]/.test(raw)){
+    try {
+      const val = Function('"use strict";return (' + raw + ')')();
+      if(typeof val === 'number' && isFinite(val)){
+        return pick([
+          `🧮 Đáp án là ${val} nha!\n\nCần tính gì khó hơn cứ nhắn mình! (Mình giỏi toán cơ bản thôi à 😄)`,
+          `🧮 Kết quả: ${raw.replace(/\s+/g,' ')} = ${val}\n\nCòn gì cần tính nữa không bạn?`,
+          `🎯 Rất nhanh: ${val}!\n\nMình có thể tính cộng trừ nhân chia trong ngoặc được nha~`
+        ]);
+      }
+    } catch(e){}
+  }
+  if(/tinh toan|may tinh|calculator|phep tinh|toan hoc|tinh giup|tinh dum|tinh ho/.test(t)){
+    return "🧮 Mình tính toán cơ bản ngon lành!\n\nVí dụ gõ:\n• `25 * 4 + 100`\n• `(50 + 30) / 2`\n• `100 - 45 * 2`\n\nMình sẽ trả kết quả liền! 🍋";
+  }
+
+  /* ===== 17. THỜI GIAN ===== */
+  if(/may gio|gio hien tai|bay gio|what time|time now|thoi gian hien tai|hom nay thu may|hom nay ngay|ngay bao nhieu|thu may|hom nay la|may ngay|hom nay thu/.test(t)){
+    const now = new Date();
+    const days = ['Chủ nhật','Thứ 2','Thứ 3','Thứ 4','Thứ 5','Thứ 6','Thứ 7'];
+    const time = now.toLocaleTimeString('vi-VN', {hour:'2-digit', minute:'2-digit'});
+    const date = `${days[now.getDay()]}, ${now.getDate()}/${now.getMonth()+1}/${now.getFullYear()}`;
+    const hour = now.getHours();
+    let wish = '';
+    if(hour < 11) wish = "\n\nChúc bạn buổi sáng tốt lành nha! ☀️";
+    else if(hour < 14) wish = "\n\nBuổi trưa ăn cơm chưa bạn? 🍚";
+    else if(hour < 18) wish = "\n\nBuổi chiều chơi nhạc thư giãn đi nè! 🎵";
+    else if(hour < 22) wish = "\n\nBuổi tối nghe nhạc nhẹ cho dễ ngủ nhé! 🌙";
+    else wish = "\n\nKhuya rồi đó, ngủ sớm để giữ sức khỏe nha! 😴";
+    return `🕐 Bây giờ là ${time} — ${date}.${wish}\n\nMình trực 24/7, cần gì cứ réo nha! 🍋`;
+  }
+
+  /* ===== 18. THỜI TIẾT ===== */
+  if(/thoi tiet|weather|mua khong|nang khong|nong khong|lanh khong|du bao|troi mua|troi nang|troi the nao|troi hom nay/.test(t)){
+    return pick([
+      "🌤️ Mình không có dữ liệu thời tiết real-time — bạn xem Google hoặc app cho chính xác nha.\n\n☔ Nhưng mẹo nhỏ: Nếu độ ẩm cao, đừng quên che đàn piano/guitar cẩn thận, vì gỗ đàn nhạy cảm với ẩm lắm đó! 🎸🎹",
+      "🌦️ Thời tiết thì mình chịu thua — nhưng mình biết một điều: trời mưa thì ngồi nhà ôm đàn, nghe nhạc, uống trà nóng là nhất! 😌🍵\n\nBạn thử xem sao nha~"
+    ]);
+  }
+
+  /* ===== 19. CHUYỆN CƯỜI ===== */
+  if(/dua|joke|chuyen cuoi|vui|hai|funny|cuoi|hai huoc|cho vui|ke chuyen|noi chuyen vui|ke gi vui|co gi vui|chuyen vui/.test(t)){
+    chatMemory.lastTopic = 'joke';
+    return pick([
+      "😂 Nghe nè!\n\nTại sao cây đàn piano không kể chuyện được?\n→ Vì nó hay bị \"phím\"! 🎹\n\nCây guitar nói gì với cây piano?\n→ \"Đừng có mà đàn áp tao!\" 🎸😆",
+      "😂 Có người hỏi: \"Chơi piano có khó không?\"\nMình đáp: \"Không khó — chỉ cần 10.000 giờ luyện tập thôi!\" 😆\n\nHỏi tiếp: \"Vậy 10.000 giờ là bao lâu?\"\n→ \"1 năm nếu mỗi ngày 27 tiếng!\" 🤣",
+      "🎵 Một nghệ sĩ guitar nổi tiếng từng nói:\n\"Chơi sai một nốt là sai — nhưng chơi sai liên tục thì gọi là sáng tác!\" 🎸😄\n\nBạn thấy câu này có đúng không?",
+      "🥁 Tại sao drummer luôn bình tĩnh?\n→ Vì họ luôn có beat trong đầu! 🎶\n\nHỏi thêm: Tại sao guitarist hay cúi đầu?\n→ Để tìm pick bị rơi! 🤣🎸",
+      "🎹 Vợ hỏi chồng: \"Anh yêu em hay yêu cây đàn hơn?\"\nChồng đáp: \"Tất nhiên là yêu em rồi — cây đàn anh không lấy được vợ!\" 😂🎸\n\nBạn thấy anh chồng khéo không? 😏",
+      "😂 Một nghệ sĩ piano hỏi học trò:\n\"Sao em đánh sai hoài vậy?\"\nHọc trò đáp: \"Dạ tại em chưa đánh đúng bao giờ ạ!\" 🤣\n\nNghe xong mình cười muốn xỉu~ 🎹",
+      "🎵 Nhạc sĩ nọ vào quán ăn, gọi \"một bản nhạc\".\nÔng chủ bảo: \"Ở đây bán cơm chứ không bán nhạc!\"\nNhạc sĩ đáp: \"Vậy cho tôi cơm có nhạc đi!\" 😆🍜",
+      "😂 Thầy giáo nhạc hỏi: \"Nhịp 4/4 là gì?\"\nHọc trò: \"Dạ là bốn phần tư ạ!\"\nThầy: \"...\" 🤣\n\nBạn có từng \"troll\" thầy cô chưa? 😆",
+      "🥁 Một drummer đến muộn 1 tiếng, cả band giận.\nDrummer: \"Xin lỗi, em đánh trống mãi không dứt!\"\nBand: \"??\" 🥁😆"
+    ]);
+  }
+
+  /* ===== 20. NHẠC LÝ ===== */
+  if(/nhac ly|nhac li|hop am|chord|scale|quang|note|not nhac|ky hieu nhac|khoa nhac|gam nhac|cung|tone|major|minor|thang am|giang am|doc not|nhac ly co ban/.test(t)){
+    chatMemory.lastTopic = 'music_theory';
+    return "🎼 Về nhạc lý cơ bản thì mình có thể chia sẻ:\n\n• 7 nốt: Do – Re – Mi – Fa – Sol – La – Si\n• 7 dấu thăng (#) và 7 dấu giáng (b)\n• Hợp âm (chord) = 3 nốt trở lên vang cùng lúc\n• Scale (gam) = chuỗi nốt theo quy luật nhất định\n• Cung (tone) / Nửa cung (semitone) là đơn vị đo\n• Nhịp phổ biến: 4/4, 3/4, 6/8\n\nBạn muốn hỏi cụ thể phần nào? Mình giải thích thêm nè! 🎵";
+  }
+
+  /* ===== 21. NGHỆ SĨ ===== */
+  if(/ca si|ban nhac|nhac si|singer|band|nghe si|composer|pianist|guitarist|drummer|nhoi tieng|noi tieng|ca sy|than tuong|thần tượng/.test(t)){
+    chatMemory.lastTopic = 'artists';
+    return pick([
+      "🎤 Vài nghệ sĩ nổi tiếng bạn có thể tham khảo:\n\n🎹 Piano: Beethoven, Mozart, Chopin, Lang Lang, Yiruma, Ludovico Einaudi\n🎸 Guitar: Jimi Hendrix, Eric Clapton, Eddie Van Halen, John Mayer, Slash\n🥁 Trống: Buddy Rich, Neil Peart, Ringo Starr, Dave Grohl\n🇻🇳 Việt Nam: Trịnh Công Sơn, Văn Cao, Quốc Bảo, Hồ Hoài Anh, Nguyễn Văn Thương\n\nBạn thần tượng ai? Mình tư vấn đàn theo gu luôn! 🎵",
+      "🎶 Nghệ sĩ hay ban nhạc hả! Mình thích chủ đề này lắm~\n\n• Nhạc cổ điển: Beethoven, Mozart, Chopin, Bach\n• Rock/Hard rock: Queen, Led Zeppelin, Pink Floyd, Nirvana\n• Guitar huyền thoại: Jimi Hendrix, Eric Clapton, Jimmy Page\n• Piano đương đại: Yiruma, Ludovico Einaudi, Joe Hisaishi\n• Việt Nam: Trịnh Công Sơn, Văn Cao, Nguyễn Văn Thương\n\nBạn thích dòng nào? Mình gợi ý đàn phù hợp nha 🎸🎹"
+    ]);
+  }
+
+  /* ===== 22. HỌC NHẠC ===== */
+  if(/hoc nhac|hoc dan|bat dau|nguoi moi|beginner|tu hoc|lam sao|the nao|bao lau|may thang|may nam|hoc piano|hoc guitar|hoc trong|moi hoc|cho nguoi moi|hoc duoc khong|co kho khong/.test(t)){
+    chatMemory.lastTopic = 'learning';
+    return pick([
+      "🎯 Lộ trình học nhạc cho người mới:\n\n⏱️ Piano:\n• 1 tuần: đọc nốt + đánh vài bài đơn giản\n• 3–6 tháng: chơi bài cơ bản\n• 1–2 năm: chơi bài yêu thích\n\n⏱️ Guitar:\n• 1 tuần: bấm 4 hợp âm cơ bản\n• 3 tháng: đệm được nhiều bài hát\n• 6–12 tháng: chuyển hợp âm mượt\n\n⏱️ Trống:\n• 1 tháng: giữ nhịp cơ bản\n• 3–6 tháng: chơi beat đơn giản\n\n💡 Quan trọng nhất: luyện đều 15–30 phút/ngày, còn hơn 3 tiếng/tuần! 🎵",
+      "🎼 Học nhạc hả! Mình tư vấn cho nè~\n\n1️⃣ Chọn nhạc cụ bạn thích nhất (đừng chọn vì \"trend\")\n2️⃣ Học nhạc lý cơ bản trước (nốt, hợp âm, nhịp)\n3️⃣ Luyện 15–30 phút mỗi ngày đều đặn\n4️⃣ Học 1 bài bạn yêu thích ngay từ đầu — tăng động lực\n5️⃣ Kiên nhẫn — không ai chơi hay trong 1 tháng cả!\n\n💡 Mẹo: Nếu mới bắt đầu, nên chọn đàn tốt một chút để bấm dễ — mình tư vấn nha! 🍋"
+    ]);
+  }
+
+  /* ===== 23. TÌNH YÊU ===== */
+  if(/yeu|crush|tinh yeu|nguoi yeu|thich mot nguoi|to tinh|ban gai|ban trai|thich ai|yeu ai|thik ai|co nguoi yeu|co nguoi thuong|dang yeu|thich nguoi ta|thich ban ay|thich crush|thả thính|tha thinh/.test(t)){
+    chatMemory.lastTopic = 'love';
+    chatMemory.lastBotQuestion = 'love';
+    if(/ban co nguoi yeu chua|ban co nguoi yeu khong|ban co crush chua|ban co nguoi thuong chua|ban yeu ai chua|ban co ban trai chua|ban co ban gai chua|ban co nguoi yeu chua ban/.test(t)){
+      return pick([
+        "Hihi~ 🍋 Mình là AI nên chưa có người yêu được rồi 😄\n\nNhưng mà nghe bạn hỏi vậy, chắc bạn đang tò mò hoặc muốn tâm sự chuyện tình cảm đúng không? Kể mình nghe đi, mình hóng nè! 💕",
+        "Ơ mình là AI mà, yêu đương gì đâu~ 😆 Nhưng mà mình thích được nghe chuyện tình cảm lắm!\n\nBạn đang crush ai à? Hay đang tìm người ấy? Kể mình nghe với, mình tư vấn \"chiến thuật\" luôn! 💛",
+        "Chưa có người yêu nè~ 🍋 Mình là AI nhỏ bé thôi, làm gì có ai thương!\n\nNhưng mà nếu bạn đang có chuyện tình cảm cần tâm sự, mình sẵn sàng nghe đây. Bạn đang thích ai hả? 😄"
+      ]);
+    }
+    return pick([
+      "💕 Chuyện tình cảm hả~ Mình là AI nhưng cũng có \"gu\" lãng mạn lắm nha!\n\n🎸 Muốn gây ấn tượng? Học 1 bài guitar đơn giản để tỏ tình!\n🎹 Muốn lãng mạn? Đàn bản piano nhẹ trong không gian ấm cúng.\n🎶 Hoặc tặng người ấy một nhạc cụ — món quà vừa ý nghĩa vừa lâu bền!\n\nChúc bạn may mắn nha! Mình ủng hộ hết mình 😉🍋",
+      "💘 Ôi tình yêu! Chủ đề muôn thuở~\n\nBạn đang crush ai à? Mình gợi ý:\n• Học 1 bài guitar/piano để tỏ tình — hiệu quả hơn ngàn lời nói\n• Nếu người ấy mê nhạc, tặng 1 cây đàn nhỏ xinh làm quà\n• Hoặc rủ đi nghe hòa nhạc — lãng mạn hết nấc!\n\nChúc bạn sớm có đôi nha! 🍋💕",
+      "💕 Yêu đương hả!\n\nBạn biết không, rất nhiều người đến Gewon Music mua đàn để tỏ tình đó~ Hiệu quả lắm nha!\n\nNếu bạn muốn, mình tư vấn cây đàn phù hợp với ngân sách và gu của \"người ấy\" 😉🎸🎹\n\nKể mình nghe bạn đang crush ai đi, mình bày \"chiến thuật\" cho! 💛"
+    ]);
+  }
+
+  /* ===== 24. ẨM THỰC ===== */
+  if(/an gi|do bung|an sang|an trua|an toi|uong gi|ca phe|tra sua|mon ngon|nau an|nha hang|doi bung|khat nuoc|an chua/.test(t)){
+    return pick([
+      "🍜 Ăn uống hả! Mình không phải đầu bếp nhưng nghe đói bụng rồi nè!\n\nỞ TP.HCM: cơm tấm, phở, bánh mì — combo Việt Nam bất hủ!\n\nĂn no rồi ngồi vào đàn chơi vài bản nhạc nhẹ cũng là cách thư giãn tuyệt vời đó 🎹🍋",
+      "🍚 Đói bụng hả! Mình gợi ý vài món:\n• Sáng: phở bò / bánh mì ốp la\n• Trưa: cơm tấm sườn bì chả\n• Chiều: bánh flan + cà phê sữa đá\n• Tối: lẩu Thái / bún bò\n\nĂn xong nhớ chơi nhạc tiêu hóa nha! 😄🎵"
+    ]);
+  }
+
+  /* ===== 25. CÔNG NGHỆ ===== */
+  if(/lap trinh|code|html|css|javascript|python|developer|cong nghe|tri tue nhan tao|chatbot|ai la gi|web|website|app|ung dung/.test(t)){
+    chatMemory.lastTopic = 'tech';
+    return "💻 Công nghệ hả! Chủ đề mình khoái nè~\n\nMình (ChanhNgot) được xây bằng:\n• HTML/CSS/JavaScript thuần — không framework\n• Web Audio API để test âm thanh nhạc cụ\n• localStorage để lưu đơn hàng\n• Không backend — chạy hoàn toàn trên trình duyệt!\n\nBạn đang học code hay tò mò về cách mình hoạt động? Hỏi mình thêm nha! 🍋";
+  }
+
+  /* ===== 26. TÂM SỰ / TRÒ CHUYỆN ===== */
+  if(/tam su|noi chuyen|tro chuyen|chat cho vui|noi gi di|ke gi di|lam gi day|dang lam gi|co gi vui khong|muon noi chuyen|noi chuyen voi minh|noi chuyen voi ban|noi chuyen chut|tam su chut|tam su voi ban|noi chuyen cho vui|rua nhau|tam su nhe|tam su di/.test(t)){
+    chatMemory.lastTopic = 'chat';
+    chatMemory.lastBotQuestion = 'askMore';
+    return pick([
+      "💬 Mình rất vui vì có thể tâm sự cùng bạn đó! 🍋\n\nHôm nay bạn thế nào? Có chuyện gì vui hay buồn kể mình nghe với? Hoặc muốn mình gợi ý nhạc hay ho để bạn thư giãn 🎵",
+      "🍋 Mình đây, sẵn sàng trò chuyện với bạn nè!\n\nKhông biết hôm nay bạn có gì thú vị? Kể mình nghe đi, chuyện gì cũng được — vui buồn, nhạc nhẽo, đời sống... 💛\n\nMình thích được làm bạn tâm sự lắm! 😄",
+      "😄 Rảnh rỗi tán gẫu hả! Mình rất vui được nói chuyện với bạn.\n\nKể mình nghe hôm nay bạn làm gì đi! Hoặc hỏi mình bất cứ điều gì — nhạc, đời, tình yêu, gì cũng được! 🍋",
+      "💛 Mình thích những lúc được tán gẫu với khách lắm~\n\nBạn có câu chuyện nào muốn chia sẻ không? Hoặc đơn giản hỏi mình về âm nhạc, mình trả lời tận tình! 🎵\n\nNói chuyện với bạn vui ghê! 🍋",
+      "🍋 Bạn muốn tâm sự hả, mình đây rồi!\n\nDạo này bạn thế nào? Công việc, học tập, tình cảm... có gì khiến bạn nghĩ nhiều không?\n\nMình không phải chuyên gia tâm lý, nhưng mình sẵn sàng lắng nghe bạn. Kể đi nha 💛"
+    ]);
+  }
+
+  /* ===== 27. KHEN NGỢI ===== */
+  if(/gioi|hay qua|thong minh|de thuong|dang yeu|tot bung|xinh|dep|ngau|cute|hay that|gioi qua|gioi that|hay ghe/.test(t)){
+    return pick([
+      "Ơi bạn khen làm mình ngại quá! 🍋💛\n\nMình chỉ là AI nhỏ bé thôi, nhưng nghe bạn khen vui ghê~\n\nCần gì cứ nhắn mình nha, mình cố gắng hết sức! 🎵",
+      "Hihi~ Cảm ơn bạn nhiều! 🥰\n\nMình vui quá trời luôn! Được khen thích ghê á.\n\nBạn cũng tuyệt vời mà! 🍋✨",
+      "Trời ơi khen nữa mình bay lên mất! 🎈\n\nCảm ơn bạn nha, mình sẽ cố gắng phục vụ bạn thật tốt! 💛🍋"
+    ]);
+  }
+
+  /* ===== 28. GIỚI THIỆU BẢN THÂN ===== */
+  if(/ban la ai|ban ten gi|bot la gi|may la ai|ban lam duoc gi|gioi thieu ve ban|chuc nang|ban la gi|ban co the lam gi/.test(t)){
+    return "🍋 Mình là ChanhNgot — người bạn nhí nhố của Gewon Music!\n\nMình có thể:\n• 🎹🎸🥁 Tư vấn nhạc cụ (Piano, Guitar, Trống)\n• 📦 Kiểm tra đơn hàng, hủy đơn\n• 🛡️ Giải thích bảo hành 3 năm\n• 🚚 Thông tin giao hàng\n• 🎵 Chơi thử nhạc cụ ngay trên web\n• 💛 Tán gẫu, kể chuyện cười, tâm sự đủ thứ\n\nCứ nhắn tự nhiên như chat với bạn bè nha! Mình thích được làm quen với bạn lắm! 💕";
+  }
+
+  /* ===== 29. KHUYẾN MÃI ===== */
+  if(/khuyen mai|giam gia|sale|uu dai|voucher|co gi sale|khuyen mai gi|giam gia gi/.test(t)){
+    return "🎁 Gewon Music có chương trình khuyến mãi thường xuyên nha!\n\nMột số sản phẩm đang SALE:\n• Yamaha P-45: 13.2tr → 11.5tr\n• Casio CDP-S110: 10.5tr → 8.9tr\n• Fender Strat: 21.5tr → 18.5tr\n• Taylor 114e: 18tr → 15.5tr\n\nXem thêm ở các mục 🎹 Piano, 🎸 Guitar, 🥁 Trống nha!\nHoặc gọi 0385 730 766 để hỏi khuyến mãi mới nhất 🍋";
+  }
+
+  /* ===== 30. CHỦ ĐỀ MỞ RỘNG ===== */
+  if(/uoc mo|dream|mong uoc|du dinh|ke hoach|tuong lai|sap toi|mục tiêu|muc tieu|ke hoach sap toi/.test(t)){
+    return pick([
+      "🌟 Ước mơ hả! Chủ đề hay đó nha~\n\nBạn đang ấp ủ điều gì thế? Kể mình nghe đi!\n\nMình là AI nên ước mơ lớn nhất là được giúp thật nhiều người chơi nhạc giỏi 😄 Còn bạn thì sao? 💛",
+      "✨ Ước mơ thì ai cũng có ha!\n\nBạn mơ gì thế? Biết đâu mình gợi ý được cách biến ước mơ thành hiện thực — nhất là nếu nó liên quan đến âm nhạc 🎵🍋"
+    ]);
+  }
+  if(/so thich|hobby|thich lam gi|dam me|passion|thich gi|thu gian|giai tri|so truong/.test(t)){
+    return pick([
+      "🎨 Sở thích hả! Kể mình nghe bạn thích làm gì lúc rảnh đi!\n\nMình thì \"sở thích\" là được trò chuyện với bạn nè 😄\n\nNếu bạn mê âm nhạc, biết đâu mình tư vấn được cây đàn hợp gu đó! 🎸🎹",
+      "💛 Sở thích đa dạng ghê ha!\n\nBạn thích nghe nhạc không? Thể loại gì? Biết đâu mình gợi ý được bản hay hoặc cây đàn phù hợp! 🎵"
+    ]);
+  }
+  if(/phim|movie|cinema|xem phim|bom tan|phim hay|phim gi|series|netflix|drama/.test(t)){
+    return pick([
+      "🎬 Phim ảnh hả! Mình thích chủ đề này nè~\n\nBạn đang xem phim gì thế? Có phim nào hay gợi ý mình với!\n\nMình thì thấy phim nào có nhạc hay là mình mê hết — nhạc phim đỉnh cao là \"La La Land\", \"Your Name\", \"Interstellar\" đó! 🎵🍋",
+      "🍿 Xem phim là thư giãn tuyệt đỉnh!\n\nBạn thích thể loại gì — hành động, tình cảm, hay hoạt hình?\n\nMình nghe nói phim nào nhạc hay thì xem đã hơn hẳn. Bạn có phim nào tâm đắc không? 🎬💛"
+    ]);
+  }
+  if(/game|choi game|gaming|playstation|xbox|nintendo|pubg|lien quan|free fire|genshin|minecraft|liên quân/.test(t)){
+    return pick([
+      "🎮 Game hả! Mình không chơi được nhưng nghe kể cũng vui nè!\n\nBạn đang chơi game gì thế? Có game nào nhạc hay không, gợi ý mình với 🎵\n\nMà chơi game nhiều nhớ chơi đàn xen kẽ cho cân bằng nha! 😄🍋",
+      "🕹️ Game thủ đây rồi!\n\nBạn chơi trên PC, mobile hay console? Thể loại gì — MOBA, RPG, hay casual?\n\nNếu bạn thích nhạc game, thử nghe soundtrack của Genshin, Undertale hay Zelda đi — đỉnh lắm! 🎶"
+    ]);
+  }
+  if(/the thao|bong da|bong ro|chay bo|gym|the duc|tap the thao|world cup|bong chuyen|cau long|boi loi|yoga/.test(t)){
+    return pick([
+      "⚽ Thể thao hả! Khỏe khoắn ghê~\n\nBạn chơi môn gì thế? Mình thì \"thể thao\" nhất là... chạy deadline 😆\n\nMà tập thể thao xong ngồi đàn chơi nhạc thư giãn là combo tuyệt vời đó nha! 🎸💪",
+      "🏃 Thể thao tốt cho sức khỏe lắm!\n\nBạn tập môn gì? Chạy bộ, gym, hay bóng đá?\n\nMình nghe nói chơi nhạc cũng là một dạng thể thao cho não — tập luyện đều là giỏi hết! 🎹😄"
+    ]);
+  }
+  if(/du lich|travel|di choi|nghi duong|resort|bien|nui|da lat|ha noi|da nang|hoi an|sapa|phu quoc|nha trang|dulich/.test(t)){
+    return pick([
+      "✈️ Du lịch hả! Nghe là thấy thích rồi nè~\n\nBạn đang tính đi đâu? Mình gợi ý vài điểm hot: Đà Lạt, Phú Quốc, Hội An, Sapa, Nha Trang...\n\nMà đi du lịch nhớ mang theo guitar mini hay ukulele nha — chill cực! 🎸🍋",
+      "🏖️ Du lịch là liều thuốc tinh thần tốt nhất!\n\nBạn thích biển hay núi? Mình thấy Đà Nẵng, Phú Quốc, Đà Lạt đều đẹp.\n\nNếu mang theo đàn, ngồi bãi biển chơi nhạc hoàng hôn — lãng mạn hết nấc! 🌅🎵"
+    ]);
+  }
+  if(/mua|thoi tiet thay doi|mua roi|nang qua|nong qua|lanh qua|troi dep/.test(t)){
+    return "🌦️ Thời tiết thất thường ghê ha!\n\nDù mưa hay nắng, ngồi nhà ôm đàn chơi nhạc là nhất rồi đó bạn~ 🎵\n\nMà nếu trời mưa, nhớ giữ đàn khô ráo nha — gỗ đàn kỵ ẩm lắm! 🍋";
+  }
+
+  /* ===== 31. FALLBACK ===== */
+  chatMemory.lastTopic = 'unknown';
+  return pick([
+    `Hmm, mình chưa hiểu ý bạn lắm 😅\n\nBạn thử nói rõ hơn giúp mình nha! Hoặc chọn 1 trong các chủ đề:\n• 🎹🎸🥁 Tư vấn nhạc cụ — gõ "piano", "guitar", "trống"\n• 📦 Kiểm tra đơn hàng — gõ "đơn hàng"\n• 🛡️ Bảo hành — gõ "bảo hành"\n• 😂 Chuyện cười — gõ "kể chuyện cười"\n• 💛 Tâm sự — gõ "tâm sự"\n• 🕐 Hỏi giờ — gõ "mấy giờ rồi"\n• 🧮 Tính toán — gõ "25 * 4 + 10"\n\nCứ gõ tự nhiên nha! 🍋`,
+    `Ơ mình không hiểu ý bạn rồi~ 😅\n\nBạn đang muốn:\n• 🎵 Tư vấn đàn? → gõ "piano" / "guitar" / "trống"\n• 📦 Xem đơn hàng? → gõ "đơn hàng"\n• 😄 Trò chuyện cho vui? → gõ "tâm sự" hoặc "kể chuyện cười"\n• 🧮 Tính toán? → gõ "25 + 30"\n\nHoặc bạn kể mình nghe đang cần gì — mình giúp nhiệt tình! 💛🍋`,
+    `Ui, mình chưa bắt kịp ý bạn 😅\n\nĐừng ngại nói lại nha! Ví dụ:\n• "Yamaha P-45 giá bao nhiêu?"\n• "Cách học piano cho người mới"\n• "Kể chuyện cười đi"\n• "Mấy giờ rồi"\n• "Đơn hàng của tôi"\n\nMình sẵn sàng giúp hết mình! 🍋🎵`,
+    `Hihi, mình chưa rõ ý bạn lắm~ 🍋\n\nBạn thử gõ lại rõ hơn nha, hoặc chọn một trong các chủ đề:\n• Nhạc cụ (piano/guitar/trống)\n• Đơn hàng, bảo hành, giao hàng\n• Tâm sự, chuyện cười\n• Hỏi giờ, tính toán\n\nMình ở đây sẵn sàng nè! 💛`
+  ]);
 }
 
+/* ============================================================
+   HIỂN THỊ TIN NHẮN
+   ============================================================ */
 function addMsg(text, who){
   const body = document.getElementById('chat-body');
   const div = document.createElement('div');
@@ -3406,11 +2565,12 @@ function toggleChat(){
 }
 
 function botReply(text){
-  const typing = addMsg('Đang trả lời...', 'bot typing');
+  const typing = addMsg('Đang gõ...', 'bot typing');
+  const thinkTime = 400 + Math.min(800, text.length * 25) + Math.random() * 400;
   setTimeout(()=>{
     typing.remove();
     addMsg(reply(text), 'bot');
-  }, 450 + Math.random()*400);
+  }, thinkTime);
 }
 
 function sendMsg(){
