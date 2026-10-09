@@ -6,260 +6,1038 @@
 <title>Gewon Music — Nhạc cụ chính hãng</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
   *{margin:0;padding:0;box-sizing:border-box}
   :root{
-    --bg:#0a0a0a;--surface:#141414;--surface-2:#1c1c1c;
-    --border:rgba(255,255,255,.08);--text:#fff;--muted:#8a8a8a;
-    --sale:#ff3b30;--green:#30d158;--blue:#0a84ff;
+    --bg:#0b0d12;
+    --bg-2:#10131a;
+    --surface:#161a22;
+    --surface-2:#1e232d;
+    --surface-3:#272d3a;
+    --border:rgba(255,255,255,.09);
+    --border-strong:rgba(255,255,255,.16);
+    --text:#ffffff;
+    --text-2:#d1d7e0;
+    --muted:#9aa4b2;
+    --muted-2:#6b7688;
+    --accent:#f5a524;
+    --accent-2:#ffb84d;
+    --accent-glow:rgba(245,165,36,.35);
+    --blue:#3b82f6;
+    --blue-2:#60a5fa;
+    --green:#10b981;
+    --green-2:#34d399;
+    --sale:#ef4444;
+    --sale-2:#f87171;
+    --purple:#a855f7;
+    --cyan:#22d3ee;
   }
   html{scroll-behavior:smooth}
-  body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+  body{
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+    color:var(--text);
+    line-height:1.65;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    background:
+      radial-gradient(ellipse 90% 60% at 50% -10%, rgba(245,165,36,.13), transparent 60%),
+      radial-gradient(ellipse 70% 50% at 100% 30%, rgba(59,130,246,.08), transparent 55%),
+      radial-gradient(ellipse 60% 50% at 0% 80%, rgba(168,85,247,.06), transparent 55%),
+      linear-gradient(180deg,#0b0d12 0%,#0e1118 100%);
+    background-attachment:fixed;
+  }
+  body::before{
+    content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+    background-image:radial-gradient(rgba(255,255,255,.035) 1px, transparent 1px);
+    background-size:32px 32px;
+    mask-image:radial-gradient(ellipse at center, #000 40%, transparent 80%);
+    -webkit-mask-image:radial-gradient(ellipse at center, #000 40%, transparent 80%);
+  }
+  main,nav,footer{position:relative;z-index:1}
   a{color:inherit;text-decoration:none}
   button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
   input,textarea{font-family:inherit}
 
-  nav{position:fixed;top:0;left:0;right:0;height:64px;background:rgba(10,10,10,.72);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);z-index:1000;display:flex;align-items:center;padding:0 32px;justify-content:space-between}
-  .brand{font-size:15px;font-weight:800;letter-spacing:-.3px;display:flex;align-items:center;gap:8px;cursor:pointer}
-  .brand-dot{width:8px;height:8px;background:#fff;border-radius:50%}
+  nav{
+    position:fixed;top:0;left:0;right:0;height:68px;
+    background:rgba(11,13,18,.85);
+    backdrop-filter:blur(24px) saturate(1.5);
+    -webkit-backdrop-filter:blur(24px) saturate(1.5);
+    border-bottom:1px solid var(--border);
+    z-index:1000;display:flex;align-items:center;
+    padding:0 40px;justify-content:space-between;
+  }
+  .brand{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:17px;font-weight:700;letter-spacing:-.3px;
+    display:flex;align-items:center;gap:10px;cursor:pointer;
+    color:#fff;
+  }
+  .brand-dot{
+    width:9px;height:9px;
+    background:linear-gradient(135deg,var(--accent) 0%,var(--accent-2) 100%);
+    border-radius:50%;
+    box-shadow:0 0 12px var(--accent-glow);
+  }
   .nav-links{display:flex;gap:4px;align-items:center;flex-wrap:wrap}
-  .nav-links a{font-size:13px;font-weight:500;color:var(--muted);padding:8px 12px;border-radius:8px;transition:all .2s;cursor:pointer;white-space:nowrap;position:relative}
-  .nav-links a:hover{color:#fff;background:rgba(255,255,255,.05)}
-  .nav-links a.active{color:#fff;background:rgba(255,255,255,.08)}
-  .nav-badge{display:inline-flex;align-items:center;justify-content:center;min-width:16px;height:16px;padding:0 4px;border-radius:100px;background:var(--sale);color:#fff;font-size:10px;font-weight:700;margin-left:4px;vertical-align:middle}
-  .nav-phone{font-size:12px;font-weight:600;color:#fff;padding:8px 16px;border:1px solid var(--border);border-radius:20px;transition:all .2s;white-space:nowrap}
-  .nav-phone:hover{background:#fff;color:#000;border-color:#fff}
+  .nav-links a{
+    font-size:13.5px;font-weight:500;color:var(--text-2);
+    padding:9px 14px;border-radius:10px;transition:all .25s;
+    cursor:pointer;white-space:nowrap;position:relative;
+  }
+  .nav-links a:hover{color:#fff;background:rgba(255,255,255,.06)}
+  .nav-links a.active{
+    color:#fff;background:rgba(245,165,36,.14);
+    box-shadow:inset 0 0 0 1px rgba(245,165,36,.25);
+  }
+  .nav-badge{
+    display:inline-flex;align-items:center;justify-content:center;
+    min-width:18px;height:18px;padding:0 5px;border-radius:100px;
+    background:var(--sale);color:#fff;font-size:10.5px;font-weight:700;
+    margin-left:5px;vertical-align:middle;
+    box-shadow:0 0 10px rgba(239,68,68,.5);
+  }
+  .nav-phone{
+    font-size:12.5px;font-weight:600;color:#fff;
+    padding:10px 18px;
+    background:linear-gradient(135deg,var(--accent) 0%,var(--accent-2) 100%);
+    color:#1a1200;
+    border-radius:100px;transition:all .25s;white-space:nowrap;
+    box-shadow:0 4px 16px rgba(245,165,36,.3);
+  }
+  .nav-phone:hover{
+    transform:translateY(-2px);
+    box-shadow:0 8px 24px rgba(245,165,36,.5);
+  }
 
-  main{padding-top:64px;min-height:100vh}
+  main{padding-top:68px;min-height:100vh}
   .view{display:none}
   .view.active{display:block;animation:fadeUp .5s cubic-bezier(.2,.9,.3,1)}
   @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 
-  .hero{position:relative;height:calc(100vh - 64px);min-height:600px;display:flex;align-items:flex-end;padding:64px;overflow:hidden}
-  .hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.35) saturate(.9);animation:kenBurns 25s ease-in-out infinite alternate}
+  .hero{
+    position:relative;height:calc(100vh - 68px);min-height:640px;
+    display:flex;align-items:flex-end;padding:72px;overflow:hidden;
+  }
+  .hero-bg{
+    position:absolute;inset:0;width:100%;height:100%;
+    object-fit:cover;
+    filter:brightness(.42) saturate(1.05) contrast(1.05);
+    animation:kenBurns 25s ease-in-out infinite alternate;
+  }
   @keyframes kenBurns{0%{transform:scale(1.05)}100%{transform:scale(1.15)}}
-  .hero::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,10,.3) 0%,rgba(10,10,10,.85) 100%)}
-  .hero-content{position:relative;z-index:2;max-width:820px}
-  .hero-label{font-size:12px;font-weight:600;color:rgba(255,255,255,.6);letter-spacing:2px;text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:10px}
-  .hero-label::before{content:'';width:24px;height:1px;background:currentColor}
-  .hero h1{font-size:clamp(40px,7vw,88px);font-weight:800;line-height:1;letter-spacing:-3px;margin-bottom:24px}
-  .hero h1 .accent{background:linear-gradient(135deg,#fff 0%,#888 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-  .hero-sub{font-size:16px;color:rgba(255,255,255,.7);margin-bottom:36px;max-width:520px}
-  .hero-cta{display:flex;gap:12px;flex-wrap:wrap}
-  .btn{display:inline-flex;align-items:center;gap:8px;padding:14px 26px;font-size:13.5px;font-weight:600;border-radius:100px;transition:all .25s;white-space:nowrap;cursor:pointer}
-  .btn-primary{background:#fff;color:#000}
-  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(255,255,255,.2)}
-  .btn-ghost{background:rgba(255,255,255,.08);color:#fff;backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.12)}
-  .btn-ghost:hover{background:rgba(255,255,255,.15)}
+  .hero::after{
+    content:'';position:absolute;inset:0;
+    background:
+      linear-gradient(180deg,rgba(11,13,18,.35) 0%,rgba(11,13,18,.55) 40%,rgba(11,13,18,.92) 100%),
+      radial-gradient(ellipse 60% 50% at 20% 80%, rgba(245,165,36,.18), transparent 70%);
+  }
+  .hero-content{position:relative;z-index:2;max-width:860px}
+  .hero-label{
+    font-size:12.5px;font-weight:700;
+    color:var(--accent-2);
+    letter-spacing:3px;text-transform:uppercase;
+    margin-bottom:22px;display:inline-flex;align-items:center;gap:12px;
+    padding:8px 16px;
+    background:rgba(245,165,36,.12);
+    border:1px solid rgba(245,165,36,.28);
+    border-radius:100px;
+    backdrop-filter:blur(12px);
+  }
+  .hero-label::before{
+    content:'';width:6px;height:6px;border-radius:50%;
+    background:var(--accent);box-shadow:0 0 10px var(--accent);
+  }
+  .hero h1{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:clamp(42px,7.2vw,92px);
+    font-weight:700;line-height:1.08;
+    letter-spacing:-.02em;
+    margin-bottom:26px;color:#fff;
+    text-shadow:0 6px 40px rgba(0,0,0,.7);
+  }
+  .hero h1 .accent{
+    background:linear-gradient(135deg,var(--accent-2) 0%,var(--accent) 50%,#e88a1c 100%);
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+    background-clip:text;
+    display:inline-block;
+    filter:drop-shadow(0 4px 24px rgba(245,165,36,.35));
+  }
+  .hero-sub{
+    font-size:17px;color:rgba(255,255,255,.9);
+    margin-bottom:38px;max-width:600px;line-height:1.75;
+    text-shadow:0 2px 16px rgba(0,0,0,.6);
+    font-weight:400;
+  }
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
 
-  .section{padding:100px 64px;max-width:1600px;margin:0 auto}
-  .section-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:50px;gap:32px;flex-wrap:wrap}
-  .section-head h2{font-size:clamp(28px,4vw,44px);font-weight:800;letter-spacing:-1.5px;line-height:1.1}
-  .section-head .view-all{font-size:13px;font-weight:600;color:var(--muted);display:flex;align-items:center;gap:6px;transition:color .2s;cursor:pointer}
-  .section-head .view-all:hover{color:#fff}
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:15px 28px;font-size:14px;font-weight:600;
+    border-radius:100px;transition:all .3s cubic-bezier(.2,.9,.3,1);
+    white-space:nowrap;cursor:pointer;line-height:1.2;
+  }
+  .btn-primary{
+    background:linear-gradient(135deg,var(--accent) 0%,var(--accent-2) 100%);
+    color:#1a1200;font-weight:700;
+    box-shadow:0 8px 24px rgba(245,165,36,.35);
+  }
+  .btn-primary:hover{
+    transform:translateY(-3px);
+    box-shadow:0 14px 36px rgba(245,165,36,.55);
+    filter:brightness(1.05);
+  }
+  .btn-ghost{
+    background:rgba(255,255,255,.08);color:#fff;
+    backdrop-filter:blur(20px);
+    border:1px solid rgba(255,255,255,.18);
+  }
+  .btn-ghost:hover{
+    background:rgba(255,255,255,.16);
+    border-color:rgba(255,255,255,.32);
+    transform:translateY(-2px);
+  }
 
-  .cat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
-  .cat-card{position:relative;aspect-ratio:4/5;border-radius:20px;overflow:hidden;cursor:pointer;transition:transform .5s cubic-bezier(.2,.9,.3,1)}
-  .cat-card:hover{transform:translateY(-8px)}
-  .cat-card img{width:100%;height:100%;object-fit:cover;transition:transform 1s cubic-bezier(.2,.9,.3,1)}
-  .cat-card:hover img{transform:scale(1.08)}
-  .cat-card::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.9) 100%)}
-  .cat-info{position:absolute;bottom:0;left:0;right:0;padding:32px;z-index:2}
-  .cat-info h3{font-size:32px;font-weight:800;letter-spacing:-1px;margin-bottom:4px}
-  .cat-info span{font-size:13px;color:rgba(255,255,255,.6)}
-  .cat-arrow{position:absolute;top:24px;right:24px;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.15);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;font-size:16px;transition:all .3s;z-index:2}
-  .cat-card:hover .cat-arrow{background:#fff;color:#000;transform:rotate(-45deg)}
+  .section{padding:110px 72px;max-width:1600px;margin:0 auto;position:relative}
+  .section-head{
+    display:flex;justify-content:space-between;align-items:flex-end;
+    margin-bottom:56px;gap:32px;flex-wrap:wrap;
+  }
+  .section-head h2{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:clamp(30px,4.2vw,48px);
+    font-weight:700;letter-spacing:-.02em;
+    line-height:1.15;color:#fff;
+    position:relative;padding-left:24px;
+  }
+  .section-head h2::before{
+    content:'';position:absolute;left:0;top:50%;
+    transform:translateY(-50%);
+    width:4px;height:60%;
+    background:linear-gradient(180deg,var(--accent) 0%,var(--accent-2) 100%);
+    border-radius:4px;
+    box-shadow:0 0 16px var(--accent-glow);
+  }
+  .section-head .view-all{
+    font-size:13.5px;font-weight:600;color:var(--accent-2);
+    display:flex;align-items:center;gap:8px;
+    transition:all .25s;cursor:pointer;
+    padding:10px 18px;border-radius:100px;
+    background:rgba(245,165,36,.08);
+    border:1px solid rgba(245,165,36,.2);
+  }
+  .section-head .view-all:hover{
+    color:#fff;background:rgba(245,165,36,.18);
+    border-color:rgba(245,165,36,.4);
+    transform:translateX(4px);
+  }
 
-  .product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:24px}
-  .product-card{cursor:pointer;transition:transform .4s cubic-bezier(.2,.9,.3,1)}
-  .product-card:hover{transform:translateY(-6px)}
-  .product-img-wrap{position:relative;aspect-ratio:1;border-radius:16px;overflow:hidden;background:var(--surface);margin-bottom:16px}
-  .product-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.9,.3,1)}
-  .product-card:hover .product-img-wrap img{transform:scale(1.08)}
-  .product-badge{position:absolute;top:14px;left:14px;background:#fff;color:#000;padding:5px 12px;border-radius:100px;font-size:10.5px;font-weight:700;letter-spacing:.5px;text-transform:uppercase}
-  .product-badge.sale{background:var(--sale);color:#fff}
-  .product-info h3{font-size:15px;font-weight:600;letter-spacing:-.2px;margin-bottom:4px}
-  .product-info .price{font-size:14.5px;font-weight:700;color:#fff}
-  .product-info .price-old{font-size:12px;color:var(--muted);text-decoration:line-through;margin-left:8px;font-weight:400}
+  .intro-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:72px;align-items:center}
+  .intro-visual{
+    position:relative;aspect-ratio:4/5;border-radius:28px;
+    overflow:hidden;background:var(--surface);
+    box-shadow:0 30px 80px rgba(0,0,0,.55);
+    border:1px solid var(--border-strong);
+  }
+  .intro-visual img{
+    width:100%;height:100%;object-fit:cover;
+    filter:brightness(.92) saturate(1.05);
+    transition:transform 1.2s cubic-bezier(.2,.9,.3,1);
+  }
+  .intro-visual:hover img{transform:scale(1.04)}
+  .intro-visual::after{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(180deg,transparent 45%,rgba(11,13,18,.85) 100%);
+  }
+  .intro-badge{
+    position:absolute;bottom:32px;left:32px;right:32px;z-index:2;
+    background:rgba(11,13,18,.85);
+    backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+    border:1px solid rgba(245,165,36,.25);
+    border-radius:20px;padding:22px 26px;
+    box-shadow:0 12px 40px rgba(0,0,0,.5);
+  }
+  .intro-badge-num{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:42px;font-weight:700;letter-spacing:-.03em;
+    background:linear-gradient(135deg,var(--accent-2) 0%,var(--accent) 100%);
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+    background-clip:text;line-height:1;
+  }
+  .intro-badge-label{
+    font-size:12px;color:var(--text-2);
+    letter-spacing:1.8px;text-transform:uppercase;
+    font-weight:600;margin-top:8px;
+  }
+  .intro-label{
+    font-size:12.5px;font-weight:700;
+    color:var(--accent-2);letter-spacing:3px;
+    text-transform:uppercase;margin-bottom:20px;
+    display:flex;align-items:center;gap:12px;
+  }
+  .intro-label::before{
+    content:'';width:28px;height:2px;
+    background:linear-gradient(90deg,var(--accent) 0%,transparent 100%);
+    border-radius:2px;
+  }
+  .intro-title{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:clamp(30px,3.8vw,48px);
+    font-weight:700;letter-spacing:-.025em;
+    line-height:1.18;margin-bottom:28px;color:#fff;
+  }
+  .intro-title .accent{
+    background:linear-gradient(135deg,var(--accent-2) 0%,var(--accent) 100%);
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+    background-clip:text;
+  }
+  .intro-body{
+    font-size:16px;color:var(--text-2);
+    line-height:1.85;margin-bottom:22px;font-weight:400;
+  }
+  .intro-body strong{color:var(--accent-2);font-weight:600}
+  .intro-stats{
+    display:grid;grid-template-columns:repeat(3,1fr);
+    gap:20px;margin-top:40px;padding-top:40px;
+    border-top:1px solid var(--border);
+  }
+  .intro-stat strong{
+    display:block;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:32px;font-weight:700;
+    letter-spacing:-.02em;margin-bottom:6px;
+    background:linear-gradient(135deg,#fff 0%,#c9cfd9 100%);
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+    background-clip:text;
+  }
+  .intro-stat span{
+    font-size:12px;color:var(--muted);
+    letter-spacing:1px;font-weight:600;
+    text-transform:uppercase;
+  }
 
-  .page-head{padding:80px 64px 40px;max-width:1600px;margin:0 auto}
-  .page-head .breadcrumb{font-size:12px;color:var(--muted);margin-bottom:20px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-  .page-head .breadcrumb a{cursor:pointer;transition:color .2s}
-  .page-head .breadcrumb a:hover{color:#fff}
-  .page-head .breadcrumb .sep{opacity:.4}
-  .page-head h1{font-size:clamp(36px,6vw,72px);font-weight:800;letter-spacing:-2.5px;line-height:1;margin-bottom:16px}
-  .page-head p{font-size:15px;color:var(--muted);max-width:560px}
-  .filter-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:32px}
-  .filter-chip{padding:9px 18px;border-radius:100px;background:var(--surface);color:var(--muted);font-size:12.5px;font-weight:500;border:1px solid transparent;transition:all .2s;cursor:pointer}
-  .filter-chip:hover{color:#fff;background:var(--surface-2)}
-  .filter-chip.active{background:#fff;color:#000;font-weight:600}
-
-  .products-area{padding:0 64px 100px;max-width:1600px;margin:0 auto}
-
-  .detail-wrap{max-width:1600px;margin:0 auto;padding:40px 64px 100px}
-  .back-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:100px;background:var(--surface);font-size:12.5px;font-weight:500;color:var(--muted);margin-bottom:40px;transition:all .2s;cursor:pointer}
-  .back-btn:hover{color:#fff;background:var(--surface-2)}
-  .detail-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:60px;align-items:flex-start}
-  .detail-gallery{position:sticky;top:100px}
-  .detail-main{aspect-ratio:1;border-radius:20px;overflow:hidden;background:var(--surface);margin-bottom:12px;position:relative}
-  .detail-main img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .4s}
-  .detail-main img.active{opacity:1}
-  .thumb-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-  .thumb{aspect-ratio:1;border-radius:10px;overflow:hidden;cursor:pointer;border:2px solid transparent;transition:all .2s;background:var(--surface)}
-  .thumb img{width:100%;height:100%;object-fit:cover;opacity:.6;transition:opacity .2s}
-  .thumb:hover img,.thumb.active img{opacity:1}
-  .thumb.active{border-color:#fff}
-  .detail-info .brand-tag{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
-  .detail-info h1{font-size:clamp(28px,4vw,44px);font-weight:800;letter-spacing:-1.5px;line-height:1.1;margin-bottom:20px}
-  .detail-price-row{display:flex;align-items:baseline;gap:12px;margin-bottom:28px;flex-wrap:wrap}
-  .detail-price{font-size:32px;font-weight:800;letter-spacing:-1px}
-  .detail-price-old{font-size:16px;color:var(--muted);text-decoration:line-through}
-  .detail-short{font-size:15px;color:rgba(255,255,255,.75);line-height:1.7;margin-bottom:32px;padding-bottom:32px;border-bottom:1px solid var(--border)}
-  .detail-cta{display:flex;gap:10px;margin-bottom:40px;flex-wrap:wrap}
-  .spec-section-title{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
-  .spec-list{display:flex;flex-direction:column;border-top:1px solid var(--border);margin-bottom:36px}
-  .spec-row{display:grid;grid-template-columns:1fr 1.5fr;padding:14px 0;border-bottom:1px solid var(--border);font-size:13.5px}
-  .spec-row dt{color:var(--muted);font-weight:500}
-  .spec-row dd{color:#fff;font-weight:500}
-  .feature-list{display:flex;flex-direction:column;gap:10px;list-style:none}
-  .feature-list li{font-size:14px;color:rgba(255,255,255,.8);display:flex;gap:12px;align-items:flex-start;line-height:1.5}
-  .feature-list li::before{content:'';flex-shrink:0;width:16px;height:16px;margin-top:3px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center/contain no-repeat}
-
-  .contact-section{padding:100px 64px;max-width:1600px;margin:0 auto}
-  .contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:50px}
-  .contact-card{background:var(--surface);border-radius:20px;padding:32px;transition:all .3s}
-  .contact-card:hover{background:var(--surface-2);transform:translateY(-4px)}
-  .contact-card .ic{font-size:28px;margin-bottom:16px}
-  .contact-card h4{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
-  .contact-card p{font-size:17px;font-weight:600;line-height:1.4}
-  .contact-card small{display:block;font-size:12px;color:var(--muted);font-weight:400;margin-top:8px;line-height:1.5}
-
-  .ship-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:1400px;margin:0 auto}
-  .ship-form-box{background:var(--surface);border-radius:20px;padding:32px}
-  .ship-form-box h3{font-size:20px;font-weight:700;margin-bottom:8px}
-  .ship-form-box > p{font-size:13px;color:var(--muted);margin-bottom:24px}
-  .form-field{display:flex;flex-direction:column;gap:16px}
-  .form-field label{font-size:12px;font-weight:600;color:var(--muted);letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:8px}
-  .form-field input,.form-field textarea{width:100%;padding:14px 18px;background:var(--surface-2);border:1px solid var(--border);border-radius:12px;color:#fff;font-size:14px;outline:none;transition:border-color .2s}
-  .form-field input:focus,.form-field textarea:focus{border-color:#444}
-  .form-field input::placeholder,.form-field textarea::placeholder{color:#555}
-  .form-field textarea{resize:vertical;min-height:80px}
-  .fee-box{background:var(--surface-2);border-radius:12px;padding:16px;display:none}
-  .fee-row{display:flex;justify-content:space-between;margin-bottom:6px}
-  .fee-row:last-child{margin-bottom:0}
-  .fee-row span:first-child{font-size:13px;color:var(--muted)}
-  .fee-row span:last-child{font-size:14px;font-weight:600}
-  .fee-free{color:var(--green)}
-  .map-box{background:var(--surface);border-radius:20px;padding:8px;min-height:500px}
-  .map-box iframe{width:100%;height:100%;min-height:500px;border:0;border-radius:14px;display:block}
-  .pending-product{background:linear-gradient(135deg,rgba(255,255,255,.05) 0%,rgba(255,255,255,.02) 100%);border:1px solid var(--border);border-radius:14px;padding:14px;margin-bottom:4px}
-  .pp-label{font-size:10.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;display:block}
-  .pp-item{display:flex;align-items:center;gap:12px}
-  .pp-item img{width:52px;height:52px;border-radius:10px;object-fit:cover;background:var(--surface-2);flex-shrink:0}
-  .pp-item > div{flex:1;min-width:0}
-  .pp-item strong{font-size:13.5px;font-weight:600;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .pp-item span{font-size:12.5px;color:var(--muted);display:block;margin-top:2px}
-  .pp-remove{width:28px;height:28px;border-radius:50%;background:var(--surface-2);color:var(--muted);font-size:13px;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0}
-  .pp-remove:hover{background:#333;color:#fff}
-
-  .orders-area{padding:0 64px 100px;max-width:1100px;margin:0 auto}
-  .orders-empty{text-align:center;padding:80px 20px;background:var(--surface);border-radius:20px;border:1px solid var(--border)}
-  .orders-empty .emoji{font-size:64px;margin-bottom:16px}
-  .orders-empty h3{font-size:22px;font-weight:700;margin-bottom:8px}
-  .orders-empty p{font-size:14px;color:var(--muted);margin-bottom:24px;max-width:400px;margin-left:auto;margin-right:auto}
-  .order-card{background:var(--surface);border-radius:20px;padding:24px;margin-bottom:16px;border:1px solid var(--border);animation:fadeUp .5s cubic-bezier(.2,.9,.3,1)}
-  .order-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:8px}
-  .order-code{font-size:16px;font-weight:800;letter-spacing:-.3px}
-  .order-date{font-size:12px;color:var(--muted);margin-top:2px}
-  .order-tags{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
-  .order-status{padding:7px 14px;border-radius:100px;font-size:12px;font-weight:600;background:rgba(48,209,88,.15);color:var(--green);display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
-  .order-status::before{content:'';width:8px;height:8px;border-radius:50%;background:currentColor;animation:pulse 1.5s infinite;box-shadow:0 0 8px currentColor}
-  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.55;transform:scale(1.15)}}
-  .order-sent{padding:5px 10px;border-radius:100px;font-size:10.5px;font-weight:600;background:rgba(10,132,255,.15);color:#4da3ff;display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
-  .order-timeline{display:grid;grid-template-columns:repeat(4,1fr);margin:24px 0 20px;position:relative}
-  .tl-step{display:flex;flex-direction:column;align-items:center;position:relative;text-align:center}
-  .tl-step::before{content:'';position:absolute;top:14px;left:calc(-50% + 14px);right:calc(50% + 14px);height:2px;background:var(--border);z-index:0}
-  .tl-step:first-child::before{display:none}
-  .tl-step.done::before,.tl-step.active::before{background:var(--green)}
-  .tl-dot{width:28px;height:28px;border-radius:50%;background:var(--surface-2);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;position:relative;z-index:1;color:var(--muted);transition:all .3s}
-  .tl-step.done .tl-dot{background:var(--green);border-color:var(--green);color:#fff}
-  .tl-step.active .tl-dot{background:#fff;border-color:#fff;color:#000;box-shadow:0 0 0 5px rgba(255,255,255,.15);animation:activeDot 2s infinite}
-  @keyframes activeDot{0%,100%{box-shadow:0 0 0 5px rgba(255,255,255,.15)}50%{box-shadow:0 0 0 9px rgba(255,255,255,.06)}}
-  .tl-label{font-size:11px;color:var(--muted);margin-top:10px;font-weight:500;line-height:1.3;padding:0 4px}
-  .tl-step.done .tl-label,.tl-step.active .tl-label{color:#fff;font-weight:600}
-  .order-product{display:flex;align-items:center;gap:12px;background:var(--surface-2);border-radius:12px;padding:12px;margin-bottom:14px}
-  .order-product img{width:48px;height:48px;border-radius:10px;object-fit:cover;background:var(--surface);flex-shrink:0}
-  .order-product > div{flex:1;min-width:0}
-  .order-product strong{font-size:13.5px;font-weight:600;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .order-product span{font-size:12.5px;color:var(--muted);display:block;margin-top:2px}
-  .order-body{border-top:1px solid var(--border);padding-top:14px}
-  .order-row{display:flex;justify-content:space-between;padding:7px 0;font-size:13.5px;gap:16px}
-  .order-row span{color:var(--muted);flex-shrink:0}
-  .order-row strong{color:#fff;text-align:right;font-weight:500;word-break:break-word;min-width:0}
-  .order-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;padding-top:14px;border-top:1px solid var(--border)}
-  .btn-cancel{padding:10px 18px;border-radius:100px;background:rgba(255,59,48,.1);color:#ff6b60;font-size:12.5px;font-weight:600;border:1px solid rgba(255,59,48,.25);transition:all .2s;display:inline-flex;align-items:center;gap:6px;cursor:pointer}
-  .btn-cancel:hover{background:rgba(255,59,48,.2);color:#fff;border-color:rgba(255,59,48,.5)}
-
-  #cancel-modal{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:2000;display:flex;align-items:center;justify-content:center;padding:20px;animation:cmFade .2s ease}
-  @keyframes cmFade{from{opacity:0}to{opacity:1}}
-  .cancel-modal-box{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:36px 32px;max-width:440px;width:100%;text-align:center;animation:cmPop .3s cubic-bezier(.2,.9,.3,1);box-shadow:0 30px 80px rgba(0,0,0,.8)}
-  @keyframes cmPop{from{opacity:0;transform:scale(.92) translateY(10px)}to{opacity:1;transform:scale(1) translateY(0)}}
-  .cancel-modal-icon{width:64px;height:64px;border-radius:50%;background:rgba(255,59,48,.15);color:var(--sale);font-size:30px;display:flex;align-items:center;justify-content:center;margin:0 auto 18px}
-  .cancel-modal-box h3{font-size:20px;font-weight:800;letter-spacing:-.5px;margin-bottom:12px}
-  .cancel-modal-box p{font-size:14px;color:var(--muted);line-height:1.6;margin-bottom:26px}
-  .cancel-modal-box p strong{color:#fff}
-  .cancel-modal-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
-  .cancel-modal-actions .btn{min-width:130px;justify-content:center}
-
-  /* ===== TEST INSTRUMENTS ===== */
-  .test-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px;justify-content:center}
-  .test-tab{display:inline-flex;align-items:center;gap:10px;padding:14px 24px;border-radius:100px;background:var(--surface);color:var(--muted);font-size:14px;font-weight:600;border:1px solid var(--border);transition:all .25s;cursor:pointer}
-  .test-tab .ic{font-size:18px}
-  .test-tab:hover{color:#fff;background:var(--surface-2);transform:translateY(-2px)}
-  .test-tab.active{background:#fff;color:#000;border-color:#fff;box-shadow:0 8px 24px rgba(255,255,255,.15)}
-
-  .test-panel{background:var(--surface);border:1px solid var(--border);border-radius:24px;padding:36px;animation:fadeUp .4s cubic-bezier(.2,.9,.3,1)}
-  .test-panel-head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:32px}
-  .test-panel-head h3{font-size:24px;font-weight:800;letter-spacing:-.5px;margin-bottom:6px}
-  .test-panel-head p{font-size:13.5px;color:var(--muted)}
-  .test-panel-actions{display:flex;gap:10px;flex-wrap:wrap}
-
-  /* Piano keys */
-  .test-keys{display:flex;gap:6px;justify-content:center;padding:20px 0;flex-wrap:wrap;user-select:none}
-  .test-key{position:relative;flex:1;min-width:70px;max-width:120px;aspect-ratio:1/2.8;background:linear-gradient(180deg,#f5f5f5 0%,#e0e0e0 100%);border-radius:0 0 12px 12px;color:#222;font-weight:700;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;padding-bottom:16px;transition:all .1s;cursor:pointer;box-shadow:inset 0 -3px 0 rgba(0,0,0,.1),0 4px 12px rgba(0,0,0,.3);border:none}
-  .test-key:hover{background:linear-gradient(180deg,#fff 0%,#eaeaea 100%)}
-  .test-key:active,.test-key.pressed{background:linear-gradient(180deg,#d8d8d8 0%,#c0c0c0 100%);transform:translateY(2px);box-shadow:inset 0 -1px 0 rgba(0,0,0,.1),0 2px 6px rgba(0,0,0,.3)}
-  .test-key span{font-size:15px;font-weight:800;letter-spacing:-.5px}
-  .test-key small{font-size:10px;font-weight:500;color:#666;margin-top:2px;text-transform:uppercase;letter-spacing:1px}
-
-  /* Guitar */
-  .guitar-wrap{
-    background:linear-gradient(180deg,rgba(255,255,255,.03) 0%,rgba(255,255,255,.01) 100%);
-    border-radius:20px;
-    padding:24px 16px;
-    overflow:hidden;
+  .cat-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:24px;
+  }
+  .cat-card{
+    position:relative;aspect-ratio:4/5;
+    border-radius:24px;overflow:hidden;cursor:pointer;
+    transition:all .55s cubic-bezier(.2,.9,.3,1);
+    box-shadow:0 20px 50px rgba(0,0,0,.4);
     border:1px solid var(--border);
   }
+  .cat-card:hover{
+    transform:translateY(-10px);
+    box-shadow:0 30px 70px rgba(0,0,0,.6),0 0 0 1px rgba(245,165,36,.3);
+  }
+  .cat-card img{
+    width:100%;height:100%;object-fit:cover;
+    transition:transform 1.2s cubic-bezier(.2,.9,.3,1);
+    filter:brightness(.9) saturate(1.05);
+  }
+  .cat-card:hover img{transform:scale(1.1)}
+  .cat-card::after{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(180deg,transparent 35%,rgba(0,0,0,.55) 60%,rgba(0,0,0,.95) 100%);
+  }
+  .cat-info{position:absolute;bottom:0;left:0;right:0;padding:36px;z-index:2}
+  .cat-info h3{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:34px;font-weight:700;
+    letter-spacing:-.02em;margin-bottom:8px;color:#fff;
+    text-shadow:0 4px 20px rgba(0,0,0,.8);
+  }
+  .cat-info span{
+    font-size:14px;color:rgba(255,255,255,.9);
+    font-weight:400;
+  }
+  .cat-arrow{
+    position:absolute;top:24px;right:24px;
+    width:48px;height:48px;border-radius:50%;
+    background:rgba(255,255,255,.14);
+    backdrop-filter:blur(20px);
+    display:flex;align-items:center;justify-content:center;
+    font-size:18px;transition:all .35s;z-index:2;color:#fff;
+    border:1px solid rgba(255,255,255,.2);
+  }
+  .cat-card:hover .cat-arrow{
+    background:linear-gradient(135deg,var(--accent) 0%,var(--accent-2) 100%);
+    color:#1a1200;border-color:transparent;
+    transform:rotate(-45deg) scale(1.05);
+    box-shadow:0 8px 24px rgba(245,165,36,.5);
+  }
+
+  .product-grid{
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));
+    gap:28px;
+  }
+  .product-card{
+    cursor:pointer;transition:transform .45s cubic-bezier(.2,.9,.3,1);
+    background:rgba(22,26,34,.7);
+    border-radius:22px;overflow:hidden;
+    border:1px solid var(--border);
+    padding:14px;
+    backdrop-filter:blur(10px);
+  }
+  .product-card:hover{
+    transform:translateY(-8px);
+    border-color:rgba(245,165,36,.4);
+    box-shadow:0 24px 60px rgba(0,0,0,.6),0 0 0 1px rgba(245,165,36,.25);
+  }
+  .product-img-wrap{
+    position:relative;aspect-ratio:1;
+    border-radius:16px;overflow:hidden;
+    background:var(--surface-2);margin-bottom:18px;
+  }
+  .product-img-wrap img{
+    width:100%;height:100%;object-fit:cover;
+    transition:transform .9s cubic-bezier(.2,.9,.3,1);
+  }
+  .product-card:hover .product-img-wrap img{transform:scale(1.09)}
+  .product-img-wrap::after{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(180deg,transparent 65%,rgba(0,0,0,.25) 100%);
+  }
+  .product-badge{
+    position:absolute;top:14px;left:14px;
+    background:linear-gradient(135deg,var(--accent) 0%,var(--accent-2) 100%);
+    color:#1a1200;
+    padding:6px 14px;border-radius:100px;
+    font-size:10.5px;font-weight:800;
+    letter-spacing:.6px;text-transform:uppercase;
+    box-shadow:0 4px 14px rgba(245,165,36,.45);
+    z-index:2;
+  }
+  .product-badge.sale{
+    background:linear-gradient(135deg,var(--sale) 0%,#dc2626 100%);
+    color:#fff;
+    box-shadow:0 4px 14px rgba(239,68,68,.5);
+  }
+  .product-info{padding:0 6px 6px}
+  .product-info h3{
+    font-size:16px;font-weight:600;
+    letter-spacing:-.01em;margin-bottom:8px;color:#fff;
+    line-height:1.4;
+    overflow:hidden;text-overflow:ellipsis;
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
+    min-height:44px;
+  }
+  .product-info .price{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:16.5px;font-weight:700;
+    color:var(--accent-2);letter-spacing:-.01em;
+  }
+  .product-info .price-old{
+    font-size:13px;color:var(--muted-2);
+    text-decoration:line-through;
+    margin-left:10px;font-weight:400;
+  }
+
+  .page-head{
+    padding:96px 72px 44px;max-width:1600px;margin:0 auto;
+  }
+  .page-head .breadcrumb{
+    font-size:12.5px;color:var(--muted);
+    margin-bottom:24px;display:flex;align-items:center;
+    gap:10px;flex-wrap:wrap;
+  }
+  .page-head .breadcrumb a{cursor:pointer;transition:color .2s}
+  .page-head .breadcrumb a:hover{color:var(--accent-2)}
+  .page-head .breadcrumb .sep{opacity:.4}
+  .page-head h1{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:clamp(38px,6.2vw,76px);
+    font-weight:700;letter-spacing:-.03em;
+    line-height:1.05;margin-bottom:18px;color:#fff;
+  }
+  .page-head p{
+    font-size:16px;color:var(--text-2);
+    max-width:580px;line-height:1.75;
+  }
+  .filter-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:36px}
+  .filter-chip{
+    padding:10px 22px;border-radius:100px;
+    background:var(--surface);color:var(--text-2);
+    font-size:13px;font-weight:500;
+    border:1px solid var(--border);
+    transition:all .25s;cursor:pointer;
+  }
+  .filter-chip:hover{
+    color:#fff;background:var(--surface-2);
+    border-color:var(--border-strong);
+    transform:translateY(-2px);
+  }
+  .filter-chip.active{
+    background:linear-gradient(135deg,var(--accent) 0%,var(--accent-2) 100%);
+    color:#1a1200;font-weight:700;border-color:transparent;
+    box-shadow:0 6px 20px rgba(245,165,36,.4);
+  }
+
+  .products-area{padding:0 72px 120px;max-width:1600px;margin:0 auto}
+
+  .detail-wrap{max-width:1600px;margin:0 auto;padding:44px 72px 120px}
+  .back-btn{
+    display:inline-flex;align-items:center;gap:9px;
+    padding:11px 22px;border-radius:100px;
+    background:var(--surface);font-size:13px;font-weight:500;
+    color:var(--text-2);margin-bottom:44px;
+    transition:all .25s;cursor:pointer;
+    border:1px solid var(--border);
+  }
+  .back-btn:hover{
+    color:#fff;background:var(--surface-2);
+    border-color:var(--border-strong);transform:translateX(-3px);
+  }
+  .detail-grid{
+    display:grid;grid-template-columns:1.1fr 1fr;
+    gap:64px;align-items:flex-start;
+  }
+  .detail-gallery{position:sticky;top:104px}
+  .detail-main{
+    aspect-ratio:1;border-radius:24px;overflow:hidden;
+    background:var(--surface);margin-bottom:16px;
+    position:relative;
+    border:1px solid var(--border);
+    box-shadow:0 24px 60px rgba(0,0,0,.5);
+  }
+  .detail-main img{
+    position:absolute;inset:0;width:100%;height:100%;
+    object-fit:cover;opacity:0;transition:opacity .5s;
+  }
+  .detail-main img.active{opacity:1}
+  .thumb-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+  .thumb{
+    aspect-ratio:1;border-radius:12px;overflow:hidden;
+    cursor:pointer;border:2px solid transparent;
+    transition:all .25s;background:var(--surface);
+  }
+  .thumb img{
+    width:100%;height:100%;object-fit:cover;
+    opacity:.5;transition:opacity .25s;
+  }
+  .thumb:hover img,.thumb.active img{opacity:1}
+  .thumb.active{
+    border-color:var(--accent);
+    box-shadow:0 0 20px rgba(245,165,36,.35);
+  }
+  .detail-info .brand-tag{
+    font-size:11.5px;font-weight:700;
+    letter-spacing:3px;text-transform:uppercase;
+    color:var(--accent-2);margin-bottom:14px;
+  }
+  .detail-info h1{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:clamp(30px,4.2vw,48px);
+    font-weight:700;letter-spacing:-.025em;
+    line-height:1.1;margin-bottom:22px;color:#fff;
+  }
+  .detail-price-row{
+    display:flex;align-items:baseline;
+    gap:14px;margin-bottom:32px;flex-wrap:wrap;
+  }
+  .detail-price{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:38px;font-weight:700;
+    letter-spacing:-.02em;
+    background:linear-gradient(135deg,var(--accent-2) 0%,var(--accent) 100%);
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+    background-clip:text;
+  }
+  .detail-price-old{
+    font-size:17px;color:var(--muted-2);
+    text-decoration:line-through;
+  }
+  .detail-short{
+    font-size:16px;color:var(--text-2);
+    line-height:1.85;margin-bottom:36px;
+    padding-bottom:36px;border-bottom:1px solid var(--border);
+  }
+  .detail-cta{display:flex;gap:12px;margin-bottom:44px;flex-wrap:wrap}
+  .spec-section-title{
+    font-size:12px;font-weight:700;
+    letter-spacing:2.5px;text-transform:uppercase;
+    color:var(--muted);margin-bottom:18px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .spec-section-title::after{
+    content:'';flex:1;height:1px;
+    background:linear-gradient(90deg,var(--border) 0%,transparent 100%);
+  }
+  .spec-list{
+    display:flex;flex-direction:column;
+    border-top:1px solid var(--border);margin-bottom:44px;
+  }
+  .spec-row{
+    display:grid;grid-template-columns:1fr 1.5fr;
+    padding:16px 0;border-bottom:1px solid var(--border);
+    font-size:14.5px;gap:16px;
+  }
+  .spec-row dt{color:var(--muted);font-weight:500}
+  .spec-row dd{color:#fff;font-weight:500;line-height:1.55}
+  .feature-list{
+    display:flex;flex-direction:column;
+    gap:14px;list-style:none;
+  }
+  .feature-list li{
+    font-size:15px;color:var(--text-2);
+    display:flex;gap:14px;align-items:flex-start;
+    line-height:1.7;
+  }
+  .feature-list li::before{
+    content:'';flex-shrink:0;width:20px;height:20px;
+    margin-top:3px;border-radius:50%;
+    background:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231a1200' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center/12px no-repeat,
+      linear-gradient(135deg,var(--accent) 0%,var(--accent-2) 100%);
+    box-shadow:0 3px 10px rgba(245,165,36,.35);
+  }
+
+  .contact-section{padding:110px 72px;max-width:1600px;margin:0 auto}
+  .contact-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;margin-top:52px;
+  }
+  .contact-card{
+    background:rgba(22,26,34,.75);
+    border-radius:22px;padding:36px;
+    transition:all .35s cubic-bezier(.2,.9,.3,1);
+    border:1px solid var(--border);
+    backdrop-filter:blur(10px);
+    position:relative;overflow:hidden;
+  }
+  .contact-card::before{
+    content:'';position:absolute;top:0;left:0;right:0;height:3px;
+    background:linear-gradient(90deg,var(--accent) 0%,var(--accent-2) 100%);
+    transform:scaleX(0);transform-origin:left;
+    transition:transform .4s cubic-bezier(.2,.9,.3,1);
+  }
+  .contact-card:hover{
+    background:var(--surface-2);
+    transform:translateY(-6px);
+    border-color:rgba(245,165,36,.3);
+    box-shadow:0 24px 60px rgba(0,0,0,.5);
+  }
+  .contact-card:hover::before{transform:scaleX(1)}
+  .contact-card .ic{
+    font-size:32px;margin-bottom:20px;
+    width:64px;height:64px;
+    display:flex;align-items:center;justify-content:center;
+    background:rgba(245,165,36,.1);
+    border-radius:16px;
+    border:1px solid rgba(245,165,36,.2);
+  }
+  .contact-card h4{
+    font-size:11.5px;font-weight:700;
+    letter-spacing:2.5px;text-transform:uppercase;
+    color:var(--muted);margin-bottom:14px;
+  }
+  .contact-card p{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:19px;font-weight:600;
+    line-height:1.4;color:#fff;
+    margin-bottom:6px;
+  }
+  .contact-card small{
+    display:block;font-size:13.5px;
+    color:var(--text-2);font-weight:400;
+    margin-top:10px;line-height:1.65;
+  }
+
+  .ship-grid{
+    display:grid;grid-template-columns:1fr 1fr;
+    gap:28px;max-width:1400px;margin:0 auto;
+  }
+  .ship-form-box{
+    background:rgba(22,26,34,.75);
+    border-radius:22px;padding:40px;
+    border:1px solid var(--border);
+    backdrop-filter:blur(10px);
+  }
+  .ship-form-box h3{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:22px;font-weight:700;
+    margin-bottom:10px;color:#fff;
+    letter-spacing:-.01em;
+  }
+  .ship-form-box > p{
+    font-size:14px;color:var(--muted);
+    margin-bottom:28px;line-height:1.65;
+  }
+  .form-field{display:flex;flex-direction:column;gap:20px}
+  .form-field label{
+    font-size:12px;font-weight:600;
+    color:var(--text-2);letter-spacing:1.2px;
+    text-transform:uppercase;display:block;margin-bottom:10px;
+  }
+  .form-field input,.form-field textarea{
+    width:100%;padding:16px 20px;
+    background:var(--surface-2);
+    border:1px solid var(--border);
+    border-radius:14px;color:#fff;
+    font-size:15px;outline:none;
+    transition:all .25s;
+  }
+  .form-field input:focus,.form-field textarea:focus{
+    border-color:var(--accent);
+    background:var(--surface-3);
+    box-shadow:0 0 0 4px rgba(245,165,36,.12);
+  }
+  .form-field input::placeholder,.form-field textarea::placeholder{color:var(--muted-2)}
+  .form-field textarea{resize:vertical;min-height:90px}
+  .fee-box{
+    background:var(--surface-2);border-radius:14px;
+    padding:18px;display:none;
+    border:1px solid var(--border);
+  }
+  .fee-row{display:flex;justify-content:space-between;margin-bottom:8px}
+  .fee-row:last-child{margin-bottom:0}
+  .fee-row span:first-child{font-size:14px;color:var(--muted)}
+  .fee-row span:last-child{font-size:15px;font-weight:600;color:#fff}
+  .fee-free{color:var(--green-2) !important}
+  .map-box{
+    background:var(--surface);border-radius:22px;
+    padding:10px;min-height:520px;
+    border:1px solid var(--border);
+    box-shadow:0 24px 60px rgba(0,0,0,.4);
+  }
+  .map-box iframe{
+    width:100%;height:100%;min-height:520px;
+    border:0;border-radius:16px;display:block;
+  }
+  .pending-product{
+    background:linear-gradient(135deg,rgba(245,165,36,.08) 0%,rgba(245,165,36,.02) 100%);
+    border:1px solid rgba(245,165,36,.25);
+    border-radius:14px;padding:16px;margin-bottom:4px;
+  }
+  .pp-label{
+    font-size:11px;font-weight:700;
+    letter-spacing:1.8px;text-transform:uppercase;
+    color:var(--accent-2);margin-bottom:12px;display:block;
+  }
+  .pp-item{display:flex;align-items:center;gap:14px}
+  .pp-item img{
+    width:56px;height:56px;border-radius:12px;
+    object-fit:cover;background:var(--surface-2);flex-shrink:0;
+  }
+  .pp-item > div{flex:1;min-width:0}
+  .pp-item strong{
+    font-size:14.5px;font-weight:600;display:block;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#fff;
+  }
+  .pp-item span{font-size:13px;color:var(--accent-2);display:block;margin-top:3px;font-weight:500}
+  .pp-remove{
+    width:32px;height:32px;border-radius:50%;
+    background:var(--surface-3);color:var(--muted);
+    font-size:14px;display:flex;align-items:center;
+    justify-content:center;transition:all .2s;flex-shrink:0;
+  }
+  .pp-remove:hover{background:var(--sale);color:#fff}
+
+  .orders-area{padding:0 72px 120px;max-width:1100px;margin:0 auto}
+  .orders-empty{
+    text-align:center;padding:90px 24px;
+    background:rgba(22,26,34,.7);
+    border-radius:22px;border:1px solid var(--border);
+    backdrop-filter:blur(10px);
+  }
+  .orders-empty .emoji{font-size:72px;margin-bottom:20px}
+  .orders-empty h3{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:26px;font-weight:700;
+    margin-bottom:10px;color:#fff;
+  }
+  .orders-empty p{
+    font-size:15px;color:var(--text-2);
+    margin-bottom:28px;max-width:440px;
+    margin-left:auto;margin-right:auto;line-height:1.7;
+  }
+  .order-card{
+    background:rgba(22,26,34,.75);
+    border-radius:22px;padding:28px;
+    margin-bottom:18px;border:1px solid var(--border);
+    backdrop-filter:blur(10px);
+    animation:fadeUp .5s cubic-bezier(.2,.9,.3,1);
+  }
+  .order-head{
+    display:flex;justify-content:space-between;
+    align-items:flex-start;gap:16px;
+    flex-wrap:wrap;margin-bottom:10px;
+  }
+  .order-code{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:18px;font-weight:700;
+    letter-spacing:-.01em;color:#fff;
+  }
+  .order-date{font-size:13px;color:var(--muted);margin-top:4px}
+  .order-tags{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .order-status{
+    padding:8px 16px;border-radius:100px;
+    font-size:12.5px;font-weight:600;
+    background:rgba(16,185,129,.16);color:var(--green-2);
+    display:inline-flex;align-items:center;gap:8px;white-space:nowrap;
+    border:1px solid rgba(16,185,129,.25);
+  }
+  .order-status::before{
+    content:'';width:8px;height:8px;border-radius:50%;
+    background:currentColor;animation:pulse 1.6s infinite;
+    box-shadow:0 0 10px currentColor;
+  }
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.55;transform:scale(1.2)}}
+  .order-sent{
+    padding:6px 12px;border-radius:100px;
+    font-size:11px;font-weight:600;
+    background:rgba(59,130,246,.16);color:var(--blue-2);
+    display:inline-flex;align-items:center;gap:6px;white-space:nowrap;
+    border:1px solid rgba(59,130,246,.25);
+  }
+  .order-timeline{
+    display:grid;grid-template-columns:repeat(4,1fr);
+    margin:28px 0 24px;position:relative;
+  }
+  .tl-step{
+    display:flex;flex-direction:column;align-items:center;
+    position:relative;text-align:center;
+  }
+  .tl-step::before{
+    content:'';position:absolute;top:16px;
+    left:calc(-50% + 16px);right:calc(50% + 16px);
+    height:2px;background:var(--border);z-index:0;
+  }
+  .tl-step:first-child::before{display:none}
+  .tl-step.done::before,.tl-step.active::before{
+    background:linear-gradient(90deg,var(--accent) 0%,var(--accent-2) 100%);
+  }
+  .tl-dot{
+    width:32px;height:32px;border-radius:50%;
+    background:var(--surface-2);border:2px solid var(--border);
+    display:flex;align-items:center;justify-content:center;
+    font-size:13px;font-weight:700;position:relative;
+    z-index:1;color:var(--muted);transition:all .35s;
+  }
+  .tl-step.done .tl-dot{
+    background:linear-gradient(135deg,var(--accent) 0%,var(--accent-2) 100%);
+    border-color:transparent;color:#1a1200;
+    box-shadow:0 4px 14px rgba(245,165,36,.4);
+  }
+  .tl-step.active .tl-dot{
+    background:#fff;border-color:#fff;color:#000;
+    box-shadow:0 0 0 6px rgba(255,255,255,.18);
+    animation:activeDot 2s infinite;
+  }
+  @keyframes activeDot{
+    0%,100%{box-shadow:0 0 0 6px rgba(255,255,255,.18)}
+    50%{box-shadow:0 0 0 10px rgba(255,255,255,.08)}
+  }
+  .tl-label{
+    font-size:11.5px;color:var(--muted);
+    margin-top:12px;font-weight:500;
+    line-height:1.4;padding:0 6px;
+  }
+  .tl-step.done .tl-label,.tl-step.active .tl-label{
+    color:#fff;font-weight:600;
+  }
+  .order-product{
+    display:flex;align-items:center;gap:14px;
+    background:var(--surface-2);border-radius:14px;
+    padding:14px;margin-bottom:16px;
+    border:1px solid var(--border);
+  }
+  .order-product img{
+    width:56px;height:56px;border-radius:12px;
+    object-fit:cover;background:var(--surface);
+    flex-shrink:0;
+  }
+  .order-product > div{flex:1;min-width:0}
+  .order-product strong{
+    font-size:14.5px;font-weight:600;display:block;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#fff;
+  }
+  .order-product span{font-size:13px;color:var(--accent-2);display:block;margin-top:3px}
+  .order-body{border-top:1px solid var(--border);padding-top:16px}
+  .order-row{
+    display:flex;justify-content:space-between;
+    padding:8px 0;font-size:14.5px;gap:16px;
+  }
+  .order-row span{color:var(--muted);flex-shrink:0}
+  .order-row strong{
+    color:#fff;text-align:right;font-weight:500;
+    word-break:break-word;min-width:0;
+  }
+  .order-actions{
+    display:flex;gap:12px;flex-wrap:wrap;
+    margin-top:16px;padding-top:16px;
+    border-top:1px solid var(--border);
+  }
+  .btn-cancel{
+    padding:11px 20px;border-radius:100px;
+    background:rgba(239,68,68,.12);color:var(--sale-2);
+    font-size:13px;font-weight:600;
+    border:1px solid rgba(239,68,68,.3);
+    transition:all .25s;display:inline-flex;
+    align-items:center;gap:7px;cursor:pointer;
+  }
+  .btn-cancel:hover{
+    background:var(--sale);color:#fff;
+    border-color:var(--sale);
+    transform:translateY(-2px);
+    box-shadow:0 8px 24px rgba(239,68,68,.35);
+  }
+
+  #cancel-modal{
+    position:fixed;inset:0;background:rgba(0,0,0,.8);
+    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+    z-index:2000;display:flex;align-items:center;
+    justify-content:center;padding:20px;
+    animation:cmFade .2s ease;
+  }
+  @keyframes cmFade{from{opacity:0}to{opacity:1}}
+  .cancel-modal-box{
+    background:var(--surface);
+    border:1px solid var(--border-strong);
+    border-radius:24px;padding:40px 36px;
+    max-width:460px;width:100%;text-align:center;
+    animation:cmPop .35s cubic-bezier(.2,.9,.3,1);
+    box-shadow:0 40px 100px rgba(0,0,0,.9);
+  }
+  @keyframes cmPop{
+    from{opacity:0;transform:scale(.92) translateY(12px)}
+    to{opacity:1;transform:scale(1) translateY(0)}
+  }
+  .cancel-modal-icon{
+    width:72px;height:72px;border-radius:50%;
+    background:rgba(239,68,68,.16);color:var(--sale-2);
+    font-size:32px;display:flex;align-items:center;
+    justify-content:center;margin:0 auto 20px;
+    border:2px solid rgba(239,68,68,.25);
+  }
+  .cancel-modal-box h3{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:22px;font-weight:700;
+    letter-spacing:-.01em;margin-bottom:14px;color:#fff;
+  }
+  .cancel-modal-box p{
+    font-size:15px;color:var(--text-2);
+    line-height:1.7;margin-bottom:28px;
+  }
+  .cancel-modal-box p strong{color:#fff}
+  .cancel-modal-actions{
+    display:flex;gap:12px;
+    justify-content:center;flex-wrap:wrap;
+  }
+  .cancel-modal-actions .btn{min-width:140px;justify-content:center}
+
+  .test-tabs{
+    display:flex;gap:10px;flex-wrap:wrap;
+    margin-bottom:32px;justify-content:center;
+  }
+  .test-tab{
+    display:inline-flex;align-items:center;gap:12px;
+    padding:15px 28px;border-radius:100px;
+    background:var(--surface);color:var(--text-2);
+    font-size:15px;font-weight:600;
+    border:1px solid var(--border);
+    transition:all .3s cubic-bezier(.2,.9,.3,1);
+    cursor:pointer;
+  }
+  .test-tab .ic{font-size:20px}
+  .test-tab:hover{
+    color:#fff;background:var(--surface-2);
+    border-color:var(--border-strong);
+    transform:translateY(-3px);
+  }
+  .test-tab.active{
+    background:linear-gradient(135deg,var(--accent) 0%,var(--accent-2) 100%);
+    color:#1a1200;border-color:transparent;
+    box-shadow:0 10px 28px rgba(245,165,36,.4);
+  }
+
+  .test-panel{
+    background:rgba(22,26,34,.75);
+    border:1px solid var(--border);
+    border-radius:24px;padding:40px;
+    backdrop-filter:blur(10px);
+    animation:fadeUp .4s cubic-bezier(.2,.9,.3,1);
+  }
+  .test-panel-head{
+    display:flex;justify-content:space-between;
+    align-items:flex-end;gap:20px;
+    flex-wrap:wrap;margin-bottom:36px;
+  }
+  .test-panel-head h3{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:26px;font-weight:700;
+    letter-spacing:-.01em;margin-bottom:8px;color:#fff;
+  }
+  .test-panel-head p{font-size:14px;color:var(--text-2);line-height:1.65}
+  .test-panel-actions{display:flex;gap:10px;flex-wrap:wrap}
+
+  .test-keys{
+    display:flex;gap:8px;justify-content:center;
+    padding:24px 0;flex-wrap:wrap;user-select:none;
+  }
+  .test-key{
+    position:relative;flex:1;min-width:74px;max-width:124px;
+    aspect-ratio:1/2.8;
+    background:linear-gradient(180deg,#fafafa 0%,#e4e4e4 100%);
+    border-radius:0 0 14px 14px;
+    color:#1a1a1a;font-weight:700;
+    display:flex;flex-direction:column;
+    justify-content:flex-end;align-items:center;
+    padding-bottom:18px;transition:all .1s;
+    cursor:pointer;
+    box-shadow:
+      inset 0 -4px 0 rgba(0,0,0,.12),
+      0 6px 18px rgba(0,0,0,.4);
+    border:none;
+  }
+  .test-key:hover{
+    background:linear-gradient(180deg,#fff 0%,#ececec 100%);
+    box-shadow:inset 0 -4px 0 rgba(245,165,36,.3),0 8px 24px rgba(245,165,36,.2);
+  }
+  .test-key:active,.test-key.pressed{
+    background:linear-gradient(180deg,#d8d8d8 0%,#b8b8b8 100%);
+    transform:translateY(3px);
+    box-shadow:inset 0 -1px 0 rgba(0,0,0,.1),0 2px 8px rgba(0,0,0,.4);
+  }
+  .test-key span{font-size:16px;font-weight:800;letter-spacing:-.02em}
+  .test-key small{
+    font-size:10.5px;font-weight:600;
+    color:#666;margin-top:3px;
+    text-transform:uppercase;letter-spacing:1.2px;
+  }
+
+  .guitar-wrap{
+    background:linear-gradient(180deg,rgba(245,165,36,.04) 0%,rgba(255,255,255,.01) 100%);
+    border-radius:20px;padding:28px 20px;
+    overflow:hidden;border:1px solid var(--border);
+  }
   .guitar-svg{
-    width:100%;
-    height:auto;
-    max-width:1500px;
-    display:block;
-    margin:0 auto;
-    filter:drop-shadow(0 14px 36px rgba(0,0,0,.6));
-    border-radius:10px;
+    width:100%;height:auto;max-width:1500px;
+    display:block;margin:0 auto;
+    filter:drop-shadow(0 18px 42px rgba(0,0,0,.7));
+    border-radius:12px;
   }
   .guitar-string{cursor:pointer}
   .guitar-string rect{transition:fill .15s}
-  .guitar-string:hover rect{fill:rgba(255,255,255,.08)}
+  .guitar-string:hover rect{fill:rgba(245,165,36,.14)}
   .guitar-string line{
     transition:stroke .15s,filter .15s,stroke-width .15s;
     pointer-events:none;
-    filter:drop-shadow(0 1px 2px rgba(0,0,0,.9)) drop-shadow(0 0 4px rgba(255,255,255,.45));
+    filter:drop-shadow(0 1px 2px rgba(0,0,0,.9)) drop-shadow(0 0 5px rgba(255,255,255,.5));
   }
-  .guitar-string:hover line{stroke:#fff !important;filter:drop-shadow(0 0 10px rgba(255,255,255,1)) drop-shadow(0 0 16px rgba(255,255,255,.8));stroke-width:5 !important}
-  .guitar-string.vibrating line{stroke:#fff !important;filter:drop-shadow(0 0 10px rgba(255,255,255,1));animation:strum .4s ease}
+  .guitar-string:hover line{
+    stroke:var(--accent) !important;
+    filter:drop-shadow(0 0 12px rgba(245,165,36,1)) drop-shadow(0 0 20px rgba(245,165,36,.7));
+    stroke-width:6 !important;
+  }
+  .guitar-string.vibrating line{
+    stroke:var(--accent) !important;
+    filter:drop-shadow(0 0 12px rgba(245,165,36,1));
+    animation:strum .4s ease;
+  }
   @keyframes strum{
     0%{transform:translateY(0)}
     25%{transform:translateY(-2px)}
@@ -267,139 +1045,422 @@
     75%{transform:translateY(-1.2px)}
     100%{transform:translateY(0)}
   }
-  .guitar-string-label{font-family:'Inter',sans-serif;font-size:15px;font-weight:800;fill:#fff;letter-spacing:1px;pointer-events:none;text-shadow:0 2px 6px rgba(0,0,0,.9)}
+  .guitar-string-label{
+    font-family:'Inter',sans-serif;font-size:16px;
+    font-weight:800;fill:#fff;letter-spacing:1px;
+    pointer-events:none;
+    text-shadow:0 2px 8px rgba(0,0,0,.95);
+  }
 
-  /* Drums */
-  .drum-wrap{background:radial-gradient(ellipse at 50% 100%,rgba(255,255,255,.04) 0%,transparent 70%);border-radius:20px;padding:20px 10px;overflow:hidden}
-  .drum-svg{width:100%;height:auto;max-width:820px;display:block;margin:0 auto;filter:drop-shadow(0 12px 30px rgba(0,0,0,.5))}
-  .drum-piece{cursor:pointer;transform-box:fill-box;transform-origin:center;transition:filter .15s,transform .15s}
-  .drum-piece:hover{filter:brightness(1.25) drop-shadow(0 0 12px rgba(255,255,255,.4))}
-  .drum-piece.pressed{filter:brightness(1.6) drop-shadow(0 0 20px rgba(255,255,255,.7));transform:scale(.96)}
-  .drum-label{font-family:'Inter',sans-serif;font-size:12px;font-weight:700;fill:#888;letter-spacing:1.5px;pointer-events:none;text-transform:uppercase}
+  .drum-wrap{
+    background:radial-gradient(ellipse at 50% 100%,rgba(245,165,36,.05) 0%,transparent 70%);
+    border-radius:20px;padding:24px 14px;overflow:hidden;
+  }
+  .drum-svg{
+    width:100%;height:auto;max-width:840px;
+    display:block;margin:0 auto;
+    filter:drop-shadow(0 14px 36px rgba(0,0,0,.6));
+  }
+  .drum-piece{
+    cursor:pointer;transform-box:fill-box;
+    transform-origin:center;
+    transition:filter .15s,transform .15s;
+  }
+  .drum-piece:hover{
+    filter:brightness(1.3) drop-shadow(0 0 14px rgba(245,165,36,.55));
+  }
+  .drum-piece.pressed{
+    filter:brightness(1.6) drop-shadow(0 0 22px rgba(245,165,36,.85));
+    transform:scale(.95);
+  }
+  .drum-label{
+    font-family:'Inter',sans-serif;font-size:12px;
+    font-weight:700;fill:var(--muted);
+    letter-spacing:1.6px;pointer-events:none;
+    text-transform:uppercase;
+  }
 
-  .test-hint{margin-top:24px;padding:14px 18px;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:12px;font-size:12.5px;color:var(--muted);text-align:center}
-  .test-hint kbd{display:inline-block;min-width:22px;padding:2px 6px;border-radius:5px;background:var(--surface-2);border:1px solid var(--border);font-family:inherit;font-size:11px;font-weight:700;color:#fff;margin:0 2px}
+  .test-hint{
+    margin-top:28px;padding:16px 22px;
+    background:rgba(245,165,36,.06);
+    border:1px solid rgba(245,165,36,.18);
+    border-radius:14px;font-size:13.5px;
+    color:var(--text-2);text-align:center;line-height:1.7;
+  }
+  .test-hint kbd{
+    display:inline-block;min-width:24px;
+    padding:3px 8px;border-radius:6px;
+    background:var(--surface-2);
+    border:1px solid var(--border-strong);
+    font-family:inherit;font-size:11.5px;
+    font-weight:700;color:var(--accent-2);
+    margin:0 3px;
+  }
 
-  .success-wrap{max-width:820px;margin:0 auto;padding:40px 64px 100px}
-  .success-box{background:var(--surface);border-radius:24px;padding:60px 40px;text-align:center;border:1px solid var(--border);position:relative;overflow:hidden}
-  .success-box::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle at center,rgba(48,209,88,.12) 0%,transparent 50%);pointer-events:none}
-  .success-icon{position:relative;width:96px;height:96px;border-radius:50%;background:linear-gradient(135deg,#30d158 0%,#28a745 100%);color:#fff;font-size:48px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 28px;box-shadow:0 16px 48px rgba(48,209,88,.35);animation:popIn .6s cubic-bezier(.2,.9,.3,1)}
-  @keyframes popIn{0%{transform:scale(0);opacity:0}60%{transform:scale(1.15)}100%{transform:scale(1);opacity:1}}
-  .success-box h1{font-size:clamp(28px,4vw,40px);font-weight:800;letter-spacing:-1.5px;margin-bottom:12px;position:relative}
-  .success-box .sub{font-size:15px;color:var(--muted);max-width:520px;margin:0 auto 36px;line-height:1.7;position:relative}
-  .order-info{background:var(--surface-2);border-radius:16px;padding:8px 24px;max-width:560px;margin:0 auto 32px;text-align:left;position:relative}
-  .order-info .order-row{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding:14px 0;border-bottom:1px solid var(--border);font-size:14px}
+  .success-wrap{max-width:860px;margin:0 auto;padding:44px 72px 120px}
+  .success-box{
+    background:rgba(22,26,34,.8);
+    border-radius:28px;padding:72px 48px;
+    text-align:center;border:1px solid var(--border);
+    position:relative;overflow:hidden;
+    backdrop-filter:blur(10px);
+    box-shadow:0 30px 80px rgba(0,0,0,.6);
+  }
+  .success-box::before{
+    content:'';position:absolute;top:-50%;left:-50%;
+    width:200%;height:200%;
+    background:radial-gradient(circle at center,rgba(245,165,36,.14) 0%,transparent 55%);
+    pointer-events:none;
+  }
+  .success-icon{
+    position:relative;width:104px;height:104px;
+    border-radius:50%;
+    background:linear-gradient(135deg,var(--green) 0%,var(--green-2) 100%);
+    color:#fff;font-size:52px;font-weight:700;
+    display:flex;align-items:center;justify-content:center;
+    margin:0 auto 32px;
+    box-shadow:0 20px 56px rgba(16,185,129,.5);
+    animation:popIn .7s cubic-bezier(.2,.9,.3,1);
+    border:3px solid rgba(255,255,255,.15);
+  }
+  @keyframes popIn{
+    0%{transform:scale(0);opacity:0}
+    60%{transform:scale(1.15)}
+    100%{transform:scale(1);opacity:1}
+  }
+  .success-box h1{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:clamp(30px,4.5vw,46px);
+    font-weight:700;letter-spacing:-.02em;
+    margin-bottom:14px;position:relative;color:#fff;
+  }
+  .success-box .sub{
+    font-size:16px;color:var(--text-2);
+    max-width:560px;margin:0 auto 40px;
+    line-height:1.8;position:relative;
+  }
+  .order-info{
+    background:var(--surface-2);border-radius:18px;
+    padding:10px 28px;max-width:600px;
+    margin:0 auto 36px;text-align:left;
+    position:relative;border:1px solid var(--border);
+  }
+  .order-info .order-row{
+    display:flex;justify-content:space-between;
+    align-items:flex-start;gap:16px;
+    padding:16px 0;border-bottom:1px solid var(--border);
+    font-size:15px;
+  }
   .order-info .order-row:last-child{border-bottom:none}
   .order-info .order-row span{color:var(--muted);flex-shrink:0}
-  .order-info .order-row strong{color:#fff;font-weight:600;text-align:right;word-break:break-word}
-  .success-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;position:relative}
-  .success-note{margin-top:28px;font-size:12.5px;color:var(--muted);line-height:1.6;position:relative}
-  .system-status{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:100px;background:rgba(10,132,255,.15);color:#4da3ff;font-size:12px;font-weight:600;margin:0 auto 20px;position:relative}
-  .system-status::before{content:'';width:8px;height:8px;border-radius:50%;background:currentColor;animation:pulse 1.5s infinite}
+  .order-info .order-row strong{
+    color:#fff;font-weight:600;
+    text-align:right;word-break:break-word;
+  }
+  .success-actions{
+    display:flex;gap:14px;justify-content:center;
+    flex-wrap:wrap;position:relative;
+  }
+  .success-note{
+    margin-top:32px;font-size:13.5px;
+    color:var(--muted);line-height:1.7;position:relative;
+  }
+  .system-status{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:10px 18px;border-radius:100px;
+    background:rgba(59,130,246,.14);color:var(--blue-2);
+    font-size:13px;font-weight:600;
+    margin:0 auto 22px;position:relative;
+    border:1px solid rgba(59,130,246,.25);
+  }
+  .system-status::before{
+    content:'';width:8px;height:8px;border-radius:50%;
+    background:currentColor;animation:pulse 1.6s infinite;
+    box-shadow:0 0 10px currentColor;
+  }
 
-  .warranty-hero{background:linear-gradient(135deg,#141414 0%,#1c1c1c 100%);border-radius:24px;padding:48px;text-align:center;margin-bottom:24px;border:1px solid var(--border)}
-  .warranty-hero .shield{font-size:56px;margin-bottom:16px}
-  .warranty-hero .big-num{font-size:clamp(48px,8vw,96px);font-weight:900;letter-spacing:-4px;background:linear-gradient(135deg,#fff 0%,#666 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
-  .warranty-hero .big-label{font-size:14px;font-weight:600;color:var(--muted);letter-spacing:3px;text-transform:uppercase;margin-top:8px}
-  .warranty-hero p{font-size:15px;color:rgba(255,255,255,.7);max-width:500px;margin:24px auto 0;line-height:1.7}
-  .warranty-hero p strong{color:#fff}
-  .benefit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-bottom:24px}
-  .warranty-box{background:var(--surface);border-radius:20px;padding:32px;margin-bottom:24px}
-  .warranty-box h3{font-size:18px;font-weight:700;margin-bottom:20px}
-  .policy-list{display:flex;flex-direction:column;border-top:1px solid var(--border)}
-  .policy-row{display:grid;grid-template-columns:1fr 1.5fr;padding:14px 0;border-bottom:1px solid var(--border);font-size:13.5px}
+  .warranty-hero{
+    background:linear-gradient(135deg,rgba(245,165,36,.08) 0%,rgba(22,26,34,.9) 100%);
+    border-radius:28px;padding:56px;
+    text-align:center;margin-bottom:28px;
+    border:1px solid rgba(245,165,36,.25);
+    box-shadow:0 24px 60px rgba(0,0,0,.4);
+  }
+  .warranty-hero .shield{font-size:64px;margin-bottom:20px}
+  .warranty-hero .big-num{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:clamp(56px,9vw,108px);
+    font-weight:700;letter-spacing:-.05em;
+    background:linear-gradient(135deg,var(--accent-2) 0%,var(--accent) 100%);
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+    background-clip:text;line-height:1;
+    filter:drop-shadow(0 6px 30px rgba(245,165,36,.35));
+  }
+  .warranty-hero .big-label{
+    font-size:15px;font-weight:600;
+    color:var(--text-2);letter-spacing:4px;
+    text-transform:uppercase;margin-top:12px;
+  }
+  .warranty-hero p{
+    font-size:16px;color:var(--text-2);
+    max-width:560px;margin:28px auto 0;
+    line-height:1.8;
+  }
+  .warranty-hero p strong{color:var(--accent-2);font-weight:700}
+  .benefit-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;margin-bottom:28px;
+  }
+  .warranty-box{
+    background:rgba(22,26,34,.75);
+    border-radius:22px;padding:36px;
+    margin-bottom:28px;border:1px solid var(--border);
+    backdrop-filter:blur(10px);
+  }
+  .warranty-box h3{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:20px;font-weight:700;
+    margin-bottom:24px;color:#fff;
+  }
+  .policy-list{
+    display:flex;flex-direction:column;
+    border-top:1px solid var(--border);
+  }
+  .policy-row{
+    display:grid;grid-template-columns:1fr 1.5fr;
+    padding:16px 0;border-bottom:1px solid var(--border);
+    font-size:14.5px;gap:16px;
+  }
   .policy-row dt{color:var(--muted);font-weight:500}
-  .policy-row dd{color:#fff;font-weight:500}
+  .policy-row dd{color:#fff;font-weight:500;line-height:1.55}
 
-  footer{padding:60px 64px 40px;border-top:1px solid var(--border);text-align:center;font-size:13px;color:var(--muted)}
-  footer .brand-big{font-size:22px;font-weight:800;color:#fff;letter-spacing:-1px;margin-bottom:12px}
-  footer .footer-info{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin:24px 0}
-  footer a{transition:color .2s}
+  footer{
+    padding:72px 72px 48px;
+    border-top:1px solid var(--border);
+    text-align:center;font-size:14px;
+    color:var(--muted);position:relative;
+    background:rgba(11,13,18,.5);
+    backdrop-filter:blur(10px);
+  }
+  footer .brand-big{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:26px;font-weight:700;
+    color:#fff;letter-spacing:-.02em;
+    margin-bottom:16px;
+    display:inline-flex;align-items:center;gap:10px;
+  }
+  footer .brand-big::before{
+    content:'';width:10px;height:10px;
+    background:linear-gradient(135deg,var(--accent) 0%,var(--accent-2) 100%);
+    border-radius:50%;
+    box-shadow:0 0 14px var(--accent-glow);
+  }
+  footer .footer-info{
+    display:flex;justify-content:center;
+    gap:32px;flex-wrap:wrap;margin:28px 0;
+  }
+  footer .footer-info span{color:var(--text-2)}
+  footer a{transition:color .2s;color:var(--accent-2);font-weight:500}
   footer a:hover{color:#fff}
 
-  #chat-btn{position:fixed;bottom:24px;right:24px;width:60px;height:60px;border-radius:50%;background:#fff;color:#000;font-size:24px;z-index:1000;box-shadow:0 8px 32px rgba(0,0,0,.5);transition:transform .25s;display:flex;align-items:center;justify-content:center;cursor:pointer}
-  #chat-btn:hover{transform:scale(1.1)}
-  .chat-badge{position:absolute;top:-4px;right:-4px;width:20px;height:20px;background:var(--sale);color:#fff;border-radius:50%;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;border:2px solid var(--bg)}
-  #chat-window{position:fixed;bottom:100px;right:24px;width:380px;max-width:calc(100vw - 32px);height:560px;max-height:calc(100vh - 140px);background:var(--surface);border:1px solid var(--border);border-radius:20px;overflow:hidden;display:none;flex-direction:column;z-index:1000;box-shadow:0 30px 80px rgba(0,0,0,.8)}
-  #chat-window.open{display:flex;animation:chatIn .3s cubic-bezier(.2,.9,.3,1)}
-  @keyframes chatIn{from{opacity:0;transform:translateY(20px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
-  .chat-head{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;background:var(--bg)}
-  .chat-avatar{width:36px;height:36px;border-radius:50%;background:#fff;color:#000;display:flex;align-items:center;justify-content:center;font-size:18px;position:relative}
-  .chat-avatar::after{content:'';position:absolute;bottom:0;right:0;width:10px;height:10px;border-radius:50%;background:var(--green);border:2px solid var(--bg)}
-  .chat-head-info h5{font-size:13px;font-weight:700;letter-spacing:-.2px}
-  .chat-head-info p{font-size:11px;color:var(--muted)}
-  .chat-close{margin-left:auto;width:28px;height:28px;border-radius:50%;background:var(--surface-2);font-size:14px;display:flex;align-items:center;justify-content:center;transition:background .2s;cursor:pointer}
-  .chat-close:hover{background:#333}
-  .chat-body{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px}
-  .msg{max-width:85%;padding:11px 14px;border-radius:16px;font-size:13.5px;line-height:1.5;white-space:pre-wrap;word-wrap:break-word;animation:msgIn .3s}
+  #chat-btn{
+    position:fixed;bottom:28px;right:28px;
+    width:64px;height:64px;border-radius:50%;
+    background:linear-gradient(135deg,var(--accent) 0%,var(--accent-2) 100%);
+    color:#1a1200;font-size:26px;z-index:1000;
+    box-shadow:0 12px 36px rgba(245,165,36,.5);
+    transition:all .3s cubic-bezier(.2,.9,.3,1);
+    display:flex;align-items:center;justify-content:center;cursor:pointer;
+  }
+  #chat-btn:hover{
+    transform:scale(1.1) translateY(-3px);
+    box-shadow:0 18px 48px rgba(245,165,36,.7);
+  }
+  .chat-badge{
+    position:absolute;top:-4px;right:-4px;
+    width:22px;height:22px;background:var(--sale);color:#fff;
+    border-radius:50%;font-size:11.5px;font-weight:700;
+    display:flex;align-items:center;justify-content:center;
+    border:2px solid var(--bg);
+    box-shadow:0 0 12px rgba(239,68,68,.6);
+  }
+  #chat-window{
+    position:fixed;bottom:108px;right:28px;
+    width:390px;max-width:calc(100vw - 32px);
+    height:580px;max-height:calc(100vh - 150px);
+    background:var(--surface);
+    border:1px solid var(--border-strong);
+    border-radius:24px;overflow:hidden;display:none;
+    flex-direction:column;z-index:1000;
+    box-shadow:0 40px 100px rgba(0,0,0,.85);
+  }
+  #chat-window.open{display:flex;animation:chatIn .35s cubic-bezier(.2,.9,.3,1)}
+  @keyframes chatIn{
+    from{opacity:0;transform:translateY(20px) scale(.96)}
+    to{opacity:1;transform:translateY(0) scale(1)}
+  }
+  .chat-head{
+    padding:18px 22px;border-bottom:1px solid var(--border);
+    display:flex;align-items:center;gap:14px;
+    background:rgba(11,13,18,.6);
+  }
+  .chat-avatar{
+    width:40px;height:40px;border-radius:50%;
+    background:linear-gradient(135deg,var(--accent) 0%,var(--accent-2) 100%);
+    color:#1a1200;display:flex;align-items:center;
+    justify-content:center;font-size:20px;position:relative;
+  }
+  .chat-avatar::after{
+    content:'';position:absolute;bottom:0;right:0;
+    width:11px;height:11px;border-radius:50%;
+    background:var(--green);border:2px solid var(--surface);
+    box-shadow:0 0 10px var(--green);
+  }
+  .chat-head-info h5{font-size:14px;font-weight:700;letter-spacing:-.01em;color:#fff}
+  .chat-head-info p{font-size:12px;color:var(--muted)}
+  .chat-close{
+    margin-left:auto;width:32px;height:32px;border-radius:50%;
+    background:var(--surface-2);font-size:15px;
+    display:flex;align-items:center;justify-content:center;
+    transition:all .2s;cursor:pointer;color:#fff;
+  }
+  .chat-close:hover{background:var(--surface-3);transform:rotate(90deg)}
+  .chat-body{
+    flex:1;overflow-y:auto;padding:20px;
+    display:flex;flex-direction:column;gap:12px;
+    background:var(--bg-2);
+  }
+  .msg{
+    max-width:85%;padding:12px 16px;
+    border-radius:18px;font-size:14px;
+    line-height:1.6;white-space:pre-wrap;
+    word-wrap:break-word;animation:msgIn .3s;
+  }
   @keyframes msgIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
-  .msg.bot{background:var(--surface-2);align-self:flex-start;border-bottom-left-radius:4px}
-  .msg.user{background:#fff;color:#000;align-self:flex-end;border-bottom-right-radius:4px;font-weight:500}
-  .msg.system{background:linear-gradient(135deg,rgba(10,132,255,.2) 0%,rgba(10,132,255,.1) 100%);color:#fff;align-self:stretch;max-width:100%;border-left:3px solid var(--blue);border-radius:12px;font-size:13px;padding:12px 14px}
-  .msg.typing{background:transparent;color:var(--muted);font-style:italic;font-size:12.5px;padding-left:4px}
-  .chat-chips{padding:0 16px 12px;display:flex;gap:6px;flex-wrap:wrap}
-  .chip{padding:6px 12px;border-radius:100px;background:var(--surface-2);font-size:11.5px;font-weight:500;color:var(--muted);transition:all .2s;cursor:pointer}
-  .chip:hover{color:#fff;background:#333}
-  .chat-foot{padding:12px;border-top:1px solid var(--border);display:flex;gap:8px;background:var(--bg)}
-  #chat-in{flex:1;background:var(--surface-2);border:1px solid transparent;border-radius:100px;padding:12px 18px;font-size:13.5px;color:#fff;outline:none;font-family:inherit;transition:border-color .2s}
-  #chat-in::placeholder{color:var(--muted)}
-  #chat-in:focus{border-color:#333}
-  #chat-send{width:44px;height:44px;border-radius:50%;background:#fff;color:#000;display:flex;align-items:center;justify-content:center;font-size:16px;transition:transform .2s;cursor:pointer}
-  #chat-send:hover{transform:scale(1.08)}
+  .msg.bot{
+    background:var(--surface-2);color:#fff;
+    align-self:flex-start;border-bottom-left-radius:6px;
+    border:1px solid var(--border);
+  }
+  .msg.user{
+    background:linear-gradient(135deg,var(--accent) 0%,var(--accent-2) 100%);
+    color:#1a1200;align-self:flex-end;
+    border-bottom-right-radius:6px;font-weight:500;
+    box-shadow:0 4px 14px rgba(245,165,36,.3);
+  }
+  .msg.system{
+    background:linear-gradient(135deg,rgba(59,130,246,.24) 0%,rgba(59,130,246,.1) 100%);
+    color:#fff;align-self:stretch;max-width:100%;
+    border-left:3px solid var(--blue);
+    border-radius:12px;font-size:13.5px;padding:14px 16px;
+  }
+  .msg.typing{
+    background:transparent;color:var(--muted);
+    font-style:italic;font-size:13px;padding-left:4px;
+  }
+  .chat-chips{padding:0 20px 14px;display:flex;gap:8px;flex-wrap:wrap;background:var(--bg-2)}
+  .chip{
+    padding:8px 14px;border-radius:100px;
+    background:var(--surface-2);font-size:12.5px;
+    font-weight:500;color:var(--text-2);
+    transition:all .25s;cursor:pointer;
+    border:1px solid var(--border);
+  }
+  .chip:hover{
+    color:#fff;background:var(--surface-3);
+    border-color:var(--border-strong);
+    transform:translateY(-1px);
+  }
+  .chat-foot{
+    padding:14px;border-top:1px solid var(--border);
+    display:flex;gap:10px;
+    background:rgba(11,13,18,.6);
+  }
+  #chat-in{
+    flex:1;background:var(--surface-2);
+    border:1px solid var(--border);
+    border-radius:100px;padding:13px 20px;
+    font-size:14px;color:#fff;outline:none;
+    font-family:inherit;transition:all .25s;
+  }
+  #chat-in::placeholder{color:var(--muted-2)}
+  #chat-in:focus{
+    border-color:var(--accent);
+    box-shadow:0 0 0 3px rgba(245,165,36,.15);
+  }
+  #chat-send{
+    width:46px;height:46px;border-radius:50%;
+    background:linear-gradient(135deg,var(--accent) 0%,var(--accent-2) 100%);
+    color:#1a1200;display:flex;align-items:center;
+    justify-content:center;font-size:17px;
+    transition:all .25s;cursor:pointer;
+    box-shadow:0 4px 14px rgba(245,165,36,.35);
+  }
+  #chat-send:hover{transform:scale(1.08);box-shadow:0 8px 22px rgba(245,165,36,.6)}
 
-  @media (max-width:1100px){.nav-links a{padding:6px 8px;font-size:12px}}
+  @media (max-width:1100px){
+    .nav-links a{padding:7px 10px;font-size:12.5px}
+  }
   @media (max-width:900px){
-    nav{padding:0 16px;height:auto;min-height:64px;flex-wrap:wrap;gap:8px;padding-top:10px;padding-bottom:10px}
-    main{padding-top:120px}
+    nav{padding:0 20px;height:auto;min-height:68px;flex-wrap:wrap;gap:10px;padding-top:12px;padding-bottom:12px}
+    main{padding-top:124px}
     .nav-phone{display:none}
-    .hero{padding:32px;min-height:520px}
-    .hero h1{letter-spacing:-2px}
-    .section{padding:60px 20px}
-    .page-head{padding:50px 20px 30px}
-    .products-area{padding:0 20px 60px}
-    .orders-area{padding:0 20px 60px}
-    .detail-wrap{padding:24px 20px 60px}
-    .success-wrap{padding:24px 20px 60px}
-    .detail-grid{grid-template-columns:1fr;gap:36px}
+    .hero{padding:36px;min-height:560px}
+    .hero h1{letter-spacing:-.02em}
+    .section{padding:70px 24px}
+    .page-head{padding:56px 24px 36px}
+    .products-area{padding:0 24px 72px}
+    .orders-area{padding:0 24px 72px}
+    .detail-wrap{padding:28px 24px 72px}
+    .success-wrap{padding:28px 24px 72px}
+    .detail-grid{grid-template-columns:1fr;gap:40px}
     .detail-gallery{position:static}
-    .contact-section{padding:60px 20px}
+    .contact-section{padding:70px 24px}
     .ship-grid{grid-template-columns:1fr}
-    footer{padding:40px 20px 30px}
-    .section-head{margin-bottom:32px}
+    footer{padding:48px 24px 32px}
+    .section-head{margin-bottom:40px}
+    .intro-grid{grid-template-columns:1fr;gap:40px}
+    .intro-visual{aspect-ratio:16/11}
   }
   @media (max-width:640px){
-    .nav-links a{padding:5px 7px;font-size:11px}
-    .brand{font-size:13px}
-    .hero{padding:24px;min-height:480px}
-    .hero-sub{font-size:14px}
-    .btn{padding:12px 20px;font-size:12.5px}
-    .cat-info h3{font-size:24px}
-    .cat-info{padding:20px}
-    .product-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:16px}
-    #chat-window{right:12px;left:12px;width:auto;bottom:88px;height:70vh}
-    .spec-row{grid-template-columns:1fr;gap:2px;padding:12px 0}
-    .spec-row dt{font-size:11px}
-    .policy-row{grid-template-columns:1fr;gap:2px;padding:12px 0}
-    .warranty-box{padding:20px}
-    .warranty-hero{padding:32px 20px}
-    .ship-form-box{padding:22px}
-    .success-box{padding:40px 20px}
+    .nav-links a{padding:6px 8px;font-size:11.5px}
+    .brand{font-size:15px}
+    .hero{padding:28px 22px;min-height:520px}
+    .hero-sub{font-size:15px}
+    .btn{padding:13px 22px;font-size:13px}
+    .cat-info h3{font-size:26px}
+    .cat-info{padding:24px}
+    .product-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:18px}
+    .product-card{padding:10px}
+    .product-info h3{font-size:14px;min-height:40px}
+    .product-info .price{font-size:15px}
+    #chat-window{right:12px;left:12px;width:auto;bottom:96px;height:72vh}
+    .spec-row{grid-template-columns:1fr;gap:4px;padding:14px 0}
+    .spec-row dt{font-size:12px}
+    .policy-row{grid-template-columns:1fr;gap:4px;padding:14px 0}
+    .warranty-box{padding:24px}
+    .warranty-hero{padding:40px 24px}
+    .ship-form-box{padding:26px}
+    .success-box{padding:48px 24px}
     .order-info .order-row{flex-direction:column;gap:4px}
     .order-info .order-row strong{text-align:left}
-    .order-card{padding:18px}
-    .tl-label{font-size:10px}
-    .tl-dot{width:24px;height:24px;font-size:11px}
-    .tl-step::before{top:12px;left:calc(-50% + 12px);right:calc(50% + 12px)}
-    .order-row{font-size:12.5px}
-    .cancel-modal-box{padding:28px 20px}
+    .order-card{padding:20px}
+    .tl-label{font-size:10.5px}
+    .tl-dot{width:28px;height:28px;font-size:12px}
+    .tl-step::before{top:14px;left:calc(-50% + 14px);right:calc(50% + 14px)}
+    .order-row{font-size:13px}
+    .cancel-modal-box{padding:32px 24px}
     .cancel-modal-actions .btn{flex:1;min-width:0}
-    .test-panel{padding:20px}
-    .test-tabs{gap:6px}
-    .test-tab{padding:10px 16px;font-size:12.5px}
-    .test-key{min-width:44px;aspect-ratio:1/3}
-    .test-key span{font-size:12px}
-    .test-key small{font-size:9px}
-    .guitar-wrap{padding:12px 6px}
+    .test-panel{padding:24px}
+    .test-tabs{gap:8px}
+    .test-tab{padding:11px 18px;font-size:13px}
+    .test-key{min-width:48px;aspect-ratio:1/3}
+    .test-key span{font-size:13px}
+    .test-key small{font-size:9.5px}
+    .guitar-wrap{padding:14px 8px}
+    .intro-stats{grid-template-columns:1fr;gap:20px;text-align:left}
+    .intro-stat{display:flex;align-items:baseline;gap:14px}
+    .intro-stat strong{margin-bottom:0}
   }
 </style>
 </head>
@@ -431,11 +1492,35 @@
       <img class="hero-bg" src="https://images.unsplash.com/photo-1552422535-c45813c61732?w=1920&q=85&auto=format&fit=crop" alt="" onerror="imgFail(this)">
       <div class="hero-content">
         <div class="hero-label">Nhạc cụ chính hãng</div>
-        <h1>Chơi nhạc.<br><span class="accent">Sống trọn vẹn.</span></h1>
-        <p class="hero-sub">Piano · Guitar · Trống chính hãng tại TP.HCM.</p>
+        <h1>Chơi nhạc<br><span class="accent">Sống trọn vẹn</span></h1>
+        <p class="hero-sub">Piano · Guitar · Trống chính hãng. Trải nghiệm âm thanh thật, cảm nhận từng phím đàn — cho người mới bắt đầu đến nghệ sĩ chuyên nghiệp.</p>
         <div class="hero-cta">
           <button class="btn btn-primary" onclick="go('piano')">Khám phá ngay →</button>
           <button class="btn btn-ghost" onclick="go('test')">🎹 Test nhạc cụ</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ GIỚI THIỆU ============ -->
+    <section class="section">
+      <div class="intro-grid">
+        <div class="intro-visual">
+          <img src="https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=900&q=80&auto=format&fit=crop" alt="Gewon Music" onerror="imgFail(this)">
+          <div class="intro-badge">
+            <div class="intro-badge-num">500+</div>
+            <div class="intro-badge-label">Khách hàng tin dùng</div>
+          </div>
+        </div>
+        <div class="intro-content">
+          <div class="intro-label">Về Gewon Music</div>
+          <h2 class="intro-title">Âm nhạc bắt đầu từ<br><span class="accent">những điều chân thật</span></h2>
+          <p class="intro-body">Gewon Music là đơn vị phân phối nhạc cụ chính hãng — mang đến cho người Việt những cây đàn, phím đàn và dàn trống chất lượng quốc tế với mức giá hợp lý. Chúng tôi tin rằng <strong>ai cũng có thể chơi nhạc</strong>.</p>
+          <p class="intro-body">Từ những nốt đầu tiên trên cây đàn đầu tiên, đến những buổi biểu diễn lớn — Gewon Music đồng hành cùng bạn trên từng hành trình âm nhạc. Với 20+ thương hiệu chính hãng, dịch vụ tận tâm và bảo hành lên đến <strong>3 năm</strong>, chúng tôi cam kết mang đến trải nghiệm mua sắm nhạc cụ tốt nhất.</p>
+          <div class="intro-stats">
+            <div class="intro-stat"><strong>20+</strong><span>Thương hiệu</span></div>
+            <div class="intro-stat"><strong>3 năm</strong><span>Bảo hành</span></div>
+            <div class="intro-stat"><strong>24/7</strong><span>Hỗ trợ</span></div>
+          </div>
         </div>
       </div>
     </section>
@@ -478,34 +1563,34 @@
       </div>
       <div class="cat-grid">
         <div class="cat-card" onclick="go('test')">
-          <img src="https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=900&q=80&auto=format&fit=crop" alt="Test nhạc cụ" onerror="imgFail(this)">
+          <img src="https://images.unsplash.com/photo-1552422535-c45813c61732?w=900&q=80&auto=format&fit=crop" alt="Test nhạc cụ" onerror="imgFail(this)">
           <div class="cat-arrow">→</div>
           <div class="cat-info">
-            <h3 style="font-size:24px">🎹 Test nhạc cụ</h3>
+            <h3 style="font-size:26px">🎹 Test nhạc cụ</h3>
             <span>Chơi thử Piano, Guitar, Trống ngay trên web</span>
           </div>
         </div>
         <div class="cat-card" onclick="go('orders')">
-          <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=900&q=80&auto=format&fit=crop" alt="Trạng thái đơn hàng" onerror="imgFail(this)">
+          <img src="https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?w=900&q=80&auto=format&fit=crop" alt="Trạng thái đơn hàng" onerror="imgFail(this)">
           <div class="cat-arrow">→</div>
           <div class="cat-info">
-            <h3 style="font-size:24px">📊 Trạng thái đơn hàng</h3>
+            <h3 style="font-size:26px">📊 Trạng thái đơn hàng</h3>
             <span>Xem đơn hàng đang giao đến bạn</span>
           </div>
         </div>
         <div class="cat-card" onclick="go('warranty')">
-          <img src="https://images.unsplash.com/photo-1573871669414-010dbf73ca84?w=900&q=80&auto=format&fit=crop" alt="Bảo hành" onerror="imgFail(this)">
+          <img src="https://images.unsplash.com/photo-1558584673-c834fb1cc3ca?w=900&q=80&auto=format&fit=crop" alt="Bảo hành" onerror="imgFail(this)">
           <div class="cat-arrow">→</div>
           <div class="cat-info">
-            <h3 style="font-size:24px">🛡️ Bảo hành 3 năm</h3>
+            <h3 style="font-size:26px">🛡️ Bảo hành 3 năm</h3>
             <span>Chính sách minh bạch, rõ ràng</span>
           </div>
         </div>
         <div class="cat-card" onclick="toggleChat()">
-          <img src="https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=900&q=80&auto=format&fit=crop" alt="Tư vấn AI" onerror="imgFail(this)">
+          <img src="https://images.unsplash.com/photo-1516924962500-2b4b3b99ea02?w=900&q=80&auto=format&fit=crop" alt="Tư vấn AI" onerror="imgFail(this)">
           <div class="cat-arrow">→</div>
           <div class="cat-info">
-            <h3 style="font-size:24px">💬 Tư vấn AI</h3>
+            <h3 style="font-size:26px">💬 Tư vấn AI</h3>
             <span>ChanhNgot🍋 tư vấn 24/7</span>
           </div>
         </div>
@@ -732,7 +1817,7 @@
           </div>
         </div>
 
-        <!-- Panel: Guitar (dây đàn đã đổi màu nổi bật) -->
+        <!-- Panel: Guitar -->
         <div class="test-panel" id="test-panel-guitar" style="display:none">
           <div class="test-panel-head">
             <div>
@@ -754,15 +1839,12 @@
                 </linearGradient>
               </defs>
 
-              <!-- Fretboard nền -->
               <rect x="43" y="20" width="1140" height="460" fill="url(#fbGrad)" stroke="#1a0a00" stroke-width="2" rx="6"/>
 
-              <!-- Inlay dots -->
               <circle cx="520" cy="250" r="10" fill="#fff" opacity="0.22"/>
               <circle cx="805" cy="250" r="10" fill="#fff" opacity="0.22"/>
               <circle cx="1037" cy="250" r="10" fill="#fff" opacity="0.22"/>
 
-              <!-- Frets -->
               <line x1="250" y1="20" x2="250" y2="480" stroke="#c8b8a0" stroke-width="3" opacity="0.85"/>
               <line x1="440" y1="20" x2="440" y2="480" stroke="#c8b8a0" stroke-width="3" opacity="0.85"/>
               <line x1="600" y1="20" x2="600" y2="480" stroke="#c8b8a0" stroke-width="3" opacity="0.85"/>
@@ -771,54 +1853,45 @@
               <line x1="985" y1="20" x2="985" y2="480" stroke="#c8b8a0" stroke-width="3" opacity="0.85"/>
               <line x1="1090" y1="20" x2="1090" y2="480" stroke="#c8b8a0" stroke-width="3" opacity="0.85"/>
 
-              <!-- Số fret -->
-              <text x="345" y="472" fill="#777" font-size="12" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600">1</text>
-              <text x="520" y="472" fill="#777" font-size="12" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600">2</text>
-              <text x="670" y="472" fill="#777" font-size="12" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600">3</text>
-              <text x="805" y="472" fill="#777" font-size="12" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600">4</text>
-              <text x="927" y="472" fill="#777" font-size="12" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600">5</text>
-              <text x="1037" y="472" fill="#777" font-size="12" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600">6</text>
+              <text x="345" y="472" fill="#888" font-size="12" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600">1</text>
+              <text x="520" y="472" fill="#888" font-size="12" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600">2</text>
+              <text x="670" y="472" fill="#888" font-size="12" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600">3</text>
+              <text x="805" y="472" fill="#888" font-size="12" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600">4</text>
+              <text x="927" y="472" fill="#888" font-size="12" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600">5</text>
+              <text x="1037" y="472" fill="#888" font-size="12" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600">6</text>
 
-              <!-- Nut -->
               <rect x="27" y="18" width="18" height="464" rx="3" fill="#f5ead5" stroke="#8b7355" stroke-width="1.5"/>
 
-              <!-- Dây 1 — E4 (mỏng nhất, bạc trắng) -->
               <g class="guitar-string" onclick="playGuitarString(0)">
                 <rect x="20" y="35" width="1180" height="70" fill="transparent"/>
                 <line x1="27" y1="70" x2="1183" y2="70" stroke="#ffffff" stroke-width="2"/>
               </g>
 
-              <!-- Dây 2 — B3 (bạc sáng) -->
               <g class="guitar-string" onclick="playGuitarString(1)">
                 <rect x="20" y="110" width="1180" height="70" fill="transparent"/>
                 <line x1="27" y1="145" x2="1183" y2="145" stroke="#f0f0f0" stroke-width="2.5"/>
               </g>
 
-              <!-- Dây 3 — G3 (bạc pha vàng nhạt) -->
               <g class="guitar-string" onclick="playGuitarString(2)">
                 <rect x="20" y="185" width="1180" height="70" fill="transparent"/>
                 <line x1="27" y1="220" x2="1183" y2="220" stroke="#ffe082" stroke-width="3"/>
               </g>
 
-              <!-- Dây 4 — D3 (vàng gold sáng) -->
               <g class="guitar-string" onclick="playGuitarString(3)">
                 <rect x="20" y="260" width="1180" height="70" fill="transparent"/>
                 <line x1="27" y1="295" x2="1183" y2="295" stroke="#ffc107" stroke-width="3.6"/>
               </g>
 
-              <!-- Dây 5 — A2 (vàng gold đậm hơn) -->
               <g class="guitar-string" onclick="playGuitarString(4)">
                 <rect x="20" y="335" width="1180" height="70" fill="transparent"/>
                 <line x1="27" y1="370" x2="1183" y2="370" stroke="#ffb300" stroke-width="4.4"/>
               </g>
 
-              <!-- Dây 6 — E2 (dày nhất, vàng cam) -->
               <g class="guitar-string" onclick="playGuitarString(5)">
                 <rect x="20" y="410" width="1180" height="70" fill="transparent"/>
                 <line x1="27" y1="445" x2="1183" y2="445" stroke="#ff9800" stroke-width="5.2"/>
               </g>
 
-              <!-- Tên nốt -->
               <text class="guitar-string-label" x="1160" y="76" text-anchor="end">E4</text>
               <text class="guitar-string-label" x="1160" y="151" text-anchor="end">B3</text>
               <text class="guitar-string-label" x="1160" y="226" text-anchor="end">G3</text>
@@ -955,7 +2028,7 @@
         <div class="success-icon">✓</div>
         <h1>Đặt hàng thành công!</h1>
         <div class="system-status">📡 Đã gửi thông tin đến hệ thống</div>
-        <p class="sub">Thông tin đơn hàng của bạn đã được gửi đến hệ thống Gewon Music. Đơn hàng đang trên đường giao đến bạn. Chúng tôi sẽ liên hệ xác nhận trong <strong style="color:#fff">30 phút</strong>.</p>
+        <p class="sub">Thông tin đơn hàng của bạn đã được gửi đến hệ thống Gewon Music. Đơn hàng đang trên đường giao đến bạn. Chúng tôi sẽ liên hệ xác nhận trong <strong style="color:var(--accent-2)">30 phút</strong>.</p>
 
         <div class="order-info">
           <div class="order-row"><span>👤 Họ tên</span><strong id="s-name">—</strong></div>
@@ -971,7 +2044,7 @@
           <button class="btn btn-ghost" onclick="go('home')">← Về trang chủ</button>
         </div>
 
-        <p class="success-note">Mã đơn hàng: <strong style="color:#fff" id="s-code">#GW-000000</strong> — Vui lòng giữ điện thoại để nhận cuộc gọi xác nhận.</p>
+        <p class="success-note">Mã đơn hàng: <strong style="color:var(--accent-2)" id="s-code">#GW-000000</strong> — Vui lòng giữ điện thoại để nhận cuộc gọi xác nhận.</p>
       </div>
     </div>
   </div>
@@ -1075,11 +2148,10 @@
 <footer>
   <div class="brand-big">Gewon Music</div>
   <div class="footer-info">
-    <span>📍 TP.HCM</span>
     <span>📞 <a href="tel:0385730766">0385 730 766</a></span>
     <span>💬 Zalo/SMS: 0385 730 766</span>
   </div>
-  <div style="font-size:11px;opacity:.5;margin-top:20px">
+  <div style="font-size:12px;opacity:.6;margin-top:24px">
     Website demo — Dữ liệu giả lập phục vụ mục đích xây dựng & kiểm thử.
   </div>
 </footer>
@@ -1123,68 +2195,117 @@ window.imgFail = function(img){
   img.dataset.fb = '1';
   const label = (img.alt || 'Gewon Music').replace(/&/g,'&amp;').replace(/</g,'&lt;');
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600">
-    <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1c1c1c"/><stop offset="1" stop-color="#0a0a0a"/></linearGradient></defs>
+    <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1c2028"/><stop offset="1" stop-color="#0b0d12"/></linearGradient></defs>
     <rect width="600" height="600" fill="url(#g)"/>
     <text x="300" y="290" font-family="Inter,system-ui,sans-serif" font-size="90" text-anchor="middle">🎵</text>
-    <text x="300" y="370" font-family="Inter,system-ui,sans-serif" font-size="26" font-weight="700" fill="#666" text-anchor="middle">Gewon Music</text>
-    <text x="300" y="405" font-family="Inter,system-ui,sans-serif" font-size="14" fill="#444" text-anchor="middle">${label}</text>
+    <text x="300" y="370" font-family="Inter,system-ui,sans-serif" font-size="26" font-weight="700" fill="#f5a524" text-anchor="middle">Gewon Music</text>
+    <text x="300" y="405" font-family="Inter,system-ui,sans-serif" font-size="14" fill="#9aa4b2" text-anchor="middle">${label}</text>
   </svg>`;
   img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
 };
 
 /* ============================================================
-   PRODUCT DATABASE
+   PRODUCT DATABASE — Ảnh chính xác theo từng loại nhạc cụ
    ============================================================ */
+
 const IMG = {
-  piano: [
+  // Piano điện — bàn phím, digital piano
+  pianoDigital: [
     'https://images.unsplash.com/photo-1552422535-c45813c61732?w=1200&q=85&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=1200&q=85&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1573871669414-010dbf73ca84?w=1200&q=85&auto=format&fit=crop'
+    'https://images.unsplash.com/photo-1519419166318-4f5c601b8e6c?w=1200&q=85&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1571974599782-87624638275e?w=1200&q=85&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1558584673-c834fb1cc3ca?w=1200&q=85&auto=format&fit=crop'
   ],
-  guitar: [
+  // Piano cơ Upright — piano thật, KHÔNG có mắt kính
+  pianoUpright: [
+    'https://images.unsplash.com/photo-1552422535-c45813c61732?w=1200&q=85&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1507838153414-b4b713384a76?w=1200&q=85&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=1200&q=85&auto=format&fit=crop'
+  ],
+  // Piano cơ Grand — piano cánh, KHÔNG có mắt kính
+  pianoGrand: [
+    'https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=1200&q=85&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1558584673-c834fb1cc3ca?w=1200&q=85&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1507838153414-b4b713384a76?w=1200&q=85&auto=format&fit=crop'
+  ],
+  // Guitar Acoustic
+  guitarAcoustic: [
     'https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=1200&q=85&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1550985616-10810253b84d?w=1200&q=85&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1556449895-a33c9dba33dd?w=1200&q=85&auto=format&fit=crop',
     'https://images.unsplash.com/photo-1516924962500-2b4b3b99ea02?w=1200&q=85&auto=format&fit=crop',
     'https://images.unsplash.com/photo-1564186763535-ebb21ef5277f?w=1200&q=85&auto=format&fit=crop'
   ],
-  drums: [
+  // Guitar Classic (nylon)
+  guitarClassic: [
+    'https://images.unsplash.com/photo-1516924962500-2b4b3b99ea02?w=1200&q=85&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=1200&q=85&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1564186763535-ebb21ef5277f?w=1200&q=85&auto=format&fit=crop'
+  ],
+  // Guitar điện
+  guitarElectric: [
+    'https://images.unsplash.com/photo-1550985616-10810253b84d?w=1200&q=85&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1556449895-a33c9dba33dd?w=1200&q=85&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1564186763535-ebb21ef5277f?w=1200&q=85&auto=format&fit=crop'
+  ],
+  // Trống acoustic — bộ trống thật, KHÔNG có ca sĩ
+  drumsAcoustic: [
     'https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?w=1200&q=85&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=1200&q=85&auto=format&fit=crop'
+    'https://images.unsplash.com/photo-1543443258-92b04ad5ec6b?w=1200&q=85&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=1200&q=85&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=1200&q=85&auto=format&fit=crop'
+  ],
+  // Trống điện — drum kit điện tử, KHÔNG có ca sĩ
+  drumsElectric: [
+    'https://images.unsplash.com/photo-1583795128727-6ec3642408f8?w=1200&q=85&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?w=1200&q=85&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1543443258-92b04ad5ec6b?w=1200&q=85&auto=format&fit=crop'
   ]
 };
 
-function pickImages(pool, offset){
+function imgs(pool, count){
+  count = count || 4;
   const out = [];
-  for(let i=0;i<4;i++) out.push(pool[(offset+i) % pool.length]);
+  for(let i=0;i<count;i++) out.push(pool[i % pool.length]);
   return out;
 }
 
 const DB = {
-  'yamaha-p45':{name:'Yamaha P-45',brand:'Yamaha',brandKey:'yamaha',cat:'piano',type:'Piano điện · 88 phím',price:'11.500.000đ',old:'13.200.000đ',images:pickImages(IMG.piano,0),short:'Dòng piano điện phổ biến nhất cho người mới. Phím GHS cảm ứng lực, nguồn âm Pure CF từ đàn Grand Yamaha.',specs:{'Hãng':'Yamaha (Nhật Bản)','Số phím':'88 phím','Cảm ứng lực':'GHS','Số giọng':'10 giọng','Đa âm':'64 nốt','Nguồn âm':'Pure CF Sound Engine','Kết nối':'USB to Host, Headphone','Trọng lượng':'11.5 kg'},features:['Phím GHS mô phỏng cảm giác đàn cơ','Nguồn âm Pure CF từ Grand Piano CFIIIS','Chế độ Dual/Layer ghép 2 giọng','Chạy được bằng pin AA','Bảo hành chính hãng 3 năm']},
-  'yamaha-p125':{name:'Yamaha P-125',brand:'Yamaha',brandKey:'yamaha',cat:'piano',type:'Piano điện · 88 phím',price:'18.500.000đ',old:'21.000.000đ',images:pickImages(IMG.piano,1),short:'Nâng cấp từ P-45 với 24 giọng, kết nối USB/MIDI, âm thanh Piano CFX cao cấp và loa 7W x 2 mạnh mẽ.',specs:{'Hãng':'Yamaha (Nhật Bản)','Số phím':'88 phím','Cảm ứng lực':'GHS','Số giọng':'24 giọng','Đa âm':'192 nốt','Nguồn âm':'Pure CF Sound Engine','Kết nối':'USB, AUX Out, Headphone','Trọng lượng':'11.8 kg'},features:['Âm thanh Piano CFX từ Grand Concert','Chế độ Sound Boost âm lượng lớn hơn','Dual, Split, Duo linh hoạt','App Smart Pianist qua USB','Bảo hành chính hãng 3 năm']},
-  'yamaha-u1':{name:'Yamaha U1',brand:'Yamaha',brandKey:'yamaha',cat:'piano',type:'Piano cơ Upright · 121cm',price:'135.000.000đ',old:'',images:pickImages(IMG.piano,2),short:'Huyền thoại piano cơ Upright Nhật Bản — được nhạc viện và giáo viên khuyên dùng. Bền bỉ hàng chục năm.',specs:{'Hãng':'Yamaha (Nhật Bản)','Loại':'Piano cơ Upright','Chiều cao':'121 cm','Số phím':'88 phím','Búa':'Búa nỉ đặc biệt','Pedal':'3 pedal đầy đủ','Kích thước':'153 × 121 × 62 cm','Trọng lượng':'~228 kg'},features:['Âm thanh cân bằng ở mọi dải','Cơ chế búa cho cảm giác chân thực','Độ bền vượt trội, giữ giá tốt','Phù hợp học tập & biểu diễn','Bảo hành chính hãng 3 năm']},
-  'casio-cdp-s110':{name:'Casio CDP-S110',brand:'Casio',brandKey:'casio',cat:'piano',type:'Piano điện · 88 phím',price:'8.900.000đ',old:'10.500.000đ',images:pickImages(IMG.piano,0),short:'Giá rẻ nhất phân khúc piano điện 88 phím. Thiết kế siêu mỏng chỉ 10.5kg.',specs:{'Hãng':'Casio (Nhật Bản)','Số phím':'88 phím','Cảm ứng lực':'Scaled Hammer Action II','Số giọng':'10 giọng','Đa âm':'64 nốt','Kết nối':'USB, Headphone','Trọng lượng':'10.5 kg','Pin':'Chạy được 6 pin AA'},features:['Thiết kế siêu mỏng, dễ mang đi','Phím Scaled Hammer Action II','Chế độ Duet cho 2 người chơi','Chạy pin, chơi ngoài trời','Bảo hành chính hãng 3 năm']},
-  'casio-px-s1100':{name:'Casio PX-S1100',brand:'Casio',brandKey:'casio',cat:'piano',type:'Piano điện · Bluetooth',price:'15.900.000đ',old:'18.500.000đ',images:pickImages(IMG.piano,1),short:'Piano điện mỏng nhất thế giới (232mm). Bluetooth Audio & MIDI, kết nối app Casio Music Space.',specs:{'Hãng':'Casio (Nhật Bản)','Số phím':'88 phím','Cảm ứng lực':'Smart Scaled Hammer Action','Số giọng':'18 giọng','Đa âm':'192 nốt','Kết nối':'Bluetooth Audio/MIDI, USB','Trọng lượng':'11.2 kg','Độ sâu':'232 mm'},features:['Mỏng nhất thế giới chỉ 232mm','Bluetooth Audio phát nhạc từ điện thoại','App Casio Music Space','Khóa phím cảm ứng hiện đại','Bảo hành chính hãng 3 năm']},
-  'casio-ap270':{name:'Casio AP-270',brand:'Casio',brandKey:'casio',cat:'piano',type:'Piano điện dạng tủ',price:'24.900.000đ',old:'28.000.000đ',images:pickImages(IMG.piano,2),short:'Piano điện dạng tủ sang trọng, 3 pedal, cảm giác chơi như piano cơ. Phù hợp phòng khách.',specs:{'Hãng':'Casio (Nhật Bản)','Loại':'Piano điện dạng tủ','Số phím':'88 phím','Cảm ứng lực':'Tri-sensor Scaled Hammer','Số giọng':'22 giọng','Đa âm':'256 nốt','Pedal':'3 pedal đầy đủ','Trọng lượng':'36.5 kg'},features:['Thiết kế tủ gỗ sang trọng','3 pedal như piano cơ','Cảm ứng lực Tri-sensor chân thực','Chế độ Concert Play','Bảo hành chính hãng 3 năm']},
-  'victor-p125':{name:'Victor P-125',brand:'Victor',brandKey:'victor',cat:'piano',type:'Piano điện · 88 phím',price:'10.500.000đ',old:'12.000.000đ',images:pickImages(IMG.piano,0),short:'Piano điện Victor Nhật Bản — 88 phím cảm ứng lực, âm thanh ấm áp kiểu châu Âu.',specs:{'Hãng':'Victor (Nhật Bản)','Số phím':'88 phím','Cảm ứng lực':'Hammer Action 3 mức','Số giọng':'12 giọng','Đa âm':'128 nốt','Kết nối':'USB, MIDI, Headphone','Trọng lượng':'11 kg','Kích thước':'1320 × 260 × 150 mm'},features:['Thương hiệu Victor Nhật Bản','Âm thanh piano ấm kiểu châu Âu','Cảm ứng lực 3 mức','Chế độ Dual & Split','Bảo hành chính hãng 3 năm']},
-  'victor-upright':{name:'Victor Upright VU-118',brand:'Victor',brandKey:'victor',cat:'piano',type:'Piano cơ Upright · 118cm',price:'95.000.000đ',old:'',images:pickImages(IMG.piano,1),short:'Piano cơ Upright Victor 118cm — chất lượng Nhật Bản, giá tiết kiệm hơn Yamaha U1.',specs:{'Hãng':'Victor (Nhật Bản)','Loại':'Piano cơ Upright','Chiều cao':'118 cm','Số phím':'88 phím','Búa':'Búa nỉ Nhật Bản','Dây':'Dây đồng Roslau','Pedal':'3 pedal đầy đủ','Trọng lượng':'~210 kg'},features:['Chất lượng Nhật, giá Việt','Âm thanh ấm, hợp đệm hát','Búa nỉ cao cấp bền bỉ','3 pedal đầy đủ','Bảo hành chính hãng 3 năm']},
-  'master-mp100':{name:'Master MP-100',brand:'Master',brandKey:'master',cat:'piano',type:'Piano điện · Bluetooth MIDI',price:'12.500.000đ',old:'14.500.000đ',images:pickImages(IMG.piano,2),short:'Master MP-100 — 88 phím cảm ứng lực, Bluetooth MIDI, thiết kế hiện đại cho mọi không gian.',specs:{'Hãng':'Master','Số phím':'88 phím','Cảm ứng lực':'Hammer Action 3 mức','Số giọng':'16 giọng','Đa âm':'128 nốt','Kết nối':'Bluetooth MIDI, USB','Loa':'10W × 2','Trọng lượng':'12 kg'},features:['Bluetooth MIDI kết nối app học đàn','16 giọng phong phú','Loa 10W×2 âm thanh lớn','Metronome & Recorder tích hợp','Bảo hành chính hãng 3 năm']},
-  'master-grand':{name:'Master Grand MG-180',brand:'Master',brandKey:'master',cat:'piano',type:'Piano cơ Grand · 180cm',price:'180.000.000đ',old:'',images:pickImages(IMG.piano,0),short:'Piano cơ Grand Master MG-180 — dài 180cm, âm thanh phòng hòa nhạc, phù hợp biểu diễn chuyên nghiệp.',specs:{'Hãng':'Master','Loại':'Piano cơ Grand','Chiều dài':'180 cm','Số phím':'88 phím','Búa':'Búa nỉ Đức','Dây':'Dây đồng Đức','Pedal':'3 pedal','Trọng lượng':'~330 kg'},features:['Âm thanh phòng hòa nhạc','Búa nỉ Đức cao cấp','Thiết kế Grand sang trọng','Phù hợp biểu diễn & thu âm','Bảo hành chính hãng 3 năm']},
-  'yamaha-f310':{name:'Yamaha F310',brand:'Yamaha',brandKey:'yamaha',cat:'guitar',type:'Guitar acoustic · Dreadnought',price:'2.900.000đ',old:'3.500.000đ',images:pickImages(IMG.guitar,0),short:'Guitar acoustic phổ biến nhất cho người mới. Mặt Spruce, hông lưng Meranti, âm thanh ấm và cân bằng.',specs:{'Hãng':'Yamaha (Nhật Bản)','Loại':'Guitar acoustic','Mặt đàn':'Spruce','Lưng & hông':'Meranti','Số dây':'6 dây','Chiều dài':'Dreadnought 41"','Phù hợp':'Người mới, đệm hát','Bảo hành':'3 năm'},features:['Mặt gỗ Spruce vang ấm','Phù hợp người mới bắt đầu','Độ bền cao, ổn định','Setup chuẩn, dễ bấm','Bảo hành chính hãng 3 năm']},
-  'yamaha-c40':{name:'Yamaha C40',brand:'Yamaha',brandKey:'yamaha',cat:'guitar',type:'Guitar classic · Nylon',price:'3.500.000đ',old:'4.200.000đ',images:pickImages(IMG.guitar,2),short:'Guitar classic Yamaha C40 — lựa chọn kinh điển cho người học guitar cổ điển. Dây nilon mềm mại.',specs:{'Hãng':'Yamaha (Nhật Bản)','Loại':'Guitar classic','Mặt đàn':'Spruce','Lưng & hông':'Meranti','Số dây':'6 dây nilon','Chiều dài':'Full size 39"','Phù hợp':'Học cổ điển, đệm hát','Bảo hành':'3 năm'},features:['Dây nilon mềm, dễ bấm','Âm thanh ngọt ngào ấm áp','Thích hợp học guitar cổ điển','Chất lượng Yamaha bền bỉ','Bảo hành chính hãng 3 năm']},
-  'fender-strat':{name:'Fender Player Stratocaster',brand:'Fender',brandKey:'fender',cat:'guitar',type:'Guitar điện · Mexico',price:'18.500.000đ',old:'21.500.000đ',images:pickImages(IMG.guitar,1),short:'Huyền thoại guitar điện Fender Stratocaster. Sản xuất tại Mexico, 3 pickup single-coil.',specs:{'Hãng':'Fender (Mexico)','Loại':'Guitar điện','Thân đàn':'Alder','Cần đàn':'Maple, Modern "C"','Phím đàn':'Pau Ferro, 22 phím','Pickup':'3 × Single-Coil','Điều khiển':'1 Vol, 2 Tone, 5-way','Bảo hành':'3 năm'},features:['Pickup Player Series Single-Coil','Cần đàn Modern "C" dễ chơi','Khóa đàn & bridge chất lượng','Âm thanh Fender huyền thoại','Bảo hành chính hãng 3 năm']},
-  'gibson-lp':{name:'Gibson Les Paul Standard',brand:'Gibson',brandKey:'gibson',cat:'guitar',type:'Guitar điện · USA',price:'65.000.000đ',old:'',images:pickImages(IMG.guitar,3),short:'Huyền thoại rock Gibson Les Paul Standard. Thân Mahogany, mặt Maple, pickup Burstbucker.',specs:{'Hãng':'Gibson (Mỹ)','Loại':'Guitar điện','Thân đàn':'Mahogany + Maple','Cần đàn':'Mahogany, Slim Taper','Phím đàn':'Rosewood, 22 phím','Pickup':'2 × Burstbucker','Điều khiển':'2 Vol, 2 Tone, 3-way','Bảo hành':'3 năm'},features:['Pickup Burstbucker Gibson USA','Thân Mahogany + Maple âm thanh dày','Chất lượng thủ công tại Mỹ','Cây đàn trong mơ của rocker','Bảo hành chính hãng 3 năm']},
-  'ibanez-grx40':{name:'Ibanez GRX40',brand:'Ibanez',brandKey:'ibanez',cat:'guitar',type:'Guitar điện · H-S-H',price:'5.500.000đ',old:'6.500.000đ',images:pickImages(IMG.guitar,4),short:'Guitar điện rock/metal giá tốt cho người mới. Cấu hình H-S-H linh hoạt.',specs:{'Hãng':'Ibanez (Nhật Bản)','Loại':'Guitar điện','Thân đàn':'Poplar','Cần đàn':'Maple','Phím đàn':'Rosewood, 22 phím','Pickup':'H-S-H','Điều khiển':'1 Vol, 1 Tone, 5-way','Bảo hành':'3 năm'},features:['Cấu hình H-S-H linh hoạt','Cần đàn mỏng dễ chơi','Chất lượng Ibanez bền bỉ','Giá tốt trong phân khúc','Bảo hành chính hãng 3 năm']},
-  'fender-squier':{name:'Fender Squier Affinity',brand:'Fender',brandKey:'fender',cat:'guitar',type:'Guitar điện · Entry-level',price:'6.900.000đ',old:'8.200.000đ',images:pickImages(IMG.guitar,2),short:'Dòng entry-level của Fender — thiết kế Stratocaster cổ điển, giá hợp lý cho người mới.',specs:{'Hãng':'Fender (Indonesia)','Loại':'Guitar điện','Thân đàn':'Poplar','Cần đàn':'Maple, "C" shape','Phím đàn':'Indian Laurel, 21 phím','Pickup':'3 × Single-Coil','Điều khiển':'1 Vol, 2 Tone, 5-way','Bảo hành':'3 năm'},features:['Thiết kế Stratocaster kinh điển','Giá tốt cho người mới','Cần đàn "C" shape dễ chơi','Thương hiệu Fender chính hãng','Bảo hành chính hãng 3 năm']},
-  'martin-d28':{name:'Martin D-28',brand:'Martin',brandKey:'martin',cat:'guitar',type:'Guitar acoustic · Dreadnought',price:'75.000.000đ',old:'',images:pickImages(IMG.guitar,0),short:'Huyền thoại guitar acoustic Martin D-28. Mặt Sitka Spruce, lưng hông Rosewood.',specs:{'Hãng':'Martin (Mỹ)','Loại':'Guitar acoustic Dreadnought','Mặt đàn':'Sitka Spruce','Lưng & hông':'East Indian Rosewood','Cần đàn':'Select Hardwood','Phím đàn':'Ebony, 20 phím','Chiều dài':'Dreadnought 41"','Bảo hành':'3 năm'},features:['Huyền thoại acoustic nước Mỹ','Sitka Spruce + Rosewood cao cấp','Thủ công tại Mỹ','Âm thanh ấm, vang, chi tiết','Bảo hành chính hãng 3 năm']},
-  'taylor-114e':{name:'Taylor 114e',brand:'Taylor',brandKey:'taylor',cat:'guitar',type:'Guitar acoustic điện · ES2',price:'15.500.000đ',old:'18.000.000đ',images:pickImages(IMG.guitar,1),short:'Guitar acoustic Taylor 114e có pickup ES2, phù hợp biểu diễn và thu âm.',specs:{'Hãng':'Taylor (Mỹ)','Loại':'Guitar acoustic điện','Mặt đàn':'Sitka Spruce','Lưng & hông':'Sapele','Cần đàn':'Maple','Phím đàn':'Ebony, 20 phím','Pickup':'Taylor ES2','Bảo hành':'3 năm'},features:['Pickup ES2 chính hãng Taylor','Biểu diễn sân khấu trực tiếp','Chất lượng Mỹ tinh xảo','Grand Auditorium cân bằng','Bảo hành chính hãng 3 năm']},
-  'tama-rhythm':{name:'Tama Rhythm Mate',brand:'Tama',brandKey:'tama',cat:'drums',type:'Trống acoustic · 5 mảnh',price:'12.500.000đ',old:'14.500.000đ',images:pickImages(IMG.drums,0),short:'Bộ trống acoustic Tama Rhythm Mate 5 mảnh — lựa chọn phổ biến cho người mới.',specs:{'Hãng':'Tama (Nhật Bản)','Loại':'Trống acoustic 5 mảnh','Bass drum':'22" × 16"','Tom 1':'10" × 7"','Tom 2':'12" × 8"','Floor tom':'16" × 15"','Snare':'14" × 5.5"','Vật liệu':'Poplar'},features:['Bộ 5 mảnh đầy đủ cho người mới','Hardware chắc chắn, bền bỉ','Học tập và biểu diễn nhỏ','Chất lượng Tama Nhật Bản','Bảo hành chính hãng 3 năm']},
-  'pearl-roadshow':{name:'Pearl Roadshow',brand:'Pearl',brandKey:'pearl',cat:'drums',type:'Trống acoustic · 5 mảnh',price:'14.500.000đ',old:'17.000.000đ',images:pickImages(IMG.drums,1),short:'Bộ trống Pearl Roadshow 5 mảnh — chất lượng ổn định từ thương hiệu trống số 1 thế giới.',specs:{'Hãng':'Pearl (Nhật Bản)','Loại':'Trống acoustic 5 mảnh','Bass drum':'22" × 16"','Tom 1':'10" × 8"','Tom 2':'12" × 9"','Floor tom':'16" × 16"','Snare':'14" × 5.5"','Vật liệu':'Poplar'},features:['Hardware Pearl chắc chắn','Bộ 5 mảnh đầy đủ','Biểu diễn sân khấu nhỏ','Thương hiệu trống số 1 thế giới','Bảo hành chính hãng 3 năm']},
-  'roland-td1k':{name:'Roland TD-1K',brand:'Roland',brandKey:'roland',cat:'drums',type:'Trống điện · V-Drums',price:'11.500.000đ',old:'13.500.000đ',images:pickImages(IMG.drums,0),short:'Trống điện Roland TD-1K — dùng tai nghe chơi đêm không làm phiền hàng xóm.',specs:{'Hãng':'Roland (Nhật Bản)','Loại':'Trống điện V-Drums','Số pad':'5 pad','Snare':'Pad lưới Mesh','Hi-hat':'Pedal điều khiển','Bộ âm thanh':'15 bộ V-Drums','Kết nối':'Headphone, AUX, MIDI','Phù hợp':'Người mới, chung cư'},features:['Chơi đêm với tai nghe','Pad lưới snare cảm ứng tốt','Nhiều bộ âm thanh Roland','Coach Mode học trống','Bảo hành chính hãng 3 năm']},
-  'yamaha-stage':{name:'Yamaha Stage Custom',brand:'Yamaha',brandKey:'yamaha',cat:'drums',type:'Trống acoustic · Birch',price:'19.500.000đ',old:'23.000.000đ',images:pickImages(IMG.drums,1),short:'Bộ trống Yamaha Stage Custom — gỗ Birch cao cấp, âm thanh chuyên nghiệp cho biểu diễn và thu âm.',specs:{'Hãng':'Yamaha (Nhật Bản)','Loại':'Trống acoustic 5 mảnh','Bass drum':'22" × 17"','Tom 1':'10" × 7"','Tom 2':'12" × 8"','Floor tom':'16" × 15"','Snare':'14" × 5.5"','Vật liệu':'Birch 6 lớp'},features:['Gỗ Birch âm thanh tươi sáng','Hardware Yamaha chắc chắn','Sân khấu và phòng thu','Chất lượng chuyên nghiệp','Bảo hành chính hãng 3 năm']},
-  'alesis-nitro':{name:'Alesis Nitro Mesh',brand:'Alesis',brandKey:'alesis',cat:'drums',type:'Trống điện · Mesh pad',price:'8.500.000đ',old:'10.000.000đ',images:pickImages(IMG.drums,0),short:'Bộ trống điện Alesis Nitro Mesh — pad lưới mesh cao cấp giá rẻ nhất phân khúc.',specs:{'Hãng':'Alesis (Mỹ)','Loại':'Trống điện Mesh','Số pad':'8 pad (tất cả Mesh)','Snare':'Dual-zone mesh','Bộ âm thanh':'40 kits, 385 sounds','Kết nối':'USB MIDI, Headphone','Phù hợp':'Học tập tại nhà','Bảo hành':'3 năm'},features:['Toàn bộ pad lưới Mesh cao cấp','385 âm thanh, 40 bộ kit','Kết nối USB MIDI với máy tính','Chế độ học tập & Metronome','Bảo hành chính hãng 3 năm']},
-  'pearl-export':{name:'Pearl Export EXX',brand:'Pearl',brandKey:'pearl',cat:'drums',type:'Trống acoustic · 5 mảnh',price:'22.500.000đ',old:'',images:pickImages(IMG.drums,1),short:'Pearl Export EXX — dòng trống huyền thoại, âm thanh mạnh mẽ, chuyên nghiệp.',specs:{'Hãng':'Pearl (Nhật Bản)','Loại':'Trống acoustic 5 mảnh','Bass drum':'22" × 18"','Tom 1':'10" × 7"','Tom 2':'12" × 8"','Floor tom':'16" × 16"','Snare':'14" × 5.5"','Vật liệu':'Poplar/Mahogany 6 lớp'},features:['Dòng trống huyền thoại Pearl','Âm thanh mạnh mẽ, uy lực','Hardware 830 series','Biểu diễn chuyên nghiệp','Bảo hành chính hãng 3 năm']}
+  // ===== PIANO ĐIỆN =====
+  'yamaha-p45':{name:'Yamaha P-45',brand:'Yamaha',brandKey:'yamaha',cat:'piano',type:'Piano điện · 88 phím',price:'11.500.000đ',old:'13.200.000đ',images:imgs(IMG.pianoDigital),short:'Dòng piano điện phổ biến nhất cho người mới. Phím GHS cảm ứng lực, nguồn âm Pure CF từ đàn Grand Yamaha.',specs:{'Hãng':'Yamaha (Nhật Bản)','Số phím':'88 phím','Cảm ứng lực':'GHS','Số giọng':'10 giọng','Đa âm':'64 nốt','Nguồn âm':'Pure CF Sound Engine','Kết nối':'USB to Host, Headphone','Trọng lượng':'11.5 kg'},features:['Phím GHS mô phỏng cảm giác đàn cơ','Nguồn âm Pure CF từ Grand Piano CFIIIS','Chế độ Dual/Layer ghép 2 giọng','Chạy được bằng pin AA','Bảo hành chính hãng 3 năm']},
+  'yamaha-p125':{name:'Yamaha P-125',brand:'Yamaha',brandKey:'yamaha',cat:'piano',type:'Piano điện · 88 phím',price:'18.500.000đ',old:'21.000.000đ',images:imgs(IMG.pianoDigital),short:'Nâng cấp từ P-45 với 24 giọng, kết nối USB/MIDI, âm thanh Piano CFX cao cấp và loa 7W x 2 mạnh mẽ.',specs:{'Hãng':'Yamaha (Nhật Bản)','Số phím':'88 phím','Cảm ứng lực':'GHS','Số giọng':'24 giọng','Đa âm':'192 nốt','Nguồn âm':'Pure CF Sound Engine','Kết nối':'USB, AUX Out, Headphone','Trọng lượng':'11.8 kg'},features:['Âm thanh Piano CFX từ Grand Concert','Chế độ Sound Boost âm lượng lớn hơn','Dual, Split, Duo linh hoạt','App Smart Pianist qua USB','Bảo hành chính hãng 3 năm']},
+  'casio-cdp-s110':{name:'Casio CDP-S110',brand:'Casio',brandKey:'casio',cat:'piano',type:'Piano điện · 88 phím',price:'8.900.000đ',old:'10.500.000đ',images:imgs(IMG.pianoDigital),short:'Giá rẻ nhất phân khúc piano điện 88 phím. Thiết kế siêu mỏng chỉ 10.5kg.',specs:{'Hãng':'Casio (Nhật Bản)','Số phím':'88 phím','Cảm ứng lực':'Scaled Hammer Action II','Số giọng':'10 giọng','Đa âm':'64 nốt','Kết nối':'USB, Headphone','Trọng lượng':'10.5 kg','Pin':'Chạy được 6 pin AA'},features:['Thiết kế siêu mỏng, dễ mang đi','Phím Scaled Hammer Action II','Chế độ Duet cho 2 người chơi','Chạy pin, chơi ngoài trời','Bảo hành chính hãng 3 năm']},
+  'casio-px-s1100':{name:'Casio PX-S1100',brand:'Casio',brandKey:'casio',cat:'piano',type:'Piano điện · Bluetooth',price:'15.900.000đ',old:'18.500.000đ',images:imgs(IMG.pianoDigital),short:'Piano điện mỏng nhất thế giới (232mm). Bluetooth Audio & MIDI, kết nối app Casio Music Space.',specs:{'Hãng':'Casio (Nhật Bản)','Số phím':'88 phím','Cảm ứng lực':'Smart Scaled Hammer Action','Số giọng':'18 giọng','Đa âm':'192 nốt','Kết nối':'Bluetooth Audio/MIDI, USB','Trọng lượng':'11.2 kg','Độ sâu':'232 mm'},features:['Mỏng nhất thế giới chỉ 232mm','Bluetooth Audio phát nhạc từ điện thoại','App Casio Music Space','Khóa phím cảm ứng hiện đại','Bảo hành chính hãng 3 năm']},
+  'victor-p125':{name:'Victor P-125',brand:'Victor',brandKey:'victor',cat:'piano',type:'Piano điện · 88 phím',price:'10.500.000đ',old:'12.000.000đ',images:imgs(IMG.pianoDigital),short:'Piano điện Victor Nhật Bản — 88 phím cảm ứng lực, âm thanh ấm áp kiểu châu Âu.',specs:{'Hãng':'Victor (Nhật Bản)','Số phím':'88 phím','Cảm ứng lực':'Hammer Action 3 mức','Số giọng':'12 giọng','Đa âm':'128 nốt','Kết nối':'USB, MIDI, Headphone','Trọng lượng':'11 kg','Kích thước':'1320 × 260 × 150 mm'},features:['Thương hiệu Victor Nhật Bản','Âm thanh piano ấm kiểu châu Âu','Cảm ứng lực 3 mức','Chế độ Dual & Split','Bảo hành chính hãng 3 năm']},
+  'master-mp100':{name:'Master MP-100',brand:'Master',brandKey:'master',cat:'piano',type:'Piano điện · Bluetooth MIDI',price:'12.500.000đ',old:'14.500.000đ',images:imgs(IMG.pianoDigital),short:'Master MP-100 — 88 phím cảm ứng lực, Bluetooth MIDI, thiết kế hiện đại cho mọi không gian.',specs:{'Hãng':'Master','Số phím':'88 phím','Cảm ứng lực':'Hammer Action 3 mức','Số giọng':'16 giọng','Đa âm':'128 nốt','Kết nối':'Bluetooth MIDI, USB','Loa':'10W × 2','Trọng lượng':'12 kg'},features:['Bluetooth MIDI kết nối app học đàn','16 giọng phong phú','Loa 10W×2 âm thanh lớn','Metronome & Recorder tích hợp','Bảo hành chính hãng 3 năm']},
+
+  // ===== PIANO CƠ =====
+  'yamaha-u1':{name:'Yamaha U1',brand:'Yamaha',brandKey:'yamaha',cat:'piano',type:'Piano cơ Upright · 121cm',price:'135.000.000đ',old:'',images:imgs(IMG.pianoUpright),short:'Huyền thoại piano cơ Upright Nhật Bản — được nhạc viện và giáo viên khuyên dùng. Bền bỉ hàng chục năm.',specs:{'Hãng':'Yamaha (Nhật Bản)','Loại':'Piano cơ Upright','Chiều cao':'121 cm','Số phím':'88 phím','Búa':'Búa nỉ đặc biệt','Pedal':'3 pedal đầy đủ','Kích thước':'153 × 121 × 62 cm','Trọng lượng':'~228 kg'},features:['Âm thanh cân bằng ở mọi dải','Cơ chế búa cho cảm giác chân thực','Độ bền vượt trội, giữ giá tốt','Phù hợp học tập & biểu diễn','Bảo hành chính hãng 3 năm']},
+  'victor-upright':{name:'Victor Upright VU-118',brand:'Victor',brandKey:'victor',cat:'piano',type:'Piano cơ Upright · 118cm',price:'95.000.000đ',old:'',images:imgs(IMG.pianoUpright),short:'Piano cơ Upright Victor 118cm — chất lượng Nhật Bản, giá tiết kiệm hơn Yamaha U1.',specs:{'Hãng':'Victor (Nhật Bản)','Loại':'Piano cơ Upright','Chiều cao':'118 cm','Số phím':'88 phím','Búa':'Búa nỉ Nhật Bản','Dây':'Dây đồng Roslau','Pedal':'3 pedal đầy đủ','Trọng lượng':'~210 kg'},features:['Chất lượng Nhật, giá Việt','Âm thanh ấm, hợp đệm hát','Búa nỉ cao cấp bền bỉ','3 pedal đầy đủ','Bảo hành chính hãng 3 năm']},
+  'casio-ap270':{name:'Casio AP-270',brand:'Casio',brandKey:'casio',cat:'piano',type:'Piano điện dạng tủ',price:'24.900.000đ',old:'28.000.000đ',images:imgs(IMG.pianoGrand),short:'Piano điện dạng tủ sang trọng, 3 pedal, cảm giác chơi như piano cơ. Phù hợp phòng khách.',specs:{'Hãng':'Casio (Nhật Bản)','Loại':'Piano điện dạng tủ','Số phím':'88 phím','Cảm ứng lực':'Tri-sensor Scaled Hammer','Số giọng':'22 giọng','Đa âm':'256 nốt','Pedal':'3 pedal đầy đủ','Trọng lượng':'36.5 kg'},features:['Thiết kế tủ gỗ sang trọng','3 pedal như piano cơ','Cảm ứng lực Tri-sensor chân thực','Chế độ Concert Play','Bảo hành chính hãng 3 năm']},
+  'master-grand':{name:'Master Grand MG-180',brand:'Master',brandKey:'master',cat:'piano',type:'Piano cơ Grand · 180cm',price:'180.000.000đ',old:'',images:imgs(IMG.pianoGrand),short:'Piano cơ Grand Master MG-180 — dài 180cm, âm thanh phòng hòa nhạc, phù hợp biểu diễn chuyên nghiệp.',specs:{'Hãng':'Master','Loại':'Piano cơ Grand','Chiều dài':'180 cm','Số phím':'88 phím','Búa':'Búa nỉ Đức','Dây':'Dây đồng Đức','Pedal':'3 pedal','Trọng lượng':'~330 kg'},features:['Âm thanh phòng hòa nhạc','Búa nỉ Đức cao cấp','Thiết kế Grand sang trọng','Phù hợp biểu diễn & thu âm','Bảo hành chính hãng 3 năm']},
+
+  // ===== GUITAR ACOUSTIC =====
+  'yamaha-f310':{name:'Yamaha F310',brand:'Yamaha',brandKey:'yamaha',cat:'guitar',type:'Guitar acoustic · Dreadnought',price:'2.900.000đ',old:'3.500.000đ',images:imgs(IMG.guitarAcoustic),short:'Guitar acoustic phổ biến nhất cho người mới. Mặt Spruce, hông lưng Meranti, âm thanh ấm và cân bằng.',specs:{'Hãng':'Yamaha (Nhật Bản)','Loại':'Guitar acoustic','Mặt đàn':'Spruce','Lưng & hông':'Meranti','Số dây':'6 dây','Chiều dài':'Dreadnought 41"','Phù hợp':'Người mới, đệm hát','Bảo hành':'3 năm'},features:['Mặt gỗ Spruce vang ấm','Phù hợp người mới bắt đầu','Độ bền cao, ổn định','Setup chuẩn, dễ bấm','Bảo hành chính hãng 3 năm']},
+  'martin-d28':{name:'Martin D-28',brand:'Martin',brandKey:'martin',cat:'guitar',type:'Guitar acoustic · Dreadnought',price:'75.000.000đ',old:'',images:imgs(IMG.guitarAcoustic),short:'Huyền thoại guitar acoustic Martin D-28. Mặt Sitka Spruce, lưng hông Rosewood.',specs:{'Hãng':'Martin (Mỹ)','Loại':'Guitar acoustic Dreadnought','Mặt đàn':'Sitka Spruce','Lưng & hông':'East Indian Rosewood','Cần đàn':'Select Hardwood','Phím đàn':'Ebony, 20 phím','Chiều dài':'Dreadnought 41"','Bảo hành':'3 năm'},features:['Huyền thoại acoustic nước Mỹ','Sitka Spruce + Rosewood cao cấp','Thủ công tại Mỹ','Âm thanh ấm, vang, chi tiết','Bảo hành chính hãng 3 năm']},
+  'taylor-114e':{name:'Taylor 114e',brand:'Taylor',brandKey:'taylor',cat:'guitar',type:'Guitar acoustic điện · ES2',price:'15.500.000đ',old:'18.000.000đ',images:imgs(IMG.guitarAcoustic),short:'Guitar acoustic Taylor 114e có pickup ES2, phù hợp biểu diễn và thu âm.',specs:{'Hãng':'Taylor (Mỹ)','Loại':'Guitar acoustic điện','Mặt đàn':'Sitka Spruce','Lưng & hông':'Sapele','Cần đàn':'Maple','Phím đàn':'Ebony, 20 phím','Pickup':'Taylor ES2','Bảo hành':'3 năm'},features:['Pickup ES2 chính hãng Taylor','Biểu diễn sân khấu trực tiếp','Chất lượng Mỹ tinh xảo','Grand Auditorium cân bằng','Bảo hành chính hãng 3 năm']},
+
+  // ===== GUITAR CLASSIC =====
+  'yamaha-c40':{name:'Yamaha C40',brand:'Yamaha',brandKey:'yamaha',cat:'guitar',type:'Guitar classic · Nylon',price:'3.500.000đ',old:'4.200.000đ',images:imgs(IMG.guitarClassic),short:'Guitar classic Yamaha C40 — lựa chọn kinh điển cho người học guitar cổ điển. Dây nilon mềm mại.',specs:{'Hãng':'Yamaha (Nhật Bản)','Loại':'Guitar classic','Mặt đàn':'Spruce','Lưng & hông':'Meranti','Số dây':'6 dây nilon','Chiều dài':'Full size 39"','Phù hợp':'Học cổ điển, đệm hát','Bảo hành':'3 năm'},features:['Dây nilon mềm, dễ bấm','Âm thanh ngọt ngào ấm áp','Thích hợp học guitar cổ điển','Chất lượng Yamaha bền bỉ','Bảo hành chính hãng 3 năm']},
+
+  // ===== GUITAR ĐIỆN =====
+  'fender-strat':{name:'Fender Player Stratocaster',brand:'Fender',brandKey:'fender',cat:'guitar',type:'Guitar điện · Mexico',price:'18.500.000đ',old:'21.500.000đ',images:imgs(IMG.guitarElectric),short:'Huyền thoại guitar điện Fender Stratocaster. Sản xuất tại Mexico, 3 pickup single-coil.',specs:{'Hãng':'Fender (Mexico)','Loại':'Guitar điện','Thân đàn':'Alder','Cần đàn':'Maple, Modern "C"','Phím đàn':'Pau Ferro, 22 phím','Pickup':'3 × Single-Coil','Điều khiển':'1 Vol, 2 Tone, 5-way','Bảo hành':'3 năm'},features:['Pickup Player Series Single-Coil','Cần đàn Modern "C" dễ chơi','Khóa đàn & bridge chất lượng','Âm thanh Fender huyền thoại','Bảo hành chính hãng 3 năm']},
+  'gibson-lp':{name:'Gibson Les Paul Standard',brand:'Gibson',brandKey:'gibson',cat:'guitar',type:'Guitar điện · USA',price:'65.000.000đ',old:'',images:imgs(IMG.guitarElectric),short:'Huyền thoại rock Gibson Les Paul Standard. Thân Mahogany, mặt Maple, pickup Burstbucker.',specs:{'Hãng':'Gibson (Mỹ)','Loại':'Guitar điện','Thân đàn':'Mahogany + Maple','Cần đàn':'Mahogany, Slim Taper','Phím đàn':'Rosewood, 22 phím','Pickup':'2 × Burstbucker','Điều khiển':'2 Vol, 2 Tone, 3-way','Bảo hành':'3 năm'},features:['Pickup Burstbucker Gibson USA','Thân Mahogany + Maple âm thanh dày','Chất lượng thủ công tại Mỹ','Cây đàn trong mơ của rocker','Bảo hành chính hãng 3 năm']},
+  'ibanez-grx40':{name:'Ibanez GRX40',brand:'Ibanez',brandKey:'ibanez',cat:'guitar',type:'Guitar điện · H-S-H',price:'5.500.000đ',old:'6.500.000đ',images:imgs(IMG.guitarElectric),short:'Guitar điện rock/metal giá tốt cho người mới. Cấu hình H-S-H linh hoạt.',specs:{'Hãng':'Ibanez (Nhật Bản)','Loại':'Guitar điện','Thân đàn':'Poplar','Cần đàn':'Maple','Phím đàn':'Rosewood, 22 phím','Pickup':'H-S-H','Điều khiển':'1 Vol, 1 Tone, 5-way','Bảo hành':'3 năm'},features:['Cấu hình H-S-H linh hoạt','Cần đàn mỏng dễ chơi','Chất lượng Ibanez bền bỉ','Giá tốt trong phân khúc','Bảo hành chính hãng 3 năm']},
+  'fender-squier':{name:'Fender Squier Affinity',brand:'Fender',brandKey:'fender',cat:'guitar',type:'Guitar điện · Entry-level',price:'6.900.000đ',old:'8.200.000đ',images:imgs(IMG.guitarElectric),short:'Dòng entry-level của Fender — thiết kế Stratocaster cổ điển, giá hợp lý cho người mới.',specs:{'Hãng':'Fender (Indonesia)','Loại':'Guitar điện','Thân đàn':'Poplar','Cần đàn':'Maple, "C" shape','Phím đàn':'Indian Laurel, 21 phím','Pickup':'3 × Single-Coil','Điều khiển':'1 Vol, 2 Tone, 5-way','Bảo hành':'3 năm'},features:['Thiết kế Stratocaster kinh điển','Giá tốt cho người mới','Cần đàn "C" shape dễ chơi','Thương hiệu Fender chính hãng','Bảo hành chính hãng 3 năm']},
+
+  // ===== TRỐNG ACOUSTIC =====
+  'tama-rhythm':{name:'Tama Rhythm Mate',brand:'Tama',brandKey:'tama',cat:'drums',type:'Trống acoustic · 5 mảnh',price:'12.500.000đ',old:'14.500.000đ',images:imgs(IMG.drumsAcoustic),short:'Bộ trống acoustic Tama Rhythm Mate 5 mảnh — lựa chọn phổ biến cho người mới.',specs:{'Hãng':'Tama (Nhật Bản)','Loại':'Trống acoustic 5 mảnh','Bass drum':'22" × 16"','Tom 1':'10" × 7"','Tom 2':'12" × 8"','Floor tom':'16" × 15"','Snare':'14" × 5.5"','Vật liệu':'Poplar'},features:['Bộ 5 mảnh đầy đủ cho người mới','Hardware chắc chắn, bền bỉ','Học tập và biểu diễn nhỏ','Chất lượng Tama Nhật Bản','Bảo hành chính hãng 3 năm']},
+  'pearl-roadshow':{name:'Pearl Roadshow',brand:'Pearl',brandKey:'pearl',cat:'drums',type:'Trống acoustic · 5 mảnh',price:'14.500.000đ',old:'17.000.000đ',images:imgs(IMG.drumsAcoustic),short:'Bộ trống Pearl Roadshow 5 mảnh — chất lượng ổn định từ thương hiệu trống số 1 thế giới.',specs:{'Hãng':'Pearl (Nhật Bản)','Loại':'Trống acoustic 5 mảnh','Bass drum':'22" × 16"','Tom 1':'10" × 8"','Tom 2':'12" × 9"','Floor tom':'16" × 16"','Snare':'14" × 5.5"','Vật liệu':'Poplar'},features:['Hardware Pearl chắc chắn','Bộ 5 mảnh đầy đủ','Biểu diễn sân khấu nhỏ','Thương hiệu trống số 1 thế giới','Bảo hành chính hãng 3 năm']},
+  'yamaha-stage':{name:'Yamaha Stage Custom',brand:'Yamaha',brandKey:'yamaha',cat:'drums',type:'Trống acoustic · Birch',price:'19.500.000đ',old:'23.000.000đ',images:imgs(IMG.drumsAcoustic),short:'Bộ trống Yamaha Stage Custom — gỗ Birch cao cấp, âm thanh chuyên nghiệp cho biểu diễn và thu âm.',specs:{'Hãng':'Yamaha (Nhật Bản)','Loại':'Trống acoustic 5 mảnh','Bass drum':'22" × 17"','Tom 1':'10" × 7"','Tom 2':'12" × 8"','Floor tom':'16" × 15"','Snare':'14" × 5.5"','Vật liệu':'Birch 6 lớp'},features:['Gỗ Birch âm thanh tươi sáng','Hardware Yamaha chắc chắn','Sân khấu và phòng thu','Chất lượng chuyên nghiệp','Bảo hành chính hãng 3 năm']},
+  'pearl-export':{name:'Pearl Export EXX',brand:'Pearl',brandKey:'pearl',cat:'drums',type:'Trống acoustic · 5 mảnh',price:'22.500.000đ',old:'',images:imgs(IMG.drumsAcoustic),short:'Pearl Export EXX — dòng trống huyền thoại, âm thanh mạnh mẽ, chuyên nghiệp.',specs:{'Hãng':'Pearl (Nhật Bản)','Loại':'Trống acoustic 5 mảnh','Bass drum':'22" × 18"','Tom 1':'10" × 7"','Tom 2':'12" × 8"','Floor tom':'16" × 16"','Snare':'14" × 5.5"','Vật liệu':'Poplar/Mahogany 6 lớp'},features:['Dòng trống huyền thoại Pearl','Âm thanh mạnh mẽ, uy lực','Hardware 830 series','Biểu diễn chuyên nghiệp','Bảo hành chính hãng 3 năm']},
+
+  // ===== TRỐNG ĐIỆN =====
+  'roland-td1k':{name:'Roland TD-1K',brand:'Roland',brandKey:'roland',cat:'drums',type:'Trống điện · V-Drums',price:'11.500.000đ',old:'13.500.000đ',images:imgs(IMG.drumsElectric),short:'Trống điện Roland TD-1K — dùng tai nghe chơi đêm không làm phiền hàng xóm.',specs:{'Hãng':'Roland (Nhật Bản)','Loại':'Trống điện V-Drums','Số pad':'5 pad','Snare':'Pad lưới Mesh','Hi-hat':'Pedal điều khiển','Bộ âm thanh':'15 bộ V-Drums','Kết nối':'Headphone, AUX, MIDI','Phù hợp':'Người mới, chung cư'},features:['Chơi đêm với tai nghe','Pad lưới snare cảm ứng tốt','Nhiều bộ âm thanh Roland','Coach Mode học trống','Bảo hành chính hãng 3 năm']},
+  'alesis-nitro':{name:'Alesis Nitro Mesh',brand:'Alesis',brandKey:'alesis',cat:'drums',type:'Trống điện · Mesh pad',price:'8.500.000đ',old:'10.000.000đ',images:imgs(IMG.drumsElectric),short:'Bộ trống điện Alesis Nitro Mesh — pad lưới mesh cao cấp giá rẻ nhất phân khúc.',specs:{'Hãng':'Alesis (Mỹ)','Loại':'Trống điện Mesh','Số pad':'8 pad (tất cả Mesh)','Snare':'Dual-zone mesh','Bộ âm thanh':'40 kits, 385 sounds','Kết nối':'USB MIDI, Headphone','Phù hợp':'Học tập tại nhà','Bảo hành':'3 năm'},features:['Toàn bộ pad lưới Mesh cao cấp','385 âm thanh, 40 bộ kit','Kết nối USB MIDI với máy tính','Chế độ học tập & Metronome','Bảo hành chính hãng 3 năm']}
 };
 
 /* ============================================================
@@ -1248,7 +2369,7 @@ function seedDemoOrder(){
       id: 'yamaha-p45',
       name: 'Yamaha P-45',
       price: '11.500.000đ',
-      image: 'https://images.unsplash.com/photo-1552422535-c45813c61732?w=1200&q=85&auto=format&fit=crop'
+      image: IMG.pianoDigital[0]
     },
     status: 2
   };
@@ -1280,7 +2401,7 @@ function sendOrderToSystem(order){
     sent_at: new Date().toISOString()
   };
 
-  console.log('%c[Gewon System] 📤 Đã gửi đơn hàng về hệ thống:', 'color:#4da3ff;font-weight:700', payload);
+  console.log('%c[Gewon System] 📤 Đã gửi đơn hàng về hệ thống:', 'color:#f5a524;font-weight:700', payload);
 
   try {
     const logs = JSON.parse(localStorage.getItem(LOG_KEY) || '[]');
@@ -1482,7 +2603,7 @@ function updateMapFromAddress(address){
     feeBox.style.display = 'block';
     distEl.textContent = lastDistance;
     feeEl.textContent = lastFee.text;
-    feeEl.style.color = lastFee.free ? '#30d158' : '#fff';
+    feeEl.style.color = lastFee.free ? '#34d399' : '#fff';
   }
 }
 
@@ -1659,21 +2780,11 @@ function orderCardHTML(o){
 }
 
 function cancelOrder(code){
-  console.log('%c[Gewon] 🗑️ cancelOrder() — mã:', 'color:#ff8a82;font-weight:700', code);
-
   const orders = getOrders();
   const idx = orders.findIndex(o => o.code === code);
-  if(idx === -1){
-    console.warn('[Gewon] Không tìm thấy đơn:', code);
-    return;
-  }
+  if(idx === -1){ console.warn('[Gewon] Không tìm thấy đơn:', code); return; }
   const o = orders[idx];
-
-  if((o.status ?? 2) >= 3){
-    alert('Đơn hàng đã giao thành công, không thể hủy.');
-    return;
-  }
-
+  if((o.status ?? 2) >= 3){ alert('Đơn hàng đã giao thành công, không thể hủy.'); return; }
   showCancelConfirm(code);
 }
 
@@ -1690,7 +2801,7 @@ function showCancelConfirm(code){
       <p>Đơn hàng sẽ bị <strong>XÓA</strong> khỏi danh sách.<br>Hành động này không thể hoàn tác.</p>
       <div class="cancel-modal-actions">
         <button class="btn btn-ghost" id="cancel-no">Không, giữ lại</button>
-        <button class="btn btn-primary" id="cancel-yes" style="background:#ff3b30;color:#fff">Có, hủy đơn</button>
+        <button class="btn btn-primary" id="cancel-yes" style="background:linear-gradient(135deg,#ef4444 0%,#dc2626 100%);color:#fff">Có, hủy đơn</button>
       </div>
     </div>
   `;
@@ -1712,7 +2823,6 @@ function doCancelOrder(code){
 
   orders.splice(idx, 1);
   saveOrders(orders);
-  console.log('%c[Gewon] ✅ Đã xóa đơn khỏi danh sách. Còn lại:', 'color:#30d158;font-weight:700', orders.length, 'đơn');
 
   try {
     fetch(SYSTEM_WEBHOOK, {
@@ -2033,10 +3143,6 @@ function stopDemo(){
   demoTimeouts = [];
 }
 
-/* ============================================================
-   DEMO PIANO — giai điệu mẫu (verse + chorus + kết bài)
-   Tone: C major · ♩ = 60 · 4/4
-   ============================================================ */
 function testPlayDemo(){
   stopDemo();
 
