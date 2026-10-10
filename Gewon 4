@@ -26,7 +26,6 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000;font-f
 .code{font-family:'Fira Code',monospace}
 .btn{position:fixed;z-index:60;padding:.55rem .9rem;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);backdrop-filter:blur(10px);font-size:14px;cursor:pointer;display:none;-webkit-tap-highlight-color:transparent}
 .btn:active{background:rgba(255,255,255,.2)}
-
 .fly{position:fixed;z-index:45;pointer-events:none;font-family:'Fira Code',monospace;font-weight:600;font-size:30px;text-shadow:0 0 14px currentColor}
 ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:rgba(255,255,255,.2);border-radius:4px}
 </style>
@@ -93,7 +92,7 @@ const NOTES=[
 mathData.forEach((d,i)=>d.note=NOTES[i]);
 mathData.forEach((d,i)=>d.html=page(i+1,d.title,d.c,d.cards,d.note));
 
-// ===== Audio: Gojo's "Unlimited Void" (Vô Lượng Không Xứ) Sound Design =====
+// ===== Audio =====
 let T0=0,K=1;let ac,master,bus,wet,sh,muted=false;
 function initAudio(){
 if(ac){if(ac.state==='suspended')ac.resume();return;}
@@ -119,7 +118,6 @@ o.start(t);o.stop(t+d+.4);}
 function voidCut(t,from,to){from*=K;to*=K;bus.gain.cancelScheduledValues(t+from-.09);bus.gain.setValueAtTime(1,t+from-.07);bus.gain.linearRampToValueAtTime(.0001,t+from);bus.gain.setValueAtTime(.0001,t+to);bus.gain.linearRampToValueAtTime(1,t+to+.1);}
 function blast(t,s){osc('sine',80,35,t,3.2,1.1*s,.5);osc('sine',160,70,t,2.8,.7*s,.4);osc('sine',240,120,t,2.5,.45*s,.5);osc('sine',320,160,t,2.5,.35*s,.5);osc('sine',40,30,t+.15,3.0,.9*s,.3);}
 function stutter(t,n,span,g){for(let i=0;i<n;i++){const f=120+Math.random()*450;osc('sine',f,f*.5,t+i*span/n,.08,g,.3);}}
-
 function ambient(){
 [[73.4,.04],[110,.03],[146.8,.025],[185,.018],[277.2,.01]].forEach(([f,v],i)=>{const o=ac.createOscillator(),g=ac.createGain(),l=ac.createOscillator(),lg=ac.createGain();
 o.frequency.value=f;g.gain.value=v;l.frequency.value=.03+i*.015;lg.gain.value=v*.5;l.connect(lg).connect(g.gain);o.connect(g);out(g,.25);o.start();l.start();});
@@ -128,22 +126,15 @@ o.frequency.value=f;g.gain.value=v;l.frequency.value=.03+i*.015;lg.gain.value=v*
 
 function sfxEnter(){
 if(!ac)return;const t=ac.currentTime;T0=t;K=1.5;
-osc('sine',1760,880,t,.5,.25,.7);
-osc('sine',880,440,t,.5,.4,.5);
+osc('sine',1760,880,t,.5,.25,.7);osc('sine',880,440,t,.5,.4,.5);
 [-25,0,25].forEach(d=>osc('sine',90,480,t+.15,1.8,.09,.3,true,d));
-stutter(t+.6,32,1.0,.14);
-blast(t+1.6,1.4);
-voidCut(t,1.85,2.25);
-osc('sine',2093,2093,t+2.25,4.0,.018,.8);
-osc('sine',1046,1046,t+2.25,4.0,.025,.7);
+stutter(t+.6,32,1.0,.14);blast(t+1.6,1.4);voidCut(t,1.85,2.25);
+osc('sine',2093,2093,t+2.25,4.0,.018,.8);osc('sine',1046,1046,t+2.25,4.0,.025,.7);
 [2.5, 3.2].forEach(h=>osc('sine',55,25,t+h,.8,.45,.3));
 }
-
 function sfxExit(){if(!ac)return;const t=ac.currentTime;T0=t;K=1.6;
 [-15,0,15].forEach(d=>osc('sine',330,55,t,1.7,.07,.25,true,d));
-stutter(t+.6,22,1.1,.1);
-blast(t+1.8,.9);
-voidCut(t,2.05,2.3);
+stutter(t+.6,22,1.1,.1);blast(t+1.8,.9);voidCut(t,2.05,2.3);
 osc('sine',294,292,t+2.3,3,.022,.6);[2.5].forEach(h=>osc('sine',80,50,t+h,.6,.3,.3));
 [110,146.8,185].forEach((f,i)=>osc('sine',f,f,t+2.4+i*.06,2,.025,.5,true));}
 function sfxHover(){if(!ac)return;const t=ac.currentTime;T0=t;K=1;osc('sine',392,392,t,.7,.012,.4);}
@@ -165,7 +156,11 @@ renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setSize(W(),H());r
 document.getElementById('gl').appendChild(renderer.domElement);
 const S={S1:1,WARP:2,S2:3,PANEL:4};let state=S.S1;
 const camera=new THREE.PerspectiveCamera(60,W()/H(),.1,2000);
-const CAM1=new THREE.Vector3(0,5,30),CAM2=new THREE.Vector3(0,W()<H()?70:28,W()<H()?250:115);camera.position.copy(CAM1);
+
+// Đặt camera gần hơn (CAM2 ở độ cao thấp hơn và cự ly gần hơn để dễ quan sát)
+const CAM1=new THREE.Vector3(0,5,30),CAM2=new THREE.Vector3(0, 4, 26);
+camera.position.copy(CAM1);
+
 const scene1=new THREE.Scene();scene1.background=new THREE.Color(0x010102);
 const scene2=new THREE.Scene();scene2.background=new THREE.Color(0x020205);scene2.fog=new THREE.FogExp2(0x020205,.003);
 const scene3=new THREE.Scene();scene3.fog=scene2.fog;
@@ -181,8 +176,10 @@ const warpShader={
 
 const warpPass=new THREE.ShaderPass(warpShader),wu=warpPass.uniforms;composer.addPass(warpPass);
 function warpFx(tl){tl.to(wu.amt,{value:1,duration:1.9,ease:'power2.in'},0).to(wu.hue,{value:1,duration:1.9,ease:'none'},0).to(wu.amt,{value:0,duration:1.5,ease:'power2.out'},2.1).to(wu.hue,{value:0,duration:1.5},2.1);}
+
+// Thiết lập OrbitControls với giới hạn khoảng cách (min/max distance) để không bị trôi quá xa
 const controls=new THREE.OrbitControls(camera,renderer.domElement);
-Object.assign(controls,{enableDamping:true,dampingFactor:.05,minDistance:1,maxDistance:5000});
+Object.assign(controls,{enableDamping:true,dampingFactor:.05,minDistance:2,maxDistance:80});
 
 // ===== Black hole =====
 const bh=new THREE.Group();scene1.add(bh);
@@ -203,7 +200,7 @@ bh.add(new THREE.Points(pGeo,new THREE.PointsMaterial({color:0xffddaa,size:.1,tr
 function stars(n,spread,color,size,op){const a=new Float32Array(n*3);for(let i=0;i<a.length;i++)a[i]=(Math.random()-.5)*spread;const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(a,3));return new THREE.Points(g,new THREE.PointsMaterial({color,size,transparent:true,opacity:op}));}
 scene1.add(stars(5000,200,0xffffff,.15,.5));scene2.add(stars(8000,320,0x88bbff,.2,.7));
 
-// ===== Math exhibits drawn as real graphs: axes + plotted object =====
+// ===== Math exhibits =====
 function surf(fn,size,seg){const g=new THREE.PlaneGeometry(size,size,seg,seg);g.rotateX(-Math.PI/2);const p=g.attributes.position;for(let i=0;i<p.count;i++)p.setY(i,fn(p.getX(i),p.getZ(i)));g.computeVertexNormals();return g;}
 function axes(){const L=8.5,P=[];[[1,0,0],[0,1,0],[0,0,1]].forEach(a=>{P.push(-a[0]*L,-a[1]*L,-a[2]*L,a[0]*L,a[1]*L,a[2]*L);
 for(let t=-L+2;t<L-.5;t+=2){const q=a.map(v=>v*t),o=a[0]?[0,.25,0]:[.25,0,0];P.push(q[0]-o[0],q[1]-o[1],q[2]-o[2],q[0]+o[0],q[1]+o[1],q[2]+o[2]);}});
@@ -243,38 +240,53 @@ const mesh=new THREE.Mesh(makeGeo(d.shape),m);mesh.userData={d,g};mesh.add(axes(
 const sg=new THREE.Group();d.sym.forEach((s,i)=>{const sp=sprite(s,d.c),a=i/d.sym.length*6.283;sp.position.set(Math.cos(a)*9,(Math.random()-.5)*4,Math.sin(a)*9);sg.add(sp);});g.add(sg);
 scene3.add(g);planets.push({mesh,g,sg,base:new THREE.Vector3(...d.pos)});});
 
-// ===== Museum gallery: floor grid, wings, pedestals, plaques =====
+// ===== Museum gallery: floor grid, wings, pedestals =====
 function label(text,color,w,h,fs){const c=document.createElement('canvas');c.width=w;c.height=h;const x=c.getContext('2d');x.font=`600 ${fs}px 'Fira Code',monospace`;x.fillStyle=color;x.textAlign='center';x.textBaseline='middle';x.shadowColor=color;x.shadowBlur=10;x.fillText(text,w/2,h/2);
 return new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(c),transparent:true,depthWrite:false}));}
-const grid=new THREE.GridHelper(192,32,0x3a4f99,0x1a2348);grid.position.y=-14;grid.material.transparent=true;grid.material.opacity=.35;scene3.add(grid);
+
+// Cosmic Floor
+const floorGeo = new THREE.PlaneGeometry(600, 600, 64, 64);
+floorGeo.rotateX(-Math.PI / 2);
+const floorMat = new THREE.ShaderMaterial({
+  uniforms: { time: { value: 0 } },
+  vertexShader: `varying vec2 vUv;varying vec3 vPosition;void main(){vUv=uv;vPosition=position;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}`,
+  fragmentShader: `
+    uniform float time;varying vec2 vUv;varying vec3 vPosition;
+    void main() {
+      float dist = length(vPosition.xz);
+      float alpha = smoothstep(260.0, 40.0, dist);
+      vec2 gridCoord = vPosition.xz * 0.18;
+      vec2 grid = abs(fract(gridCoord - 0.5) - 0.5) / fwidth(gridCoord);
+      float line = min(grid.x, grid.y);
+      float gridPattern = 1.0 - min(line, 1.0);
+      vec3 col = mix(vec3(0.04, 0.06, 0.16), vec3(0.25, 0.45, 0.85), gridPattern * 0.4);
+      col += vec3(smoothstep(180.0, 0.0, dist) * 0.12);
+      gl_FragColor = vec4(col, alpha * 0.82);
+    }
+  `,
+  transparent: true, side: THREE.DoubleSide, depthWrite: false
+});
+const cosmicFloor = new THREE.Mesh(floorGeo, floorMat);
+cosmicFloor.position.y = -14.1;
+scene3.add(cosmicFloor);
+
+const grid=new THREE.GridHelper(192,32,0x3a4f99,0x1a2348);grid.position.y=-14;grid.material.transparent=true;grid.material.opacity=.2;scene3.add(grid);
+
 const WINGS=['I · GIẢI TÍCH','II · VI PHÂN & HÀM','III · XÁC SUẤT & TIN','IV · ĐẠI SỐ & NHÓM','V · SỐ HỌC & LOGIC','VI · HÌNH & TÔ PÔ','VII · RỜI RẠC & TỐI ƯU'];
 WINGS.forEach((w,i)=>{const s=label(w,'#9fb4ff',512,80,30);s.scale.set(22,3.44,1);s.position.set(-72+i*24,17,-10);scene3.add(s);});
-for(let i=0;i<=7;i++){const l=new THREE.Mesh(new THREE.PlaneGeometry(.2,52),new THREE.MeshBasicMaterial({color:0x5a73cc,transparent:true,opacity:.45}));l.rotation.x=-Math.PI/2;l.position.set(-84+i*24,-13.9,-10);scene3.add(l);}
+for(let i=0;i<=7;i++){const l=new THREE.Mesh(new THREE.PlaneGeometry(.2,52),new THREE.MeshBasicMaterial({color:0x5a73cc,transparent:true,opacity:.3}));l.rotation.x=-Math.PI/2;l.position.set(-84+i*24,-13.9,-10);scene3.add(l);}
 
-// ===== Ống trụ (beam) có màu sắc sinh động & hiệu ứng động =====
+// Trụ trưng bày
 const beamMats = [];
 planets.forEach((p,i)=>{const d=mathData[i],b=p.base;
 const ped=new THREE.Mesh(new THREE.CylinderGeometry(5,6,2.2,48),new THREE.MeshBasicMaterial({color:0x0b0f22}));ped.position.set(b.x,-12.9,b.z);scene3.add(ped);
 const ring=new THREE.Mesh(new THREE.RingGeometry(5.3,5.9,64),new THREE.MeshBasicMaterial({color:d.col[0],side:THREE.DoubleSide}));ring.rotation.x=-Math.PI/2;ring.position.set(b.x,-11.75,b.z);scene3.add(ring);
 
 const beamMat = new THREE.ShaderMaterial({
-  uniforms: {
-    color1: { value: d.col[0] },
-    color2: { value: d.col[1] },
-    time: { value: 0 }
-  },
-  vertexShader: `
-    varying vec2 vUv;
-    void main() {
-      vUv = uv;
-      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-    }
-  `,
+  uniforms: { color1: { value: d.col[0] }, color2: { value: d.col[1] }, time: { value: 0 } },
+  vertexShader: `varying vec2 vUv;void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}`,
   fragmentShader: `
-    uniform vec3 color1;
-    uniform vec3 color2;
-    uniform float time;
-    varying vec2 vUv;
+    uniform vec3 color1;uniform vec3 color2;uniform float time;varying vec2 vUv;
     void main() {
       float wave = sin(vUv.y * 14.0 - time * 4.0) * 0.5 + 0.5;
       vec3 col = mix(color1, color2, vUv.y);
@@ -283,10 +295,7 @@ const beamMat = new THREE.ShaderMaterial({
       gl_FragColor = vec4(col * 2.2, alpha);
     }
   `,
-  transparent: true,
-  blending: THREE.AdditiveBlending,
-  side: THREE.DoubleSide,
-  depthWrite: false
+  transparent: true, blending: THREE.AdditiveBlending, side: THREE.DoubleSide, depthWrite: false
 });
 beamMats.push(beamMat);
 
@@ -297,7 +306,7 @@ const pl=label(String(i+1).padStart(2,'0')+' · '+d.title.toUpperCase(),d.c,512,
 const FN=['z = sin r / r','z = (x² − y²)/9','phân phối Gauss','nón z = r','π(x): đếm số nguyên tố','đồ thị G = (V, E)','mặt xuyến T²','quỹ đạo Lorenz','Re(z³): yên khỉ','khối Boolean Q₃','chỏm cầu đơn vị ℓp','nhóm đối xứng A₅','entropy H(p)+H(q)','thung lũng Rosenbrock'];
 const cp=label(FN[i],'#aab8e8',512,64,26);cp.scale.set(15,1.9,1);cp.position.set(b.x,-18.6,b.z+8);scene3.add(cp);});
 
-// ===== Warp tunnel streaks =====
+// Warp tunnel
 const WL=600,wd=[],wp=new Float32Array(WL*6);
 for(let i=0;i<WL;i++){const a=Math.random()*6.283,r=1.5+Math.random()*16;wd.push({x:Math.cos(a)*r,y:Math.sin(a)*r,z:-Math.random()*90});}
 const wg=new THREE.BufferGeometry();wg.setAttribute('position',new THREE.BufferAttribute(wp,3));
@@ -308,58 +317,27 @@ function updWarp(dt){if(warp.speed<.5){wm.opacity=0;return;}wm.opacity=Math.min(
 wd.forEach((d,i)=>{d.z+=warp.speed*dt;if(d.z>0)d.z-=90;wp.set([d.x,d.y,d.z,d.x,d.y,d.z-warp.len],i*6);});
 wg.attributes.position.needsUpdate=true;warpLines.position.copy(camera.position);warpLines.quaternion.copy(camera.quaternion);}
 
-// ===== Keyboard & Mouse Free Roam Movement (Unlimited 3D Flight) =====
+// ===== Keyboard & Movement Controls =====
 const moveState = { forward: false, backward: false, left: false, right: false, up: false, down: false };
 window.addEventListener('keydown', e => {
   if (state === S.PANEL) return;
   const k = e.key.toLowerCase();
-  if (k === 'w' || e.key === 'ArrowUp') moveState.forward = true;
-  if (k === 's' || e.key === 'ArrowDown') moveState.backward = true;
-  if (k === 'a' || e.key === 'ArrowLeft') moveState.left = true;
-  if (k === 'd' || e.key === 'ArrowRight') moveState.right = true;
+  if (k === 'w' || k === 'arrowup') moveState.forward = true;
+  if (k === 's' || k === 'arrowdown') moveState.backward = true;
+  if (k === 'a' || k === 'arrowleft') moveState.left = true;
+  if (k === 'd' || k === 'arrowright') moveState.right = true;
   if (k === ' ' || k === 'e') moveState.up = true;
   if (k === 'shift' || k === 'q') moveState.down = true;
 });
 window.addEventListener('keyup', e => {
   if (state === S.PANEL) return;
   const k = e.key.toLowerCase();
-  if (k === 'w' || e.key === 'ArrowUp') moveState.forward = false;
-  if (k === 's' || e.key === 'ArrowDown') moveState.backward = false;
-  if (k === 'a' || e.key === 'ArrowLeft') moveState.left = false;
-  if (k === 'd' || e.key === 'ArrowRight') moveState.right = false;
+  if (k === 'w' || k === 'arrowup') moveState.forward = false;
+  if (k === 's' || k === 'arrowdown') moveState.backward = false;
+  if (k === 'a' || k === 'arrowleft') moveState.left = false;
+  if (k === 'd' || k === 'arrowright') moveState.right = false;
   if (k === ' ' || k === 'e') moveState.up = false;
   if (k === 'shift' || k === 'q') moveState.down = false;
-});
-
-let isMouseDown = false, prevMousePos = { x: 0, y: 0 };
-window.addEventListener('mousedown', e => {
-  if (state === S.PANEL) return;
-  isMouseDown = true;
-  prevMousePos = { x: e.clientX, y: e.clientY };
-});
-window.addEventListener('mouseup', () => { isMouseDown = false; });
-window.addEventListener('mousemove', e => {
-  if (!isMouseDown || state === S.PANEL || state === S.WARP) return;
-  const dx = e.clientX - prevMousePos.x;
-  const dy = e.clientY - prevMousePos.y;
-  prevMousePos = { x: e.clientX, y: e.clientY };
-  
-  const rotSpeed = 0.003;
-  const offset = camera.position.clone().sub(controls.target);
-  let radius = offset.length();
-  let theta = Math.atan2(offset.x, offset.z);
-  let phi = Math.acos(Math.max(-1, Math.min(1, offset.y / radius)));
-  
-  theta -= dx * rotSpeed;
-  phi -= dy * rotSpeed;
-  phi = Math.max(0.01, Math.min(Math.PI - 0.01, phi));
-  
-  offset.x = radius * Math.sin(phi) * Math.sin(theta);
-  offset.y = radius * Math.cos(phi);
-  offset.z = radius * Math.sin(phi) * Math.cos(theta);
-  
-  camera.position.copy(controls.target).add(offset);
-  camera.lookAt(controls.target);
 });
 
 // ===== Input (Click to pick or warp) =====
@@ -375,7 +353,7 @@ if(h.length){if(hov!==h[0].object){hov=h[0].object;document.body.style.cursor='p
 else if(hov){document.body.style.cursor='default';gsap.to(hov.scale,{x:1,y:1,z:1,duration:.3});hov=null;}});
 addEventListener('keydown',e=>{if(e.key!=='Escape')return;if(state===S.PANEL)closePanel();else if(state===S.S2)warpBackward();});
 const $=id=>document.getElementById(id),show=(id,v)=>{const e=$(id);if(e)e.style.display=v?'block':'none';};$('close').onclick=()=>state===S.PANEL&&closePanel();
-function setHint(){}
+
 let miniR=null,miniScene=null,miniCam=null,miniGrp=null;
 function showMini(d,mesh){const host=document.getElementById('mini');if(!host)return;
 if(!miniR){miniR=new THREE.WebGLRenderer({alpha:true,antialias:true});miniR.setPixelRatio(Math.min(devicePixelRatio,2));miniR.setSize(150,150);miniScene=new THREE.Scene();miniCam=new THREE.PerspectiveCamera(38,1,.1,200);miniCam.position.set(0,9,34);miniCam.lookAt(0,0,0);}
@@ -385,6 +363,7 @@ miniGrp.add(new THREE.Mesh(mesh.geometry,mesh.material),axes());
 if(d.wire)miniGrp.add(new THREE.Mesh(mesh.geometry,new THREE.MeshBasicMaterial({color:d.col[1],transparent:true,opacity:.16,side:THREE.DoubleSide,depthWrite:false})));
 if(['graph','cube','icoS'].includes(d.shape))miniGrp.add(dots(mesh.geometry,d.c,1.1));
 miniScene.add(miniGrp);}
+
 function flySyms(d){const wide=W()>=768,sx=(mouse.x+1)/2*W(),sy=(1-mouse.y)/2*H();
 d.sym.concat(d.sym).forEach((ch,i)=>{const e=document.createElement('div');e.className='fly';e.textContent=ch;e.style.color=d.c;e.style.left=sx+'px';e.style.top=sy+'px';document.body.appendChild(e);
 const tx=wide?W()-290+(Math.random()-.5)*300:W()/2+(Math.random()-.5)*W()*.6,ty=H()*.18+Math.random()*H()*.6;
@@ -392,7 +371,7 @@ gsap.fromTo(e,{scale:.4,opacity:0,xPercent:-50,yPercent:-50},{keyframes:[{opacit
 addEventListener('resize',()=>{camera.aspect=W()/H();camera.updateProjectionMatrix();renderer.setSize(W(),H());composer.setSize(W(),H());});
 
 // ===== Transitions =====
-function warpForward(){state=S.WARP;controls.enabled=false;setHint('');initAudio();sfxEnter();scene1.add(warpLines);
+function warpForward(){state=S.WARP;controls.enabled=false;initAudio();sfxEnter();scene1.add(warpLines);
 const tl=gsap.timeline();
 tl.timeScale(.625);tl.to(camera.position,{x:0,y:0,z:-5,duration:2,ease:'power3.in'},0);
 tl.to(camera,{fov:150,duration:2,ease:'power3.in',onUpdate:()=>camera.updateProjectionMatrix()},0);
@@ -402,8 +381,9 @@ warpFx(tl);tl.add(()=>{composer.removePass(rp1);composer.insertPass(rp2,0);compo
 tl.to('#flash',{opacity:0,duration:1.5,ease:'power2.out'},2.1);
 tl.to(camera,{fov:60,duration:1.5,ease:'power2.out',onUpdate:()=>camera.updateProjectionMatrix()},2.1);
 tl.to(warp,{speed:0,len:0,duration:1.5,ease:'power2.out'},2.1);
-tl.add(()=>{state=S.S2;controls.enabled=true;show('back',1);setHint('CHẠM VÀO MỘT HÀNH TINH');},3.6);}
-function warpBackward(){state=S.WARP;controls.enabled=false;show('back',0);setHint('');sfxExit();scene2.add(warpLines);
+tl.add(()=>{state=S.S2;controls.enabled=true;show('back',1);},3.6);}
+
+function warpBackward(){state=S.WARP;controls.enabled=false;show('back',0);sfxExit();scene2.add(warpLines);
 if(hov){hov.scale.set(1,1,1);hov=null;document.body.style.cursor='default';}
 const far=camera.position.clone().normalize().multiplyScalar(200),tl=gsap.timeline();
 tl.timeScale(.625);tl.to(camera.position,{x:far.x,y:far.y,z:far.z,duration:2,ease:'power3.in'},0);
@@ -415,30 +395,34 @@ tl.to('#flash',{opacity:0,duration:1.5,ease:'power2.out'},2.1);
 tl.to(camera.position,{x:CAM1.x,y:CAM1.y,z:CAM1.z,duration:2,ease:'power2.out'},2.1);
 tl.to(camera,{fov:60,duration:1.5,ease:'power2.out',onUpdate:()=>camera.updateProjectionMatrix()},2.1);
 tl.to(warp,{speed:0,len:0,duration:1.5,ease:'power2.out'},2.1);
-tl.add(()=>{state=S.S1;controls.enabled=true;setHint('CHẠM VÀO HỐ ĐEN ĐỂ BƯỚC QUA');},4.1);}
-function openPanel(mesh){state=S.PANEL;controls.enabled=false;show('back',0);setHint('');sfxOpen();
+tl.add(()=>{state=S.S1;controls.enabled=true;},4.1);}
+
+function openPanel(mesh){state=S.PANEL;controls.enabled=false;show('back',0);sfxOpen();
 const box=$('info');box.innerHTML=mesh.userData.d.html;flySyms(mesh.userData.d);showMini(mesh.userData.d,mesh);
 const go=()=>{$('panel').classList.remove('translate-x-full');show('close',1);box.querySelectorAll('.fade').forEach((x,i)=>setTimeout(()=>x.classList.add('on'),300+i*450));};
 (window.MathJax&&MathJax.typesetPromise?MathJax.typesetPromise([box]).then(go):go());
 const tp=new THREE.Vector3();mesh.userData.g.getWorldPosition(tp);
 const dir=tp.clone().sub(camera.position).normalize(),wide=W()>=768;
-const cp=tp.clone().sub(dir.multiplyScalar(wide?16:22));
-if(wide)cp.add(new THREE.Vector3(1,0,0).applyQuaternion(camera.quaternion).multiplyScalar(-8));
+const cp=tp.clone().sub(dir.multiplyScalar(wide?14:18));
+if(wide)cp.add(new THREE.Vector3(1,0,0).applyQuaternion(camera.quaternion).multiplyScalar(-6));
 gsap.to(camera.position,{x:cp.x,y:cp.y,z:cp.z,duration:1.5,ease:'power3.inOut'});
 gsap.to(controls.target,{x:tp.x,y:tp.y,z:tp.z,duration:1.5,ease:'power3.inOut'});}
+
 function closePanel(){sfxClose();show('close',0);document.querySelectorAll('.fade').forEach(x=>x.classList.remove('on'));$('panel').classList.add('translate-x-full');
 const a=Math.PI/2,r=CAM2.z;
 gsap.to(camera.position,{x:Math.cos(a)*r,y:CAM2.y,z:Math.sin(a)*r,duration:1.5,ease:'power3.inOut'});
-gsap.to(controls.target,{x:0,y:0,z:0,duration:1.5,ease:'power3.inOut',onComplete:()=>{state=S.S2;controls.enabled=true;show('back',1);setHint('CHẠM VÀO MỘT HÀNH TINH');}});}
+gsap.to(controls.target,{x:0,y:0,z:0,duration:1.5,ease:'power3.inOut',onComplete:()=>{state=S.S2;controls.enabled=true;show('back',1);}});}
 
-// ===== Loop =====
+// ===== Loop & Walkthrough Movement =====
 const clock=new THREE.Clock();
 function animate(){requestAnimationFrame(animate);const dt=Math.min(clock.getDelta(),.05),t=clock.elapsedTime;
 
-if(state!==S.PANEL){
-  const moveSpeed = 45 * dt;
+if(state===S.S2){
+  const moveSpeed = 30 * dt;
   const forward = new THREE.Vector3();
-  camera.getWorldDirection(forward); // Tự do 3D theo hướng nhìn camera
+  camera.getWorldDirection(forward);
+  forward.y = 0;
+  forward.normalize();
   
   const right = new THREE.Vector3();
   right.crossVectors(forward, camera.up);
@@ -448,14 +432,16 @@ if(state!==S.PANEL){
   if (moveState.backward) delta.sub(forward);
   if (moveState.left) delta.sub(right);
   if (moveState.right) delta.add(right);
-  if (moveState.up) delta.y += 1;
-  if (moveState.down) delta.y -= 1;
   
   if (delta.lengthSq() > 0) {
     delta.normalize().multiplyScalar(moveSpeed);
     camera.position.add(delta);
     controls.target.add(delta);
   }
+
+  const vertSpeed = 20 * dt;
+  if (moveState.up) { camera.position.y += vertSpeed; controls.target.y += vertSpeed; }
+  if (moveState.down) { camera.position.y -= vertSpeed; controls.target.y -= vertSpeed; }
 }
 
 controls.update();
@@ -465,6 +451,7 @@ for(let i=0;i<pCount;i++){const k=i*3,x=p[k],z=p[k+2],a=Math.atan2(z,x)+.02;let 
 else{
   mats.forEach(m=>m.uniforms.time.value=t);
   beamMats.forEach(m=>m.uniforms.time.value=t);
+  floorMat.uniforms.time.value=t;
   planets.forEach(p=>{p.mesh.rotation.y+=.004;p.sg.rotation.y-=.005;p.sg.children.forEach(s=>s.quaternion.copy(camera.quaternion));p.g.position.y=p.base.y+Math.sin(t+p.base.x)*1.5;});
 }
 updWarp(dt);composer.render();if(miniGrp&&state===S.PANEL){miniGrp.rotation.y+=.012;miniR.render(miniScene,miniCam);}}
