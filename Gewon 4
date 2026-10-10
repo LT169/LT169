@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="vi" class="antialiased">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>The Mathematical Singularity</title>
+    
+    <!-- Tailwind CSS for UI -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    
+    <!-- MathJax for rendering Mathematical Formulas -->
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
+            svg: { fontCache: 'global' },
+            startup: { typeset: false } // Manual trigger
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+    <!-- Three.js and Dependencies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    
+    <!-- Post Processing -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/RenderPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/CopyShader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/LuminosityHighPassShader.js"></script>
+
+    <!-- GSAP for Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <style>
+        body, html {
+            margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden;
+            background-color: #000; font-family: 'Inter', sans-serif; color: #fff;
+            user-select: none;
+        }
+        #webgl-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
+        
+        /* Glassmorphism Panel */
+        .glass-panel {
+            background: rgba(10, 10, 15, 0.4);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: -20px 0 50px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(255, 255, 255, 0.05);
+        }
+
+        /* Animations */
+        #flash-overlay { pointer-events: none; opacity: 0; z-index: 100; transition: opacity 0.1s; background: #fff;}
+        .warp-lines { background: radial-gradient(circle, transparent 20%, #000 120%); }
+
+        .content-fade {
+            opacity: 0; transform: translateY(20px); transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .content-fade.active { opacity: 1; transform: translateY(0); }
+        
+        /* Typography */
+        .font-code { font-family: 'Fira Code', monospace; }
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
+    </style>
+</head>
+<body>
+
+    <!-- Warp Flash Overlay -->
+    <div id="flash-overlay" class="fixed inset-0"></div>
+
+    <!-- WebGL Container -->
+    <div id="webgl-container"></div>
+    
+    <!-- Central invisible hit area for Black Hole to make clicking easier -->
+    <div id="bh-hitbox" class="fixed top-1/2 left-1/2 w-64 h-64 -translate-x-1/2 -translate-y-1/2 z-10 cursor-pointer rounded-full opacity-0"></div>
+
+    <!-- Info Panel (Math Formulas) -->
+    <div id="info-panel" class="fixed top-0 right-0 h-full w-full md:w-[500px] lg:w-[600px] glass-panel z-40 transform translate-x-full transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] overflow-y-auto">
+        <div class="relative min-h-full p-8 md:p-12" id="info-content">
+            <!-- Content injected dynamically -->
+        </div>
+    </div>
+
+    <script>
+        // Math Data
+        const mathData = [
+            {
+                id: 'calculus',
+                title: 'Giải Tích',
+                color1: new THREE.Color(0x00f2fe), // Cyan
+                color2: new THREE.Color(0x4facfe), // Deep Blue
+                position: [-30, 5, -20],
+                symbols: ['∫', 'dx', 'lim', '∞', '∑'],
+                html: `
+                    <div class="content-fade">
+                        <div class="inline-block px-3 py-1 rounded border border-cyan-500/30 bg-cyan-500/10 text-cyan-400 font-code text-xs mb-4">SECTOR 01</div>
+                        <h2 class="text-4xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-500">Giải Tích Cổ Điển</h2>
+                        <div class="bg-white/5 rounded-xl p-6 mb-4 border border-white/10">
+                            <h4 class="text-xs font-code text-gray-400 mb-2">Định lý cơ bản</h4>
+                            <div class="text-center text-xl overflow-x-auto">$$ \\int_{a}^{b} f(x) dx = F(b) - F(a) $$</div>
+                        </div>
+                        <div class="bg-white/5 rounded-xl p-6 mb-4 border border-white/10">
+                            <h4 class="text-xs font-code text-gray-400 mb-2">Đạo hàm cơ bản</h4>
+                            <div class="text-center text-xl overflow-x-auto">$$ f'(x) = \\lim_{h \\to 0} \\frac{f(x+h) - f(x)}{h} $$</div>
+                        </div>
+                        <div class="bg-white/5 rounded-xl p-6 mb-4 border border-white/10">
+                            <h4 class="text-xs font-code text-gray-400 mb-2">Chuỗi Taylor</h4>
+                            <div class="text-center text-lg overflow-x-auto">$$ f(x) = \\sum_{n=0}^{\\infty} \\frac{f^{(n)}(a)}{n!} (x-a)^n $$</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 'algebra',
+                title: 'Đại Số Tuyến Tính',
+                color1: new THREE.Color(0xfac684), // Peach/Orange
+                color2: new THREE.Color(0xf9a826), // Orange
+                position: [25, -10, -35],
+                symbols: ['λ', 'A', 'v', 'det', 'ℝⁿ'],
+                html: `
+                    <div class="content-fade">
+                        <div class="inline-block px-3 py-1 rounded border border-orange-500/30 bg-orange-500/10 text-orange-400 font-code text-xs mb-4">SECTOR 02</div>
+                        <h2 class="text-4xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-orange-300 to-amber-500">Đại Số Tuyến Tính</h2>
+                        <div class="bg-white/5 rounded-xl p-6 mb-4 border border-white/10">
+                            <h4 class="text-xs font-code text-gray-400 mb-2">Phương trình Trị riêng</h4>
+                            <div class="text-center text-xl overflow-x-auto">$$ A\\mathbf{v} = \\lambda\\mathbf{v} $$</div>
+                        </div>
+                        <div class="bg-white/5 rounded-xl p-6 mb-4 border border-white/10">
+                            <h4 class="text-xs font-code text-gray-400 mb-2">Định thức Ma trận 2x2</h4>
+                            <div class="text-center text-xl overflow-x-auto">$$ \\det \\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix} = ad - bc $$</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 'quantum',
+                title: 'Lượng Tử & Xác Suất',
+                color1: new THREE.Color(0xd53369), // Pink
+                color2: new THREE.Color(0xcbad6d), // Gold
+                position: [-10, 20, -50],
+                symbols: ['Ψ', 'ħ', 'μ', 'σ²', 'P'],
+                html: `
+                    <div class="content-fade">
+                        <div class="inline-block px-3 py-1 rounded border border-pink-500/30 bg-pink-500/10 text-pink-400 font-code text-xs mb-4">SECTOR 03</div>
+                        <h2 class="text-4xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-rose-600">Xác Suất & Lượng Tử</h2>
+                        <div class="bg-white/5 rounded-xl p-6 mb-4 border border-white/10">
+                            <h4 class="text-xs font-code text-gray-400 mb-2">Phương trình Schrödinger</h4>
+                            <div class="text-center text-xl overflow-x-auto">$$ i\\hbar \\frac{\\partial}{\\partial t} |\\Psi(t)\\rangle = \\hat{H} |\\Psi(t)\\rangle $$</div>
+                        </div>
+                        <div class="bg-white/5 rounded-xl p-6 mb-4 border border-white/10">
+                            <h4 class="text-xs font-code text-gray-400 mb-2">Định lý Bayes</h4>
+                            <div class="text-center text-xl overflow-x-auto">$$ P(A|B) = \\frac{P(B|A)P(A)}{P(B)} $$</div>
+                        </div>
+                    </div>
+                `
+            }
+        ];
+
+        // Custom Gradient Shader for Planets
+        const planetVertexShader = `
+            varying vec2 vUv;
+            varying vec3 vPosition;
+            void main() {
+                vUv = uv;
+                vPosition = position;
+                gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+            }
+        `;
+
+        const planetFragmentShader = `
+            uniform float time;
+            uniform vec3 color1;
+            uniform vec3 color2;
+            varying vec2 vUv;
+            varying vec3 vPosition;
+
+            // Pseudo-random noise
+            float mod289(float x){return x - floor(x * (1.0 / 289.0)) * 289.0;}
+            vec4 mod289(vec4 x){return x - floor(x * (1.0 / 289.0)) * 289.0;}
+            vec4 perm(vec4 x){return mod289(((x * 34.0) + 1.0) * x);}
+            float noise(vec3 p){
+                vec3 a = floor(p);
+                vec3 d = p - a;
+                d = d * d * (3.0 - 2.0 * d);
+                vec4 b = a.xxyy + vec4(0.0, 1.0, 0.0, 1.0);
+                vec4 k1 = perm(b.xyxy);
+                vec4 k2 = perm(k1.xyxy + b.zzww);
+                vec4 c = k2 + a.zzzz;
+                vec4 k3 = perm(c);
+                vec4 k4 = perm(c + 1.0);
+                vec4 o1 = fract(k3 * (1.0 / 41.0));
+                vec4 o2 = fract(k4 * (1.0 / 41.0));
+                vec4 o3 = o2 * d.z + o1 * (1.0 - d.z);
+                vec2 o4 = o3.yw * d.x + o3.xz * (1.0 - d.x);
+                return o4.y * d.y + o4.x * (1.0 - d.y);
+            }
+
+            void main() {
+                // Animate noise over time
+                float n = noise(vPosition * 0.5 + time * 0.2);
+                
+                // Create sweeping gradient logic
+                float mixVal = sin(vUv.x * 3.14 + time * 0.5) * cos(vUv.y * 3.14 - time * 0.3) + n;
+                mixVal = smoothstep(-0.5, 1.5, mixVal);
+                
+                vec3 finalColor = mix(color1, color2, mixVal);
+                
+                // Add soft rim light for 3D depth
+                float rim = 1.0 - max(dot(normalize(vPosition), vec3(0.0, 0.0, 1.0)), 0.0);
+                rim = smoothstep(0.6, 1.0, rim);
+                finalColor += vec3(rim * 0.3);
+
+                gl_FragColor = vec4(finalColor, 1.0);
+            }
+        `;
+
+        const container = document.getElementById('webgl-container');
+        
+        const renderer = new THREE.WebGLRenderer({ antialias: false, powerPreference: "high-performance" });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.toneMapping = THREE.ReinhardToneMapping;
+        renderer.toneMappingExposure = 1.5;
+        container.appendChild(renderer.domElement);
+
+        // State Machine
+        const STATE = {
+            SCENE1: 'SCENE1',
+            WARPING: 'WARPING',
+            SCENE2: 'SCENE2',
+            PANEL_OPEN: 'PANEL_OPEN'
+        };
+        let currentState = STATE.SCENE1;
+        let activePlanet = null;
+
+        // Camera
+        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 2000);
+        const INITIAL_CAM_SCENE1 = new THREE.Vector3(0, 5, 30);
+        const INITIAL_CAM_SCENE2 = new THREE.Vector3(0, 20, 60);
+        camera.position.copy(INITIAL_CAM_SCENE1);
+
+        // Scenes
+        const scene1 = new THREE.Scene(); // Black Hole
+        scene1.background = new THREE.Color(0x010102);
+        
+        const scene2 = new THREE.Scene(); // Math Universe
+        scene2.background = new THREE.Color(0x020205);
+        scene2.fog = new THREE.FogExp2(0x020205, 0.008);
+
+        // Composer / Post-Processing
+        const renderPass1 = new THREE.RenderPass(scene1, camera);
+        const renderPass2 = new THREE.RenderPass(scene2, camera);
+        
+        const bloomPass = new THREE.UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.6, 0.5, 0.1);
+        
+        const composer = new THREE.EffectComposer(renderer);
+        composer.addPass(renderPass1); // Start with Scene 1
+        composer.addPass(bloomPass);
+
+        // OrbitControls
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.05;
+        controls.enablePan = true;
+        controls.minDistance = 5;
+        controls.maxDistance = 150;
+
+        const bhGroup = new THREE.Group();
+        scene1.add(bhGroup);
+
+        // 1. Event Horizon
+        const ehGeo = new THREE.SphereGeometry(4, 64, 64);
+        const ehMat = new THREE.MeshBasicMaterial({ color: 0x000000 });
+        const eventHorizon = new THREE.Mesh(ehGeo, ehMat);
+        bhGroup.add(eventHorizon);
+
+        // 2. Procedural Accretion Disk Texture
+        function createDiskTexture() {
+            const canvas = document.createElement('canvas');
+            canvas.width = 1024; canvas.height = 1024;
+            const ctx = canvas.getContext('2d');
+            const center = 512;
+            const gradient = ctx.createRadialGradient(center, center, 100, center, center, 500);
+            gradient.addColorStop(0, 'rgba(0,0,0,0)');
+            gradient.addColorStop(0.1, 'rgba(255, 230, 200, 1)');
+            gradient.addColorStop(0.4, 'rgba(255, 120, 50, 0.8)');
+            gradient.addColorStop(0.8, 'rgba(80, 20, 150, 0.2)');
+            gradient.addColorStop(1, 'rgba(0,0,0,0)');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, 1024, 1024);
+            
+            // Add subtle noise/streaks
+            for(let i=0; i<300; i++) {
+                ctx.beginPath();
+                const r = 120 + Math.random() * 300;
+                const a = Math.random() * Math.PI * 2;
+                const len = Math.random() * 0.4;
+                ctx.arc(center, center, r, a, a + len);
+                ctx.lineWidth = Math.random() * 2;
+                ctx.strokeStyle = `rgba(255,255,255,${Math.random() * 0.2})`;
+                ctx.stroke();
+            }
+            const tex = new THREE.CanvasTexture(canvas);
+            tex.anisotropy = 16;
+            return tex;
+        }
+
+        const diskMat = new THREE.MeshBasicMaterial({
+            map: createDiskTexture(),
+            transparent: true, blending: THREE.AdditiveBlending,
+            side: THREE.DoubleSide, depthWrite: false
+        });
+        const diskGeo = new THREE.PlaneGeometry(40, 40);
+        const accretionDisk = new THREE.Mesh(diskGeo, diskMat);
+        accretionDisk.rotation.x = Math.PI / 2.2;
+        bhGroup.add(accretionDisk);
+
+        // 3. Gravitational Lensing Halo (Illusion)
+        const haloGeo = new THREE.PlaneGeometry(18, 18);
+        const haloCanvas = document.createElement('canvas');
+        haloCanvas.width = 512; haloCanvas.height = 512;
+        const hCtx = haloCanvas.getContext('2d');
+        const hGrad = hCtx.createRadialGradient(256,256,120, 256,256,256);
+        hGrad.addColorStop(0, 'rgba(0,0,0,0)');
+        hGrad.addColorStop(0.8, 'rgba(255,200,150,0.5)');
+        hGrad.addColorStop(1, 'rgba(0,0,0,0)');
+        hCtx.fillStyle = hGrad; hCtx.fillRect(0,0,512,512);
+        
+        const haloMat = new THREE.MeshBasicMaterial({
+            map: new THREE.CanvasTexture(haloCanvas),
+            transparent: true, blending: THREE.AdditiveBlending, depthWrite: false
+        });
+        const lensingHalo = new THREE.Mesh(haloGeo, haloMat);
+        bhGroup.add(lensingHalo);
+
+        // 4. Infalling Particles
+        const pGeo = new THREE.BufferGeometry();
+        const pCount = 2000;
+        const pPos = new Float32Array(pCount * 3);
+        for(let i=0; i<pCount*3; i+=3) {
+            const r = 5 + Math.random() * 25;
+            const theta = Math.random() * Math.PI * 2;
+            pPos[i] = Math.cos(theta) * r;
+            pPos[i+1] = (Math.random() - 0.5) * 2;
+            pPos[i+2] = Math.sin(theta) * r;
+        }
+        pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
+        const pMat = new THREE.PointsMaterial({color: 0xffddaa, size: 0.1, transparent: true, blending: THREE.AdditiveBlending});
+        const bhParticles = new THREE.Points(pGeo, pMat);
+        bhGroup.add(bhParticles);
+
+        // Starfield 1
+        const starsGeo1 = new THREE.BufferGeometry();
+        const starsPos1 = new Float32Array(5000 * 3);
+        for(let i=0; i<15000; i++) starsPos1[i] = (Math.random()-0.5)*200;
+        starsGeo1.setAttribute('position', new THREE.BufferAttribute(starsPos1, 3));
+        const starsMat1 = new THREE.PointsMaterial({color: 0xffffff, size: 0.15, transparent: true, opacity: 0.5});
+        scene1.add(new THREE.Points(starsGeo1, starsMat1));
+
+        const universeGroup = new THREE.Group();
+        scene2.add(universeGroup);
+        
+        const planets = [];
+        const planetMaterials = [];
+
+        // Utility: Text Sprite for formulas
+        function createSymbolSprite(char, colorStr) {
+            const canvas = document.createElement('canvas');
+            canvas.width = 128; canvas.height = 128;
+            const ctx = canvas.getContext('2d');
+            ctx.font = "bold 80px 'Fira Code', monospace";
+            ctx.fillStyle = colorStr;
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            ctx.shadowColor = colorStr;
+            ctx.shadowBlur = 15;
+            ctx.fillText(char, 64, 64);
+            const tex = new THREE.CanvasTexture(canvas);
+            const mat = new THREE.SpriteMaterial({ map: tex, transparent: true, blending: THREE.AdditiveBlending });
+            return new THREE.Sprite(mat);
+        }
+
+        mathData.forEach(data => {
+            const pGroup = new THREE.Group();
+            pGroup.position.set(...data.position);
+            
+            // Custom Shader Planet
+            const geo = new THREE.SphereGeometry(6, 64, 64);
+            const mat = new THREE.ShaderMaterial({
+                vertexShader: planetVertexShader,
+                fragmentShader: planetFragmentShader,
+                uniforms: {
+                    time: { value: 0 },
+                    color1: { value: data.color1 },
+                    color2: { value: data.color2 }
+                }
+            });
+            planetMaterials.push(mat);
+            const mesh = new THREE.Mesh(geo, mat);
+            mesh.userData = { type: 'planet', data: data, group: pGroup };
+            pGroup.add(mesh);
+
+            // Orbiting Math Symbols
+            const symbolGroup = new THREE.Group();
+            const hexColor = '#' + data.color1.getHexString();
+            data.symbols.forEach((sym, idx) => {
+                const sprite = createSymbolSprite(sym, hexColor);
+                const angle = (idx / data.symbols.length) * Math.PI * 2;
+                const r = 9;
+                sprite.position.set(Math.cos(angle)*r, (Math.random()-0.5)*4, Math.sin(angle)*r);
+                sprite.scale.set(3,3,1);
+                symbolGroup.add(sprite);
+            });
+            pGroup.add(symbolGroup);
+
+            universeGroup.add(pGroup);
+            planets.push({ mesh, group: pGroup, symbols: symbolGroup, basePos: new THREE.Vector3(...data.position) });
+        });
+
+        // Starfield 2 (More vibrant)
+        const starsGeo2 = new THREE.BufferGeometry();
+        const starsPos2 = new Float32Array(8000 * 3);
+        for(let i=0; i<24000; i++) starsPos2[i] = (Math.random()-0.5)*300;
+        starsGeo2.setAttribute('position', new THREE.BufferAttribute(starsPos2, 3));
+        const starsMat2 = new THREE.PointsMaterial({color: 0x88bbff, size: 0.2, transparent: true, opacity: 0.7});
+        scene2.add(new THREE.Points(starsGeo2, starsMat2));
+
+        const raycaster = new THREE.Raycaster();
+        const mouse = new THREE.Vector2();
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            composer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Raycast targets based on scene
+        function getIntersectableObjects() {
+            if (currentState === STATE.SCENE1) return [eventHorizon];
+            if (currentState === STATE.SCENE2) return planets.map(p => p.mesh);
+            return [];
+        }
+
+        let hoveredObj = null;
+
+        window.addEventListener('mousemove', (e) => {
+            if (currentState === STATE.WARPING) return;
+            
+            mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+
+            if (currentState === STATE.SCENE2) {
+                raycaster.setFromCamera(mouse, camera);
+                const intersects = raycaster.intersectObjects(getIntersectableObjects());
+                
+                if (intersects.length > 0) {
+                    if (hoveredObj !== intersects[0].object) {
+                        hoveredObj = intersects[0].object;
+                        document.body.style.cursor = 'pointer';
+                        gsap.to(hoveredObj.scale, {x: 1.05, y: 1.05, z: 1.05, duration: 0.3});
+                    }
+                } else if (hoveredObj) {
+                    document.body.style.cursor = 'default';
+                    gsap.to(hoveredObj.scale, {x: 1, y: 1, z: 1, duration: 0.3});
+                    hoveredObj = null;
+                }
+            }
+        });
+
+        window.addEventListener('click', (e) => {
+            if (currentState === STATE.WARPING) return;
+
+            if (currentState === STATE.SCENE1) {
+                // Click anywhere on scene 1 (or the hitbox) warps
+                warpForward();
+            } else if (currentState === STATE.SCENE2) {
+                raycaster.setFromCamera(mouse, camera);
+                const intersects = raycaster.intersectObjects(getIntersectableObjects());
+                
+                if (intersects.length > 0) {
+                    openPanel(intersects[0].object);
+                }
+            }
+        });
+
+        // Hitbox for scene 1 explicitly
+        document.getElementById('bh-hitbox').addEventListener('click', () => {
+            if (currentState === STATE.SCENE1) warpForward();
+        });
+
+        // The Hidden ESC Logic
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                if (currentState === STATE.PANEL_OPEN) {
+                    closePanel();
+                } else if (currentState === STATE.SCENE2) {
+                    warpBackward();
+                }
+            }
+        });
+
+        let camTarget = new THREE.Vector3(0,0,0);
+
+        function warpForward() {
+            currentState = STATE.WARPING;
+            document.getElementById('bh-hitbox').style.display = 'none';
+            controls.enabled = false;
+
+            const tl = gsap.timeline();
+            
+            // Dive into black hole
+            tl.to(camera.position, { x: 0, y: 0, z: -5, duration: 2, ease: "power3.in" }, 0);
+            tl.to(camera, { fov: 160, duration: 2, ease: "power3.in", onUpdate: () => camera.updateProjectionMatrix() }, 0);
+            
+            // Flash
+            tl.to('#flash-overlay', { opacity: 1, duration: 0.2, ease: "none" }, 1.8);
+            
+            // Scene Swap
+            tl.add(() => {
+                composer.removePass(renderPass1);
+                composer.insertPass(renderPass2, 0);
+                camera.position.copy(INITIAL_CAM_SCENE2);
+                camera.lookAt(0,0,0);
+                controls.target.set(0,0,0);
+            }, 2.0);
+
+            // Emerge
+            tl.to('#flash-overlay', { opacity: 0, duration: 1.5, ease: "power2.out" }, 2.1);
+            tl.to(camera, { fov: 60, duration: 1.5, ease: "power2.out", onUpdate: () => camera.updateProjectionMatrix() }, 2.1);
+            
+            tl.add(() => {
+                currentState = STATE.SCENE2;
+                controls.enabled = true;
+            }, 3.6);
+        }
+
+        function warpBackward() {
+            currentState = STATE.WARPING;
+            controls.enabled = false;
+            if(hoveredObj) {
+                gsap.to(hoveredObj.scale, {x: 1, y: 1, z: 1, duration: 0.1});
+                hoveredObj = null;
+                document.body.style.cursor = 'default';
+            }
+
+            const tl = gsap.timeline();
+            
+            // Zoom out rapidly
+            const dir = camera.position.clone().normalize();
+            const farPos = dir.multiplyScalar(200);
+            tl.to(camera.position, { x: farPos.x, y: farPos.y, z: farPos.z, duration: 2, ease: "power3.in" }, 0);
+            tl.to(camera, { fov: 160, duration: 2, ease: "power3.in", onUpdate: () => camera.updateProjectionMatrix() }, 0);
+            
+            tl.to('#flash-overlay', { opacity: 1, duration: 0.2, ease: "none" }, 1.8);
+            
+            tl.add(() => {
+                composer.removePass(renderPass2);
+                composer.insertPass(renderPass1, 0);
+                camera.position.set(0, 0, -5); // Start inside black hole
+                camera.lookAt(0,0,0);
+                controls.target.set(0,0,0);
+            }, 2.0);
+
+            // Pull back from event horizon
+            tl.to('#flash-overlay', { opacity: 0, duration: 1.5, ease: "power2.out" }, 2.1);
+            tl.to(camera.position, { x: INITIAL_CAM_SCENE1.x, y: INITIAL_CAM_SCENE1.y, z: INITIAL_CAM_SCENE1.z, duration: 2, ease: "power2.out" }, 2.1);
+            tl.to(camera, { fov: 60, duration: 1.5, ease: "power2.out", onUpdate: () => camera.updateProjectionMatrix() }, 2.1);
+            
+            tl.add(() => {
+                currentState = STATE.SCENE1;
+                document.getElementById('bh-hitbox').style.display = 'block';
+                controls.enabled = true;
+            }, 4.1);
+        }
+
+        function openPanel(planetMesh) {
+            currentState = STATE.PANEL_OPEN;
+            controls.enabled = false;
+            activePlanet = planetMesh.userData.group;
+            const data = planetMesh.userData.data;
+
+            // Inject Content
+            const contentDiv = document.getElementById('info-content');
+            contentDiv.innerHTML = data.html;
+
+            // Typeset MathJax
+            MathJax.typesetPromise([contentDiv]).then(() => {
+                document.getElementById('info-panel').classList.remove('translate-x-full');
+                setTimeout(() => {
+                    document.querySelectorAll('.content-fade').forEach(el => el.classList.add('active'));
+                }, 300);
+            });
+
+            // Camera moves to focus planet, framing it on the left
+            const targetPos = new THREE.Vector3();
+            activePlanet.getWorldPosition(targetPos);
+            
+            const offset = targetPos.clone().normalize().multiplyScalar(15);
+            // Push camera right so planet goes left
+            const rightOffset = new THREE.Vector3(1, 0, 0).applyQuaternion(camera.quaternion).multiplyScalar(-8);
+            const camPos = targetPos.clone().add(offset).add(rightOffset);
+
+            gsap.to(camera.position, { x: camPos.x, y: camPos.y, z: camPos.z, duration: 1.5, ease: "power3.inOut" });
+            gsap.to(controls.target, { 
+                x: targetPos.x, y: targetPos.y, z: targetPos.z, 
+                duration: 1.5, ease: "power3.inOut",
+                onUpdate: () => camera.lookAt(controls.target)
+            });
+        }
+
+        function closePanel() {
+            // Animate out UI
+            document.querySelectorAll('.content-fade').forEach(el => el.classList.remove('active'));
+            document.getElementById('info-panel').classList.add('translate-x-full');
+
+            // Return camera to overview
+            const currentAngle = Math.atan2(camera.position.z, camera.position.x);
+            const r = 60;
+            
+            gsap.to(camera.position, {
+                x: Math.cos(currentAngle - 0.5) * r, y: 20, z: Math.sin(currentAngle - 0.5) * r,
+                duration: 1.5, ease: "power3.inOut"
+            });
+            gsap.to(controls.target, { 
+                x: 0, y: 0, z: 0, 
+                duration: 1.5, ease: "power3.inOut",
+                onUpdate: () => camera.lookAt(controls.target),
+                onComplete: () => {
+                    currentState = STATE.SCENE2;
+                    controls.enabled = true;
+                    activePlanet = null;
+                }
+            });
+        }
+
+        const clock = new THREE.Clock();
+
+        function animate() {
+            requestAnimationFrame(animate);
+            const time = clock.getElapsedTime();
+            
+            if (controls.enabled) controls.update(); // only update if enabled for smooth damping
+
+            if (currentState === STATE.SCENE1 || (currentState === STATE.WARPING && composer.passes[0] === renderPass1)) {
+                // Black hole animations
+                accretionDisk.rotation.z -= 0.005;
+                lensingHalo.lookAt(camera.position);
+                
+                // Animate infalling particles
+                const pos = bhParticles.geometry.attributes.position.array;
+                for(let i=0; i<pCount; i++) {
+                    const idx = i*3;
+                    let x = pos[idx], z = pos[idx+2];
+                    const angle = Math.atan2(z, x) + 0.02;
+                    let r = Math.sqrt(x*x + z*z) - 0.05;
+                    if (r < 3.5) r = 30; // reset to outer edge
+                    pos[idx] = Math.cos(angle)*r;
+                    pos[idx+2] = Math.sin(angle)*r;
+                }
+                bhParticles.geometry.attributes.position.needsUpdate = true;
+                
+            } else if (currentState === STATE.SCENE2 || currentState === STATE.PANEL_OPEN || (currentState === STATE.WARPING && composer.passes[0] === renderPass2)) {
+                
+                // Update Planet Shaders
+                planetMaterials.forEach(mat => mat.uniforms.time.value = time);
+
+                planets.forEach(p => {
+                    p.mesh.rotation.y += 0.002;
+                    p.mesh.rotation.z += 0.001;
+                    
+                    // Orbiting Symbols
+                    p.symbols.rotation.y -= 0.005;
+                    p.symbols.children.forEach(sprite => sprite.quaternion.copy(camera.quaternion));
+                    
+                    // Slow bobbing of entire group
+                    p.group.position.y = p.basePos.y + Math.sin(time + p.basePos.x) * 1.5;
+                });
+             }
+
+            composer.render();
+        }
+
+        // Start
+        window.onload = animate;
+
+    </script>
+</body>
+</html>
