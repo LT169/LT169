@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-<title>The Mathematical Singularity - Unlimited Void</title>
+<title>The Mathematical & AI Apps Singularity - Unlimited Void</title>
 <script src="https://cdn.tailwindcss.com/3.4.17"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
 <script>window.MathJax={tex:{inlineMath:[['$','$']],displayMath:[['$$','$$']]},svg:{fontCache:'global'},startup:{typeset:false}};</script>
@@ -42,55 +42,91 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000;font-f
 
 <script>
 const card=(t,tex)=>`<div class="fade bg-white/5 rounded-xl p-5 mb-4 border border-white/10"><h4 class="text-xs code text-gray-400 mb-2">${t}</h4><div class="text-center text-lg overflow-x-auto">$$${tex}$$</div></div>`;
-const page=(n,title,c,cards,note)=>`<div class="fade"><div style="display:flex;align-items:center;gap:12px;margin-bottom:14px"><div style="flex:1;min-width:0"><div class="inline-block px-3 py-1 rounded border code text-xs mb-3" style="color:${c};border-color:${c}55;background:${c}18">SECTOR ${String(n).padStart(2,'0')}</div><h2 class="text-3xl md:text-4xl font-bold" style="color:${c}">${title}</h2></div><div id="mini" style="width:150px;height:150px;flex:none"></div></div><div class="fade rounded-xl p-4 mb-4" style="border:1px solid ${c}55;background:${c}12"><h4 class="text-xs code mb-1" style="color:${c}">CÁCH ĐỌC ĐỒ THỊ</h4><p class="text-sm text-gray-300 leading-relaxed">${note}</p></div>${cards.map(x=>card(...x)).join('')}</div>`;
+const page=(n,title,type,c,cards,note)=>`<div class="fade"><div style="display:flex;align-items:center;gap:12px;margin-bottom:14px"><div style="flex:1;min-width:0"><div class="inline-block px-3 py-1 rounded border code text-xs mb-3" style="color:${c};border-color:${c}55;background:${c}18">${type} · SECTOR ${String(n).padStart(2,'0')}</div><h2 class="text-3xl md:text-4xl font-bold" style="color:${c}">${title}</h2></div><div id="mini" style="width:150px;height:150px;flex:none"></div></div><div class="fade rounded-xl p-4 mb-4" style="border:1px solid ${c}55;background:${c}12"><h4 class="text-xs code mb-1" style="color:${c}">THÔNG TIN TRI THỨC</h4><p class="text-sm text-gray-300 leading-relaxed">${note}</p></div>${cards.map(x=>card(...x)).join('')}</div>`;
 const P=(h1,h2)=>[new THREE.Color(h1),new THREE.Color(h2)];
+
 const mathData=[
-{title:'Giải Tích',c:'#6cc4dc',col:P(0x2fa4c4,0x4a78d0),pos:[-30,5,-20],sym:['∫','dx','lim','∞','∑'],cards:[
+{title:'Giải Tích',type:'TOÁN HỌC',c:'#6cc4dc',col:P(0x2fa4c4,0x4a78d0),pos:[-30,5,-20],sym:['∫','dx','lim','∞','∑'],cards:[
 ['Định lý cơ bản','\\int_a^b f(x)dx=F(b)-F(a)'],['Đạo hàm','f\'(x)=\\lim_{h\\to0}\\frac{f(x+h)-f(x)}{h}'],['Chuỗi Taylor','f(x)=\\sum_{n=0}^{\\infty}\\frac{f^{(n)}(a)}{n!}(x-a)^n']]},
-{title:'Đại Số Tuyến Tính',c:'#e0a860',col:P(0xd89a4a,0xe8c070),pos:[25,-10,-35],sym:['λ','A','v','det','ℝⁿ'],cards:[
+{title:'Đại Số Tuyến Tính',type:'TOÁN HỌC',c:'#e0a860',col:P(0xd89a4a,0xe8c070),pos:[25,-10,-35],sym:['λ','A','v','det','ℝⁿ'],cards:[
 ['Trị riêng','A\\mathbf{v}=\\lambda\\mathbf{v}'],['Định thức 2x2','\\det\\begin{pmatrix}a&b\\\\c&d\\end{pmatrix}=ad-bc']]},
-{title:'Xác Suất & Lượng Tử',c:'#e0708f',col:P(0xc85a7c,0xe0905a),pos:[-10,20,-50],sym:['Ψ','ħ','μ','σ²','P'],cards:[
-['Phương trình Schrödinger','i\\hbar\\frac{\\partial}{\\partial t}|\\Psi\\rangle=\\hat{H}|\\Psi\\rangle'],['Định lý Bayes','P(A|B)=\\frac{P(B|A)P(A)}{P(B)}']]},
-{title:'Hình Học',c:'#6cc890',col:P(0x3fae78,0x9ccf68),pos:[32,14,-10],sym:['π','△','∠','κ','χ'],cards:[
-['Pythagoras','a^2+b^2=c^2'],['Đặc số Euler (khối đa diện)','\\chi=V-E+F=2'],['Gauss–Bonnet','\\int_M K\\,dA=2\\pi\\chi(M)']]},
-{title:'Số Học',c:'#a48cd8',col:P(0x8e72cc,0x6c58bc),pos:[-15,-16,-8],sym:['ℤ','p','mod','φ','ζ'],cards:[
-['Đồng nhất thức Euler','e^{i\\pi}+1=0'],['Định lý Fermat nhỏ','a^{p-1}\\equiv1\\pmod p'],['Tích Euler của Riemann','\\zeta(s)=\\sum_{n\\ge1}\\frac1{n^s}=\\prod_{p}\\frac1{1-p^{-s}}']]},
-{title:'Lý Thuyết Đồ Thị',c:'#e07878',col:P(0xd05f5f,0xe08868),pos:[-38,18,-55],sym:['G','V','E','χ','K₄'],cards:[
-['Bổ đề bắt tay','\\sum_{v\\in V}\\deg(v)=2|E|'],['Công thức Cayley','\\#\\{\\text{cây trên }n\\text{ đỉnh}\\}=n^{n-2}'],['Đa thức sắc độ của $K_n$','P(K_n,k)=k(k-1)\\cdots(k-n+1)']]}
+{title:'Xác Suất & Thống Kê',type:'TOÁN HỌC',c:'#e0708f',col:P(0xc85a7c,0xe0905a),pos:[-10,20,-50],sym:['Ψ','ħ','μ','σ²','P'],cards:[
+['Phương trình lượng tử','i\\hbar\\frac{\\partial}{\\partial t}|\\Psi\\rangle=\\hat{H}|\\Psi\\rangle'],['Định lý Bayes','P(A|B)=\\frac{P(B|A)P(A)}{P(B)}']]},
+{title:'Hình Học',type:'TOÁN HỌC',c:'#6cc890',col:P(0x3fae78,0x9ccf68),pos:[32,14,-10],sym:['π','△','∠','κ','χ'],cards:[
+['Pythagoras','a^2+b^2=c^2'],['Đặc số Euler','\\chi=V-E+F=2'],['Gauss–Bonnet','\\int_M K\\,dA=2\\pi\\chi(M)']]}
 ];
+
 mathData.push(
-{title:'Tô Pô',c:'#5cc8b0',col:P(0x3aa890,0x68c898),pos:[5,-22,-45],sym:['τ','∂','≅','S¹','χ'],cards:[['Đặc số Euler (mặt có g lỗ)','\\chi(M)=2-2g'],['Giả thuyết Poincaré','\\pi_1(M)=0\\Rightarrow M\\cong S^3'],['Nhóm cơ bản của vòng tròn','\\pi_1(S^1)\\cong\\mathbb{Z}']]},
-{title:'Phương Trình Vi Phân',c:'#d8c058',col:P(0xc8b040,0xe0d078),pos:[45,2,-60],sym:['y′','∂','eˣ','dy','Δ'],cards:[['Dao động điều hòa',"y''+\\omega^2y=0"],['Phương trình nhiệt','\\frac{\\partial u}{\\partial t}=\\alpha\\nabla^2u'],['Hệ Lorenz','\\dot x=\\sigma(y-x),\\ \\dot y=x(\\rho-z)-y,\\ \\dot z=xy-\\beta z']]},
-{title:'Số Phức',c:'#d078d8',col:P(0xb860c8,0xd878a8),pos:[-52,-8,-30],sym:['i','ℂ','z̄','Re','Im'],cards:[['Công thức Euler','e^{i\\theta}=\\cos\\theta+i\\sin\\theta'],['Tích phân Cauchy','\\oint_\\gamma f(z)\\,dz=0'],['Điều kiện Cauchy–Riemann','\\frac{\\partial u}{\\partial x}=\\frac{\\partial v}{\\partial y},\\ \\frac{\\partial u}{\\partial y}=-\\frac{\\partial v}{\\partial x}']]},
-{title:'Logic Toán Học',c:'#8aa0e0',col:P(0x7090d0,0xc0d0ec),pos:[18,26,-70],sym:['∀','∃','¬','⊢','⇒'],cards:[['Luật De Morgan','\\neg(P\\land Q)\\equiv\\neg P\\lor\\neg Q'],['Modus ponens','\\frac{P\\qquad P\\to Q}{Q}'],['Nghịch lý Russell','R=\\{x\\mid x\\notin x\\}\\Rightarrow(R\\in R\\iff R\\notin R)']]}
+{title:'Số Học',type:'TOÁN HỌC',c:'#a48cd8',col:P(0x8e72cc,0x6c58bc),pos:[-15,-16,-8],sym:['ℤ','p','mod','φ','ζ'],cards:[
+['Đồng nhất thức Euler','e^{i\\pi}+1=0'],['Định lý Fermat nhỏ','a^{p-1}\\equiv1\\pmod p'],['Tích Riemann','\\zeta(s)=\\sum_{n\\ge1}\\frac1{n^s}=\\prod_{p}\\frac1{1-p^{-s}}']]},
+{title:'Lý Thuyết Đồ Thị',type:'TOÁN HỌC',c:'#e07878',col:P(0xd05f5f,0xe08868),pos:[-38,18,-55],sym:['G','V','E','χ','K₄'],cards:[
+['Bổ đề bắt tay','\\sum_{v\\in V}\\deg(v)=2|E|'],['Công thức Cayley','\\#\\{\\text{cây trên }n\\text{ đỉnh}\\}=n^{n-2}']]}
 );
+
 mathData.push(
-{title:'Giải Tích Hàm',c:'#a8c866',col:P(0x90b850,0xc8d878),pos:[0,0,0],sym:['‖·‖','ℓᵖ','H','⟨,⟩','T'],cards:[['Bất đẳng thức Cauchy–Schwarz','|\\langle x,y\\rangle|\\le\\|x\\|\\|y\\|'],['Chuẩn ℓᵖ','\\|x\\|_p=\\Big(\\sum_i|x_i|^p\\Big)^{1/p}'],['Định lý biểu diễn Riesz','\\forall f\\in H^*,\\ \\exists!\\,y:\\ f(x)=\\langle x,y\\rangle']]},
-{title:'Lý Thuyết Nhóm',c:'#e0a898',col:P(0xd09080,0xe8b8a0),pos:[0,0,0],sym:['G','e','ker','A₅','|G|'],cards:[['Định lý Lagrange','|G|=[G:H]\\cdot|H|'],['Phương trình lớp','|G|=|Z(G)|+\\sum_i[G:C_G(g_i)]'],['Định lý đẳng cấu thứ nhất','G/\\ker\\varphi\\cong\\operatorname{im}\\varphi']]},
-{title:'Lý Thuyết Thông Tin',c:'#cfd6e6',col:P(0xaab4cc,0xe6ecf6),pos:[0,0,0],sym:['H','bit','I','log₂','C'],cards:[['Entropy Shannon','H(X)=-\\sum_x p(x)\\log_2p(x)'],['Thông tin tương hỗ','I(X;Y)=H(X)+H(Y)-H(X,Y)'],['Dung lượng kênh','C=\\max_{p(x)}I(X;Y)']]},
-{title:'Tối Ưu Hóa',c:'#c8946c',col:P(0xb87850,0xd8a880),pos:[0,0,0],sym:['∇','min','λ','η','f*'],cards:[['Hạ gradient','x_{k+1}=x_k-\\eta\\nabla f(x_k)'],['Điều kiện KKT (một phần)','\\nabla f(x^*)+\\sum_i\\lambda_i\\nabla g_i(x^*)=0'],['Hàm lồi','f(\\theta x+(1-\\theta)y)\\le\\theta f(x)+(1-\\theta)f(y)']]}
+{title:'Tô Pô',type:'TOÁN HỌC',c:'#5cc8b0',col:P(0x3aa890,0x68c898),pos:[5,-22,-45],sym:['τ','∂','≅','S¹','χ'],cards:[['Đặc số Euler mặt g lỗ','\\chi(M)=2-2g'],['Giả thuyết Poincaré','\\pi_1(M)=0\\Rightarrow M\\cong S^3']]},
+{title:'Phương Trình Vi Phân',type:'TOÁN HỌC',c:'#d8c058',col:P(0xc8b040,0xe0d078),pos:[45,2,-60],sym:['y′','∂','eˣ','dy','Δ'],cards:[['Dao động điều hòa',"y''+\\omega^2y=0"],['Hệ Lorenz','\\dot x=\\sigma(y-x),\\ \\dot y=x(\\rho-z)-y,\\ \\dot z=xy-\\beta z']]},
+{title:'Số Phức',type:'TOÁN HỌC',c:'#d078d8',col:P(0xb860c8,0xd878a8),pos:[-52,-8,-30],sym:['i','ℂ','z̄','Re','Im'],cards:[['Công thức Euler','e^{i\\theta}=\\cos\\theta+i\\sin\\theta'],['Tích phân Cauchy','\\oint_\\gamma f(z)\\,dz=0']]},
+{title:'Logic Toán Học',type:'TOÁN HỌC',c:'#8aa0e0',col:P(0x7090d0,0xc0d0ec),pos:[18,26,-70],sym:['∀','∃','¬','⊢','⇒'],cards:[['Luật De Morgan','\\neg(P\\land Q)\\equiv\\neg P\\lor\\neg Q'],['Nghịch lý Russell','R=\\{x\\mid x\\notin x\\}']]}
 );
-const SH=['inf','oct','dod','ico','knot','graph','torus','lorenz','sphere','cube','hilb','icoS','entropy','opt'];
+
+mathData.push(
+{title:'Giải Tích Hàm',type:'TOÁN HỌC',c:'#a8c866',col:P(0x90b850,0xc8d878),pos:[0,0,0],sym:['‖·‖','ℓᵖ','H','⟨,⟩','T'],cards:[['Cauchy–Schwarz','|\\langle x,y\\rangle|\\le\\|x\\|\\|y\\|'],['Chuẩn ℓᵖ','\\|x\\|_p=\\Big(\\sum_i|x_i|^p\\Big)^{1/p}']]},
+{title:'Lý Thuyết Nhóm',type:'TOÁN HỌC',c:'#e0a898',col:P(0xd09080,0xe8b8a0),pos:[0,0,0],sym:['G','e','ker','A₅','|G|'],cards:[['Định lý Lagrange','|G|=[G:H]\\cdot|H|'],['Phương trình lớp','|G|=|Z(G)|+\\sum_i[G:C_G(g_i)]']]},
+{title:'Lý Thuyết Thông Tin',type:'TOÁN HỌC',c:'#cfd6e6',col:P(0xaab4cc,0xe6ecf6),pos:[0,0,0],sym:['H','bit','I','log₂','C'],cards:[['Entropy Shannon','H(X)=-\\sum_x p(x)\\log_2p(x)'],['Thông tin tương hỗ','I(X;Y)=H(X)+H(Y)-H(X,Y)']]},
+{title:'Tối Ưu Hóa',type:'TOÁN HỌC',c:'#c8946c',col:P(0xb87850,0xd8a880),pos:[0,0,0],sym:['∇','min','λ','η','f*'],cards:[['Hạ gradient','x_{k+1}=x_k-\\eta\\nabla f(x_k)'],['Điều kiện KKT','\\nabla f(x^*)+\\sum_i\\lambda_i\\nabla g_i(x^*)=0']]}
+);
+
+// --- CÁC ỨNG DỤNG AI HÀNG ĐẦU ---
+mathData.push(
+{title:'ChatGPT (OpenAI)',type:'ỨNG DỤNG AI',c:'#10a37f',col:P(0x0e8a6c,0x10a37f),pos:[0,0,0],sym:['logo_chatgpt','GPT','LLM','RLHF','⚡'],cards:[
+['Kiến trúc Decoder-only Transformer','P(w_1, \\dots, w_n) = \\prod_{i=1}^n P(w_i | w_1, \\dots, w_{i-1})'],
+['Tối ưu hóa phần thưởng RLHF','\\max_{\\pi_\\theta} \\mathbb{E}_{x\\sim D, y\\sim \\pi_\\theta}[r_\\psi(x,y)] - \\beta \\mathbb{D}_{\\text{KL}}(\\pi_\\theta || \\pi_{\\text{ref}})']
+]},
+{title:'Claude (Anthropic)',type:'ỨNG DỤNG AI',c:'#d97706',col:P(0xb45309,0xd97706),pos:[0,0,0],sym:['logo_claude','CLD','Safe','宪','✦'],cards:[
+['AI Lập Hiến (Constitutional AI)','\\text{Critique}(y_t) \\to \\text{Revision}(y_t) \\text{ s.t. } \\text{Principle } C'],
+['Cửa sổ ngữ cảnh siêu lớn','\\text{Context Window} \\ge 200,000 \\text{ tokens}']
+]},
+{title:'Gemini (Google)',type:'ỨNG DỤNG AI',c:'#4285f4',col:P(0x1a73e8,0x4285f4),pos:[0,0,0],sym:['logo_gemini','GEM','Multi','🌌','✨'],cards:[
+['Đa phương thức gốc (Native Multimodality)','f_{\\text{embed}}: \\{\\text{Text, Audio, Video, Image}\\} \\to \\mathbb{R}^{d}'],
+['Tăng tốc phần cứng TPU v5e','\\text{Throughput} \\propto \\frac{\\text{FLOPs}}{\\text{Watt}}']
+]},
+{title:'Midjourney (Image Gen)',type:'ỨNG DỤNG AI',c:'#a855f7',col:P(0x7e22ce,0xa855f7),pos:[0,0,0],sym:['logo_midjourney','MJ','Latent','CFG','🎨'],cards:[
+['Dẫn đường phi phân loại (CFG)','\\tilde{\\epsilon}_\\theta(x_t, c) = (1 + w)\\epsilon_\\theta(x_t, c) - w\\epsilon_\\theta(x_t)'],
+['Không gian tiềm ẩn (Latent Diffusion)','z = \\mathcal{E}(x), \\quad \\hat{x} = \\mathcal{D}(z_0)']
+]}
+);
+
+const SH=['inf','oct','dod','ico','knot','graph','torus','lorenz','sphere','cube','hilb','icoS','entropy','opt','chatgpt','claude','gemini','midjourney'];
 mathData.forEach((d,i)=>{d.shape=SH[i];d.wire=!['lorenz','knot'].includes(SH[i]);});
-const LAY=[[-72,8],[0,8],[-24,8],[48,8],[24,8],[72,8],[48,-28],[-48,8],[-72,-28],[24,-28],[-48,-28],[0,-28],[-24,-28],[72,-28]];
+
+const LAY=[
+[-72,8],[0,8],[-24,8],[48,8],[24,8],[72,8],[48,-28],[-48,8],[-72,-28],[24,-28],[-48,-28],[0,-28],[-24,-28],[72,-28],
+[-48,-70],[-16,-70],[16,-70],[48,-70]
+];
 mathData.forEach((d,i)=>d.pos=[LAY[i][0],0,LAY[i][1]]);
+
 const NOTES=[
-'Mặt z = sin r / r (hàm sinc, r là khoảng cách đến tâm). Đỉnh ở giữa là cực đại; các gợn tròn tắt dần cho thấy dao động giảm biên độ khi r → ∞.',
-'Mặt yên ngựa, đồ thị của dạng toàn phương có hai trị riêng trái dấu: cong lên theo trục x, cong xuống theo trục z. Điểm gốc là điểm yên, không phải cực trị.',
-'Chuông Gauss hai chiều: độ cao là mật độ xác suất, lớn nhất ở giá trị trung bình và giảm dần theo khoảng cách. Thể tích dưới mặt này bằng 1.',
-'Mặt nón: mỗi mặt cắt ngang là một đường tròn; cắt nghiêng sẽ cho elip, parabol hoặc hyperbol (các đường conic).',
-'Đồ thị bậc thang π(x): trục ngang là x, trục đứng là số nguyên tố không vượt quá x. Mỗi bước nhảy lên 1 đơn vị xảy ra đúng tại một số nguyên tố (2, 3, 5, 7, …, 37).',
-'Các chấm là đỉnh, các đoạn nối là cạnh. Mỗi đỉnh nối với 5 hoặc 6 đỉnh khác; tổng bậc của mọi đỉnh luôn bằng hai lần số cạnh (bổ đề bắt tay).',
-'Mặt xuyến (bánh vòng): có đúng một lỗ nên đặc số Euler bằng 0. Có thể nắn, kéo giãn nhưng không xé hay dán thì nó vẫn là một xuyến.',
-'Quỹ đạo Lorenz trong không gian pha: đường cong không tự cắt, quấn quanh hai "cánh bướm". Hai điểm xuất phát rất gần nhau sẽ tách xa dần, dấu hiệu của hỗn loạn.',
-'Mặt yên khỉ, độ cao bằng Re(z³) = x³ − 3xy² trên mặt phẳng phức. Có ba "đỉnh" và ba "thung lũng" quanh gốc, nhiều hơn yên ngựa thường.',
-'Khối lập phương Boolean Q₃: 8 đỉnh là 8 tổ hợp 0/1 của ba biến mệnh đề; hai đỉnh được nối khi chúng khác nhau đúng một biến.',
-'Chỏm quả cầu đơn vị của chuẩn ℓᵖ (p = 1,5): đáy là tập các điểm có chuẩn ≤ 1. p càng nhỏ hình càng nhọn; p = 2 cho chỏm cầu thông thường.',
-'Khối 20 mặt: 12 đỉnh, 30 cạnh, 20 mặt. Các phép quay giữ nguyên nó tạo thành nhóm 60 phần tử, đẳng cấu với nhóm A₅.',
-'Entropy kết hợp của hai bit độc lập p, q ∈ [0, 1]: cao nhất (1,386 nat) khi p = q = ½, tức tung đồng xu công bằng; về 0 ở các góc, nơi kết quả hoàn toàn chắc chắn.',
-'Thung lũng kiểu Rosenbrock: đáy cong và hẹp khiến hạ gradient đi chậm, zigzag hai bên thành. Điểm cực tiểu nằm ở cuối thung lũng.'];
+'Mặt z = sin r / r (hàm sinc). Đỉnh ở giữa là cực đại; các gợn tròn tắt dần cho thấy dao động giảm biên độ khi r → ∞.',
+'Mặt yên ngựa, đồ thị của dạng toàn phương có hai trị riêng trái dấu: cong lên theo trục x, cong xuống theo trục z.',
+'Chuông Gauss hai chiều: độ cao là mật độ xác suất, lớn nhất ở giá trị trung bình và giảm dần theo khoảng cách.',
+'Mặt nón: mỗi mặt cắt ngang là một đường tròn; cắt nghiêng sẽ cho elip, parabol hoặc hyperbol.',
+'Đồ thị bậc thang π(x): đếm số nguyên tố không vượt quá x. Mỗi bước nhảy lên 1 đơn vị ứng với một số nguyên tố.',
+'Đồ thị mạng lưới G = (V, E) thể hiện liên kết đỉnh và cạnh, tuân thủ bổ đề bắt tay.',
+'Mặt xuyến (bánh vòng): có đúng một lỗ nên đặc số Euler bằng 0, không bị xé rách trong tô-pô học.',
+'Quỹ đạo Lorenz trong không gian pha: biểu tượng của hệ thống hỗn loạn (Chaos Theory) với hai cánh bướm.',
+'Mặt yên khỉ, độ cao Re(z³) trên mặt phẳng phức, tạo ra 3 đỉnh và 3 thung lũng quanh gốc tọa độ.',
+'Khối lập phương Boolean Q₃: 8 đỉnh biểu diễn tổ hợp 0/1 của ba biến mệnh đề logic.',
+'Chỏm quả cầu đơn vị của chuẩn ℓᵖ (p = 1,5): chuẩn hình học đặc trưng trong không gian định chuẩn.',
+'Khối 20 mặt đều: 12 đỉnh, 30 cạnh, 20 mặt, sở hữu nhóm đối xứng 60 phần tử (A₅).',
+'Entropy kết hợp H(X): đo lường độ bất định và thông tin trong xác suất thống kê.',
+'Thung lũng Rosenbrock: hàm thử nghiệm kinh điển trong tối ưu hóa toán học và máy học.',
+'Mô hình ngôn ngữ lớn (LLM) phát triển bởi OpenAI, huấn luyện tự hồi quy và tinh chỉnh qua phản hồi con người (RLHF).',
+'Trợ lý AI của Anthropic nổi tiếng với tính an toàn cao nhờ kiến trúc AI Lập Hiến (Constitutional AI) và ngữ cảnh cực lớn.',
+'Hệ thống đa phương thức nguyên bản (Native Multimodality) của Google, tối ưu hóa toàn diện trên chip TPU chuyên dụng.',
+'Mô hình khuếch tán tiềm ẩn (Latent Diffusion) đỉnh cao chuyên tạo sinh hình ảnh nghệ thuật số từ văn bản mô tả.'];
 mathData.forEach((d,i)=>d.note=NOTES[i]);
-mathData.forEach((d,i)=>d.html=page(i+1,d.title,d.c,d.cards,d.note));
+mathData.forEach((d,i)=>d.html=page(i+1,d.title,d.type,d.c,d.cards,d.note));
 
 // ===== Audio =====
 let T0=0,K=1;let ac,master,bus,wet,sh,muted=false;
@@ -157,7 +193,6 @@ document.getElementById('gl').appendChild(renderer.domElement);
 const S={S1:1,WARP:2,S2:3,PANEL:4};let state=S.S1;
 const camera=new THREE.PerspectiveCamera(60,W()/H(),.1,2000);
 
-// Đặt camera gần hơn (CAM2 ở độ cao thấp hơn và cự ly gần hơn để dễ quan sát)
 const CAM1=new THREE.Vector3(0,5,30),CAM2=new THREE.Vector3(0, 4, 26);
 camera.position.copy(CAM1);
 
@@ -177,7 +212,6 @@ const warpShader={
 const warpPass=new THREE.ShaderPass(warpShader),wu=warpPass.uniforms;composer.addPass(warpPass);
 function warpFx(tl){tl.to(wu.amt,{value:1,duration:1.9,ease:'power2.in'},0).to(wu.hue,{value:1,duration:1.9,ease:'none'},0).to(wu.amt,{value:0,duration:1.5,ease:'power2.out'},2.1).to(wu.hue,{value:0,duration:1.5},2.1);}
 
-// Thiết lập OrbitControls với giới hạn khoảng cách (min/max distance) để không bị trôi quá xa
 const controls=new THREE.OrbitControls(camera,renderer.domElement);
 Object.assign(controls,{enableDamping:true,dampingFactor:.05,minDistance:2,maxDistance:80});
 
@@ -200,7 +234,7 @@ bh.add(new THREE.Points(pGeo,new THREE.PointsMaterial({color:0xffddaa,size:.1,tr
 function stars(n,spread,color,size,op){const a=new Float32Array(n*3);for(let i=0;i<a.length;i++)a[i]=(Math.random()-.5)*spread;const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(a,3));return new THREE.Points(g,new THREE.PointsMaterial({color,size,transparent:true,opacity:op}));}
 scene1.add(stars(5000,200,0xffffff,.15,.5));scene2.add(stars(8000,320,0x88bbff,.2,.7));
 
-// ===== Math exhibits =====
+// ===== Exhibits Geometry & Shapes =====
 function surf(fn,size,seg){const g=new THREE.PlaneGeometry(size,size,seg,seg);g.rotateX(-Math.PI/2);const p=g.attributes.position;for(let i=0;i<p.count;i++)p.setY(i,fn(p.getX(i),p.getZ(i)));g.computeVertexNormals();return g;}
 function axes(){const L=8.5,P=[];[[1,0,0],[0,1,0],[0,0,1]].forEach(a=>{P.push(-a[0]*L,-a[1]*L,-a[2]*L,a[0]*L,a[1]*L,a[2]*L);
 for(let t=-L+2;t<L-.5;t+=2){const q=a.map(v=>v*t),o=a[0]?[0,.25,0]:[.25,0,0];P.push(q[0]-o[0],q[1]-o[1],q[2]-o[2],q[0]+o[0],q[1]+o[1],q[2]+o[2]);}});
@@ -228,24 +262,52 @@ case 'hilb':return surf((x,z)=>5*Math.pow(Math.max(0,1-Math.pow(Math.abs(x)/6,1.
 case 'icoS':return new THREE.IcosahedronGeometry(6.5,0);
 case 'entropy':{const H=p=>{p=Math.min(.999,Math.max(.001,p));return -p*Math.log(p)-(1-p)*Math.log(1-p);};return surf((x,z)=>(H(x/12+.5)+H(z/12+.5))*3-2,12,28);}
 case 'opt':return surf((x,z)=>{const u=x/5,v=z/5;return Math.log(1+(1-u)*(1-u)+30*(v-u*u)*(v-u*u))*2-2;},12,32);
+case 'chatgpt':return new THREE.OctahedronGeometry(6, 2);
+case 'claude':return new THREE.DodecahedronGeometry(6, 1);
+case 'gemini':return new THREE.IcosahedronGeometry(6, 2);
+case 'midjourney':return new THREE.TorusKnotGeometry(4.5, 1.5, 64, 16);
 default:return new THREE.BoxGeometry(7,7,7);}}
 
-// ===== Planets =====
+// ===== Planets & AI App Nodes with Real Brand Logo Sprites =====
 const planets=[],mats=[];
-function sprite(ch,col){const c=document.createElement('canvas');c.width=c.height=128;const x=c.getContext('2d');x.font="bold 70px 'Fira Code',monospace";x.fillStyle=col;x.textAlign='center';x.textBaseline='middle';x.shadowColor=col;x.shadowBlur=15;x.fillText(ch,64,64);
-const s=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(c),transparent:true,blending:THREE.AdditiveBlending}));s.scale.set(3,3,1);return s;}
+function sprite(ch,col){
+  const c=document.createElement('canvas');c.width=c.height=128;const x=c.getContext('2d');
+  
+  if(ch==='logo_chatgpt'){
+    x.fillStyle=col; x.translate(64,64);
+    for(let i=0;i<6;i++){
+      x.rotate(Math.PI/3);
+      x.beginPath(); x.roundRect(-12,-48,24,64,[12]); x.fill();
+    }
+  } else if(ch==='logo_gemini'){
+    x.fillStyle=col; x.beginPath();
+    x.moveTo(64,10); x.bezierCurveTo(64,50, 78,64, 118,64); x.bezierCurveTo(78,64, 64,78, 64,118); x.bezierCurveTo(64,78, 50,64, 10,64); x.bezierCurveTo(50,64, 64,50, 64,10);
+    x.fill();
+  } else if(ch==='logo_claude'){
+    x.strokeStyle=col; x.lineWidth=10; x.lineCap='round';
+    x.beginPath(); x.arc(64,64,36,0,Math.PI*1.5); x.stroke();
+    x.fillStyle=col; x.beginPath(); x.arc(94,34,8,0,Math.PI*2); x.fill();
+  } else if(ch==='logo_midjourney'){
+    x.strokeStyle=col; x.lineWidth=12; x.lineJoin='round';
+    x.beginPath(); x.moveTo(34,98); x.lineTo(64,30); x.lineTo(94,98); x.lineTo(64,74); x.closePath(); x.stroke();
+  } else {
+    x.font="bold 60px 'Fira Code',monospace";x.fillStyle=col;x.textAlign='center';x.textBaseline='middle';x.shadowColor=col;x.shadowBlur=15;x.fillText(ch,64,64);
+  }
+
+  const s=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(c),transparent:true,blending:THREE.AdditiveBlending}));s.scale.set(3,3,1);return s;
+}
+
 mathData.forEach(d=>{const g=new THREE.Group();g.position.set(...d.pos);
 const m=new THREE.ShaderMaterial({vertexShader:vs,fragmentShader:fs,uniforms:{time:{value:0},color1:{value:d.col[0]},color2:{value:d.col[1]}}});m.wireframe=!!d.wire;mats.push(m);
 const mesh=new THREE.Mesh(makeGeo(d.shape),m);mesh.userData={d,g};mesh.add(axes());if(d.wire)mesh.add(new THREE.Mesh(mesh.geometry,new THREE.MeshBasicMaterial({color:d.col[1],transparent:true,opacity:.16,side:THREE.DoubleSide,depthWrite:false})));if(d.shape==='graph'||d.shape==='cube'||d.shape==='icoS')mesh.add(dots(mesh.geometry,d.c,1.1));const hit=new THREE.Mesh(new THREE.SphereGeometry(7.5,12,8),new THREE.MeshBasicMaterial({visible:false}));hit.userData={d,g,mesh};mesh.add(hit);g.add(mesh);
 const sg=new THREE.Group();d.sym.forEach((s,i)=>{const sp=sprite(s,d.c),a=i/d.sym.length*6.283;sp.position.set(Math.cos(a)*9,(Math.random()-.5)*4,Math.sin(a)*9);sg.add(sp);});g.add(sg);
 scene3.add(g);planets.push({mesh,g,sg,base:new THREE.Vector3(...d.pos)});});
 
-// ===== Museum gallery: floor grid, wings, pedestals =====
+// ===== Museum gallery: floor grid & dual wings =====
 function label(text,color,w,h,fs){const c=document.createElement('canvas');c.width=w;c.height=h;const x=c.getContext('2d');x.font=`600 ${fs}px 'Fira Code',monospace`;x.fillStyle=color;x.textAlign='center';x.textBaseline='middle';x.shadowColor=color;x.shadowBlur=10;x.fillText(text,w/2,h/2);
 return new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(c),transparent:true,depthWrite:false}));}
 
-// Cosmic Floor
-const floorGeo = new THREE.PlaneGeometry(600, 600, 64, 64);
+const floorGeo = new THREE.PlaneGeometry(900, 900, 64, 64);
 floorGeo.rotateX(-Math.PI / 2);
 const floorMat = new THREE.ShaderMaterial({
   uniforms: { time: { value: 0 } },
@@ -254,13 +316,13 @@ const floorMat = new THREE.ShaderMaterial({
     uniform float time;varying vec2 vUv;varying vec3 vPosition;
     void main() {
       float dist = length(vPosition.xz);
-      float alpha = smoothstep(260.0, 40.0, dist);
+      float alpha = smoothstep(400.0, 40.0, dist);
       vec2 gridCoord = vPosition.xz * 0.18;
       vec2 grid = abs(fract(gridCoord - 0.5) - 0.5) / fwidth(gridCoord);
       float line = min(grid.x, grid.y);
       float gridPattern = 1.0 - min(line, 1.0);
       vec3 col = mix(vec3(0.04, 0.06, 0.16), vec3(0.25, 0.45, 0.85), gridPattern * 0.4);
-      col += vec3(smoothstep(180.0, 0.0, dist) * 0.12);
+      col += vec3(smoothstep(220.0, 0.0, dist) * 0.12);
       gl_FragColor = vec4(col, alpha * 0.82);
     }
   `,
@@ -270,13 +332,14 @@ const cosmicFloor = new THREE.Mesh(floorGeo, floorMat);
 cosmicFloor.position.y = -14.1;
 scene3.add(cosmicFloor);
 
-const grid=new THREE.GridHelper(192,32,0x3a4f99,0x1a2348);grid.position.y=-14;grid.material.transparent=true;grid.material.opacity=.2;scene3.add(grid);
+const grid=new THREE.GridHelper(260,44,0x3a4f99,0x1a2348);grid.position.y=-14;grid.material.transparent=true;grid.material.opacity=.2;scene3.add(grid);
 
-const WINGS=['I · GIẢI TÍCH','II · VI PHÂN & HÀM','III · XÁC SUẤT & TIN','IV · ĐẠI SỐ & NHÓM','V · SỐ HỌC & LOGIC','VI · HÌNH & TÔ PÔ','VII · RỜI RẠC & TỐI ƯU'];
-WINGS.forEach((w,i)=>{const s=label(w,'#9fb4ff',512,80,30);s.scale.set(22,3.44,1);s.position.set(-72+i*24,17,-10);scene3.add(s);});
-for(let i=0;i<=7;i++){const l=new THREE.Mesh(new THREE.PlaneGeometry(.2,52),new THREE.MeshBasicMaterial({color:0x5a73cc,transparent:true,opacity:.3}));l.rotation.x=-Math.PI/2;l.position.set(-84+i*24,-13.9,-10);scene3.add(l);}
+const signMath = label('🏛️ KHU VỰC TOÁN HỌC CỔ ĐIỂN & HIỆN ĐẠI', '#6cc4dc', 1024, 80, 28);
+signMath.scale.set(28, 2.8, 1); signMath.position.set(0, 18, -15); scene3.add(signMath);
 
-// Trụ trưng bày
+const signAI = label('⚡ KHU VỰC ỨNG DỤNG AI HÀNG ĐẦU (CHATGPT, CLAUDE, GEMINI, MIDJOURNEY)', '#10a37f', 1280, 80, 26);
+signAI.scale.set(34, 2.8, 1); signAI.position.set(0, 18, -55); scene3.add(signAI);
+
 const beamMats = [];
 planets.forEach((p,i)=>{const d=mathData[i],b=p.base;
 const ped=new THREE.Mesh(new THREE.CylinderGeometry(5,6,2.2,48),new THREE.MeshBasicMaterial({color:0x0b0f22}));ped.position.set(b.x,-12.9,b.z);scene3.add(ped);
@@ -302,9 +365,8 @@ beamMats.push(beamMat);
 const beam = new THREE.Mesh(new THREE.CylinderGeometry(4.2, 5, 22, 32, 1, true), beamMat);
 beam.position.set(b.x,-1,b.z);scene3.add(beam);
 
-const pl=label(String(i+1).padStart(2,'0')+' · '+d.title.toUpperCase(),d.c,512,80,30);pl.scale.set(17,2.7,1);pl.position.set(b.x,-16.2,b.z+8);scene3.add(pl);
-const FN=['z = sin r / r','z = (x² − y²)/9','phân phối Gauss','nón z = r','π(x): đếm số nguyên tố','đồ thị G = (V, E)','mặt xuyến T²','quỹ đạo Lorenz','Re(z³): yên khỉ','khối Boolean Q₃','chỏm cầu đơn vị ℓp','nhóm đối xứng A₅','entropy H(p)+H(q)','thung lũng Rosenbrock'];
-const cp=label(FN[i],'#aab8e8',512,64,26);cp.scale.set(15,1.9,1);cp.position.set(b.x,-18.6,b.z+8);scene3.add(cp);});
+const pl=label(d.title.toUpperCase(),d.c,512,80,28);pl.scale.set(16,2.5,1);pl.position.set(b.x,-16.2,b.z+8);scene3.add(pl);
+const cp=label(d.type,'#aab8e8',512,64,24);cp.scale.set(14,1.8,1);cp.position.set(b.x,-18.6,b.z+8);scene3.add(cp);});
 
 // Warp tunnel
 const WL=600,wd=[],wp=new Float32Array(WL*6);
@@ -365,7 +427,7 @@ if(['graph','cube','icoS'].includes(d.shape))miniGrp.add(dots(mesh.geometry,d.c,
 miniScene.add(miniGrp);}
 
 function flySyms(d){const wide=W()>=768,sx=(mouse.x+1)/2*W(),sy=(1-mouse.y)/2*H();
-d.sym.concat(d.sym).forEach((ch,i)=>{const e=document.createElement('div');e.className='fly';e.textContent=ch;e.style.color=d.c;e.style.left=sx+'px';e.style.top=sy+'px';document.body.appendChild(e);
+d.sym.concat(d.sym).forEach((ch,i)=>{const e=document.createElement('div');e.className='fly';e.textContent=ch.startsWith('logo_') ? '✦' : ch;e.style.color=d.c;e.style.left=sx+'px';e.style.top=sy+'px';document.body.appendChild(e);
 const tx=wide?W()-290+(Math.random()-.5)*300:W()/2+(Math.random()-.5)*W()*.6,ty=H()*.18+Math.random()*H()*.6;
 gsap.fromTo(e,{scale:.4,opacity:0,xPercent:-50,yPercent:-50},{keyframes:[{opacity:1,scale:1.4,duration:.25},{x:tx-sx,y:ty-sy,scale:1,duration:1.1,ease:'power2.inOut'},{opacity:0,scale:2,duration:.5}],delay:.15+i*.08,onComplete:()=>e.remove()});});}
 addEventListener('resize',()=>{camera.aspect=W()/H();camera.updateProjectionMatrix();renderer.setSize(W(),H());composer.setSize(W(),H());});
@@ -397,7 +459,14 @@ tl.to(camera,{fov:60,duration:1.5,ease:'power2.out',onUpdate:()=>camera.updatePr
 tl.to(warp,{speed:0,len:0,duration:1.5,ease:'power2.out'},2.1);
 tl.add(()=>{state=S.S1;controls.enabled=true;},4.1);}
 
-function openPanel(mesh){state=S.PANEL;controls.enabled=false;show('back',0);sfxOpen();
+const savedCamPos = new THREE.Vector3();
+const savedTargetPos = new THREE.Vector3();
+
+function openPanel(mesh){
+state=S.PANEL; controls.enabled=false; show('back',0); sfxOpen();
+savedCamPos.copy(camera.position);
+savedTargetPos.copy(controls.target);
+
 const box=$('info');box.innerHTML=mesh.userData.d.html;flySyms(mesh.userData.d);showMini(mesh.userData.d,mesh);
 const go=()=>{$('panel').classList.remove('translate-x-full');show('close',1);box.querySelectorAll('.fade').forEach((x,i)=>setTimeout(()=>x.classList.add('on'),300+i*450));};
 (window.MathJax&&MathJax.typesetPromise?MathJax.typesetPromise([box]).then(go):go());
@@ -408,10 +477,11 @@ if(wide)cp.add(new THREE.Vector3(1,0,0).applyQuaternion(camera.quaternion).multi
 gsap.to(camera.position,{x:cp.x,y:cp.y,z:cp.z,duration:1.5,ease:'power3.inOut'});
 gsap.to(controls.target,{x:tp.x,y:tp.y,z:tp.z,duration:1.5,ease:'power3.inOut'});}
 
-function closePanel(){sfxClose();show('close',0);document.querySelectorAll('.fade').forEach(x=>x.classList.remove('on'));$('panel').classList.add('translate-x-full');
-const a=Math.PI/2,r=CAM2.z;
-gsap.to(camera.position,{x:Math.cos(a)*r,y:CAM2.y,z:Math.sin(a)*r,duration:1.5,ease:'power3.inOut'});
-gsap.to(controls.target,{x:0,y:0,z:0,duration:1.5,ease:'power3.inOut',onComplete:()=>{state=S.S2;controls.enabled=true;show('back',1);}});}
+function closePanel(){
+sfxClose(); show('close',0); document.querySelectorAll('.fade').forEach(x=>x.classList.remove('on')); $('panel').classList.add('translate-x-full');
+gsap.to(camera.position,{x:savedCamPos.x, y:savedCamPos.y, z:savedCamPos.z, duration:1.5, ease:'power3.inOut'});
+gsap.to(controls.target,{x:savedTargetPos.x, y:savedTargetPos.y, z:savedTargetPos.z, duration:1.5, ease:'power3.inOut', onComplete:()=>{state=S.S2;controls.enabled=true;show('back',1);}});
+}
 
 // ===== Loop & Walkthrough Movement =====
 const clock=new THREE.Clock();
