@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-<title>The Mathematical Singularity</title>
+<title>The Mathematical Singularity - Unlimited Void</title>
 <script src="https://cdn.tailwindcss.com/3.4.17"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
 <script>window.MathJax={tex:{inlineMath:[['$','$']],displayMath:[['$$','$$']]},svg:{fontCache:'global'},startup:{typeset:false}};</script>
@@ -36,8 +36,8 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000;font-f
 <div id="gl"></div>
 
 <button id="mute" class="btn" style="display:block;top:calc(env(safe-area-inset-top,0px) + 14px);left:14px">🔊</button>
-
 <button id="close" class="btn" style="top:calc(env(safe-area-inset-top,0px) + 14px);right:14px;font-size:16px">✕ Đóng</button>
+
 <div id="panel" class="fixed top-0 right-0 h-full w-full md:w-[500px] lg:w-[560px] glass z-40 translate-x-full transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] overflow-y-auto">
 <div class="min-h-full p-6 pt-20 md:p-12" id="info"></div></div>
 
@@ -93,50 +93,52 @@ const NOTES=[
 mathData.forEach((d,i)=>d.note=NOTES[i]);
 mathData.forEach((d,i)=>d.html=page(i+1,d.title,d.c,d.cards,d.note));
 
-// ===== Audio: "Infinite Void" - clean tones (no noise), deep layered blasts =====
+// ===== Audio: Gojo's "Unlimited Void" (Vô Lượng Không Xứ) Sound Design =====
 let T0=0,K=1;let ac,master,bus,wet,sh,muted=false;
 function initAudio(){
 if(ac){if(ac.state==='suspended')ac.resume();return;}
 ac=new(window.AudioContext||window.webkitAudioContext)();
 master=ac.createGain();master.gain.value=muted?0:1.2;bus=ac.createGain();
 const comp=ac.createDynamicsCompressor();comp.threshold.value=-6;comp.knee.value=10;comp.ratio.value=4;comp.attack.value=.003;comp.release.value=.25;
-const lp=ac.createBiquadFilter();lp.type='lowpass';lp.frequency.value=1800;lp.Q.value=.5;
+const lp=ac.createBiquadFilter();lp.type='lowpass';lp.frequency.value=2200;lp.Q.value=.6;
 bus.connect(master).connect(lp).connect(comp).connect(ac.destination);
-const L=ac.sampleRate*1.6,ir=ac.createBuffer(2,L,ac.sampleRate);
-for(let c=0;c<2;c++){const d=ir.getChannelData(c);for(let i=0;i<L;i++)d[i]=(d[i-1]||0)*.85+(Math.random()*2-1)*Math.pow(1-i/L,3)*.15;}
-const cv=ac.createConvolver();cv.buffer=ir;wet=ac.createGain();wet.gain.value=.3;wet.connect(cv).connect(bus);
-// soft saturator: adds punchy mid harmonics to the low blasts
-sh=ac.createWaveShaper();const n=2048,cr=new Float32Array(n);for(let i=0;i<n;i++)cr[i]=Math.tanh((i/(n-1)*2-1)*2.5);sh.curve=cr;sh.oversample='2x';
-const post=ac.createGain();post.gain.value=1.4;sh.connect(post).connect(bus);
+const L=ac.sampleRate*2.0,ir=ac.createBuffer(2,L,ac.sampleRate);
+for(let c=0;c<2;c++){const d=ir.getChannelData(c);for(let i=0;i<L;i++)d[i]=(d[i-1]||0)*.88+(Math.random()*2-1)*Math.pow(1-i/L,3)*.12;}
+const cv=ac.createConvolver();cv.buffer=ir;wet=ac.createGain();wet.gain.value=.4;wet.connect(cv).connect(bus);
+sh=ac.createWaveShaper();const n=2048,cr=new Float32Array(n);for(let i=0;i<n;i++)cr[i]=Math.tanh((i/(n-1)*2-1)*3.0);sh.curve=cr;sh.oversample='2x';
+const post=ac.createGain();post.gain.value=1.5;sh.connect(post).connect(bus);
 ambient();}
 function out(n,send){n.connect(bus);const s=ac.createGain();s.gain.value=send;n.connect(s).connect(wet);}
 function osc(type,f0,f1,t,d,g,send,rise,det,dr){t=T0+(t-T0)*K;d*=K;const o=ac.createOscillator(),a=ac.createGain();o.type=type;o.detune.value=det||0;
 o.frequency.setValueAtTime(f0,t);o.frequency.exponentialRampToValueAtTime(f1,t+d);
-if(rise){a.gain.setValueAtTime(.0001,t);a.gain.exponentialRampToValueAtTime(g,t+d);a.gain.linearRampToValueAtTime(.0001,t+d+.25);}
+if(rise){a.gain.setValueAtTime(.0001,t);a.gain.exponentialRampToValueAtTime(g,t+d);a.gain.linearRampToValueAtTime(.0001,t+d+.3);}
 else{a.gain.setValueAtTime(.0001,t);a.gain.linearRampToValueAtTime(g,t+.01);a.gain.exponentialRampToValueAtTime(.0001,t+d);}
 o.connect(a);if(dr){a.connect(sh);const s=ac.createGain();s.gain.value=send*.3;a.connect(s).connect(wet);}else out(a,send);
-o.start(t);o.stop(t+d+.3);}
-// the "void" swallowing every sound for a moment
-function voidCut(t,from,to){from*=K;to*=K;bus.gain.cancelScheduledValues(t+from-.09);bus.gain.setValueAtTime(1,t+from-.07);bus.gain.linearRampToValueAtTime(.0001,t+from);bus.gain.setValueAtTime(.0001,t+to);bus.gain.linearRampToValueAtTime(1,t+to+.08);}
-// layered blast: sub + low + body + crack, then a deeper aftershock
-function blast(t,s){osc('sine',98,49,t,2.8,.9*s,.4);osc('sine',196,98,t,2.4,.6*s,.4);osc('sine',294,147,t,2.2,.4*s,.5);osc('sine',392,196,t,2.2,.3*s,.5);osc('sine',587,294,t,1.8,.18*s,.5);osc('sine',49,40,t+.1,2.8,.8*s,.3);}
-function stutter(t,n,span,g){for(let i=0;i<n;i++){const f=90+Math.random()*300;osc('sine',f,f*.7,t+i*span/n,.09,g,.25);}}
-// dark endless void: deep drone + slow pulses
+o.start(t);o.stop(t+d+.4);}
+
+function voidCut(t,from,to){from*=K;to*=K;bus.gain.cancelScheduledValues(t+from-.09);bus.gain.setValueAtTime(1,t+from-.07);bus.gain.linearRampToValueAtTime(.0001,t+from);bus.gain.setValueAtTime(.0001,t+to);bus.gain.linearRampToValueAtTime(1,t+to+.1);}
+function blast(t,s){osc('sine',80,35,t,3.2,1.1*s,.5);osc('sine',160,70,t,2.8,.7*s,.4);osc('sine',240,120,t,2.5,.45*s,.5);osc('sine',320,160,t,2.5,.35*s,.5);osc('sine',40,30,t+.15,3.0,.9*s,.3);}
+function stutter(t,n,span,g){for(let i=0;i<n;i++){const f=120+Math.random()*450;osc('sine',f,f*.5,t+i*span/n,.08,g,.3);}}
+
 function ambient(){
-[[73.4,.05],[110,.035],[146.8,.03],[185,.022],[277.2,.012]].forEach(([f,v],i)=>{const o=ac.createOscillator(),g=ac.createGain(),l=ac.createOscillator(),lg=ac.createGain();
-o.frequency.value=f;g.gain.value=v;l.frequency.value=.04+i*.02;lg.gain.value=v*.5;l.connect(lg).connect(g.gain);o.connect(g);out(g,.25);o.start();l.start();});
-(function pulse(){if(ac&&ac.state==='running'){const t=ac.currentTime;T0=t;K=1;osc('sine',73.4,55,t,3,.07,.4);}setTimeout(pulse,7000+Math.random()*6000);})();}
-// Domain-expansion style: hand-sign snap -> rising tension & stutter -> huge blast -> silence -> ringing void & heartbeat
-function sfxEnter(){if(!ac)return;const t=ac.currentTime;T0=t;K=1.6;
-osc('sine',587,392,t,.5,.16,.5);osc('sine',196,98,t,.5,.5,.3);
-[-15,0,15].forEach(d=>osc('sine',55,220,t+.15,1.65,.07,.25,true,d));osc('sine',82,330,t+.15,1.65,.045,.25,true);
-stutter(t+.75,26,1,.1);
-blast(t+1.8,1);
-voidCut(t,2.05,2.3);
-osc('sine',392,388,t+2.3,3,.025,.6);osc('sine',196,194,t+2.3,3,.03,.5);
-[2.5,3].forEach(h=>osc('sine',80,50,t+h,.6,.35,.3));
-[110,146.8,185,277.2].forEach((f,i)=>osc('sine',f,f,t+2.45+i*.05,2,.025,.5,true));}
-// Collapse: falling tension -> blast -> settle
+[[73.4,.04],[110,.03],[146.8,.025],[185,.018],[277.2,.01]].forEach(([f,v],i)=>{const o=ac.createOscillator(),g=ac.createGain(),l=ac.createOscillator(),lg=ac.createGain();
+o.frequency.value=f;g.gain.value=v;l.frequency.value=.03+i*.015;lg.gain.value=v*.5;l.connect(lg).connect(g.gain);o.connect(g);out(g,.25);o.start();l.start();});
+(function pulse(){if(ac&&ac.state==='running'){const t=ac.currentTime;T0=t;K=1;osc('sine',73.4,48,t,3.5,.06,.4);}setTimeout(pulse,8000+Math.random()*5000);})();
+}
+
+function sfxEnter(){
+if(!ac)return;const t=ac.currentTime;T0=t;K=1.5;
+osc('sine',1760,880,t,.5,.25,.7);
+osc('sine',880,440,t,.5,.4,.5);
+[-25,0,25].forEach(d=>osc('sine',90,480,t+.15,1.8,.09,.3,true,d));
+stutter(t+.6,32,1.0,.14);
+blast(t+1.6,1.4);
+voidCut(t,1.85,2.25);
+osc('sine',2093,2093,t+2.25,4.0,.018,.8);
+osc('sine',1046,1046,t+2.25,4.0,.025,.7);
+[2.5, 3.2].forEach(h=>osc('sine',55,25,t+h,.8,.45,.3));
+}
+
 function sfxExit(){if(!ac)return;const t=ac.currentTime;T0=t;K=1.6;
 [-15,0,15].forEach(d=>osc('sine',330,55,t,1.7,.07,.25,true,d));
 stutter(t+.6,22,1.1,.1);
@@ -166,15 +168,21 @@ const camera=new THREE.PerspectiveCamera(60,W()/H(),.1,2000);
 const CAM1=new THREE.Vector3(0,5,30),CAM2=new THREE.Vector3(0,W()<H()?70:28,W()<H()?250:115);camera.position.copy(CAM1);
 const scene1=new THREE.Scene();scene1.background=new THREE.Color(0x010102);
 const scene2=new THREE.Scene();scene2.background=new THREE.Color(0x020205);scene2.fog=new THREE.FogExp2(0x020205,.003);
-const scene3=new THREE.Scene();scene3.fog=scene2.fog; // exhibits live here: drawn after bloom so they never glare
+const scene3=new THREE.Scene();scene3.fog=scene2.fog;
 const rp1=new THREE.RenderPass(scene1,camera),rp2=new THREE.RenderPass(scene2,camera),rp3=new THREE.RenderPass(scene3,camera);rp3.clear=false;rp3.clearDepth=true;
 const bloom=new THREE.UnrealBloomPass(new THREE.Vector2(W(),H()),1.6,.5,.1);
 const composer=new THREE.EffectComposer(renderer);composer.addPass(rp1);composer.addPass(bloom);
-const warpShader={uniforms:{tDiffuse:{value:null},amt:{value:0},hue:{value:0}},vertexShader:`varying vec2 vUv;void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`,fragmentShader:`uniform sampler2D tDiffuse;uniform float amt;uniform float hue;varying vec2 vUv;void main(){vec2 p=vUv-.5;float r=length(p);vec2 d=p*(1.+amt*(2.2*r*r-.25));float a=amt*(.6-r)*1.6;float c=cos(a),s=sin(a);d=mat2(c,-s,s,c)*d;vec2 o=p*amt*.05;vec3 col=vec3(texture2D(tDiffuse,d+.5+o).r,texture2D(tDiffuse,d+.5).g,texture2D(tDiffuse,d+.5-o).b);float l=dot(col,vec3(.299,.587,.114));vec3 tint=mix(vec3(1.,.55,.25),vec3(.3,.6,1.),hue);col=mix(col,l*tint*1.6,amt*.55*smoothstep(0.,1.,r+.2));col*=1.-amt*.35*r;gl_FragColor=vec4(col,1.);}`};
+
+const warpShader={
+  uniforms:{tDiffuse:{value:null},amt:{value:0},hue:{value:0}},
+  vertexShader:`varying vec2 vUv;void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`,
+  fragmentShader:`uniform sampler2D tDiffuse;uniform float amt;uniform float hue;varying vec2 vUv;void main(){vec2 p=vUv-.5;float r=length(p);vec2 d=p*(1.+amt*(2.2*r*r-.25));float a=amt*(.6-r)*1.6;float c=cos(a),s=sin(a);d=mat2(c,-s,s,c)*d;vec2 o=p*amt*.05;vec3 col=vec3(texture2D(tDiffuse,d+.5+o).r,texture2D(tDiffuse,d+.5).g,texture2D(tDiffuse,d+.5-o).b);float l=dot(col,vec3(.299,.587,.114));vec3 tint=mix(vec3(1.,.55,.25),vec3(.3,.6,1.),hue);col=mix(col,l*tint*1.6,amt*.55*smoothstep(0.,1.,r+.2));col*=1.0-amt*.35*r;gl_FragColor=vec4(col,1.);}`
+};
+
 const warpPass=new THREE.ShaderPass(warpShader),wu=warpPass.uniforms;composer.addPass(warpPass);
 function warpFx(tl){tl.to(wu.amt,{value:1,duration:1.9,ease:'power2.in'},0).to(wu.hue,{value:1,duration:1.9,ease:'none'},0).to(wu.amt,{value:0,duration:1.5,ease:'power2.out'},2.1).to(wu.hue,{value:0,duration:1.5},2.1);}
 const controls=new THREE.OrbitControls(camera,renderer.domElement);
-Object.assign(controls,{enableDamping:true,dampingFactor:.05,minDistance:5,maxDistance:400});
+Object.assign(controls,{enableDamping:true,dampingFactor:.05,minDistance:1,maxDistance:5000});
 
 // ===== Black hole =====
 const bh=new THREE.Group();scene1.add(bh);
@@ -242,10 +250,49 @@ const grid=new THREE.GridHelper(192,32,0x3a4f99,0x1a2348);grid.position.y=-14;gr
 const WINGS=['I · GIẢI TÍCH','II · VI PHÂN & HÀM','III · XÁC SUẤT & TIN','IV · ĐẠI SỐ & NHÓM','V · SỐ HỌC & LOGIC','VI · HÌNH & TÔ PÔ','VII · RỜI RẠC & TỐI ƯU'];
 WINGS.forEach((w,i)=>{const s=label(w,'#9fb4ff',512,80,30);s.scale.set(22,3.44,1);s.position.set(-72+i*24,17,-10);scene3.add(s);});
 for(let i=0;i<=7;i++){const l=new THREE.Mesh(new THREE.PlaneGeometry(.2,52),new THREE.MeshBasicMaterial({color:0x5a73cc,transparent:true,opacity:.45}));l.rotation.x=-Math.PI/2;l.position.set(-84+i*24,-13.9,-10);scene3.add(l);}
+
+// ===== Ống trụ (beam) có màu sắc sinh động & hiệu ứng động =====
+const beamMats = [];
 planets.forEach((p,i)=>{const d=mathData[i],b=p.base;
 const ped=new THREE.Mesh(new THREE.CylinderGeometry(5,6,2.2,48),new THREE.MeshBasicMaterial({color:0x0b0f22}));ped.position.set(b.x,-12.9,b.z);scene3.add(ped);
 const ring=new THREE.Mesh(new THREE.RingGeometry(5.3,5.9,64),new THREE.MeshBasicMaterial({color:d.col[0],side:THREE.DoubleSide}));ring.rotation.x=-Math.PI/2;ring.position.set(b.x,-11.75,b.z);scene3.add(ring);
-const beam=new THREE.Mesh(new THREE.CylinderGeometry(4.2,5,22,32,1,true),new THREE.MeshBasicMaterial({color:d.col[0],transparent:true,opacity:.06,blending:THREE.AdditiveBlending,side:THREE.DoubleSide,depthWrite:false}));beam.position.set(b.x,-1,b.z);scene3.add(beam);
+
+const beamMat = new THREE.ShaderMaterial({
+  uniforms: {
+    color1: { value: d.col[0] },
+    color2: { value: d.col[1] },
+    time: { value: 0 }
+  },
+  vertexShader: `
+    varying vec2 vUv;
+    void main() {
+      vUv = uv;
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    }
+  `,
+  fragmentShader: `
+    uniform vec3 color1;
+    uniform vec3 color2;
+    uniform float time;
+    varying vec2 vUv;
+    void main() {
+      float wave = sin(vUv.y * 14.0 - time * 4.0) * 0.5 + 0.5;
+      vec3 col = mix(color1, color2, vUv.y);
+      col += vec3(wave * 0.45);
+      float alpha = (1.0 - vUv.y) * 0.3 + 0.08;
+      gl_FragColor = vec4(col * 2.2, alpha);
+    }
+  `,
+  transparent: true,
+  blending: THREE.AdditiveBlending,
+  side: THREE.DoubleSide,
+  depthWrite: false
+});
+beamMats.push(beamMat);
+
+const beam = new THREE.Mesh(new THREE.CylinderGeometry(4.2, 5, 22, 32, 1, true), beamMat);
+beam.position.set(b.x,-1,b.z);scene3.add(beam);
+
 const pl=label(String(i+1).padStart(2,'0')+' · '+d.title.toUpperCase(),d.c,512,80,30);pl.scale.set(17,2.7,1);pl.position.set(b.x,-16.2,b.z+8);scene3.add(pl);
 const FN=['z = sin r / r','z = (x² − y²)/9','phân phối Gauss','nón z = r','π(x): đếm số nguyên tố','đồ thị G = (V, E)','mặt xuyến T²','quỹ đạo Lorenz','Re(z³): yên khỉ','khối Boolean Q₃','chỏm cầu đơn vị ℓp','nhóm đối xứng A₅','entropy H(p)+H(q)','thung lũng Rosenbrock'];
 const cp=label(FN[i],'#aab8e8',512,64,26);cp.scale.set(15,1.9,1);cp.position.set(b.x,-18.6,b.z+8);scene3.add(cp);});
@@ -261,7 +308,61 @@ function updWarp(dt){if(warp.speed<.5){wm.opacity=0;return;}wm.opacity=Math.min(
 wd.forEach((d,i)=>{d.z+=warp.speed*dt;if(d.z>0)d.z-=90;wp.set([d.x,d.y,d.z,d.x,d.y,d.z-warp.len],i*6);});
 wg.attributes.position.needsUpdate=true;warpLines.position.copy(camera.position);warpLines.quaternion.copy(camera.quaternion);}
 
-// ===== Input (mouse + touch via pointer events) =====
+// ===== Keyboard & Mouse Free Roam Movement (Unlimited 3D Flight) =====
+const moveState = { forward: false, backward: false, left: false, right: false, up: false, down: false };
+window.addEventListener('keydown', e => {
+  if (state === S.PANEL) return;
+  const k = e.key.toLowerCase();
+  if (k === 'w' || e.key === 'ArrowUp') moveState.forward = true;
+  if (k === 's' || e.key === 'ArrowDown') moveState.backward = true;
+  if (k === 'a' || e.key === 'ArrowLeft') moveState.left = true;
+  if (k === 'd' || e.key === 'ArrowRight') moveState.right = true;
+  if (k === ' ' || k === 'e') moveState.up = true;
+  if (k === 'shift' || k === 'q') moveState.down = true;
+});
+window.addEventListener('keyup', e => {
+  if (state === S.PANEL) return;
+  const k = e.key.toLowerCase();
+  if (k === 'w' || e.key === 'ArrowUp') moveState.forward = false;
+  if (k === 's' || e.key === 'ArrowDown') moveState.backward = false;
+  if (k === 'a' || e.key === 'ArrowLeft') moveState.left = false;
+  if (k === 'd' || e.key === 'ArrowRight') moveState.right = false;
+  if (k === ' ' || k === 'e') moveState.up = false;
+  if (k === 'shift' || k === 'q') moveState.down = false;
+});
+
+let isMouseDown = false, prevMousePos = { x: 0, y: 0 };
+window.addEventListener('mousedown', e => {
+  if (state === S.PANEL) return;
+  isMouseDown = true;
+  prevMousePos = { x: e.clientX, y: e.clientY };
+});
+window.addEventListener('mouseup', () => { isMouseDown = false; });
+window.addEventListener('mousemove', e => {
+  if (!isMouseDown || state === S.PANEL || state === S.WARP) return;
+  const dx = e.clientX - prevMousePos.x;
+  const dy = e.clientY - prevMousePos.y;
+  prevMousePos = { x: e.clientX, y: e.clientY };
+  
+  const rotSpeed = 0.003;
+  const offset = camera.position.clone().sub(controls.target);
+  let radius = offset.length();
+  let theta = Math.atan2(offset.x, offset.z);
+  let phi = Math.acos(Math.max(-1, Math.min(1, offset.y / radius)));
+  
+  theta -= dx * rotSpeed;
+  phi -= dy * rotSpeed;
+  phi = Math.max(0.01, Math.min(Math.PI - 0.01, phi));
+  
+  offset.x = radius * Math.sin(phi) * Math.sin(theta);
+  offset.y = radius * Math.cos(phi);
+  offset.z = radius * Math.sin(phi) * Math.cos(theta);
+  
+  camera.position.copy(controls.target).add(offset);
+  camera.lookAt(controls.target);
+});
+
+// ===== Input (Click to pick or warp) =====
 const ray=new THREE.Raycaster(),mouse=new THREE.Vector2();let hov=null,lastTap=0;
 const setMouse=e=>{mouse.x=e.clientX/W()*2-1;mouse.y=-(e.clientY/H())*2+1;};
 const pick=()=>{ray.setFromCamera(mouse,camera);return ray.intersectObjects(planets.map(p=>p.mesh),true).filter(i=>i.object.userData.d).map(i=>({object:i.object.userData.mesh||i.object}));};
@@ -273,10 +374,8 @@ el.addEventListener('pointermove',e=>{if(e.pointerType!=='mouse'||state!==S.S2)r
 if(h.length){if(hov!==h[0].object){hov=h[0].object;document.body.style.cursor='pointer';gsap.to(hov.scale,{x:1.05,y:1.05,z:1.05,duration:.3});sfxHover();}}
 else if(hov){document.body.style.cursor='default';gsap.to(hov.scale,{x:1,y:1,z:1,duration:.3});hov=null;}});
 addEventListener('keydown',e=>{if(e.key!=='Escape')return;if(state===S.PANEL)closePanel();else if(state===S.S2)warpBackward();});
-const $=id=>document.getElementById(id),show=(id,v)=>{const e=$(id);if(e)e.style.display=v?'block':'none';};
-$('close').onclick=()=>state===S.PANEL&&closePanel();
+const $=id=>document.getElementById(id),show=(id,v)=>{const e=$(id);if(e)e.style.display=v?'block':'none';};$('close').onclick=()=>state===S.PANEL&&closePanel();
 function setHint(){}
-// small rotating copy of the exhibit's graph, shown in the corner of the panel
 let miniR=null,miniScene=null,miniCam=null,miniGrp=null;
 function showMini(d,mesh){const host=document.getElementById('mini');if(!host)return;
 if(!miniR){miniR=new THREE.WebGLRenderer({alpha:true,antialias:true});miniR.setPixelRatio(Math.min(devicePixelRatio,2));miniR.setSize(150,150);miniScene=new THREE.Scene();miniCam=new THREE.PerspectiveCamera(38,1,.1,200);miniCam.position.set(0,9,34);miniCam.lookAt(0,0,0);}
@@ -335,11 +434,39 @@ gsap.to(controls.target,{x:0,y:0,z:0,duration:1.5,ease:'power3.inOut',onComplete
 // ===== Loop =====
 const clock=new THREE.Clock();
 function animate(){requestAnimationFrame(animate);const dt=Math.min(clock.getDelta(),.05),t=clock.elapsedTime;
-if(state!==S.PANEL||true)controls.update();
+
+if(state!==S.PANEL){
+  const moveSpeed = 45 * dt;
+  const forward = new THREE.Vector3();
+  camera.getWorldDirection(forward); // Tự do 3D theo hướng nhìn camera
+  
+  const right = new THREE.Vector3();
+  right.crossVectors(forward, camera.up);
+  
+  const delta = new THREE.Vector3();
+  if (moveState.forward) delta.add(forward);
+  if (moveState.backward) delta.sub(forward);
+  if (moveState.left) delta.sub(right);
+  if (moveState.right) delta.add(right);
+  if (moveState.up) delta.y += 1;
+  if (moveState.down) delta.y -= 1;
+  
+  if (delta.lengthSq() > 0) {
+    delta.normalize().multiplyScalar(moveSpeed);
+    camera.position.add(delta);
+    controls.target.add(delta);
+  }
+}
+
+controls.update();
 const in1=composer.passes[0]===rp1;
 if(in1){disk.rotation.z-=.005;halo.lookAt(camera.position);const p=pGeo.attributes.position.array;
 for(let i=0;i<pCount;i++){const k=i*3,x=p[k],z=p[k+2],a=Math.atan2(z,x)+.02;let r=Math.hypot(x,z)-.05;if(r<3.5)r=30;p[k]=Math.cos(a)*r;p[k+2]=Math.sin(a)*r;}pGeo.attributes.position.needsUpdate=true;}
-else{mats.forEach(m=>m.uniforms.time.value=t);planets.forEach(p=>{p.mesh.rotation.y+=.004;p.sg.rotation.y-=.005;p.sg.children.forEach(s=>s.quaternion.copy(camera.quaternion));p.g.position.y=p.base.y+Math.sin(t+p.base.x)*1.5;});}
+else{
+  mats.forEach(m=>m.uniforms.time.value=t);
+  beamMats.forEach(m=>m.uniforms.time.value=t);
+  planets.forEach(p=>{p.mesh.rotation.y+=.004;p.sg.rotation.y-=.005;p.sg.children.forEach(s=>s.quaternion.copy(camera.quaternion));p.g.position.y=p.base.y+Math.sin(t+p.base.x)*1.5;});
+}
 updWarp(dt);composer.render();if(miniGrp&&state===S.PANEL){miniGrp.rotation.y+=.012;miniR.render(miniScene,miniCam);}}
 window.onload=animate;
 </script>
