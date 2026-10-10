@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="vi" class="antialiased">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Vũ Trụ Toán Học 3D</title>
+    
+    <!-- Tailwind CSS for UI -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- MathJax for rendering Mathematical Formulas -->
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
+            svg: { fontCache: 'global' },
+            startup: { typeset: false }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+    <!-- Three.js and Dependencies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Post Processing -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/RenderPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/CopyShader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/LuminosityHighPassShader.js"></script>
+
+    <!-- GSAP for Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <style>
+        body, html {
+            margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden;
+            background-color: #000; font-family: 'Inter', sans-serif; color: #fff;
+        }
+        #webgl-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
+        
+        /* Glassmorphism Styles */
+        .glass-panel {
+            background: rgba(10, 15, 30, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+        }
+        .glass-btn {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        .glass-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 0 20px rgba(100, 150, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        /* Typography & Scrollbar */
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.5); }
+
+        /* Animations */
+        .math-content-fade {
+            opacity: 0; transform: translateY(20px); transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .math-content-fade.active { opacity: 1; transform: translateY(0); }
+        
+        #flash-overlay { pointer-events: none; opacity: 0; z-index: 100; transition: opacity 0.1s; }
+        
+        .glow-text { text-shadow: 0 0 10px rgba(129, 140, 248, 0.8), 0 0 20px rgba(129, 140, 248, 0.4); }
+
+        /* Cursor Hint */
+        #cursor-hint {
+            position: fixed; pointer-events: none; z-index: 50; transform: translate(-50%, -50%);
+            transition: opacity 0.2s ease-out; opacity: 0; mix-blend-mode: screen;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Loader -->
+    <div id="loader" class="fixed inset-0 z-[200] bg-black flex flex-col items-center justify-center transition-opacity duration-1000">
+        <div class="w-20 h-20 border-t-2 border-r-2 border-indigo-500 rounded-full animate-spin mb-8"></div>
+        <div class="font-mono text-sm text-indigo-400 tracking-[0.3em] uppercase animate-pulse">Đang kiến tạo vũ trụ...</div>
+    </div>
+
+    <!-- Warp Flash Overlay -->
+    <div id="flash-overlay" class="fixed inset-0 bg-white"></div>
+
+    <!-- WebGL Container -->
+    <div id="webgl-container"></div>
+
+    <!-- Cursor Hint -->
+    <div id="cursor-hint" class="flex flex-col items-center">
+        <div class="w-3 h-3 border border-white rounded-full animate-ping"></div>
+        <div id="cursor-text" class="mt-2 text-xs font-mono tracking-widest uppercase text-white bg-black/60 px-3 py-1 rounded hidden backdrop-blur-sm border border-white/20">Khám Phá</div>
+    </div>
+
+    <!-- Scene 1: Gateway UI -->
+    <div id="gateway-ui" class="fixed inset-0 z-10 flex flex-col items-center justify-center pointer-events-none transition-opacity duration-1000">
+        <div class="text-center max-w-4xl px-6 pointer-events-auto">
+            <h3 class="font-mono text-sm text-indigo-300 tracking-[0.5em] uppercase mb-4 glow-text">Cánh Cổng Tri Thức</h3>
+            <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-8">
+                Vũ Trụ <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400">Toán Học</span>
+            </h1>
+            <p class="text-gray-300 text-sm md:text-base max-w-2xl mx-auto mb-12">Hành trình khám phá các định lý và công thức vĩ đại nhất của nhân loại qua không gian 3D chân thực.</p>
+            
+            <button id="warp-btn" class="glass-btn px-10 py-4 rounded-full font-mono text-sm tracking-widest uppercase text-white shadow-[0_0_20px_rgba(79,70,229,0.3)]">
+                Tiến Vào Không Gian
+            </button>
+        </div>
+    </div>
+
+    <!-- Scene 2: Universe UI HUD -->
+    <div id="universe-hud" class="fixed inset-0 z-10 pointer-events-none opacity-0 hidden flex flex-col justify-between p-6">
+        <div class="flex justify-between items-start">
+            <div class="bg-black/40 backdrop-blur-md px-4 py-2 rounded-full border border-white/10 pointer-events-auto">
+                <span class="font-mono text-xs tracking-widest text-indigo-300">SYSTEM: MATH COSMOS</span>
+            </div>
+            <div id="back-instruction" class="bg-black/60 backdrop-blur-md px-5 py-3 rounded-full border border-white/20 pointer-events-auto opacity-0 transform translate-y-[-10px] transition-all duration-500 shadow-[0_0_15px_rgba(0,0,0,0.8)] cursor-pointer hover:bg-black/80">
+                <span class="font-mono text-xs tracking-widest text-white flex items-center gap-2">
+                    <span>←</span> CLICK VÀO KHÔNG GIAN ĐỂ QUAY LẠI
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Info Panel -->
+    <div id="info-panel" class="fixed top-0 right-0 h-full w-full md:w-[500px] lg:w-[550px] glass-panel z-40 transform translate-x-full transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] overflow-y-auto">
+        <div class="relative min-h-full p-8 md:p-12">
+            <!-- Mobile Close -->
+            <button id="close-panel-btn" class="md:hidden absolute top-6 right-6 w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20">✕</button>
+
+            <!-- Dynamic Content -->
+            <div id="info-content" class="mt-8 md:mt-0 pb-10"></div>
+        </div>
+    </div>
+
+    <script>
+        const mathDomains = [
+            {
+                id: 'calculus',
+                title: 'Giải Tích (Calculus)',
+                subtitle: 'Nền tảng của sự thay đổi liên tục',
+                color: 0x3b82f6, // Blue
+                emissive: 0x1e3a8a,
+                position: [-30, 5, -20],
+                radius: 6,
+                type: 'earth', // Procedural earth-like
+                formulas: ['∫ f(x)dx', 'lim_{x→0}', 'dy/dx'],
+                content: `
+                    <p class="text-sm text-gray-300 leading-relaxed mb-6">Giải tích nghiên cứu về sự thay đổi và chuyển động. Nó là công cụ cốt lõi trong vật lý, kỹ thuật và kinh tế để mô hình hóa các hệ thống động.</p>
+                    <div class="bg-black/40 rounded-xl p-5 mb-5 border border-white/5">
+                        <h4 class="text-xs font-mono text-blue-400 mb-3 uppercase tracking-wider">Định lý Cơ bản của Giải tích</h4>
+                        <div class="text-center overflow-x-auto text-lg">$$ \\int_{a}^{b} f(x) dx = F(b) - F(a) $$</div>
+                        <p class="text-[11px] text-gray-400 mt-2">Liên kết khái niệm đạo hàm và tích phân.</p>
+                    </div>
+                    <div class="bg-black/40 rounded-xl p-5 mb-5 border border-white/5">
+                        <h4 class="text-xs font-mono text-blue-400 mb-3 uppercase tracking-wider">Đạo Hàm (Derivative)</h4>
+                        <div class="text-center overflow-x-auto text-lg">$$ f'(x) = \\lim_{h \\to 0} \\frac{f(x+h) - f(x)}{h} $$</div>
+                    </div>
+                `
+            },
+            {
+                id: 'linear_algebra',
+                title: 'Đại Số Tuyến Tính',
+                subtitle: 'Không gian vector và Ma trận',
+                color: 0xf59e0b, // Amber/Orange
+                emissive: 0x78350f,
+                position: [25, 12, -35],
+                radius: 8,
+                type: 'gas_giant', // Procedural gas giant with rings
+                formulas: ['Ax = λx', 'det(A)', 'R^n'],
+                content: `
+                    <p class="text-sm text-gray-300 leading-relaxed mb-6">Nền tảng của đồ họa 3D, học máy (Machine Learning) và cơ học lượng tử. Nghiên cứu các phép biến đổi không gian duy trì các đường thẳng và gốc tọa độ.</p>
+                    <div class="bg-black/40 rounded-xl p-5 mb-5 border border-white/5">
+                        <h4 class="text-xs font-mono text-amber-400 mb-3 uppercase tracking-wider">Phương trình Trị riêng (Eigenvalue)</h4>
+                        <div class="text-center overflow-x-auto text-lg">$$ A\\mathbf{v} = \\lambda\\mathbf{v} $$</div>
+                        <p class="text-[11px] text-gray-400 mt-2">Vector $\\mathbf{v}$ không thay đổi hướng khi bị biến đổi bởi ma trận $A$.</p>
+                    </div>
+                    <div class="bg-black/40 rounded-xl p-5 mb-5 border border-white/5">
+                        <h4 class="text-xs font-mono text-amber-400 mb-3 uppercase tracking-wider">Hệ Phương Trình</h4>
+                        <div class="text-center overflow-x-auto text-lg">$$ A\\mathbf{x} = \\mathbf{b} $$</div>
+                    </div>
+                `
+            },
+            {
+                id: 'geometry',
+                title: 'Hình Học & Lượng Giác',
+                subtitle: 'Hình dạng, kích thước và không gian',
+                color: 0x94a3b8, // Slate/White
+                emissive: 0x334155,
+                position: [-10, -20, -40],
+                radius: 5,
+                type: 'moon', // Rocky/Icy texture
+                formulas: ['a²+b²=c²', 'sin(θ)', 'πr²'],
+                content: `
+                    <p class="text-sm text-gray-300 leading-relaxed mb-6">Từ việc đo đạc Trái Đất cổ đại đến cấu trúc hình học phi Euclid của thuyết tương đối, hình học là ngôn ngữ mô tả hình dạng vũ trụ.</p>
+                    <div class="bg-black/40 rounded-xl p-5 mb-5 border border-white/5">
+                        <h4 class="text-xs font-mono text-slate-300 mb-3 uppercase tracking-wider">Định lý Pytago</h4>
+                        <div class="text-center overflow-x-auto text-lg">$$ a^2 + b^2 = c^2 $$</div>
+                    </div>
+                    <div class="bg-black/40 rounded-xl p-5 mb-5 border border-white/5">
+                        <h4 class="text-xs font-mono text-slate-300 mb-3 uppercase tracking-wider">Đẳng thức Euler</h4>
+                        <div class="text-center overflow-x-auto text-lg">$$ e^{i\\pi} + 1 = 0 $$</div>
+                        <p class="text-[11px] text-gray-400 mt-2">Được mệnh danh là công thức đẹp nhất toán học.</p>
+                    </div>
+                `
+            },
+            {
+                id: 'probability',
+                title: 'Xác Suất Thống Kê',
+                subtitle: 'Định lượng sự bất định',
+                color: 0x10b981, // Emerald/Green
+                emissive: 0x064e3b,
+                position: [35, -10, -20],
+                radius: 4.5,
+                type: 'energy', // Glowing energy/abstract
+                formulas: ['P(A|B)', 'N(μ,σ²)', 'E[X]'],
+                content: `
+                    <p class="text-sm text-gray-300 leading-relaxed mb-6">Cung cấp bộ công cụ toán học để đối phó với sự ngẫu nhiên và không chắc chắn, cốt lõi của khoa học dữ liệu và trí tuệ nhân tạo.</p>
+                    <div class="bg-black/40 rounded-xl p-5 mb-5 border border-white/5">
+                        <h4 class="text-xs font-mono text-emerald-400 mb-3 uppercase tracking-wider">Phân Phối Chuẩn (Gauss)</h4>
+                        <div class="text-center overflow-x-auto text-lg">$$ f(x) = \\frac{1}{\\sigma\\sqrt{2\\pi}} e^{-\\frac{1}{2}\\left(\\frac{x-\\mu}{\\sigma}\\right)^2} $$</div>
+                    </div>
+                    <div class="bg-black/40 rounded-xl p-5 mb-5 border border-white/5">
+                        <h4 class="text-xs font-mono text-emerald-400 mb-3 uppercase tracking-wider">Định lý Bayes</h4>
+                        <div class="text-center overflow-x-auto text-lg">$$ P(A|B) = \\frac{P(B|A)P(A)}{P(B)} $$</div>
+                    </div>
+                `
+            }
+        ];
+
+        const container = document.getElementById('webgl-container');
+        
+        // Renderer
+        const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: "high-performance", alpha: false });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.toneMapping = THREE.ReinhardToneMapping;
+        renderer.toneMappingExposure = 1.2;
+        container.appendChild(renderer.domElement);
+
+        // Core State
+        let currentSceneState = 'gateway'; // 'gateway' or 'universe'
+        let isTransitioning = false;
+        let activePlanet = null;
+        let isPanelOpen = false;
+
+        // Camera
+        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 2000);
+        
+        // Scenes
+        const sceneGateway = new THREE.Scene();
+        sceneGateway.background = new THREE.Color(0x020205);
+        sceneGateway.fog = new THREE.FogExp2(0x020205, 0.005);
+
+        const sceneUniverse = new THREE.Scene();
+        sceneUniverse.background = new THREE.Color(0x010103);
+        sceneUniverse.fog = new THREE.FogExp2(0x010103, 0.003);
+
+        // Post-Processing (Bloom for glowing effects)
+        const renderPassGateway = new THREE.RenderPass(sceneGateway, camera);
+        const renderPassUniverse = new THREE.RenderPass(sceneUniverse, camera);
+        
+        const bloomPass = new THREE.UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.5, 0.4, 0.1);
+        
+        const composer = new THREE.EffectComposer(renderer);
+        composer.addPass(renderPassGateway);
+        composer.addPass(bloomPass);
+
+        // Raycasting
+        const raycaster = new THREE.Raycaster();
+        const mouse = new THREE.Vector2();
+
+
+        // Utility to generate textures procedurally since external images aren't used
+        
+        // 1. Simple seeded PRNG & Noise approximation
+        function pseudoNoise(x, y) {
+            return (Math.sin(x * 12.9898 + y * 78.233) * 43758.5453) % 1;
+        }
+
+        // 2. Generate Gas Giant Texture (Bands)
+        function generateGasGiantTexture() {
+            const canvas = document.createElement('canvas');
+            canvas.width = 1024; canvas.height = 512;
+            const ctx = canvas.getContext('2d');
+            
+            for (let y = 0; y < canvas.height; y++) {
+                // Base banding based on sine waves and noise
+                let noise = pseudoNoise(0, y * 0.02);
+                let intensity = (Math.sin(y * 0.05) + Math.cos(y * 0.1 + noise * 5)) * 0.5 + 0.5;
+                
+                // Colors: deep orange to pale yellow/purple
+                let r = Math.floor(100 + intensity * 155);
+                let g = Math.floor(50 + intensity * 100);
+                let b = Math.floor(30 + pseudoNoise(y, y)*50);
+                
+                ctx.fillStyle = `rgb(${r},${g},${b})`;
+                ctx.fillRect(0, y, canvas.width, 1);
+            }
+            // Add some storm spots
+            for(let i=0; i<10; i++){
+                ctx.beginPath();
+                ctx.ellipse(Math.random()*1024, Math.random()*512, 40+Math.random()*60, 15+Math.random()*20, 0, 0, Math.PI*2);
+                ctx.fillStyle = `rgba(150, 60, 20, 0.3)`;
+                ctx.fill();
+            }
+            const tex = new THREE.CanvasTexture(canvas);
+            tex.anisotropy = 16;
+            return tex;
+        }
+
+        // 3. Generate Earth-like Texture
+        function generateEarthTexture() {
+            const canvas = document.createElement('canvas');
+            canvas.width = 1024; canvas.height = 512;
+            const ctx = canvas.getContext('2d');
+            
+            // Ocean background
+            ctx.fillStyle = '#0f2c5c';
+            ctx.fillRect(0, 0, 1024, 512);
+            
+            // Procedural landmasses using overlapping circles (fake Voronoi/cellular)
+            ctx.fillStyle = '#1b5e20'; // Green land
+            for(let i=0; i<300; i++) {
+                let x = Math.random() * 1024;
+                let y = Math.random() * 512;
+                let r = 10 + Math.random() * 40;
+                // Keep poles icy/watery
+                if (y < 50 || y > 460) continue; 
+                ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.fill();
+            }
+            // Ice caps
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0,0, 1024, 40);
+            ctx.fillRect(0,472, 1024, 40);
+
+            const tex = new THREE.CanvasTexture(canvas);
+            tex.anisotropy = 16;
+            return tex;
+        }
+
+        // 4. Generate Moon/Rocky Texture
+        function generateMoonTexture() {
+            const canvas = document.createElement('canvas');
+            canvas.width = 1024; canvas.height = 512;
+            const ctx = canvas.getContext('2d');
+            
+            ctx.fillStyle = '#64748b';
+            ctx.fillRect(0,0,1024,512);
+            
+            // Craters
+            for(let i=0; i<500; i++) {
+                let x = Math.random() * 1024, y = Math.random() * 512;
+                let r = Math.random() * 15;
+                ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2);
+                ctx.fillStyle = `rgba(0,0,0,${Math.random()*0.3})`;
+                ctx.fill();
+                ctx.beginPath(); ctx.arc(x-1,y-1,r*0.8,0,Math.PI*2);
+                ctx.fillStyle = `rgba(255,255,255,${Math.random()*0.2})`;
+                ctx.fill();
+            }
+            const tex = new THREE.CanvasTexture(canvas);
+            tex.anisotropy = 16;
+            return tex;
+        }
+
+        // --- SCENE 1 SETUP ---
+        camera.position.set(0, 10, 50);
+        camera.lookAt(0, 0, 0);
+
+        const gatewayGroup = new THREE.Group();
+        sceneGateway.add(gatewayGroup);
+
+        // Majestic Spiral Galaxy using Particles
+        const galaxyGeo = new THREE.BufferGeometry();
+        const particleCount = 20000;
+        const positions = new Float32Array(particleCount * 3);
+        const colors = new Float32Array(particleCount * 3);
+        
+        const colorInside = new THREE.Color(0xfff5eb); // Bright core
+        const colorOutside = new THREE.Color(0x3b82f6); // Blue edges
+        
+        for (let i = 0; i < particleCount; i++) {
+            // Archimedean spiral formula with randomness
+            const radius = Math.random() * 30;
+            const branchAngle = (i % 3) * ((Math.PI * 2) / 3); // 3 arms
+            const spinAngle = radius * 0.5;
+            
+            const randomX = Math.pow(Math.random(), 2) * (Math.random() < 0.5 ? 1 : -1) * 2;
+            const randomY = Math.pow(Math.random(), 3) * (Math.random() < 0.5 ? 1 : -1) * 1.5;
+            const randomZ = Math.pow(Math.random(), 2) * (Math.random() < 0.5 ? 1 : -1) * 2;
+
+            positions[i * 3] = Math.cos(branchAngle + spinAngle) * radius + randomX;
+            positions[i * 3 + 1] = randomY;
+            positions[i * 3 + 2] = Math.sin(branchAngle + spinAngle) * radius + randomZ;
+
+            // Mix colors based on radius
+            const mixedColor = colorInside.clone().lerp(colorOutside, radius / 30);
+            colors[i * 3] = mixedColor.r;
+            colors[i * 3 + 1] = mixedColor.g;
+            colors[i * 3 + 2] = mixedColor.b;
+        }
+        
+        galaxyGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        galaxyGeo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+        
+        // Circular sprite for particles to look glowing
+        const pCanvas = document.createElement('canvas');
+        pCanvas.width = 32; pCanvas.height = 32;
+        const pCtx = pCanvas.getContext('2d');
+        const pGrad = pCtx.createRadialGradient(16,16,0, 16,16,16);
+        pGrad.addColorStop(0, 'rgba(255,255,255,1)');
+        pGrad.addColorStop(1, 'rgba(0,0,0,0)');
+        pCtx.fillStyle = pGrad;
+        pCtx.fillRect(0,0,32,32);
+        const pTex = new THREE.CanvasTexture(pCanvas);
+
+        const galaxyMat = new THREE.PointsMaterial({
+            size: 0.8,
+            vertexColors: true,
+            map: pTex,
+            blending: THREE.AdditiveBlending,
+            depthWrite: false,
+            transparent: true
+        });
+        
+        const galaxy = new THREE.Points(galaxyGeo, galaxyMat);
+        galaxy.rotation.x = Math.PI * 0.2;
+        gatewayGroup.add(galaxy);
+
+        // Gateway Background Stars
+        const gwStarsGeo = new THREE.BufferGeometry();
+        const gwStarsPos = new Float32Array(5000 * 3);
+        for(let i=0; i<15000; i++) gwStarsPos[i] = (Math.random()-0.5)*200;
+        gwStarsGeo.setAttribute('position', new THREE.BufferAttribute(gwStarsPos, 3));
+        const gwStarsMat = new THREE.PointsMaterial({color: 0xffffff, size: 0.2, transparent: true, opacity: 0.6});
+        sceneGateway.add(new THREE.Points(gwStarsGeo, gwStarsMat));
+
+
+        // --- SCENE 2 SETUP ---
+        const universeGroup = new THREE.Group();
+        sceneUniverse.add(universeGroup);
+
+        // Lighting
+        sceneUniverse.add(new THREE.AmbientLight(0xffffff, 0.3));
+        const sunLight = new THREE.PointLight(0xffffff, 1.5, 200);
+        sunLight.position.set(0, 0, 0); // Light emanates from center
+        sceneUniverse.add(sunLight);
+
+        // Add a giant glowing core/sun in the center
+        const coreGeo = new THREE.SphereGeometry(3, 32, 32);
+        const coreMat = new THREE.MeshBasicMaterial({ color: 0xfffcf5, map: pTex }); // Reuse particle tex for soft edge
+        sceneUniverse.add(new THREE.Mesh(coreGeo, coreMat));
+
+        // Create Text Sprite utility for Math Formulas
+        function createTextSprite(message) {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            ctx.font = "Bold 60px 'JetBrains Mono', monospace";
+            const textWidth = ctx.measureText(message).width;
+            canvas.width = textWidth + 20;
+            canvas.height = 80;
+            
+            // Redefine ctx after resize
+            const ctx2 = canvas.getContext('2d');
+            ctx2.font = "Bold 60px 'JetBrains Mono', monospace";
+            ctx2.fillStyle = "rgba(255, 255, 255, 0.9)";
+            ctx2.textAlign = "center";
+            ctx2.textBaseline = "middle";
+            
+            // Add subtle glow
+            ctx2.shadowColor = "rgba(255,255,255,0.8)";
+            ctx2.shadowBlur = 10;
+            ctx2.fillText(message, canvas.width/2, canvas.height/2);
+            
+            const tex = new THREE.CanvasTexture(canvas);
+            const mat = new THREE.SpriteMaterial({ map: tex, transparent: true, blending: THREE.AdditiveBlending });
+            const sprite = new THREE.Sprite(mat);
+            sprite.scale.set(canvas.width * 0.05, canvas.height * 0.05, 1);
+            return sprite;
+        }
+
+        const planets = [];
+
+        mathDomains.forEach((domain) => {
+            const planetGroup = new THREE.Group();
+            planetGroup.position.set(...domain.position);
+            
+            // Determine Geometry and Material based on type
+            const geo = new THREE.SphereGeometry(domain.radius, 64, 64);
+            let mat;
+            let tex;
+
+            switch(domain.type) {
+                case 'gas_giant':
+                    tex = generateGasGiantTexture();
+                    mat = new THREE.MeshStandardMaterial({ map: tex, roughness: 0.3 });
+                    // Add rings
+                    const ringGeo = new THREE.RingGeometry(domain.radius * 1.4, domain.radius * 2.2, 64);
+                    const ringMat = new THREE.MeshStandardMaterial({ 
+                        color: domain.color, side: THREE.DoubleSide, transparent: true, opacity: 0.8,
+                        emissive: domain.color, emissiveIntensity: 0.1
+                    });
+                    const ring = new THREE.Mesh(ringGeo, ringMat);
+                    ring.rotation.x = Math.PI / 2.2;
+                    planetGroup.add(ring);
+                    break;
+                case 'earth':
+                    tex = generateEarthTexture();
+                    mat = new THREE.MeshStandardMaterial({ map: tex, roughness: 0.8, bumpMap: tex, bumpScale: 0.05 });
+                    // Add atmosphere glow
+                    const atmosGeo = new THREE.SphereGeometry(domain.radius * 1.05, 32, 32);
+                    const atmosMat = new THREE.MeshBasicMaterial({ color: 0x4dabf7, transparent: true, opacity: 0.2, blending: THREE.AdditiveBlending });
+                    planetGroup.add(new THREE.Mesh(atmosGeo, atmosMat));
+                    break;
+                case 'moon':
+                    tex = generateMoonTexture();
+                    mat = new THREE.MeshStandardMaterial({ map: tex, roughness: 0.9, bumpMap: tex, bumpScale: 0.2 });
+                    break;
+                case 'energy':
+                    mat = new THREE.MeshStandardMaterial({ 
+                        color: 0x000000, emissive: domain.color, emissiveIntensity: 0.8, wireframe: true 
+                    });
+                    // Inner solid core
+                    const inner = new THREE.Mesh(new THREE.SphereGeometry(domain.radius*0.9, 32,32), new THREE.MeshBasicMaterial({color: 0x000000}));
+                    planetGroup.add(inner);
+                    break;
+            }
+
+            const mesh = new THREE.Mesh(geo, mat);
+            // Store data for interactions
+            mesh.userData = { isPlanet: true, data: domain, group: planetGroup };
+            planetGroup.add(mesh);
+
+            // Add floating math formulas around the planet
+            const formulasObj = new THREE.Group();
+            domain.formulas.forEach((f, idx) => {
+                const sprite = createTextSprite(f);
+                const angle = (idx / domain.formulas.length) * Math.PI * 2;
+                const dist = domain.radius * 1.5;
+                sprite.position.set(Math.cos(angle)*dist, (Math.random()-0.5)*domain.radius, Math.sin(angle)*dist);
+                formulasObj.add(sprite);
+            });
+            planetGroup.add(formulasObj);
+
+            universeGroup.add(planetGroup);
+            planets.push({
+                group: planetGroup,
+                mesh: mesh,
+                formulas: formulasObj,
+                orbitRadius: Math.sqrt(domain.position[0]**2 + domain.position[2]**2),
+                angle: Math.atan2(domain.position[2], domain.position[0]),
+                speed: 0.0005 + Math.random() * 0.001
+            });
+        });
+
+        // Universe Background Starfield (More dense and colorful)
+        const uStarsGeo = new THREE.BufferGeometry();
+        const uStarsPos = new Float32Array(10000 * 3);
+        const uStarsCol = new Float32Array(10000 * 3);
+        const colTemp = new THREE.Color();
+        for(let i=0; i<30000; i+=3) { 
+            uStarsPos[i] = (Math.random() - 0.5) * 400; 
+            uStarsPos[i+1] = (Math.random() - 0.5) * 400; 
+            uStarsPos[i+2] = (Math.random() - 0.5) * 400; 
+            
+            // Random bluish/purplish tints
+            colTemp.setHSL(0.6 + Math.random()*0.2, 0.8, 0.5 + Math.random()*0.5);
+            uStarsCol[i] = colTemp.r; uStarsCol[i+1] = colTemp.g; uStarsCol[i+2] = colTemp.b;
+        }
+        uStarsGeo.setAttribute('position', new THREE.BufferAttribute(uStarsPos, 3));
+        uStarsGeo.setAttribute('color', new THREE.BufferAttribute(uStarsCol, 3));
+        const uStarsMat = new THREE.PointsMaterial({size: 0.3, vertexColors: true, transparent: true, opacity: 0.8});
+        sceneUniverse.add(new THREE.Points(uStarsGeo, uStarsMat));
+
+
+        // Event Listeners
+        window.addEventListener('resize', onWindowResize);
+        window.addEventListener('mousemove', onMouseMove);
+        window.addEventListener('click', onClick);
+        document.getElementById('warp-btn').addEventListener('click', initiateWarp);
+        document.getElementById('close-panel-btn').addEventListener('click', closePanel);
+        document.getElementById('back-instruction').addEventListener('click', closePanel);
+
+        // Custom Cursor Elements
+        const cursorHint = document.getElementById('cursor-hint');
+        const cursorText = document.getElementById('cursor-text');
+        let hoveredMesh = null;
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            composer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        function onMouseMove(event) {
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+            // Move cursor hint
+            gsap.to(cursorHint, { x: event.clientX, y: event.clientY, duration: 0.1, ease: "none" });
+
+            if (currentSceneState === 'gateway' && !isTransitioning) {
+                // Parallax for Gateway
+                gsap.to(camera.position, {
+                    x: mouse.x * 5, y: 10 + mouse.y * 5, duration: 1, ease: "power2.out"
+                });
+                camera.lookAt(0,0,0);
+            }
+
+            if (currentSceneState === 'universe' && !isTransitioning && !isPanelOpen) {
+                // Raycasting to find planets
+                raycaster.setFromCamera(mouse, camera);
+                // Collect all meshes
+                const objectsToTest = planets.map(p => p.mesh);
+                const intersects = raycaster.intersectObjects(objectsToTest);
+                
+                if (intersects.length > 0) {
+                    const object = intersects[0].object;
+                    if (hoveredMesh !== object) {
+                        hoveredMesh = object;
+                        document.body.style.cursor = 'pointer';
+                        cursorHint.style.opacity = 1;
+                        cursorText.style.display = 'block';
+                        cursorText.innerText = object.userData.data.title;
+                        
+                        // Highlight effect (scale up slightly)
+                        gsap.to(object.parent.scale, { x: 1.05, y: 1.05, z: 1.05, duration: 0.3 });
+                    }
+                } else {
+                    if (hoveredMesh) {
+                        document.body.style.cursor = 'default';
+                        cursorHint.style.opacity = 0;
+                        cursorText.style.display = 'none';
+                        
+                        gsap.to(hoveredMesh.parent.scale, { x: 1, y: 1, z: 1, duration: 0.3 });
+                        hoveredMesh = null;
+                    }
+                }
+            }
+        }
+
+        function onClick(event) {
+            if (isTransitioning) return;
+
+            if (currentSceneState === 'universe') {
+                if (isPanelOpen) {
+                    // Click outside info panel to close
+                    const panelWidth = document.getElementById('info-panel').offsetWidth;
+                    if (event.clientX < window.innerWidth - panelWidth) {
+                        closePanel();
+                    }
+                } else if (hoveredMesh) {
+                    openPanel(hoveredMesh);
+                }
+            }
+        }
+
+
+        function initiateWarp() {
+            if (isTransitioning) return;
+            isTransitioning = true;
+            
+            // Hide intro UI
+            document.getElementById('gateway-ui').style.opacity = 0;
+            
+            const tl = gsap.timeline();
+            
+            // 1. Camera dives into galaxy center
+            tl.to(camera.position, { x: 0, y: 0, z: -10, duration: 2.5, ease: "power3.in" }, 0);
+            
+            // 2. FOV stretches for warp effect
+            tl.to(camera, { fov: 150, duration: 2.5, ease: "power3.in", onUpdate: () => camera.updateProjectionMatrix() }, 0);
+
+            // 3. Flash white
+            tl.to('#flash-overlay', { opacity: 1, duration: 0.3, ease: "power1.inOut" }, 2.2);
+
+            // 4. Switch rendering passes behind the flash
+            tl.add(() => {
+                currentSceneState = 'universe';
+                composer.removePass(renderPassGateway);
+                composer.insertPass(renderPassUniverse, 0);
+                
+                // Set initial overview position in Universe
+                camera.position.set(0, 60, 80);
+                camera.lookAt(0,0,0);
+            }, 2.5);
+
+            // 5. Fade out flash and normalize FOV
+            tl.to('#flash-overlay', { opacity: 0, duration: 1.5, ease: "power2.out" }, 2.6);
+            tl.to(camera, { fov: 60, duration: 2, ease: "power2.out", onUpdate: () => camera.updateProjectionMatrix() }, 2.6);
+
+            // 6. Show Universe HUD
+            tl.add(() => {
+                const hud = document.getElementById('universe-hud');
+                hud.classList.remove('hidden');
+                setTimeout(() => hud.style.opacity = 1, 50);
+                isTransitioning = false;
+            }, 4.0);
+        }
+
+        // Camera look target for smooth panning
+        let currentLookAt = new THREE.Vector3(0,0,0);
+
+        function openPanel(planetMesh) {
+            if (isTransitioning) return;
+            isTransitioning = true;
+            isPanelOpen = true;
+            activePlanet = planetMesh.userData.group;
+
+            const data = planetMesh.userData.data;
+            document.body.style.cursor = 'default';
+            cursorHint.style.opacity = 0;
+
+            // 1. Inject HTML Content
+            const contentDiv = document.getElementById('info-content');
+            contentDiv.innerHTML = `
+                <div class="math-content-fade">
+                    <div class="inline-block px-3 py-1 rounded-full bg-white/10 text-[10px] font-mono tracking-widest text-white/70 mb-4 border border-white/5 uppercase">
+                        Hành Tinh: ${data.id}
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-2" style="color: #${data.color.toString(16).padStart(6,'0')}">${data.title}</h2>
+                    <h3 class="text-sm font-mono text-gray-400 mb-8 border-b border-white/10 pb-4">${data.subtitle}</h3>
+                    ${data.content}
+                </div>
+            `;
+
+            // Process MathJax
+            MathJax.typesetPromise([contentDiv]).then(() => {
+                // Slide UI In
+                document.getElementById('info-panel').classList.remove('translate-x-full');
+                document.getElementById('back-instruction').style.opacity = 1;
+                document.getElementById('back-instruction').style.transform = 'translateY(0)';
+                
+                setTimeout(() => {
+                    document.querySelectorAll('.math-content-fade').forEach(el => el.classList.add('active'));
+                }, 300);
+            });
+
+            // 2. Camera Fly-To Animation
+            const targetPos = new THREE.Vector3();
+            activePlanet.getWorldPosition(targetPos);
+            
+            // Offset camera to keep planet on the left side of the screen
+            const offset = targetPos.clone().normalize().multiplyScalar(data.radius * 3.5);
+            offset.y += data.radius * 0.5; // Look slightly down
+            
+            // Calculate right offset based on panel width
+            const rightOffset = new THREE.Vector3(1, 0, 0).applyQuaternion(camera.quaternion).multiplyScalar(data.radius * -1.5);
+            
+            const camPos = targetPos.clone().add(offset).add(rightOffset);
+
+            gsap.to(camera.position, { x: camPos.x, y: camPos.y, z: camPos.z, duration: 1.8, ease: "power3.inOut" });
+
+            gsap.to(currentLookAt, {
+                x: targetPos.x, y: targetPos.y, z: targetPos.z, duration: 1.8, ease: "power3.inOut",
+                onUpdate: () => camera.lookAt(currentLookAt),
+                onComplete: () => { isTransitioning = false; }
+            });
+        }
+
+        function closePanel() {
+            if (isTransitioning) return;
+            isTransitioning = true;
+            isPanelOpen = false;
+            
+            // Hide UI
+            document.getElementById('back-instruction').style.opacity = 0;
+            document.getElementById('back-instruction').style.transform = 'translateY(-10px)';
+            document.querySelectorAll('.math-content-fade').forEach(el => el.classList.remove('active'));
+            document.getElementById('info-panel').classList.add('translate-x-full');
+
+            // Fly Camera back to Overview
+            // Calculate a point opposite to current angle for dynamic feel
+            const currentAngle = Math.atan2(camera.position.z, camera.position.x);
+            const radius = 80;
+            
+            gsap.to(camera.position, {
+                x: Math.cos(currentAngle - Math.PI/4) * radius, y: 60, z: Math.sin(currentAngle - Math.PI/4) * radius,
+                duration: 2, ease: "power3.inOut"
+            });
+
+            gsap.to(currentLookAt, {
+                x: 0, y: 0, z: 0, duration: 2, ease: "power3.inOut",
+                onUpdate: () => camera.lookAt(currentLookAt),
+                onComplete: () => { activePlanet = null; isTransitioning = false; }
+            });
+        }
+
+
+        const clock = new THREE.Clock();
+
+        function animate() {
+            requestAnimationFrame(animate);
+            const time = clock.getElapsedTime();
+
+            if (currentSceneState === 'gateway') {
+                // Rotate the gateway galaxy
+                gatewayGroup.rotation.y = time * 0.05;
+                
+            } else if (currentSceneState === 'universe') {
+                
+                // Animate planets
+                planets.forEach(p => {
+                    // Axial rotation
+                    p.mesh.rotation.y += 0.005;
+                    if(p.mesh.userData.data.type === 'energy') p.mesh.rotation.x += 0.01;
+
+                    // Orbital revolution (Pause if panel is open)
+                    if (!isPanelOpen) {
+                        p.angle -= p.speed;
+                        p.group.position.x = Math.cos(p.angle) * p.orbitRadius;
+                        p.group.position.z = Math.sin(p.angle) * p.orbitRadius;
+                    }
+
+                    // Rotate floating formulas around the planet
+                    p.formulas.rotation.y -= 0.01;
+                    
+                    // Make formulas face the camera
+                    p.formulas.children.forEach(sprite => {
+                        sprite.quaternion.copy(camera.quaternion);
+                    });
+                });
+            }
+
+            composer.render();
+        }
+
+        // Initialize App
+        window.onload = () => {
+            // Ensure shaders compile before removing loader
+            setTimeout(() => {
+                const loader = document.getElementById('loader');
+                loader.style.opacity = 0;
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                    document.getElementById('gateway-ui').style.opacity = 1;
+                    document.getElementById('gateway-ui').classList.remove('pointer-events-none');
+                }, 1000);
+            }, 2000);
+            
+            animate();
+        };
+
+    </script>
+</body>
+</html>
