@@ -1,698 +1,347 @@
 <!DOCTYPE html>
-<html lang="vi" class="antialiased">
+<html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>The Mathematical Singularity</title>
-    
-    <!-- Tailwind CSS for UI -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
-    
-    <!-- MathJax for rendering Mathematical Formulas -->
-    <script>
-        window.MathJax = {
-            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
-            svg: { fontCache: 'global' },
-            startup: { typeset: false } // Manual trigger
-        };
-    </script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>The Mathematical Singularity</title>
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+<script>window.MathJax={tex:{inlineMath:[['$','$']],displayMath:[['$$','$$']]},svg:{fontCache:'global'},startup:{typeset:false}};</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/RenderPass.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/CopyShader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/LuminosityHighPassShader.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<style>
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000;font-family:'Inter',sans-serif;color:#fff;user-select:none;-webkit-user-select:none}
+#gl{position:absolute;inset:0;touch-action:none}
+.glass{background:rgba(10,10,15,.55);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-left:1px solid rgba(255,255,255,.1);box-shadow:-20px 0 50px rgba(0,0,0,.8)}
+#flash{pointer-events:none;opacity:0;z-index:100;background:#fff}
+.fade{opacity:0;transform:translateY(20px);transition:all .6s cubic-bezier(.16,1,.3,1)}.fade.on{opacity:1;transform:none}
+.code{font-family:'Fira Code',monospace}
+.btn{position:fixed;z-index:60;padding:.55rem .9rem;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);backdrop-filter:blur(10px);font-size:14px;cursor:pointer;display:none;-webkit-tap-highlight-color:transparent}
+.btn:active{background:rgba(255,255,255,.2)}
 
-    <!-- Three.js and Dependencies -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
-    
-    <!-- Post Processing -->
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/RenderPass.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/CopyShader.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/LuminosityHighPassShader.js"></script>
-
-    <!-- GSAP for Animations -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-
-    <style>
-        body, html {
-            margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden;
-            background-color: #000; font-family: 'Inter', sans-serif; color: #fff;
-            user-select: none;
-        }
-        #webgl-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
-        
-        /* Glassmorphism Panel */
-        .glass-panel {
-            background: rgba(10, 10, 15, 0.4);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border-left: 1px solid rgba(255, 255, 255, 0.1);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: -20px 0 50px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(255, 255, 255, 0.05);
-        }
-
-        /* Animations */
-        #flash-overlay { pointer-events: none; opacity: 0; z-index: 100; transition: opacity 0.1s; background: #fff;}
-        .warp-lines { background: radial-gradient(circle, transparent 20%, #000 120%); }
-
-        .content-fade {
-            opacity: 0; transform: translateY(20px); transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .content-fade.active { opacity: 1; transform: translateY(0); }
-        
-        /* Typography */
-        .font-code { font-family: 'Fira Code', monospace; }
-        
-        /* Scrollbar */
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
-    </style>
+.fly{position:fixed;z-index:45;pointer-events:none;font-family:'Fira Code',monospace;font-weight:600;font-size:30px;text-shadow:0 0 14px currentColor}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:rgba(255,255,255,.2);border-radius:4px}
+</style>
 </head>
 <body>
+<div id="flash" class="fixed inset-0"></div>
+<div id="gl"></div>
 
-    <!-- Warp Flash Overlay -->
-    <div id="flash-overlay" class="fixed inset-0"></div>
+<button id="mute" class="btn" style="display:block;top:calc(env(safe-area-inset-top,0px) + 14px);left:14px">🔊</button>
 
-    <!-- WebGL Container -->
-    <div id="webgl-container"></div>
-    
-    <!-- Central invisible hit area for Black Hole to make clicking easier -->
-    <div id="bh-hitbox" class="fixed top-1/2 left-1/2 w-64 h-64 -translate-x-1/2 -translate-y-1/2 z-10 cursor-pointer rounded-full opacity-0"></div>
+<button id="close" class="btn" style="top:calc(env(safe-area-inset-top,0px) + 14px);right:14px;font-size:16px">✕ Đóng</button>
+<div id="panel" class="fixed top-0 right-0 h-full w-full md:w-[500px] lg:w-[560px] glass z-40 translate-x-full transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] overflow-y-auto">
+<div class="min-h-full p-6 pt-20 md:p-12" id="info"></div></div>
 
-    <!-- Info Panel (Math Formulas) -->
-    <div id="info-panel" class="fixed top-0 right-0 h-full w-full md:w-[500px] lg:w-[600px] glass-panel z-40 transform translate-x-full transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] overflow-y-auto">
-        <div class="relative min-h-full p-8 md:p-12" id="info-content">
-            <!-- Content injected dynamically -->
-        </div>
-    </div>
+<script>
+const card=(t,tex)=>`<div class="fade bg-white/5 rounded-xl p-5 mb-4 border border-white/10"><h4 class="text-xs code text-gray-400 mb-2">${t}</h4><div class="text-center text-lg overflow-x-auto">$$${tex}$$</div></div>`;
+const page=(n,title,c,cards,note)=>`<div class="fade"><div style="display:flex;align-items:center;gap:12px;margin-bottom:14px"><div style="flex:1;min-width:0"><div class="inline-block px-3 py-1 rounded border code text-xs mb-3" style="color:${c};border-color:${c}55;background:${c}18">SECTOR ${String(n).padStart(2,'0')}</div><h2 class="text-3xl md:text-4xl font-bold" style="color:${c}">${title}</h2></div><div id="mini" style="width:150px;height:150px;flex:none"></div></div><div class="fade rounded-xl p-4 mb-4" style="border:1px solid ${c}55;background:${c}12"><h4 class="text-xs code mb-1" style="color:${c}">CÁCH ĐỌC ĐỒ THỊ</h4><p class="text-sm text-gray-300 leading-relaxed">${note}</p></div>${cards.map(x=>card(...x)).join('')}</div>`;
+const P=(h1,h2)=>[new THREE.Color(h1),new THREE.Color(h2)];
+const mathData=[
+{title:'Giải Tích',c:'#6cc4dc',col:P(0x2fa4c4,0x4a78d0),pos:[-30,5,-20],sym:['∫','dx','lim','∞','∑'],cards:[
+['Định lý cơ bản','\\int_a^b f(x)dx=F(b)-F(a)'],['Đạo hàm','f\'(x)=\\lim_{h\\to0}\\frac{f(x+h)-f(x)}{h}'],['Chuỗi Taylor','f(x)=\\sum_{n=0}^{\\infty}\\frac{f^{(n)}(a)}{n!}(x-a)^n']]},
+{title:'Đại Số Tuyến Tính',c:'#e0a860',col:P(0xd89a4a,0xe8c070),pos:[25,-10,-35],sym:['λ','A','v','det','ℝⁿ'],cards:[
+['Trị riêng','A\\mathbf{v}=\\lambda\\mathbf{v}'],['Định thức 2x2','\\det\\begin{pmatrix}a&b\\\\c&d\\end{pmatrix}=ad-bc']]},
+{title:'Xác Suất & Lượng Tử',c:'#e0708f',col:P(0xc85a7c,0xe0905a),pos:[-10,20,-50],sym:['Ψ','ħ','μ','σ²','P'],cards:[
+['Phương trình Schrödinger','i\\hbar\\frac{\\partial}{\\partial t}|\\Psi\\rangle=\\hat{H}|\\Psi\\rangle'],['Định lý Bayes','P(A|B)=\\frac{P(B|A)P(A)}{P(B)}']]},
+{title:'Hình Học',c:'#6cc890',col:P(0x3fae78,0x9ccf68),pos:[32,14,-10],sym:['π','△','∠','κ','χ'],cards:[
+['Pythagoras','a^2+b^2=c^2'],['Đặc số Euler (khối đa diện)','\\chi=V-E+F=2'],['Gauss–Bonnet','\\int_M K\\,dA=2\\pi\\chi(M)']]},
+{title:'Số Học',c:'#a48cd8',col:P(0x8e72cc,0x6c58bc),pos:[-15,-16,-8],sym:['ℤ','p','mod','φ','ζ'],cards:[
+['Đồng nhất thức Euler','e^{i\\pi}+1=0'],['Định lý Fermat nhỏ','a^{p-1}\\equiv1\\pmod p'],['Tích Euler của Riemann','\\zeta(s)=\\sum_{n\\ge1}\\frac1{n^s}=\\prod_{p}\\frac1{1-p^{-s}}']]},
+{title:'Lý Thuyết Đồ Thị',c:'#e07878',col:P(0xd05f5f,0xe08868),pos:[-38,18,-55],sym:['G','V','E','χ','K₄'],cards:[
+['Bổ đề bắt tay','\\sum_{v\\in V}\\deg(v)=2|E|'],['Công thức Cayley','\\#\\{\\text{cây trên }n\\text{ đỉnh}\\}=n^{n-2}'],['Đa thức sắc độ của $K_n$','P(K_n,k)=k(k-1)\\cdots(k-n+1)']]}
+];
+mathData.push(
+{title:'Tô Pô',c:'#5cc8b0',col:P(0x3aa890,0x68c898),pos:[5,-22,-45],sym:['τ','∂','≅','S¹','χ'],cards:[['Đặc số Euler (mặt có g lỗ)','\\chi(M)=2-2g'],['Giả thuyết Poincaré','\\pi_1(M)=0\\Rightarrow M\\cong S^3'],['Nhóm cơ bản của vòng tròn','\\pi_1(S^1)\\cong\\mathbb{Z}']]},
+{title:'Phương Trình Vi Phân',c:'#d8c058',col:P(0xc8b040,0xe0d078),pos:[45,2,-60],sym:['y′','∂','eˣ','dy','Δ'],cards:[['Dao động điều hòa',"y''+\\omega^2y=0"],['Phương trình nhiệt','\\frac{\\partial u}{\\partial t}=\\alpha\\nabla^2u'],['Hệ Lorenz','\\dot x=\\sigma(y-x),\\ \\dot y=x(\\rho-z)-y,\\ \\dot z=xy-\\beta z']]},
+{title:'Số Phức',c:'#d078d8',col:P(0xb860c8,0xd878a8),pos:[-52,-8,-30],sym:['i','ℂ','z̄','Re','Im'],cards:[['Công thức Euler','e^{i\\theta}=\\cos\\theta+i\\sin\\theta'],['Tích phân Cauchy','\\oint_\\gamma f(z)\\,dz=0'],['Điều kiện Cauchy–Riemann','\\frac{\\partial u}{\\partial x}=\\frac{\\partial v}{\\partial y},\\ \\frac{\\partial u}{\\partial y}=-\\frac{\\partial v}{\\partial x}']]},
+{title:'Logic Toán Học',c:'#8aa0e0',col:P(0x7090d0,0xc0d0ec),pos:[18,26,-70],sym:['∀','∃','¬','⊢','⇒'],cards:[['Luật De Morgan','\\neg(P\\land Q)\\equiv\\neg P\\lor\\neg Q'],['Modus ponens','\\frac{P\\qquad P\\to Q}{Q}'],['Nghịch lý Russell','R=\\{x\\mid x\\notin x\\}\\Rightarrow(R\\in R\\iff R\\notin R)']]}
+);
+mathData.push(
+{title:'Giải Tích Hàm',c:'#a8c866',col:P(0x90b850,0xc8d878),pos:[0,0,0],sym:['‖·‖','ℓᵖ','H','⟨,⟩','T'],cards:[['Bất đẳng thức Cauchy–Schwarz','|\\langle x,y\\rangle|\\le\\|x\\|\\|y\\|'],['Chuẩn ℓᵖ','\\|x\\|_p=\\Big(\\sum_i|x_i|^p\\Big)^{1/p}'],['Định lý biểu diễn Riesz','\\forall f\\in H^*,\\ \\exists!\\,y:\\ f(x)=\\langle x,y\\rangle']]},
+{title:'Lý Thuyết Nhóm',c:'#e0a898',col:P(0xd09080,0xe8b8a0),pos:[0,0,0],sym:['G','e','ker','A₅','|G|'],cards:[['Định lý Lagrange','|G|=[G:H]\\cdot|H|'],['Phương trình lớp','|G|=|Z(G)|+\\sum_i[G:C_G(g_i)]'],['Định lý đẳng cấu thứ nhất','G/\\ker\\varphi\\cong\\operatorname{im}\\varphi']]},
+{title:'Lý Thuyết Thông Tin',c:'#cfd6e6',col:P(0xaab4cc,0xe6ecf6),pos:[0,0,0],sym:['H','bit','I','log₂','C'],cards:[['Entropy Shannon','H(X)=-\\sum_x p(x)\\log_2p(x)'],['Thông tin tương hỗ','I(X;Y)=H(X)+H(Y)-H(X,Y)'],['Dung lượng kênh','C=\\max_{p(x)}I(X;Y)']]},
+{title:'Tối Ưu Hóa',c:'#c8946c',col:P(0xb87850,0xd8a880),pos:[0,0,0],sym:['∇','min','λ','η','f*'],cards:[['Hạ gradient','x_{k+1}=x_k-\\eta\\nabla f(x_k)'],['Điều kiện KKT (một phần)','\\nabla f(x^*)+\\sum_i\\lambda_i\\nabla g_i(x^*)=0'],['Hàm lồi','f(\\theta x+(1-\\theta)y)\\le\\theta f(x)+(1-\\theta)f(y)']]}
+);
+const SH=['inf','oct','dod','ico','knot','graph','torus','lorenz','sphere','cube','hilb','icoS','entropy','opt'];
+mathData.forEach((d,i)=>{d.shape=SH[i];d.wire=!['lorenz','knot'].includes(SH[i]);});
+const LAY=[[-72,8],[0,8],[-24,8],[48,8],[24,8],[72,8],[48,-28],[-48,8],[-72,-28],[24,-28],[-48,-28],[0,-28],[-24,-28],[72,-28]];
+mathData.forEach((d,i)=>d.pos=[LAY[i][0],0,LAY[i][1]]);
+const NOTES=[
+'Mặt z = sin r / r (hàm sinc, r là khoảng cách đến tâm). Đỉnh ở giữa là cực đại; các gợn tròn tắt dần cho thấy dao động giảm biên độ khi r → ∞.',
+'Mặt yên ngựa, đồ thị của dạng toàn phương có hai trị riêng trái dấu: cong lên theo trục x, cong xuống theo trục z. Điểm gốc là điểm yên, không phải cực trị.',
+'Chuông Gauss hai chiều: độ cao là mật độ xác suất, lớn nhất ở giá trị trung bình và giảm dần theo khoảng cách. Thể tích dưới mặt này bằng 1.',
+'Mặt nón: mỗi mặt cắt ngang là một đường tròn; cắt nghiêng sẽ cho elip, parabol hoặc hyperbol (các đường conic).',
+'Đồ thị bậc thang π(x): trục ngang là x, trục đứng là số nguyên tố không vượt quá x. Mỗi bước nhảy lên 1 đơn vị xảy ra đúng tại một số nguyên tố (2, 3, 5, 7, …, 37).',
+'Các chấm là đỉnh, các đoạn nối là cạnh. Mỗi đỉnh nối với 5 hoặc 6 đỉnh khác; tổng bậc của mọi đỉnh luôn bằng hai lần số cạnh (bổ đề bắt tay).',
+'Mặt xuyến (bánh vòng): có đúng một lỗ nên đặc số Euler bằng 0. Có thể nắn, kéo giãn nhưng không xé hay dán thì nó vẫn là một xuyến.',
+'Quỹ đạo Lorenz trong không gian pha: đường cong không tự cắt, quấn quanh hai "cánh bướm". Hai điểm xuất phát rất gần nhau sẽ tách xa dần, dấu hiệu của hỗn loạn.',
+'Mặt yên khỉ, độ cao bằng Re(z³) = x³ − 3xy² trên mặt phẳng phức. Có ba "đỉnh" và ba "thung lũng" quanh gốc, nhiều hơn yên ngựa thường.',
+'Khối lập phương Boolean Q₃: 8 đỉnh là 8 tổ hợp 0/1 của ba biến mệnh đề; hai đỉnh được nối khi chúng khác nhau đúng một biến.',
+'Chỏm quả cầu đơn vị của chuẩn ℓᵖ (p = 1,5): đáy là tập các điểm có chuẩn ≤ 1. p càng nhỏ hình càng nhọn; p = 2 cho chỏm cầu thông thường.',
+'Khối 20 mặt: 12 đỉnh, 30 cạnh, 20 mặt. Các phép quay giữ nguyên nó tạo thành nhóm 60 phần tử, đẳng cấu với nhóm A₅.',
+'Entropy kết hợp của hai bit độc lập p, q ∈ [0, 1]: cao nhất (1,386 nat) khi p = q = ½, tức tung đồng xu công bằng; về 0 ở các góc, nơi kết quả hoàn toàn chắc chắn.',
+'Thung lũng kiểu Rosenbrock: đáy cong và hẹp khiến hạ gradient đi chậm, zigzag hai bên thành. Điểm cực tiểu nằm ở cuối thung lũng.'];
+mathData.forEach((d,i)=>d.note=NOTES[i]);
+mathData.forEach((d,i)=>d.html=page(i+1,d.title,d.c,d.cards,d.note));
 
-    <script>
-        // Math Data
-        const mathData = [
-            {
-                id: 'calculus',
-                title: 'Giải Tích',
-                color1: new THREE.Color(0x00f2fe), // Cyan
-                color2: new THREE.Color(0x4facfe), // Deep Blue
-                position: [-30, 5, -20],
-                symbols: ['∫', 'dx', 'lim', '∞', '∑'],
-                html: `
-                    <div class="content-fade">
-                        <div class="inline-block px-3 py-1 rounded border border-cyan-500/30 bg-cyan-500/10 text-cyan-400 font-code text-xs mb-4">SECTOR 01</div>
-                        <h2 class="text-4xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-500">Giải Tích Cổ Điển</h2>
-                        <div class="bg-white/5 rounded-xl p-6 mb-4 border border-white/10">
-                            <h4 class="text-xs font-code text-gray-400 mb-2">Định lý cơ bản</h4>
-                            <div class="text-center text-xl overflow-x-auto">$$ \\int_{a}^{b} f(x) dx = F(b) - F(a) $$</div>
-                        </div>
-                        <div class="bg-white/5 rounded-xl p-6 mb-4 border border-white/10">
-                            <h4 class="text-xs font-code text-gray-400 mb-2">Đạo hàm cơ bản</h4>
-                            <div class="text-center text-xl overflow-x-auto">$$ f'(x) = \\lim_{h \\to 0} \\frac{f(x+h) - f(x)}{h} $$</div>
-                        </div>
-                        <div class="bg-white/5 rounded-xl p-6 mb-4 border border-white/10">
-                            <h4 class="text-xs font-code text-gray-400 mb-2">Chuỗi Taylor</h4>
-                            <div class="text-center text-lg overflow-x-auto">$$ f(x) = \\sum_{n=0}^{\\infty} \\frac{f^{(n)}(a)}{n!} (x-a)^n $$</div>
-                        </div>
-                    </div>
-                `
-            },
-            {
-                id: 'algebra',
-                title: 'Đại Số Tuyến Tính',
-                color1: new THREE.Color(0xfac684), // Peach/Orange
-                color2: new THREE.Color(0xf9a826), // Orange
-                position: [25, -10, -35],
-                symbols: ['λ', 'A', 'v', 'det', 'ℝⁿ'],
-                html: `
-                    <div class="content-fade">
-                        <div class="inline-block px-3 py-1 rounded border border-orange-500/30 bg-orange-500/10 text-orange-400 font-code text-xs mb-4">SECTOR 02</div>
-                        <h2 class="text-4xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-orange-300 to-amber-500">Đại Số Tuyến Tính</h2>
-                        <div class="bg-white/5 rounded-xl p-6 mb-4 border border-white/10">
-                            <h4 class="text-xs font-code text-gray-400 mb-2">Phương trình Trị riêng</h4>
-                            <div class="text-center text-xl overflow-x-auto">$$ A\\mathbf{v} = \\lambda\\mathbf{v} $$</div>
-                        </div>
-                        <div class="bg-white/5 rounded-xl p-6 mb-4 border border-white/10">
-                            <h4 class="text-xs font-code text-gray-400 mb-2">Định thức Ma trận 2x2</h4>
-                            <div class="text-center text-xl overflow-x-auto">$$ \\det \\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix} = ad - bc $$</div>
-                        </div>
-                    </div>
-                `
-            },
-            {
-                id: 'quantum',
-                title: 'Lượng Tử & Xác Suất',
-                color1: new THREE.Color(0xd53369), // Pink
-                color2: new THREE.Color(0xcbad6d), // Gold
-                position: [-10, 20, -50],
-                symbols: ['Ψ', 'ħ', 'μ', 'σ²', 'P'],
-                html: `
-                    <div class="content-fade">
-                        <div class="inline-block px-3 py-1 rounded border border-pink-500/30 bg-pink-500/10 text-pink-400 font-code text-xs mb-4">SECTOR 03</div>
-                        <h2 class="text-4xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-rose-600">Xác Suất & Lượng Tử</h2>
-                        <div class="bg-white/5 rounded-xl p-6 mb-4 border border-white/10">
-                            <h4 class="text-xs font-code text-gray-400 mb-2">Phương trình Schrödinger</h4>
-                            <div class="text-center text-xl overflow-x-auto">$$ i\\hbar \\frac{\\partial}{\\partial t} |\\Psi(t)\\rangle = \\hat{H} |\\Psi(t)\\rangle $$</div>
-                        </div>
-                        <div class="bg-white/5 rounded-xl p-6 mb-4 border border-white/10">
-                            <h4 class="text-xs font-code text-gray-400 mb-2">Định lý Bayes</h4>
-                            <div class="text-center text-xl overflow-x-auto">$$ P(A|B) = \\frac{P(B|A)P(A)}{P(B)} $$</div>
-                        </div>
-                    </div>
-                `
-            }
-        ];
+// ===== Audio: "Infinite Void" - clean tones (no noise), deep layered blasts =====
+let T0=0,K=1;let ac,master,bus,wet,sh,muted=false;
+function initAudio(){
+if(ac){if(ac.state==='suspended')ac.resume();return;}
+ac=new(window.AudioContext||window.webkitAudioContext)();
+master=ac.createGain();master.gain.value=muted?0:1.2;bus=ac.createGain();
+const comp=ac.createDynamicsCompressor();comp.threshold.value=-6;comp.knee.value=10;comp.ratio.value=4;comp.attack.value=.003;comp.release.value=.25;
+const lp=ac.createBiquadFilter();lp.type='lowpass';lp.frequency.value=1800;lp.Q.value=.5;
+bus.connect(master).connect(lp).connect(comp).connect(ac.destination);
+const L=ac.sampleRate*1.6,ir=ac.createBuffer(2,L,ac.sampleRate);
+for(let c=0;c<2;c++){const d=ir.getChannelData(c);for(let i=0;i<L;i++)d[i]=(d[i-1]||0)*.85+(Math.random()*2-1)*Math.pow(1-i/L,3)*.15;}
+const cv=ac.createConvolver();cv.buffer=ir;wet=ac.createGain();wet.gain.value=.3;wet.connect(cv).connect(bus);
+// soft saturator: adds punchy mid harmonics to the low blasts
+sh=ac.createWaveShaper();const n=2048,cr=new Float32Array(n);for(let i=0;i<n;i++)cr[i]=Math.tanh((i/(n-1)*2-1)*2.5);sh.curve=cr;sh.oversample='2x';
+const post=ac.createGain();post.gain.value=1.4;sh.connect(post).connect(bus);
+ambient();}
+function out(n,send){n.connect(bus);const s=ac.createGain();s.gain.value=send;n.connect(s).connect(wet);}
+function osc(type,f0,f1,t,d,g,send,rise,det,dr){t=T0+(t-T0)*K;d*=K;const o=ac.createOscillator(),a=ac.createGain();o.type=type;o.detune.value=det||0;
+o.frequency.setValueAtTime(f0,t);o.frequency.exponentialRampToValueAtTime(f1,t+d);
+if(rise){a.gain.setValueAtTime(.0001,t);a.gain.exponentialRampToValueAtTime(g,t+d);a.gain.linearRampToValueAtTime(.0001,t+d+.25);}
+else{a.gain.setValueAtTime(.0001,t);a.gain.linearRampToValueAtTime(g,t+.01);a.gain.exponentialRampToValueAtTime(.0001,t+d);}
+o.connect(a);if(dr){a.connect(sh);const s=ac.createGain();s.gain.value=send*.3;a.connect(s).connect(wet);}else out(a,send);
+o.start(t);o.stop(t+d+.3);}
+// the "void" swallowing every sound for a moment
+function voidCut(t,from,to){from*=K;to*=K;bus.gain.cancelScheduledValues(t+from-.09);bus.gain.setValueAtTime(1,t+from-.07);bus.gain.linearRampToValueAtTime(.0001,t+from);bus.gain.setValueAtTime(.0001,t+to);bus.gain.linearRampToValueAtTime(1,t+to+.08);}
+// layered blast: sub + low + body + crack, then a deeper aftershock
+function blast(t,s){osc('sine',98,49,t,2.8,.9*s,.4);osc('sine',196,98,t,2.4,.6*s,.4);osc('sine',294,147,t,2.2,.4*s,.5);osc('sine',392,196,t,2.2,.3*s,.5);osc('sine',587,294,t,1.8,.18*s,.5);osc('sine',49,40,t+.1,2.8,.8*s,.3);}
+function stutter(t,n,span,g){for(let i=0;i<n;i++){const f=90+Math.random()*300;osc('sine',f,f*.7,t+i*span/n,.09,g,.25);}}
+// dark endless void: deep drone + slow pulses
+function ambient(){
+[[73.4,.05],[110,.035],[146.8,.03],[185,.022],[277.2,.012]].forEach(([f,v],i)=>{const o=ac.createOscillator(),g=ac.createGain(),l=ac.createOscillator(),lg=ac.createGain();
+o.frequency.value=f;g.gain.value=v;l.frequency.value=.04+i*.02;lg.gain.value=v*.5;l.connect(lg).connect(g.gain);o.connect(g);out(g,.25);o.start();l.start();});
+(function pulse(){if(ac&&ac.state==='running'){const t=ac.currentTime;T0=t;K=1;osc('sine',73.4,55,t,3,.07,.4);}setTimeout(pulse,7000+Math.random()*6000);})();}
+// Domain-expansion style: hand-sign snap -> rising tension & stutter -> huge blast -> silence -> ringing void & heartbeat
+function sfxEnter(){if(!ac)return;const t=ac.currentTime;T0=t;K=1.6;
+osc('sine',587,392,t,.5,.16,.5);osc('sine',196,98,t,.5,.5,.3);
+[-15,0,15].forEach(d=>osc('sine',55,220,t+.15,1.65,.07,.25,true,d));osc('sine',82,330,t+.15,1.65,.045,.25,true);
+stutter(t+.75,26,1,.1);
+blast(t+1.8,1);
+voidCut(t,2.05,2.3);
+osc('sine',392,388,t+2.3,3,.025,.6);osc('sine',196,194,t+2.3,3,.03,.5);
+[2.5,3].forEach(h=>osc('sine',80,50,t+h,.6,.35,.3));
+[110,146.8,185,277.2].forEach((f,i)=>osc('sine',f,f,t+2.45+i*.05,2,.025,.5,true));}
+// Collapse: falling tension -> blast -> settle
+function sfxExit(){if(!ac)return;const t=ac.currentTime;T0=t;K=1.6;
+[-15,0,15].forEach(d=>osc('sine',330,55,t,1.7,.07,.25,true,d));
+stutter(t+.6,22,1.1,.1);
+blast(t+1.8,.9);
+voidCut(t,2.05,2.3);
+osc('sine',294,292,t+2.3,3,.022,.6);[2.5].forEach(h=>osc('sine',80,50,t+h,.6,.3,.3));
+[110,146.8,185].forEach((f,i)=>osc('sine',f,f,t+2.4+i*.06,2,.025,.5,true));}
+function sfxHover(){if(!ac)return;const t=ac.currentTime;T0=t;K=1;osc('sine',392,392,t,.7,.012,.4);}
+function sfxOpen(){if(!ac)return;const t=ac.currentTime;T0=t;K=1;osc('sine',392,392,t,1.4,.14,.6);osc('sine',587,587,t+.06,1.2,.1,.6);osc('sine',196,150,t,.6,.35,.3);}
+function sfxClose(){if(!ac)return;const t=ac.currentTime;T0=t;K=1;osc('sine',440,294,t,.9,.1,.5);osc('sine',196,147,t,.6,.2,.3);}
+document.getElementById('mute').onclick=e=>{initAudio();muted=!muted;master.gain.value=muted?0:1.2;e.target.textContent=muted?'🔇':'🔊';};
 
-        // Custom Gradient Shader for Planets
-        const planetVertexShader = `
-            varying vec2 vUv;
-            varying vec3 vPosition;
-            void main() {
-                vUv = uv;
-                vPosition = position;
-                gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-            }
-        `;
+// ===== Shaders =====
+const vs=`varying vec2 vUv;varying vec3 vPosition;void main(){vUv=uv;vPosition=position;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}`;
+const fs=`uniform float time;uniform vec3 color1;uniform vec3 color2;varying vec2 vUv;varying vec3 vPosition;
+float mod289(float x){return x-floor(x*(1./289.))*289.;}vec4 mod289(vec4 x){return x-floor(x*(1./289.))*289.;}vec4 perm(vec4 x){return mod289(((x*34.)+1.)*x);}
+float noise(vec3 p){vec3 a=floor(p);vec3 d=p-a;d=d*d*(3.-2.*d);vec4 b=a.xxyy+vec4(0.,1.,0.,1.);vec4 k1=perm(b.xyxy);vec4 k2=perm(k1.xyxy+b.zzww);vec4 c=k2+a.zzzz;vec4 k3=perm(c);vec4 k4=perm(c+1.);vec4 o1=fract(k3*(1./41.));vec4 o2=fract(k4*(1./41.));vec4 o3=o2*d.z+o1*(1.-d.z);vec2 o4=o3.yw*d.x+o3.xz*(1.-d.x);return o4.y*d.y+o4.x*(1.-d.y);}
+void main(){float n=noise(vPosition*.5+time*.2);float m=sin(vUv.x*3.14+time*.5)*cos(vUv.y*3.14-time*.3)+n;m=smoothstep(-.5,1.5,m);vec3 c=mix(color1,color2,m);float rim=1.-max(dot(normalize(vPosition),vec3(0.,0.,1.)),0.);c+=vec3(smoothstep(.6,1.,rim)*.3);gl_FragColor=vec4(c*.9,1.);}`;
 
-        const planetFragmentShader = `
-            uniform float time;
-            uniform vec3 color1;
-            uniform vec3 color2;
-            varying vec2 vUv;
-            varying vec3 vPosition;
+// ===== Renderer / scenes =====
+const W=()=>innerWidth,H=()=>innerHeight;
+const renderer=new THREE.WebGLRenderer({antialias:false,powerPreference:'high-performance'});
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setSize(W(),H());renderer.toneMapping=THREE.ReinhardToneMapping;renderer.toneMappingExposure=1.5;
+document.getElementById('gl').appendChild(renderer.domElement);
+const S={S1:1,WARP:2,S2:3,PANEL:4};let state=S.S1;
+const camera=new THREE.PerspectiveCamera(60,W()/H(),.1,2000);
+const CAM1=new THREE.Vector3(0,5,30),CAM2=new THREE.Vector3(0,W()<H()?70:28,W()<H()?250:115);camera.position.copy(CAM1);
+const scene1=new THREE.Scene();scene1.background=new THREE.Color(0x010102);
+const scene2=new THREE.Scene();scene2.background=new THREE.Color(0x020205);scene2.fog=new THREE.FogExp2(0x020205,.003);
+const scene3=new THREE.Scene();scene3.fog=scene2.fog; // exhibits live here: drawn after bloom so they never glare
+const rp1=new THREE.RenderPass(scene1,camera),rp2=new THREE.RenderPass(scene2,camera),rp3=new THREE.RenderPass(scene3,camera);rp3.clear=false;rp3.clearDepth=true;
+const bloom=new THREE.UnrealBloomPass(new THREE.Vector2(W(),H()),1.6,.5,.1);
+const composer=new THREE.EffectComposer(renderer);composer.addPass(rp1);composer.addPass(bloom);
+const warpShader={uniforms:{tDiffuse:{value:null},amt:{value:0},hue:{value:0}},vertexShader:`varying vec2 vUv;void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`,fragmentShader:`uniform sampler2D tDiffuse;uniform float amt;uniform float hue;varying vec2 vUv;void main(){vec2 p=vUv-.5;float r=length(p);vec2 d=p*(1.+amt*(2.2*r*r-.25));float a=amt*(.6-r)*1.6;float c=cos(a),s=sin(a);d=mat2(c,-s,s,c)*d;vec2 o=p*amt*.05;vec3 col=vec3(texture2D(tDiffuse,d+.5+o).r,texture2D(tDiffuse,d+.5).g,texture2D(tDiffuse,d+.5-o).b);float l=dot(col,vec3(.299,.587,.114));vec3 tint=mix(vec3(1.,.55,.25),vec3(.3,.6,1.),hue);col=mix(col,l*tint*1.6,amt*.55*smoothstep(0.,1.,r+.2));col*=1.-amt*.35*r;gl_FragColor=vec4(col,1.);}`};
+const warpPass=new THREE.ShaderPass(warpShader),wu=warpPass.uniforms;composer.addPass(warpPass);
+function warpFx(tl){tl.to(wu.amt,{value:1,duration:1.9,ease:'power2.in'},0).to(wu.hue,{value:1,duration:1.9,ease:'none'},0).to(wu.amt,{value:0,duration:1.5,ease:'power2.out'},2.1).to(wu.hue,{value:0,duration:1.5},2.1);}
+const controls=new THREE.OrbitControls(camera,renderer.domElement);
+Object.assign(controls,{enableDamping:true,dampingFactor:.05,minDistance:5,maxDistance:400});
 
-            // Pseudo-random noise
-            float mod289(float x){return x - floor(x * (1.0 / 289.0)) * 289.0;}
-            vec4 mod289(vec4 x){return x - floor(x * (1.0 / 289.0)) * 289.0;}
-            vec4 perm(vec4 x){return mod289(((x * 34.0) + 1.0) * x);}
-            float noise(vec3 p){
-                vec3 a = floor(p);
-                vec3 d = p - a;
-                d = d * d * (3.0 - 2.0 * d);
-                vec4 b = a.xxyy + vec4(0.0, 1.0, 0.0, 1.0);
-                vec4 k1 = perm(b.xyxy);
-                vec4 k2 = perm(k1.xyxy + b.zzww);
-                vec4 c = k2 + a.zzzz;
-                vec4 k3 = perm(c);
-                vec4 k4 = perm(c + 1.0);
-                vec4 o1 = fract(k3 * (1.0 / 41.0));
-                vec4 o2 = fract(k4 * (1.0 / 41.0));
-                vec4 o3 = o2 * d.z + o1 * (1.0 - d.z);
-                vec2 o4 = o3.yw * d.x + o3.xz * (1.0 - d.x);
-                return o4.y * d.y + o4.x * (1.0 - d.y);
-            }
+// ===== Black hole =====
+const bh=new THREE.Group();scene1.add(bh);
+const eh=new THREE.Mesh(new THREE.SphereGeometry(4,64,64),new THREE.MeshBasicMaterial({color:0}));bh.add(eh);
+function diskTex(){const c=document.createElement('canvas');c.width=c.height=1024;const x=c.getContext('2d');const g=x.createRadialGradient(512,512,100,512,512,500);
+g.addColorStop(0,'rgba(0,0,0,0)');g.addColorStop(.1,'rgba(255,230,200,1)');g.addColorStop(.4,'rgba(255,120,50,.8)');g.addColorStop(.8,'rgba(80,20,150,.2)');g.addColorStop(1,'rgba(0,0,0,0)');x.fillStyle=g;x.fillRect(0,0,1024,1024);
+for(let i=0;i<300;i++){x.beginPath();const a=Math.random()*6.283;x.arc(512,512,120+Math.random()*300,a,a+Math.random()*.4);x.lineWidth=Math.random()*2;x.strokeStyle=`rgba(255,255,255,${Math.random()*.2})`;x.stroke();}
+const t=new THREE.CanvasTexture(c);t.anisotropy=16;return t;}
+const disk=new THREE.Mesh(new THREE.PlaneGeometry(40,40),new THREE.MeshBasicMaterial({map:diskTex(),transparent:true,blending:THREE.AdditiveBlending,side:THREE.DoubleSide,depthWrite:false}));
+disk.rotation.x=Math.PI/2.2;bh.add(disk);
+const hc=document.createElement('canvas');hc.width=hc.height=512;const hx=hc.getContext('2d'),hg=hx.createRadialGradient(256,256,120,256,256,256);
+hg.addColorStop(0,'rgba(0,0,0,0)');hg.addColorStop(.8,'rgba(255,200,150,.5)');hg.addColorStop(1,'rgba(0,0,0,0)');hx.fillStyle=hg;hx.fillRect(0,0,512,512);
+const halo=new THREE.Mesh(new THREE.PlaneGeometry(18,18),new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(hc),transparent:true,blending:THREE.AdditiveBlending,depthWrite:false}));bh.add(halo);
+const pCount=2000,pPos=new Float32Array(pCount*3);
+for(let i=0;i<pCount*3;i+=3){const r=5+Math.random()*25,t=Math.random()*6.283;pPos[i]=Math.cos(t)*r;pPos[i+1]=(Math.random()-.5)*2;pPos[i+2]=Math.sin(t)*r;}
+const pGeo=new THREE.BufferGeometry();pGeo.setAttribute('position',new THREE.BufferAttribute(pPos,3));
+bh.add(new THREE.Points(pGeo,new THREE.PointsMaterial({color:0xffddaa,size:.1,transparent:true,blending:THREE.AdditiveBlending})));
+function stars(n,spread,color,size,op){const a=new Float32Array(n*3);for(let i=0;i<a.length;i++)a[i]=(Math.random()-.5)*spread;const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(a,3));return new THREE.Points(g,new THREE.PointsMaterial({color,size,transparent:true,opacity:op}));}
+scene1.add(stars(5000,200,0xffffff,.15,.5));scene2.add(stars(8000,320,0x88bbff,.2,.7));
 
-            void main() {
-                // Animate noise over time
-                float n = noise(vPosition * 0.5 + time * 0.2);
-                
-                // Create sweeping gradient logic
-                float mixVal = sin(vUv.x * 3.14 + time * 0.5) * cos(vUv.y * 3.14 - time * 0.3) + n;
-                mixVal = smoothstep(-0.5, 1.5, mixVal);
-                
-                vec3 finalColor = mix(color1, color2, mixVal);
-                
-                // Add soft rim light for 3D depth
-                float rim = 1.0 - max(dot(normalize(vPosition), vec3(0.0, 0.0, 1.0)), 0.0);
-                rim = smoothstep(0.6, 1.0, rim);
-                finalColor += vec3(rim * 0.3);
+// ===== Math exhibits drawn as real graphs: axes + plotted object =====
+function surf(fn,size,seg){const g=new THREE.PlaneGeometry(size,size,seg,seg);g.rotateX(-Math.PI/2);const p=g.attributes.position;for(let i=0;i<p.count;i++)p.setY(i,fn(p.getX(i),p.getZ(i)));g.computeVertexNormals();return g;}
+function axes(){const L=8.5,P=[];[[1,0,0],[0,1,0],[0,0,1]].forEach(a=>{P.push(-a[0]*L,-a[1]*L,-a[2]*L,a[0]*L,a[1]*L,a[2]*L);
+for(let t=-L+2;t<L-.5;t+=2){const q=a.map(v=>v*t),o=a[0]?[0,.25,0]:[.25,0,0];P.push(q[0]-o[0],q[1]-o[1],q[2]-o[2],q[0]+o[0],q[1]+o[1],q[2]+o[2]);}});
+const g=new THREE.Group(),geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.Float32BufferAttribute(P,3));
+g.add(new THREE.LineSegments(geo,new THREE.LineBasicMaterial({color:0x9aa6cc,transparent:true,opacity:.3})));
+const cm=new THREE.MeshBasicMaterial({color:0x9aa6cc});
+[['x',[1,0,0]],['y',[0,1,0]],['z',[0,0,1]]].forEach(([n,a])=>{const c=new THREE.Mesh(new THREE.ConeGeometry(.28,.9,12),cm);c.position.set(a[0]*(L+.45),a[1]*(L+.45),a[2]*(L+.45));if(a[0])c.rotation.z=-Math.PI/2;if(a[2])c.rotation.x=Math.PI/2;g.add(c);
+const s=label(n,'#9aa6cc',64,64,44);s.scale.set(1.8,1.8,1);s.position.set(a[0]*(L+1.8),a[1]*(L+1.8),a[2]*(L+1.8));g.add(s);});
+return g;}
+function dots(geo,color,size){const c=document.createElement('canvas');c.width=c.height=64;const x=c.getContext('2d');x.fillStyle='#fff';x.beginPath();x.arc(32,32,28,0,6.3);x.fill();
+return new THREE.Points(geo,new THREE.PointsMaterial({color,size,map:new THREE.CanvasTexture(c),transparent:true,alphaTest:.3,depthWrite:false}));}
+function makeGeo(s){switch(s){
+case 'inf':return surf((x,z)=>{const r=Math.hypot(x,z)*1.1+1e-3;return 4.5*Math.sin(r)/r;},13,30);
+case 'oct':return surf((x,z)=>(x*x-z*z)/9,12,24);
+case 'dod':return surf((x,z)=>6*Math.exp(-(x*x+z*z)/9)-2,13,26);
+case 'ico':return surf((x,z)=>Math.min(Math.hypot(x,z),6.5)*.9-3,13,26);
+case 'knot':{const pr=[2,3,5,7,11,13,17,19,23,29,31,37],X=x=>x/40*14-7,Y=c=>c*.85-5,P=[new THREE.Vector3(X(0),Y(0),0)];let c=0;
+pr.forEach(q=>{P.push(new THREE.Vector3(X(q),Y(c),0));c++;P.push(new THREE.Vector3(X(q),Y(c),0));});P.push(new THREE.Vector3(X(40),Y(c),0));
+const path=new THREE.CurvePath();for(let i=0;i<P.length-1;i++)path.add(new THREE.LineCurve3(P[i],P[i+1]));return new THREE.TubeGeometry(path,300,.22,6,false);}
+case 'graph':return new THREE.IcosahedronGeometry(6.5,1);
+case 'torus':return new THREE.TorusGeometry(5,2.2,24,48);
+case 'lorenz':{let x=1,y=1,z=1;const pts=[];for(let i=0;i<4000;i++){const dt=.005,dx=10*(y-x),dy=x*(28-z)-y,dz=x*y-8/3*z;x+=dx*dt;y+=dy*dt;z+=dz*dt;if(i>200&&i%12===0)pts.push(new THREE.Vector3(x*.4,(z-25)*.4,y*.4));}return new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts),600,.28,6,false);}
+case 'sphere':return surf((x,z)=>(x*x*x-3*x*z*z)/40,12,24);
+case 'hilb':return surf((x,z)=>5*Math.pow(Math.max(0,1-Math.pow(Math.abs(x)/6,1.5)-Math.pow(Math.abs(z)/6,1.5)),1/1.5)-1,13,28);
+case 'icoS':return new THREE.IcosahedronGeometry(6.5,0);
+case 'entropy':{const H=p=>{p=Math.min(.999,Math.max(.001,p));return -p*Math.log(p)-(1-p)*Math.log(1-p);};return surf((x,z)=>(H(x/12+.5)+H(z/12+.5))*3-2,12,28);}
+case 'opt':return surf((x,z)=>{const u=x/5,v=z/5;return Math.log(1+(1-u)*(1-u)+30*(v-u*u)*(v-u*u))*2-2;},12,32);
+default:return new THREE.BoxGeometry(7,7,7);}}
 
-                gl_FragColor = vec4(finalColor, 1.0);
-            }
-        `;
+// ===== Planets =====
+const planets=[],mats=[];
+function sprite(ch,col){const c=document.createElement('canvas');c.width=c.height=128;const x=c.getContext('2d');x.font="bold 70px 'Fira Code',monospace";x.fillStyle=col;x.textAlign='center';x.textBaseline='middle';x.shadowColor=col;x.shadowBlur=15;x.fillText(ch,64,64);
+const s=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(c),transparent:true,blending:THREE.AdditiveBlending}));s.scale.set(3,3,1);return s;}
+mathData.forEach(d=>{const g=new THREE.Group();g.position.set(...d.pos);
+const m=new THREE.ShaderMaterial({vertexShader:vs,fragmentShader:fs,uniforms:{time:{value:0},color1:{value:d.col[0]},color2:{value:d.col[1]}}});m.wireframe=!!d.wire;mats.push(m);
+const mesh=new THREE.Mesh(makeGeo(d.shape),m);mesh.userData={d,g};mesh.add(axes());if(d.wire)mesh.add(new THREE.Mesh(mesh.geometry,new THREE.MeshBasicMaterial({color:d.col[1],transparent:true,opacity:.16,side:THREE.DoubleSide,depthWrite:false})));if(d.shape==='graph'||d.shape==='cube'||d.shape==='icoS')mesh.add(dots(mesh.geometry,d.c,1.1));const hit=new THREE.Mesh(new THREE.SphereGeometry(7.5,12,8),new THREE.MeshBasicMaterial({visible:false}));hit.userData={d,g,mesh};mesh.add(hit);g.add(mesh);
+const sg=new THREE.Group();d.sym.forEach((s,i)=>{const sp=sprite(s,d.c),a=i/d.sym.length*6.283;sp.position.set(Math.cos(a)*9,(Math.random()-.5)*4,Math.sin(a)*9);sg.add(sp);});g.add(sg);
+scene3.add(g);planets.push({mesh,g,sg,base:new THREE.Vector3(...d.pos)});});
 
-        const container = document.getElementById('webgl-container');
-        
-        const renderer = new THREE.WebGLRenderer({ antialias: false, powerPreference: "high-performance" });
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.toneMapping = THREE.ReinhardToneMapping;
-        renderer.toneMappingExposure = 1.5;
-        container.appendChild(renderer.domElement);
+// ===== Museum gallery: floor grid, wings, pedestals, plaques =====
+function label(text,color,w,h,fs){const c=document.createElement('canvas');c.width=w;c.height=h;const x=c.getContext('2d');x.font=`600 ${fs}px 'Fira Code',monospace`;x.fillStyle=color;x.textAlign='center';x.textBaseline='middle';x.shadowColor=color;x.shadowBlur=10;x.fillText(text,w/2,h/2);
+return new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(c),transparent:true,depthWrite:false}));}
+const grid=new THREE.GridHelper(192,32,0x3a4f99,0x1a2348);grid.position.y=-14;grid.material.transparent=true;grid.material.opacity=.35;scene3.add(grid);
+const WINGS=['I · GIẢI TÍCH','II · VI PHÂN & HÀM','III · XÁC SUẤT & TIN','IV · ĐẠI SỐ & NHÓM','V · SỐ HỌC & LOGIC','VI · HÌNH & TÔ PÔ','VII · RỜI RẠC & TỐI ƯU'];
+WINGS.forEach((w,i)=>{const s=label(w,'#9fb4ff',512,80,30);s.scale.set(22,3.44,1);s.position.set(-72+i*24,17,-10);scene3.add(s);});
+for(let i=0;i<=7;i++){const l=new THREE.Mesh(new THREE.PlaneGeometry(.2,52),new THREE.MeshBasicMaterial({color:0x5a73cc,transparent:true,opacity:.45}));l.rotation.x=-Math.PI/2;l.position.set(-84+i*24,-13.9,-10);scene3.add(l);}
+planets.forEach((p,i)=>{const d=mathData[i],b=p.base;
+const ped=new THREE.Mesh(new THREE.CylinderGeometry(5,6,2.2,48),new THREE.MeshBasicMaterial({color:0x0b0f22}));ped.position.set(b.x,-12.9,b.z);scene3.add(ped);
+const ring=new THREE.Mesh(new THREE.RingGeometry(5.3,5.9,64),new THREE.MeshBasicMaterial({color:d.col[0],side:THREE.DoubleSide}));ring.rotation.x=-Math.PI/2;ring.position.set(b.x,-11.75,b.z);scene3.add(ring);
+const beam=new THREE.Mesh(new THREE.CylinderGeometry(4.2,5,22,32,1,true),new THREE.MeshBasicMaterial({color:d.col[0],transparent:true,opacity:.06,blending:THREE.AdditiveBlending,side:THREE.DoubleSide,depthWrite:false}));beam.position.set(b.x,-1,b.z);scene3.add(beam);
+const pl=label(String(i+1).padStart(2,'0')+' · '+d.title.toUpperCase(),d.c,512,80,30);pl.scale.set(17,2.7,1);pl.position.set(b.x,-16.2,b.z+8);scene3.add(pl);
+const FN=['z = sin r / r','z = (x² − y²)/9','phân phối Gauss','nón z = r','π(x): đếm số nguyên tố','đồ thị G = (V, E)','mặt xuyến T²','quỹ đạo Lorenz','Re(z³): yên khỉ','khối Boolean Q₃','chỏm cầu đơn vị ℓp','nhóm đối xứng A₅','entropy H(p)+H(q)','thung lũng Rosenbrock'];
+const cp=label(FN[i],'#aab8e8',512,64,26);cp.scale.set(15,1.9,1);cp.position.set(b.x,-18.6,b.z+8);scene3.add(cp);});
 
-        // State Machine
-        const STATE = {
-            SCENE1: 'SCENE1',
-            WARPING: 'WARPING',
-            SCENE2: 'SCENE2',
-            PANEL_OPEN: 'PANEL_OPEN'
-        };
-        let currentState = STATE.SCENE1;
-        let activePlanet = null;
+// ===== Warp tunnel streaks =====
+const WL=600,wd=[],wp=new Float32Array(WL*6);
+for(let i=0;i<WL;i++){const a=Math.random()*6.283,r=1.5+Math.random()*16;wd.push({x:Math.cos(a)*r,y:Math.sin(a)*r,z:-Math.random()*90});}
+const wg=new THREE.BufferGeometry();wg.setAttribute('position',new THREE.BufferAttribute(wp,3));
+const wm=new THREE.LineBasicMaterial({color:0x9fd8ff,transparent:true,opacity:0,blending:THREE.AdditiveBlending,depthWrite:false});
+const warpLines=new THREE.LineSegments(wg,wm);warpLines.frustumCulled=false;
+const warp={speed:0,len:0};
+function updWarp(dt){if(warp.speed<.5){wm.opacity=0;return;}wm.opacity=Math.min(1,warp.speed/40);
+wd.forEach((d,i)=>{d.z+=warp.speed*dt;if(d.z>0)d.z-=90;wp.set([d.x,d.y,d.z,d.x,d.y,d.z-warp.len],i*6);});
+wg.attributes.position.needsUpdate=true;warpLines.position.copy(camera.position);warpLines.quaternion.copy(camera.quaternion);}
 
-        // Camera
-        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 2000);
-        const INITIAL_CAM_SCENE1 = new THREE.Vector3(0, 5, 30);
-        const INITIAL_CAM_SCENE2 = new THREE.Vector3(0, 20, 60);
-        camera.position.copy(INITIAL_CAM_SCENE1);
+// ===== Input (mouse + touch via pointer events) =====
+const ray=new THREE.Raycaster(),mouse=new THREE.Vector2();let hov=null,lastTap=0;
+const setMouse=e=>{mouse.x=e.clientX/W()*2-1;mouse.y=-(e.clientY/H())*2+1;};
+const pick=()=>{ray.setFromCamera(mouse,camera);return ray.intersectObjects(planets.map(p=>p.mesh),true).filter(i=>i.object.userData.d).map(i=>({object:i.object.userData.mesh||i.object}));};
+const el=renderer.domElement;let down=null;
+el.addEventListener('pointerdown',e=>{initAudio();down={x:e.clientX,y:e.clientY,t:performance.now()};});
+el.addEventListener('pointerup',e=>{if(!down)return;const tap=Math.hypot(e.clientX-down.x,e.clientY-down.y)<10&&performance.now()-down.t<500;down=null;if(!tap||state===S.WARP)return;
+setMouse(e);if(state===S.S1)warpForward();else if(state===S.S2){const h=pick();if(h.length)openPanel(h[0].object);else{const n=performance.now();if(n-lastTap<400){lastTap=0;warpBackward();}else lastTap=n;}}});
+el.addEventListener('pointermove',e=>{if(e.pointerType!=='mouse'||state!==S.S2)return;setMouse(e);const h=pick();
+if(h.length){if(hov!==h[0].object){hov=h[0].object;document.body.style.cursor='pointer';gsap.to(hov.scale,{x:1.05,y:1.05,z:1.05,duration:.3});sfxHover();}}
+else if(hov){document.body.style.cursor='default';gsap.to(hov.scale,{x:1,y:1,z:1,duration:.3});hov=null;}});
+addEventListener('keydown',e=>{if(e.key!=='Escape')return;if(state===S.PANEL)closePanel();else if(state===S.S2)warpBackward();});
+const $=id=>document.getElementById(id),show=(id,v)=>{const e=$(id);if(e)e.style.display=v?'block':'none';};
+$('close').onclick=()=>state===S.PANEL&&closePanel();
+function setHint(){}
+// small rotating copy of the exhibit's graph, shown in the corner of the panel
+let miniR=null,miniScene=null,miniCam=null,miniGrp=null;
+function showMini(d,mesh){const host=document.getElementById('mini');if(!host)return;
+if(!miniR){miniR=new THREE.WebGLRenderer({alpha:true,antialias:true});miniR.setPixelRatio(Math.min(devicePixelRatio,2));miniR.setSize(150,150);miniScene=new THREE.Scene();miniCam=new THREE.PerspectiveCamera(38,1,.1,200);miniCam.position.set(0,9,34);miniCam.lookAt(0,0,0);}
+miniR.domElement.style.cssText='width:150px;height:150px;display:block';host.appendChild(miniR.domElement);
+if(miniGrp)miniScene.remove(miniGrp);miniGrp=new THREE.Group();
+miniGrp.add(new THREE.Mesh(mesh.geometry,mesh.material),axes());
+if(d.wire)miniGrp.add(new THREE.Mesh(mesh.geometry,new THREE.MeshBasicMaterial({color:d.col[1],transparent:true,opacity:.16,side:THREE.DoubleSide,depthWrite:false})));
+if(['graph','cube','icoS'].includes(d.shape))miniGrp.add(dots(mesh.geometry,d.c,1.1));
+miniScene.add(miniGrp);}
+function flySyms(d){const wide=W()>=768,sx=(mouse.x+1)/2*W(),sy=(1-mouse.y)/2*H();
+d.sym.concat(d.sym).forEach((ch,i)=>{const e=document.createElement('div');e.className='fly';e.textContent=ch;e.style.color=d.c;e.style.left=sx+'px';e.style.top=sy+'px';document.body.appendChild(e);
+const tx=wide?W()-290+(Math.random()-.5)*300:W()/2+(Math.random()-.5)*W()*.6,ty=H()*.18+Math.random()*H()*.6;
+gsap.fromTo(e,{scale:.4,opacity:0,xPercent:-50,yPercent:-50},{keyframes:[{opacity:1,scale:1.4,duration:.25},{x:tx-sx,y:ty-sy,scale:1,duration:1.1,ease:'power2.inOut'},{opacity:0,scale:2,duration:.5}],delay:.15+i*.08,onComplete:()=>e.remove()});});}
+addEventListener('resize',()=>{camera.aspect=W()/H();camera.updateProjectionMatrix();renderer.setSize(W(),H());composer.setSize(W(),H());});
 
-        // Scenes
-        const scene1 = new THREE.Scene(); // Black Hole
-        scene1.background = new THREE.Color(0x010102);
-        
-        const scene2 = new THREE.Scene(); // Math Universe
-        scene2.background = new THREE.Color(0x020205);
-        scene2.fog = new THREE.FogExp2(0x020205, 0.008);
+// ===== Transitions =====
+function warpForward(){state=S.WARP;controls.enabled=false;setHint('');initAudio();sfxEnter();scene1.add(warpLines);
+const tl=gsap.timeline();
+tl.timeScale(.625);tl.to(camera.position,{x:0,y:0,z:-5,duration:2,ease:'power3.in'},0);
+tl.to(camera,{fov:150,duration:2,ease:'power3.in',onUpdate:()=>camera.updateProjectionMatrix()},0);
+tl.to(warp,{speed:120,len:10,duration:1.9,ease:'power2.in'},0);
+tl.to('#flash',{opacity:1,duration:.2,ease:'none'},1.8);
+warpFx(tl);tl.add(()=>{composer.removePass(rp1);composer.insertPass(rp2,0);composer.insertPass(rp3,2);scene2.add(warpLines);camera.position.copy(CAM2);camera.lookAt(0,0,0);controls.target.set(0,0,0);},2);
+tl.to('#flash',{opacity:0,duration:1.5,ease:'power2.out'},2.1);
+tl.to(camera,{fov:60,duration:1.5,ease:'power2.out',onUpdate:()=>camera.updateProjectionMatrix()},2.1);
+tl.to(warp,{speed:0,len:0,duration:1.5,ease:'power2.out'},2.1);
+tl.add(()=>{state=S.S2;controls.enabled=true;show('back',1);setHint('CHẠM VÀO MỘT HÀNH TINH');},3.6);}
+function warpBackward(){state=S.WARP;controls.enabled=false;show('back',0);setHint('');sfxExit();scene2.add(warpLines);
+if(hov){hov.scale.set(1,1,1);hov=null;document.body.style.cursor='default';}
+const far=camera.position.clone().normalize().multiplyScalar(200),tl=gsap.timeline();
+tl.timeScale(.625);tl.to(camera.position,{x:far.x,y:far.y,z:far.z,duration:2,ease:'power3.in'},0);
+tl.to(camera,{fov:150,duration:2,ease:'power3.in',onUpdate:()=>camera.updateProjectionMatrix()},0);
+tl.to(warp,{speed:120,len:10,duration:1.9,ease:'power2.in'},0);
+tl.to('#flash',{opacity:1,duration:.2,ease:'none'},1.8);
+warpFx(tl);tl.add(()=>{composer.removePass(rp2);composer.removePass(rp3);composer.insertPass(rp1,0);scene1.add(warpLines);camera.position.set(0,0,-5);camera.lookAt(0,0,0);controls.target.set(0,0,0);},2);
+tl.to('#flash',{opacity:0,duration:1.5,ease:'power2.out'},2.1);
+tl.to(camera.position,{x:CAM1.x,y:CAM1.y,z:CAM1.z,duration:2,ease:'power2.out'},2.1);
+tl.to(camera,{fov:60,duration:1.5,ease:'power2.out',onUpdate:()=>camera.updateProjectionMatrix()},2.1);
+tl.to(warp,{speed:0,len:0,duration:1.5,ease:'power2.out'},2.1);
+tl.add(()=>{state=S.S1;controls.enabled=true;setHint('CHẠM VÀO HỐ ĐEN ĐỂ BƯỚC QUA');},4.1);}
+function openPanel(mesh){state=S.PANEL;controls.enabled=false;show('back',0);setHint('');sfxOpen();
+const box=$('info');box.innerHTML=mesh.userData.d.html;flySyms(mesh.userData.d);showMini(mesh.userData.d,mesh);
+const go=()=>{$('panel').classList.remove('translate-x-full');show('close',1);box.querySelectorAll('.fade').forEach((x,i)=>setTimeout(()=>x.classList.add('on'),300+i*450));};
+(window.MathJax&&MathJax.typesetPromise?MathJax.typesetPromise([box]).then(go):go());
+const tp=new THREE.Vector3();mesh.userData.g.getWorldPosition(tp);
+const dir=tp.clone().sub(camera.position).normalize(),wide=W()>=768;
+const cp=tp.clone().sub(dir.multiplyScalar(wide?16:22));
+if(wide)cp.add(new THREE.Vector3(1,0,0).applyQuaternion(camera.quaternion).multiplyScalar(-8));
+gsap.to(camera.position,{x:cp.x,y:cp.y,z:cp.z,duration:1.5,ease:'power3.inOut'});
+gsap.to(controls.target,{x:tp.x,y:tp.y,z:tp.z,duration:1.5,ease:'power3.inOut'});}
+function closePanel(){sfxClose();show('close',0);document.querySelectorAll('.fade').forEach(x=>x.classList.remove('on'));$('panel').classList.add('translate-x-full');
+const a=Math.PI/2,r=CAM2.z;
+gsap.to(camera.position,{x:Math.cos(a)*r,y:CAM2.y,z:Math.sin(a)*r,duration:1.5,ease:'power3.inOut'});
+gsap.to(controls.target,{x:0,y:0,z:0,duration:1.5,ease:'power3.inOut',onComplete:()=>{state=S.S2;controls.enabled=true;show('back',1);setHint('CHẠM VÀO MỘT HÀNH TINH');}});}
 
-        // Composer / Post-Processing
-        const renderPass1 = new THREE.RenderPass(scene1, camera);
-        const renderPass2 = new THREE.RenderPass(scene2, camera);
-        
-        const bloomPass = new THREE.UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.6, 0.5, 0.1);
-        
-        const composer = new THREE.EffectComposer(renderer);
-        composer.addPass(renderPass1); // Start with Scene 1
-        composer.addPass(bloomPass);
-
-        // OrbitControls
-        const controls = new THREE.OrbitControls(camera, renderer.domElement);
-        controls.enableDamping = true;
-        controls.dampingFactor = 0.05;
-        controls.enablePan = true;
-        controls.minDistance = 5;
-        controls.maxDistance = 150;
-
-        const bhGroup = new THREE.Group();
-        scene1.add(bhGroup);
-
-        // 1. Event Horizon
-        const ehGeo = new THREE.SphereGeometry(4, 64, 64);
-        const ehMat = new THREE.MeshBasicMaterial({ color: 0x000000 });
-        const eventHorizon = new THREE.Mesh(ehGeo, ehMat);
-        bhGroup.add(eventHorizon);
-
-        // 2. Procedural Accretion Disk Texture
-        function createDiskTexture() {
-            const canvas = document.createElement('canvas');
-            canvas.width = 1024; canvas.height = 1024;
-            const ctx = canvas.getContext('2d');
-            const center = 512;
-            const gradient = ctx.createRadialGradient(center, center, 100, center, center, 500);
-            gradient.addColorStop(0, 'rgba(0,0,0,0)');
-            gradient.addColorStop(0.1, 'rgba(255, 230, 200, 1)');
-            gradient.addColorStop(0.4, 'rgba(255, 120, 50, 0.8)');
-            gradient.addColorStop(0.8, 'rgba(80, 20, 150, 0.2)');
-            gradient.addColorStop(1, 'rgba(0,0,0,0)');
-            ctx.fillStyle = gradient;
-            ctx.fillRect(0, 0, 1024, 1024);
-            
-            // Add subtle noise/streaks
-            for(let i=0; i<300; i++) {
-                ctx.beginPath();
-                const r = 120 + Math.random() * 300;
-                const a = Math.random() * Math.PI * 2;
-                const len = Math.random() * 0.4;
-                ctx.arc(center, center, r, a, a + len);
-                ctx.lineWidth = Math.random() * 2;
-                ctx.strokeStyle = `rgba(255,255,255,${Math.random() * 0.2})`;
-                ctx.stroke();
-            }
-            const tex = new THREE.CanvasTexture(canvas);
-            tex.anisotropy = 16;
-            return tex;
-        }
-
-        const diskMat = new THREE.MeshBasicMaterial({
-            map: createDiskTexture(),
-            transparent: true, blending: THREE.AdditiveBlending,
-            side: THREE.DoubleSide, depthWrite: false
-        });
-        const diskGeo = new THREE.PlaneGeometry(40, 40);
-        const accretionDisk = new THREE.Mesh(diskGeo, diskMat);
-        accretionDisk.rotation.x = Math.PI / 2.2;
-        bhGroup.add(accretionDisk);
-
-        // 3. Gravitational Lensing Halo (Illusion)
-        const haloGeo = new THREE.PlaneGeometry(18, 18);
-        const haloCanvas = document.createElement('canvas');
-        haloCanvas.width = 512; haloCanvas.height = 512;
-        const hCtx = haloCanvas.getContext('2d');
-        const hGrad = hCtx.createRadialGradient(256,256,120, 256,256,256);
-        hGrad.addColorStop(0, 'rgba(0,0,0,0)');
-        hGrad.addColorStop(0.8, 'rgba(255,200,150,0.5)');
-        hGrad.addColorStop(1, 'rgba(0,0,0,0)');
-        hCtx.fillStyle = hGrad; hCtx.fillRect(0,0,512,512);
-        
-        const haloMat = new THREE.MeshBasicMaterial({
-            map: new THREE.CanvasTexture(haloCanvas),
-            transparent: true, blending: THREE.AdditiveBlending, depthWrite: false
-        });
-        const lensingHalo = new THREE.Mesh(haloGeo, haloMat);
-        bhGroup.add(lensingHalo);
-
-        // 4. Infalling Particles
-        const pGeo = new THREE.BufferGeometry();
-        const pCount = 2000;
-        const pPos = new Float32Array(pCount * 3);
-        for(let i=0; i<pCount*3; i+=3) {
-            const r = 5 + Math.random() * 25;
-            const theta = Math.random() * Math.PI * 2;
-            pPos[i] = Math.cos(theta) * r;
-            pPos[i+1] = (Math.random() - 0.5) * 2;
-            pPos[i+2] = Math.sin(theta) * r;
-        }
-        pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
-        const pMat = new THREE.PointsMaterial({color: 0xffddaa, size: 0.1, transparent: true, blending: THREE.AdditiveBlending});
-        const bhParticles = new THREE.Points(pGeo, pMat);
-        bhGroup.add(bhParticles);
-
-        // Starfield 1
-        const starsGeo1 = new THREE.BufferGeometry();
-        const starsPos1 = new Float32Array(5000 * 3);
-        for(let i=0; i<15000; i++) starsPos1[i] = (Math.random()-0.5)*200;
-        starsGeo1.setAttribute('position', new THREE.BufferAttribute(starsPos1, 3));
-        const starsMat1 = new THREE.PointsMaterial({color: 0xffffff, size: 0.15, transparent: true, opacity: 0.5});
-        scene1.add(new THREE.Points(starsGeo1, starsMat1));
-
-        const universeGroup = new THREE.Group();
-        scene2.add(universeGroup);
-        
-        const planets = [];
-        const planetMaterials = [];
-
-        // Utility: Text Sprite for formulas
-        function createSymbolSprite(char, colorStr) {
-            const canvas = document.createElement('canvas');
-            canvas.width = 128; canvas.height = 128;
-            const ctx = canvas.getContext('2d');
-            ctx.font = "bold 80px 'Fira Code', monospace";
-            ctx.fillStyle = colorStr;
-            ctx.textAlign = "center";
-            ctx.textBaseline = "middle";
-            ctx.shadowColor = colorStr;
-            ctx.shadowBlur = 15;
-            ctx.fillText(char, 64, 64);
-            const tex = new THREE.CanvasTexture(canvas);
-            const mat = new THREE.SpriteMaterial({ map: tex, transparent: true, blending: THREE.AdditiveBlending });
-            return new THREE.Sprite(mat);
-        }
-
-        mathData.forEach(data => {
-            const pGroup = new THREE.Group();
-            pGroup.position.set(...data.position);
-            
-            // Custom Shader Planet
-            const geo = new THREE.SphereGeometry(6, 64, 64);
-            const mat = new THREE.ShaderMaterial({
-                vertexShader: planetVertexShader,
-                fragmentShader: planetFragmentShader,
-                uniforms: {
-                    time: { value: 0 },
-                    color1: { value: data.color1 },
-                    color2: { value: data.color2 }
-                }
-            });
-            planetMaterials.push(mat);
-            const mesh = new THREE.Mesh(geo, mat);
-            mesh.userData = { type: 'planet', data: data, group: pGroup };
-            pGroup.add(mesh);
-
-            // Orbiting Math Symbols
-            const symbolGroup = new THREE.Group();
-            const hexColor = '#' + data.color1.getHexString();
-            data.symbols.forEach((sym, idx) => {
-                const sprite = createSymbolSprite(sym, hexColor);
-                const angle = (idx / data.symbols.length) * Math.PI * 2;
-                const r = 9;
-                sprite.position.set(Math.cos(angle)*r, (Math.random()-0.5)*4, Math.sin(angle)*r);
-                sprite.scale.set(3,3,1);
-                symbolGroup.add(sprite);
-            });
-            pGroup.add(symbolGroup);
-
-            universeGroup.add(pGroup);
-            planets.push({ mesh, group: pGroup, symbols: symbolGroup, basePos: new THREE.Vector3(...data.position) });
-        });
-
-        // Starfield 2 (More vibrant)
-        const starsGeo2 = new THREE.BufferGeometry();
-        const starsPos2 = new Float32Array(8000 * 3);
-        for(let i=0; i<24000; i++) starsPos2[i] = (Math.random()-0.5)*300;
-        starsGeo2.setAttribute('position', new THREE.BufferAttribute(starsPos2, 3));
-        const starsMat2 = new THREE.PointsMaterial({color: 0x88bbff, size: 0.2, transparent: true, opacity: 0.7});
-        scene2.add(new THREE.Points(starsGeo2, starsMat2));
-
-        const raycaster = new THREE.Raycaster();
-        const mouse = new THREE.Vector2();
-
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            composer.setSize(window.innerWidth, window.innerHeight);
-        });
-
-        // Raycast targets based on scene
-        function getIntersectableObjects() {
-            if (currentState === STATE.SCENE1) return [eventHorizon];
-            if (currentState === STATE.SCENE2) return planets.map(p => p.mesh);
-            return [];
-        }
-
-        let hoveredObj = null;
-
-        window.addEventListener('mousemove', (e) => {
-            if (currentState === STATE.WARPING) return;
-            
-            mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
-            mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
-
-            if (currentState === STATE.SCENE2) {
-                raycaster.setFromCamera(mouse, camera);
-                const intersects = raycaster.intersectObjects(getIntersectableObjects());
-                
-                if (intersects.length > 0) {
-                    if (hoveredObj !== intersects[0].object) {
-                        hoveredObj = intersects[0].object;
-                        document.body.style.cursor = 'pointer';
-                        gsap.to(hoveredObj.scale, {x: 1.05, y: 1.05, z: 1.05, duration: 0.3});
-                    }
-                } else if (hoveredObj) {
-                    document.body.style.cursor = 'default';
-                    gsap.to(hoveredObj.scale, {x: 1, y: 1, z: 1, duration: 0.3});
-                    hoveredObj = null;
-                }
-            }
-        });
-
-        window.addEventListener('click', (e) => {
-            if (currentState === STATE.WARPING) return;
-
-            if (currentState === STATE.SCENE1) {
-                // Click anywhere on scene 1 (or the hitbox) warps
-                warpForward();
-            } else if (currentState === STATE.SCENE2) {
-                raycaster.setFromCamera(mouse, camera);
-                const intersects = raycaster.intersectObjects(getIntersectableObjects());
-                
-                if (intersects.length > 0) {
-                    openPanel(intersects[0].object);
-                }
-            }
-        });
-
-        // Hitbox for scene 1 explicitly
-        document.getElementById('bh-hitbox').addEventListener('click', () => {
-            if (currentState === STATE.SCENE1) warpForward();
-        });
-
-        // The Hidden ESC Logic
-        window.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                if (currentState === STATE.PANEL_OPEN) {
-                    closePanel();
-                } else if (currentState === STATE.SCENE2) {
-                    warpBackward();
-                }
-            }
-        });
-
-        let camTarget = new THREE.Vector3(0,0,0);
-
-        function warpForward() {
-            currentState = STATE.WARPING;
-            document.getElementById('bh-hitbox').style.display = 'none';
-            controls.enabled = false;
-
-            const tl = gsap.timeline();
-            
-            // Dive into black hole
-            tl.to(camera.position, { x: 0, y: 0, z: -5, duration: 2, ease: "power3.in" }, 0);
-            tl.to(camera, { fov: 160, duration: 2, ease: "power3.in", onUpdate: () => camera.updateProjectionMatrix() }, 0);
-            
-            // Flash
-            tl.to('#flash-overlay', { opacity: 1, duration: 0.2, ease: "none" }, 1.8);
-            
-            // Scene Swap
-            tl.add(() => {
-                composer.removePass(renderPass1);
-                composer.insertPass(renderPass2, 0);
-                camera.position.copy(INITIAL_CAM_SCENE2);
-                camera.lookAt(0,0,0);
-                controls.target.set(0,0,0);
-            }, 2.0);
-
-            // Emerge
-            tl.to('#flash-overlay', { opacity: 0, duration: 1.5, ease: "power2.out" }, 2.1);
-            tl.to(camera, { fov: 60, duration: 1.5, ease: "power2.out", onUpdate: () => camera.updateProjectionMatrix() }, 2.1);
-            
-            tl.add(() => {
-                currentState = STATE.SCENE2;
-                controls.enabled = true;
-            }, 3.6);
-        }
-
-        function warpBackward() {
-            currentState = STATE.WARPING;
-            controls.enabled = false;
-            if(hoveredObj) {
-                gsap.to(hoveredObj.scale, {x: 1, y: 1, z: 1, duration: 0.1});
-                hoveredObj = null;
-                document.body.style.cursor = 'default';
-            }
-
-            const tl = gsap.timeline();
-            
-            // Zoom out rapidly
-            const dir = camera.position.clone().normalize();
-            const farPos = dir.multiplyScalar(200);
-            tl.to(camera.position, { x: farPos.x, y: farPos.y, z: farPos.z, duration: 2, ease: "power3.in" }, 0);
-            tl.to(camera, { fov: 160, duration: 2, ease: "power3.in", onUpdate: () => camera.updateProjectionMatrix() }, 0);
-            
-            tl.to('#flash-overlay', { opacity: 1, duration: 0.2, ease: "none" }, 1.8);
-            
-            tl.add(() => {
-                composer.removePass(renderPass2);
-                composer.insertPass(renderPass1, 0);
-                camera.position.set(0, 0, -5); // Start inside black hole
-                camera.lookAt(0,0,0);
-                controls.target.set(0,0,0);
-            }, 2.0);
-
-            // Pull back from event horizon
-            tl.to('#flash-overlay', { opacity: 0, duration: 1.5, ease: "power2.out" }, 2.1);
-            tl.to(camera.position, { x: INITIAL_CAM_SCENE1.x, y: INITIAL_CAM_SCENE1.y, z: INITIAL_CAM_SCENE1.z, duration: 2, ease: "power2.out" }, 2.1);
-            tl.to(camera, { fov: 60, duration: 1.5, ease: "power2.out", onUpdate: () => camera.updateProjectionMatrix() }, 2.1);
-            
-            tl.add(() => {
-                currentState = STATE.SCENE1;
-                document.getElementById('bh-hitbox').style.display = 'block';
-                controls.enabled = true;
-            }, 4.1);
-        }
-
-        function openPanel(planetMesh) {
-            currentState = STATE.PANEL_OPEN;
-            controls.enabled = false;
-            activePlanet = planetMesh.userData.group;
-            const data = planetMesh.userData.data;
-
-            // Inject Content
-            const contentDiv = document.getElementById('info-content');
-            contentDiv.innerHTML = data.html;
-
-            // Typeset MathJax
-            MathJax.typesetPromise([contentDiv]).then(() => {
-                document.getElementById('info-panel').classList.remove('translate-x-full');
-                setTimeout(() => {
-                    document.querySelectorAll('.content-fade').forEach(el => el.classList.add('active'));
-                }, 300);
-            });
-
-            // Camera moves to focus planet, framing it on the left
-            const targetPos = new THREE.Vector3();
-            activePlanet.getWorldPosition(targetPos);
-            
-            const offset = targetPos.clone().normalize().multiplyScalar(15);
-            // Push camera right so planet goes left
-            const rightOffset = new THREE.Vector3(1, 0, 0).applyQuaternion(camera.quaternion).multiplyScalar(-8);
-            const camPos = targetPos.clone().add(offset).add(rightOffset);
-
-            gsap.to(camera.position, { x: camPos.x, y: camPos.y, z: camPos.z, duration: 1.5, ease: "power3.inOut" });
-            gsap.to(controls.target, { 
-                x: targetPos.x, y: targetPos.y, z: targetPos.z, 
-                duration: 1.5, ease: "power3.inOut",
-                onUpdate: () => camera.lookAt(controls.target)
-            });
-        }
-
-        function closePanel() {
-            // Animate out UI
-            document.querySelectorAll('.content-fade').forEach(el => el.classList.remove('active'));
-            document.getElementById('info-panel').classList.add('translate-x-full');
-
-            // Return camera to overview
-            const currentAngle = Math.atan2(camera.position.z, camera.position.x);
-            const r = 60;
-            
-            gsap.to(camera.position, {
-                x: Math.cos(currentAngle - 0.5) * r, y: 20, z: Math.sin(currentAngle - 0.5) * r,
-                duration: 1.5, ease: "power3.inOut"
-            });
-            gsap.to(controls.target, { 
-                x: 0, y: 0, z: 0, 
-                duration: 1.5, ease: "power3.inOut",
-                onUpdate: () => camera.lookAt(controls.target),
-                onComplete: () => {
-                    currentState = STATE.SCENE2;
-                    controls.enabled = true;
-                    activePlanet = null;
-                }
-            });
-        }
-
-        const clock = new THREE.Clock();
-
-        function animate() {
-            requestAnimationFrame(animate);
-            const time = clock.getElapsedTime();
-            
-            if (controls.enabled) controls.update(); // only update if enabled for smooth damping
-
-            if (currentState === STATE.SCENE1 || (currentState === STATE.WARPING && composer.passes[0] === renderPass1)) {
-                // Black hole animations
-                accretionDisk.rotation.z -= 0.005;
-                lensingHalo.lookAt(camera.position);
-                
-                // Animate infalling particles
-                const pos = bhParticles.geometry.attributes.position.array;
-                for(let i=0; i<pCount; i++) {
-                    const idx = i*3;
-                    let x = pos[idx], z = pos[idx+2];
-                    const angle = Math.atan2(z, x) + 0.02;
-                    let r = Math.sqrt(x*x + z*z) - 0.05;
-                    if (r < 3.5) r = 30; // reset to outer edge
-                    pos[idx] = Math.cos(angle)*r;
-                    pos[idx+2] = Math.sin(angle)*r;
-                }
-                bhParticles.geometry.attributes.position.needsUpdate = true;
-                
-            } else if (currentState === STATE.SCENE2 || currentState === STATE.PANEL_OPEN || (currentState === STATE.WARPING && composer.passes[0] === renderPass2)) {
-                
-                // Update Planet Shaders
-                planetMaterials.forEach(mat => mat.uniforms.time.value = time);
-
-                planets.forEach(p => {
-                    p.mesh.rotation.y += 0.002;
-                    p.mesh.rotation.z += 0.001;
-                    
-                    // Orbiting Symbols
-                    p.symbols.rotation.y -= 0.005;
-                    p.symbols.children.forEach(sprite => sprite.quaternion.copy(camera.quaternion));
-                    
-                    // Slow bobbing of entire group
-                    p.group.position.y = p.basePos.y + Math.sin(time + p.basePos.x) * 1.5;
-                });
-             }
-
-            composer.render();
-        }
-
-        // Start
-        window.onload = animate;
-
-    </script>
+// ===== Loop =====
+const clock=new THREE.Clock();
+function animate(){requestAnimationFrame(animate);const dt=Math.min(clock.getDelta(),.05),t=clock.elapsedTime;
+if(state!==S.PANEL||true)controls.update();
+const in1=composer.passes[0]===rp1;
+if(in1){disk.rotation.z-=.005;halo.lookAt(camera.position);const p=pGeo.attributes.position.array;
+for(let i=0;i<pCount;i++){const k=i*3,x=p[k],z=p[k+2],a=Math.atan2(z,x)+.02;let r=Math.hypot(x,z)-.05;if(r<3.5)r=30;p[k]=Math.cos(a)*r;p[k+2]=Math.sin(a)*r;}pGeo.attributes.position.needsUpdate=true;}
+else{mats.forEach(m=>m.uniforms.time.value=t);planets.forEach(p=>{p.mesh.rotation.y+=.004;p.sg.rotation.y-=.005;p.sg.children.forEach(s=>s.quaternion.copy(camera.quaternion));p.g.position.y=p.base.y+Math.sin(t+p.base.x)*1.5;});}
+updWarp(dt);composer.render();if(miniGrp&&state===S.PANEL){miniGrp.rotation.y+=.012;miniR.render(miniScene,miniCam);}}
+window.onload=animate;
+</script>
 </body>
 </html>
