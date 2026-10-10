@@ -79,30 +79,46 @@ mathData.push(
 
 // --- CÁC ỨNG DỤNG AI HÀNG ĐẦU ---
 mathData.push(
-{title:'ChatGPT (OpenAI)',type:'ỨNG DỤNG AI',c:'#10a37f',col:P(0x0e8a6c,0x10a37f),pos:[0,0,0],sym:['logo_chatgpt','GPT','LLM','RLHF','⚡'],cards:[
+{title:'ChatGPT (OpenAI)',type:'ỨNG DỤNG AI',c:'#10a37f',col:P(0x10a37f,0x33d6aa),pos:[0,0,0],sym:['logo_chatgpt','GPT','LLM','RLHF','⚡'],cards:[
 ['Kiến trúc Decoder-only Transformer','P(w_1, \\dots, w_n) = \\prod_{i=1}^n P(w_i | w_1, \\dots, w_{i-1})'],
 ['Tối ưu hóa phần thưởng RLHF','\\max_{\\pi_\\theta} \\mathbb{E}_{x\\sim D, y\\sim \\pi_\\theta}[r_\\psi(x,y)] - \\beta \\mathbb{D}_{\\text{KL}}(\\pi_\\theta || \\pi_{\\text{ref}})']
 ]},
-{title:'Claude (Anthropic)',type:'ỨNG DỤNG AI',c:'#d97706',col:P(0xb45309,0xd97706),pos:[0,0,0],sym:['logo_claude','CLD','Safe','宪','✦'],cards:[
+{title:'Claude (Anthropic)',type:'ỨNG DỤNG AI',c:'#d97706',col:P(0xd97757,0xf0a07c),pos:[0,0,0],sym:['logo_claude','CLD','Safe','宪','✦'],cards:[
 ['AI Lập Hiến (Constitutional AI)','\\text{Critique}(y_t) \\to \\text{Revision}(y_t) \\text{ s.t. } \\text{Principle } C'],
 ['Cửa sổ ngữ cảnh siêu lớn','\\text{Context Window} \\ge 200,000 \\text{ tokens}']
 ]},
-{title:'Gemini (Google)',type:'ỨNG DỤNG AI',c:'#4285f4',col:P(0x1a73e8,0x4285f4),pos:[0,0,0],sym:['logo_gemini','GEM','Multi','🌌','✨'],cards:[
+{title:'Gemini (Google)',type:'ỨNG DỤNG AI',c:'#4285f4',col:P(0x4285f4,0xd96570),pos:[0,0,0],sym:['logo_gemini','GEM','Multi','🌌','✨'],cards:[
 ['Đa phương thức gốc (Native Multimodality)','f_{\\text{embed}}: \\{\\text{Text, Audio, Video, Image}\\} \\to \\mathbb{R}^{d}'],
 ['Tăng tốc phần cứng TPU v5e','\\text{Throughput} \\propto \\frac{\\text{FLOPs}}{\\text{Watt}}']
 ]},
-{title:'Midjourney (Image Gen)',type:'ỨNG DỤNG AI',c:'#a855f7',col:P(0x7e22ce,0xa855f7),pos:[0,0,0],sym:['logo_midjourney','MJ','Latent','CFG','🎨'],cards:[
-['Dẫn đường phi phân loại (CFG)','\\tilde{\\epsilon}_\\theta(x_t, c) = (1 + w)\\epsilon_\\theta(x_t, c) - w\\epsilon_\\theta(x_t)'],
-['Không gian tiềm ẩn (Latent Diffusion)','z = \\mathcal{E}(x), \\quad \\hat{x} = \\mathcal{D}(z_0)']
+{title:'Grok (xAI)',type:'ỨNG DỤNG AI',c:'#e5e7eb',col:P(0xcfd3da,0xffffff),pos:[0,0,0],sym:['logo_grok','xAI','MoE','X','⚡'],cards:[
+['Mixture-of-Experts (MoE)','y=\\sum_{i=1}^{N}g_i(x)\\,E_i(x),\\quad g=\\text{softmax}(W_g x)'],
+['Mô hình ngôn ngữ tự hồi quy','\\mathcal{L}(\\theta)=-\\sum_t\\log P_\\theta(x_t\\mid x_{<t})']
+]},
+{title:'DeepSeek (DeepSeek AI)',type:'ỨNG DỤNG AI',c:'#4d6bfe',col:P(0x3b55e0,0x7a93ff),pos:[0,0,0],sym:['logo_deepseek','DS','MoE','MLA','🐋'],cards:[
+['Multi-head Latent Attention (MLA)','c_t^{KV}=W^{DKV}h_t,\\quad k_t=W^{UK}c_t^{KV}'],
+['Chuyên gia hỗn hợp (DeepSeekMoE)','h_t=\\sum_{i\\in\\text{Top-}K}g_{i,t}\\,\\text{FFN}_i(u_t)+u_t']
+]},
+{title:'Perplexity (Perplexity AI)',type:'ỨNG DỤNG AI',c:'#22b8cf',col:P(0x1aa3b8,0x5fe0f0),pos:[0,0,0],sym:['logo_perplexity','PPLX','RAG','🔎','?'],cards:[
+['Sinh văn bản tăng cường truy xuất (RAG)','P(y|x)=\\sum_{z\\in\\text{Top-}k}P(z|x)\\,P(y|x,z)'],
+['Độ tương đồng cosine','\\text{sim}(q,d)=\\frac{\\mathbf{q}\\cdot\\mathbf{d}}{\\|\\mathbf{q}\\|\\,\\|\\mathbf{d}\\|}']
+]},
+{title:'Copilot (Microsoft)',type:'ỨNG DỤNG AI',c:'#7c8cff',col:P(0x3a8dff,0xc16bff),pos:[0,0,0],sym:['logo_copilot','CPL','Code','⌨','🤝'],cards:[
+['Hoàn thành mã nguồn','\\hat{c}=\\arg\\max_{c}P_\\theta(c\\mid\\text{prefix},\\text{ngữ cảnh})'],
+['Mức tăng tốc năng suất','\\text{Speedup}=\\frac{T_{\\text{không AI}}}{T_{\\text{có AI}}}']
+]},
+{title:'Llama (Meta)',type:'ỨNG DỤNG AI',c:'#0a84ff',col:P(0x0866ff,0x62a8ff),pos:[0,0,0],sym:['logo_llama','Meta','Open','RoPE','🦙'],cards:[
+['Mã hóa vị trí quay (RoPE)','f(\\mathbf{x}_m,m)=R_{\\Theta,m}\\mathbf{x}_m'],
+['Chuẩn hóa RMSNorm','\\text{RMSNorm}(x)=\\frac{x}{\\sqrt{\\frac1d\\sum_i x_i^2+\\epsilon}}\\odot g']
 ]}
 );
 
-const SH=['inf','oct','dod','ico','knot','graph','torus','lorenz','sphere','cube','hilb','icoS','entropy','opt','chatgpt','claude','gemini','midjourney'];
-mathData.forEach((d,i)=>{d.shape=SH[i];d.wire=!['lorenz','knot'].includes(SH[i]);});
+const SH=['inf','oct','dod','ico','knot','graph','torus','lorenz','sphere','cube','hilb','icoS','entropy','opt','chatgpt','claude','gemini','grok','deepseek','perplexity','copilot','llama'];
+mathData.forEach((d,i)=>{d.shape=SH[i];d.logo=['chatgpt','claude','gemini','grok','deepseek','perplexity','copilot','llama'].includes(SH[i]);d.wire=!d.logo&&!['lorenz','knot'].includes(SH[i]);});
 
 const LAY=[
 [-72,8],[0,8],[-24,8],[48,8],[24,8],[72,8],[48,-28],[-48,8],[-72,-28],[24,-28],[-48,-28],[0,-28],[-24,-28],[72,-28],
-[-48,-70],[-16,-70],[16,-70],[48,-70]
+[-84,-70],[-60,-70],[-36,-70],[-12,-70],[12,-70],[36,-70],[60,-70],[84,-70]
 ];
 mathData.forEach((d,i)=>d.pos=[LAY[i][0],0,LAY[i][1]]);
 
@@ -124,7 +140,11 @@ const NOTES=[
 'Mô hình ngôn ngữ lớn (LLM) phát triển bởi OpenAI, huấn luyện tự hồi quy và tinh chỉnh qua phản hồi con người (RLHF).',
 'Trợ lý AI của Anthropic nổi tiếng với tính an toàn cao nhờ kiến trúc AI Lập Hiến (Constitutional AI) và ngữ cảnh cực lớn.',
 'Hệ thống đa phương thức nguyên bản (Native Multimodality) của Google, tối ưu hóa toàn diện trên chip TPU chuyên dụng.',
-'Mô hình khuếch tán tiềm ẩn (Latent Diffusion) đỉnh cao chuyên tạo sinh hình ảnh nghệ thuật số từ văn bản mô tả.'];
+'Trợ lý AI của xAI (Elon Musk), tích hợp trên nền tảng X, nổi tiếng với phong cách trả lời thẳng thắn, hài hước và khả năng truy cập thông tin thời gian thực.',
+'Mô hình mã nguồn mở của DeepSeek, biểu tượng là chú cá voi xanh; nổi tiếng nhờ kiến trúc Mixture-of-Experts và chi phí huấn luyện thấp.',
+'Công cụ tìm kiếm hội thoại: truy xuất nguồn trên web rồi tổng hợp thành câu trả lời có trích dẫn (RAG).',
+'Trợ lý AI của Microsoft, tích hợp trong Windows, Edge và bộ Office; biểu tượng là những dải ruy-băng đổi màu.',
+'Họ mô hình ngôn ngữ mở của Meta, biểu tượng là chú lạc đà không bướu (llama); dùng rộng rãi để tinh chỉnh và chạy cục bộ.'];
 mathData.forEach((d,i)=>d.note=NOTES[i]);
 mathData.forEach((d,i)=>d.html=page(i+1,d.title,d.type,d.c,d.cards,d.note));
 
@@ -180,10 +200,10 @@ document.getElementById('mute').onclick=e=>{initAudio();muted=!muted;master.gain
 
 // ===== Shaders =====
 const vs=`varying vec2 vUv;varying vec3 vPosition;void main(){vUv=uv;vPosition=position;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}`;
-const fs=`uniform float time;uniform vec3 color1;uniform vec3 color2;varying vec2 vUv;varying vec3 vPosition;
+const fs=`uniform float hover;uniform float time;uniform vec3 color1;uniform vec3 color2;varying vec2 vUv;varying vec3 vPosition;
 float mod289(float x){return x-floor(x*(1./289.))*289.;}vec4 mod289(vec4 x){return x-floor(x*(1./289.))*289.;}vec4 perm(vec4 x){return mod289(((x*34.)+1.)*x);}
 float noise(vec3 p){vec3 a=floor(p);vec3 d=p-a;d=d*d*(3.-2.*d);vec4 b=a.xxyy+vec4(0.,1.,0.,1.);vec4 k1=perm(b.xyxy);vec4 k2=perm(k1.xyxy+b.zzww);vec4 c=k2+a.zzzz;vec4 k3=perm(c);vec4 k4=perm(c+1.);vec4 o1=fract(k3*(1./41.));vec4 o2=fract(k4*(1./41.));vec4 o3=o2*d.z+o1*(1.-d.z);vec2 o4=o3.yw*d.x+o3.xz*(1.-d.x);return o4.y*d.y+o4.x*(1.-d.y);}
-void main(){float n=noise(vPosition*.5+time*.2);float m=sin(vUv.x*3.14+time*.5)*cos(vUv.y*3.14-time*.3)+n;m=smoothstep(-.5,1.5,m);vec3 c=mix(color1,color2,m);float rim=1.-max(dot(normalize(vPosition),vec3(0.,0.,1.)),0.);c+=vec3(smoothstep(.6,1.,rim)*.3);gl_FragColor=vec4(c*.9,1.);}`;
+void main(){float n=noise(vPosition*.5+time*.2);float m=sin(vUv.x*3.14+time*.5)*cos(vUv.y*3.14-time*.3)+n;m=smoothstep(-.5,1.5,m);vec3 c=mix(color1,color2,m);float rim=1.-max(dot(normalize(vPosition),vec3(0.,0.,1.)),0.);c+=vec3(smoothstep(.6,1.,rim)*.3);float sw=vPosition.x*.07+vPosition.y*.07-time*.9;c+=vec3(smoothstep(.14,0.,abs(fract(sw)-.5))*.85)*hover;c+=vec3(.12)*hover;gl_FragColor=vec4(c*.9,1.);}`;
 
 // ===== Renderer / scenes =====
 const W=()=>innerWidth,H=()=>innerHeight;
@@ -246,6 +266,36 @@ const s=label(n,'#9aa6cc',64,64,44);s.scale.set(1.8,1.8,1);s.position.set(a[0]*(
 return g;}
 function dots(geo,color,size){const c=document.createElement('canvas');c.width=c.height=64;const x=c.getContext('2d');x.fillStyle='#fff';x.beginPath();x.arc(32,32,28,0,6.3);x.fill();
 return new THREE.Points(geo,new THREE.PointsMaterial({color,size,map:new THREE.CanvasTexture(c),transparent:true,alphaTest:.3,depthWrite:false}));}
+// ===== Logo 3D: khối đùn (extrude) theo hình logo thật =====
+function rr(sh,x,y,w,h,r){sh.moveTo(x+r,y);sh.lineTo(x+w-r,y);sh.quadraticCurveTo(x+w,y,x+w,y+r);sh.lineTo(x+w,y+h-r);sh.quadraticCurveTo(x+w,y+h,x+w-r,y+h);sh.lineTo(x+r,y+h);sh.quadraticCurveTo(x,y+h,x,y+h-r);sh.lineTo(x,y+r);sh.quadraticCurveTo(x,y,x+r,y);}
+function mergeGeos(list){const P=[],U=[];list.forEach(g=>{const n=g.index?g.toNonIndexed():g;P.push(...n.attributes.position.array);const u=n.attributes.uv;if(u)U.push(...u.array);else for(let i=0;i<n.attributes.position.count;i++)U.push(0,0);});
+const m=new THREE.BufferGeometry();m.setAttribute('position',new THREE.Float32BufferAttribute(P,3));m.setAttribute('uv',new THREE.Float32BufferAttribute(U,2));m.computeVertexNormals();return m;}
+function ext(shape,depth,bev){const g=new THREE.ExtrudeGeometry(shape,{depth,bevelEnabled:true,bevelThickness:bev,bevelSize:bev,bevelSegments:3,curveSegments:20});g.translate(0,0,-depth/2);return g;}
+function logoChatGPT(){const L=[];for(let i=0;i<6;i++){const s=new THREE.Shape();rr(s,-1.9,-6.4,3.8,8.2,1.9);const h=new THREE.Path();rr(h,-.95,-5.5,1.9,6.4,.95);s.holes.push(h);const g=ext(s,.7,.2);g.translate(0,0,(i%2?.45:-.45));g.rotateZ(i*Math.PI/3);L.push(g);}return mergeGeos(L);}
+function logoClaude(){const Ls=[78,54,72,48,80,52,70,56,74,50,82,54],jit=[0,.05,-.04,.06,-.05,.03,-.06,.04,-.03,.05,-.04,.02],L=[];
+Ls.forEach((len,i)=>{const l=len*.085,s=new THREE.Shape();s.moveTo(-.75,1.1);s.lineTo(.75,1.1);s.lineTo(.28,l);s.lineTo(-.28,l);s.closePath();
+const g=ext(s,.9,.12);g.rotateZ(i/Ls.length*Math.PI*2+jit[i]);L.push(g);});return mergeGeos(L);}
+function logoGemini(){const s=new THREE.Shape();s.moveTo(0,6.6);s.quadraticCurveTo(.5,.5,6.6,0);s.quadraticCurveTo(.5,-.5,0,-6.6);s.quadraticCurveTo(-.5,-.5,-6.6,0);s.quadraticCurveTo(-.5,.5,0,6.6);return ext(s,1.2,.25);}
+function logoGrok(){const ring=new THREE.Shape(),a0=1.05,a1=a0+Math.PI*2-.75;
+ring.absarc(0,0,4.8,a0,a1,false);ring.absarc(0,0,3.55,a1,a0,true);ring.closePath();
+const sl=new THREE.Shape();rr(sl,-.7,-7.6,1.4,11.4,.7);
+const g1=ext(ring,1.0,.16),g2=ext(sl,1.0,.16);g2.rotateZ(-Math.PI/4);
+return mergeGeos([g1,g2]);}
+function logoDeepSeek(){const s=new THREE.Shape();s.moveTo(6,-.5);
+s.bezierCurveTo(5.5,3.8,1.5,5,-2,3.4);s.bezierCurveTo(-3.6,2.7,-4.8,2.9,-6.2,4.6);
+s.bezierCurveTo(-6.4,2.6,-5.6,.4,-4,-.8);s.bezierCurveTo(-2.6,-2.8,1.4,-4,4.6,-2.6);
+s.bezierCurveTo(5.5,-2.2,6,-1.4,6,-.5);
+const e=new THREE.Path();e.absarc(3.1,.9,.55,0,Math.PI*2,true);s.holes.push(e);
+return ext(s,1.2,.22);}
+function bar(x1,y1,x2,y2,w,z){const L=Math.hypot(x2-x1,y2-y1),s=new THREE.Shape();rr(s,-L/2,-w/2,L,w,w/2);const g=ext(s,.8,.12);g.rotateZ(Math.atan2(y2-y1,x2-x1));g.translate((x1+x2)/2,(y1+y2)/2,z);return g;}
+function logoPerplexity(){const T=[[0,6.4],[-5.6,-3.2],[5.6,-3.2]],B=[[0,-6.4],[-5.6,3.2],[5.6,3.2]],L=[];let n=0;
+[T,B].forEach(t=>{for(let i=0;i<3;i++){const a=t[i],b=t[(i+1)%3];L.push(bar(a[0],a[1],b[0],b[1],.9,(n++%3)*.15));}});
+L.push(bar(0,-6.4,0,6.4,.9,.45));return mergeGeos(L);}
+function logoCopilot(){const L=[];[[2.6,0],[0,.5],[-2.6,1]].forEach(([dy,ph],i)=>{const pts=[];
+for(let k=0;k<=24;k++){const u=k/24;pts.push(new THREE.Vector3(-5.8+u*11.6,dy+Math.sin(u*Math.PI*2+ph)*2.2,i*.25));}
+L.push(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts),80,.85,10,false));});return mergeGeos(L);}
+function logoLlama(){const s=new THREE.Shape(),P=[[-2.7,-6.2],[-1.9,.6],[-2.4,5.8],[-.9,3],[.6,6.4],[1.2,2.9],[3.7,1.1],[5.2,-.1],[5.4,-1.2],[4.1,-2],[2,-1.6],[2.5,-6.2]];
+s.moveTo(P[0][0],P[0][1]);for(let i=1;i<P.length;i++)s.lineTo(P[i][0],P[i][1]);s.closePath();return ext(s,1.1,.25);}
 function makeGeo(s){switch(s){
 case 'inf':return surf((x,z)=>{const r=Math.hypot(x,z)*1.1+1e-3;return 4.5*Math.sin(r)/r;},13,30);
 case 'oct':return surf((x,z)=>(x*x-z*z)/9,12,24);
@@ -262,46 +312,127 @@ case 'hilb':return surf((x,z)=>5*Math.pow(Math.max(0,1-Math.pow(Math.abs(x)/6,1.
 case 'icoS':return new THREE.IcosahedronGeometry(6.5,0);
 case 'entropy':{const H=p=>{p=Math.min(.999,Math.max(.001,p));return -p*Math.log(p)-(1-p)*Math.log(1-p);};return surf((x,z)=>(H(x/12+.5)+H(z/12+.5))*3-2,12,28);}
 case 'opt':return surf((x,z)=>{const u=x/5,v=z/5;return Math.log(1+(1-u)*(1-u)+30*(v-u*u)*(v-u*u))*2-2;},12,32);
-case 'chatgpt':return new THREE.OctahedronGeometry(6, 2);
-case 'claude':return new THREE.DodecahedronGeometry(6, 1);
-case 'gemini':return new THREE.IcosahedronGeometry(6, 2);
-case 'midjourney':return new THREE.TorusKnotGeometry(4.5, 1.5, 64, 16);
+case 'chatgpt':return logoChatGPT();
+case 'claude':return logoClaude();
+case 'gemini':return logoGemini();
+case 'grok':return logoGrok();
+case 'deepseek':return logoDeepSeek();
+case 'perplexity':return logoPerplexity();
+case 'copilot':return logoCopilot();
+case 'llama':return logoLlama();
 default:return new THREE.BoxGeometry(7,7,7);}}
 
-// ===== Planets & AI App Nodes with Real Brand Logo Sprites =====
+// ===== Planets & AI App Nodes with app-style icon sprites =====
 const planets=[],mats=[];
 function sprite(ch,col){
-  const c=document.createElement('canvas');c.width=c.height=128;const x=c.getContext('2d');
-  
+  const isLogo=ch.startsWith('logo_');
+  const c=document.createElement('canvas');c.width=c.height=256;const x=c.getContext('2d');
+
+  // Nền icon bo góc kiểu iOS
+  const tile=(bg,border)=>{
+    const r=56,s=12,w=232;
+    x.save();x.shadowColor='rgba(0,0,0,.6)';x.shadowBlur=14;x.shadowOffsetY=4;
+    x.beginPath();x.moveTo(s+r,s);x.arcTo(s+w,s,s+w,s+w,r);x.arcTo(s+w,s+w,s,s+w,r);
+    x.arcTo(s,s+w,s,s,r);x.arcTo(s,s,s+w,s,r);x.closePath();
+    x.fillStyle=bg;x.fill();x.restore();
+    if(border){x.lineWidth=4;x.strokeStyle=border;x.stroke();}
+  };
+
   if(ch==='logo_chatgpt'){
-    x.fillStyle=col; x.translate(64,64);
+    // Nền xanh ChatGPT + hoa lục giác OpenAI (6 vòng đan nhau)
+    tile('#10a37f','rgba(255,255,255,.25)');
+    x.save();x.translate(128,128);x.strokeStyle='#fff';x.lineWidth=11;x.lineJoin='round';
     for(let i=0;i<6;i++){
-      x.rotate(Math.PI/3);
-      x.beginPath(); x.roundRect(-12,-48,24,64,[12]); x.fill();
+      x.save();x.rotate(i*Math.PI/3);
+      x.beginPath();x.roundRect(-21,-78,42,92,21);x.stroke();
+      x.restore();
     }
-  } else if(ch==='logo_gemini'){
-    x.fillStyle=col; x.beginPath();
-    x.moveTo(64,10); x.bezierCurveTo(64,50, 78,64, 118,64); x.bezierCurveTo(78,64, 64,78, 64,118); x.bezierCurveTo(64,78, 50,64, 10,64); x.bezierCurveTo(50,64, 64,50, 64,10);
-    x.fill();
+    x.restore();
+
   } else if(ch==='logo_claude'){
-    x.strokeStyle=col; x.lineWidth=10; x.lineCap='round';
-    x.beginPath(); x.arc(64,64,36,0,Math.PI*1.5); x.stroke();
-    x.fillStyle=col; x.beginPath(); x.arc(94,34,8,0,Math.PI*2); x.fill();
-  } else if(ch==='logo_midjourney'){
-    x.strokeStyle=col; x.lineWidth=12; x.lineJoin='round';
-    x.beginPath(); x.moveTo(34,98); x.lineTo(64,30); x.lineTo(94,98); x.lineTo(64,74); x.closePath(); x.stroke();
+    // Nền đất nung + tia "spark" nhiều cánh của Claude
+    tile('#d97757','rgba(255,255,255,.25)');
+    x.save();x.translate(128,128);x.strokeStyle='#faf3ea';x.lineCap='round';
+    const L=[74,52,70,46,76,50,68,54,72,48,78,52];
+    L.forEach((len,i)=>{
+      x.save();x.rotate(i/L.length*Math.PI*2);
+      x.lineWidth=15;
+      x.beginPath();x.moveTo(0,-14);x.lineTo(0,-len);x.stroke();
+      x.restore();
+    });
+    x.restore();
+
+  } else if(ch==='logo_gemini'){
+    // Nền tối + ngôi sao 4 cánh gradient xanh → tím → hồng
+    tile('#0f1224','rgba(255,255,255,.18)');
+    const g=x.createLinearGradient(50,50,206,206);
+    g.addColorStop(0,'#4285f4');g.addColorStop(.5,'#9b72cb');g.addColorStop(1,'#d96570');
+    x.fillStyle=g;x.beginPath();
+    x.moveTo(128,36);
+    x.quadraticCurveTo(136,120,220,128);
+    x.quadraticCurveTo(136,136,128,220);
+    x.quadraticCurveTo(120,136,36,128);
+    x.quadraticCurveTo(120,120,128,36);
+    x.closePath();x.fill();
+
+  } else if(ch==='logo_grok'){
+    // Nền đen + dấu hiệu Grok: vòng tròn hở và nét chéo xuyên qua
+    tile('#000000','rgba(255,255,255,.4)');
+    x.strokeStyle='#fff';x.lineCap='round';x.lineWidth=15;
+    x.beginPath();x.arc(120,138,54,-.35,5.35);x.stroke();
+    x.lineWidth=13;x.beginPath();x.moveTo(60,208);x.lineTo(186,76);x.stroke();
+
+  } else if(ch==='logo_deepseek'){
+    tile('#ffffff','rgba(0,0,0,.15)');
+    const X=u=>128+u*14,Y=v=>128-(v-.5)*14,p=(a,b)=>[X(a),Y(b)];
+    x.fillStyle='#4d6bfe';x.beginPath();x.moveTo(...p(6,-.5));
+    x.bezierCurveTo(...p(5.5,3.8),...p(1.5,5),...p(-2,3.4));x.bezierCurveTo(...p(-3.6,2.7),...p(-4.8,2.9),...p(-6.2,4.6));
+    x.bezierCurveTo(...p(-6.4,2.6),...p(-5.6,.4),...p(-4,-.8));x.bezierCurveTo(...p(-2.6,-2.8),...p(1.4,-4),...p(4.6,-2.6));
+    x.bezierCurveTo(...p(5.5,-2.2),...p(6,-1.4),...p(6,-.5));x.closePath();x.fill();
+    x.fillStyle='#fff';x.beginPath();x.arc(X(3.1),Y(.9),8,0,6.283);x.fill();
+
+  } else if(ch==='logo_perplexity'){
+    tile('#1f2121','rgba(255,255,255,.2)');
+    const X=u=>128+u*13.5,Y=v=>128-v*13.5;
+    x.strokeStyle='#22b8cf';x.lineWidth=9;x.lineJoin='round';x.lineCap='round';
+    [[[0,6.4],[-5.6,-3.2],[5.6,-3.2]],[[0,-6.4],[-5.6,3.2],[5.6,3.2]]].forEach(t=>{x.beginPath();x.moveTo(X(t[0][0]),Y(t[0][1]));x.lineTo(X(t[1][0]),Y(t[1][1]));x.lineTo(X(t[2][0]),Y(t[2][1]));x.closePath();x.stroke();});
+    x.beginPath();x.moveTo(128,Y(-6.4));x.lineTo(128,Y(6.4));x.stroke();
+
+  } else if(ch==='logo_copilot'){
+    tile('#f5f7ff','rgba(0,0,0,.12)');
+    const g=x.createLinearGradient(40,0,216,0);g.addColorStop(0,'#2d7ff9');g.addColorStop(.5,'#8f6bff');g.addColorStop(1,'#ff8a3d');
+    x.strokeStyle=g;x.lineWidth=16;x.lineCap='round';
+    [[34,0],[0,.5],[-34,1]].forEach(([dy,ph])=>{x.beginPath();for(let k=0;k<=40;k++){const u=k/40,px=44+u*168,py=128-dy-Math.sin(u*6.283+ph)*28;k?x.lineTo(px,py):x.moveTo(px,py);}x.stroke();});
+
+  } else if(ch==='logo_llama'){
+    tile('#0866ff','rgba(255,255,255,.3)');
+    const P=[[-2.7,-6.2],[-1.9,.6],[-2.4,5.8],[-.9,3],[.6,6.4],[1.2,2.9],[3.7,1.1],[5.2,-.1],[5.4,-1.2],[4.1,-2],[2,-1.6],[2.5,-6.2]];
+    x.fillStyle='#fff';x.lineJoin='round';x.strokeStyle='#fff';x.lineWidth=8;x.beginPath();
+    P.forEach((q,i)=>{const px=128+(q[0]-1.3)*13,py=128-(q[1]-.1)*13;i?x.lineTo(px,py):x.moveTo(px,py);});x.closePath();x.fill();x.stroke();
+
   } else {
-    x.font="bold 60px 'Fira Code',monospace";x.fillStyle=col;x.textAlign='center';x.textBaseline='middle';x.shadowColor=col;x.shadowBlur=15;x.fillText(ch,64,64);
+    x.font="bold 120px 'Fira Code',monospace";x.fillStyle=col;x.textAlign='center';x.textBaseline='middle';
+    x.shadowColor=col;x.shadowBlur=30;x.fillText(ch,128,128);
   }
 
-  const s=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(c),transparent:true,blending:THREE.AdditiveBlending}));s.scale.set(3,3,1);return s;
+  const s=new THREE.Sprite(new THREE.SpriteMaterial({
+    map:new THREE.CanvasTexture(c),transparent:true,depthWrite:false,
+    // Icon app dùng blending thường để giữ đúng màu; ký hiệu toán vẫn phát sáng
+    blending:isLogo?THREE.NormalBlending:THREE.AdditiveBlending
+  }));
+  s.scale.set(isLogo?4.6:3,isLogo?4.6:3,1);
+  return s;
 }
 
 mathData.forEach(d=>{const g=new THREE.Group();g.position.set(...d.pos);
-const m=new THREE.ShaderMaterial({vertexShader:vs,fragmentShader:fs,uniforms:{time:{value:0},color1:{value:d.col[0]},color2:{value:d.col[1]}}});m.wireframe=!!d.wire;mats.push(m);
-const mesh=new THREE.Mesh(makeGeo(d.shape),m);mesh.userData={d,g};mesh.add(axes());if(d.wire)mesh.add(new THREE.Mesh(mesh.geometry,new THREE.MeshBasicMaterial({color:d.col[1],transparent:true,opacity:.16,side:THREE.DoubleSide,depthWrite:false})));if(d.shape==='graph'||d.shape==='cube'||d.shape==='icoS')mesh.add(dots(mesh.geometry,d.c,1.1));const hit=new THREE.Mesh(new THREE.SphereGeometry(7.5,12,8),new THREE.MeshBasicMaterial({visible:false}));hit.userData={d,g,mesh};mesh.add(hit);g.add(mesh);
+const m=new THREE.ShaderMaterial({vertexShader:vs,fragmentShader:fs,uniforms:{time:{value:0},hover:{value:0},color1:{value:d.col[0]},color2:{value:d.col[1]}}});m.wireframe=!!d.wire;mats.push(m);
+const mesh=new THREE.Mesh(makeGeo(d.shape),m);mesh.userData={d,g};if(!d.logo)mesh.add(axes());if(d.wire)mesh.add(new THREE.Mesh(mesh.geometry,new THREE.MeshBasicMaterial({color:d.col[1],transparent:true,opacity:.16,side:THREE.DoubleSide,depthWrite:false})));if(d.shape==='graph'||d.shape==='cube'||d.shape==='icoS')mesh.add(dots(mesh.geometry,d.c,1.1));const hit=new THREE.Mesh(new THREE.SphereGeometry(7.5,12,8),new THREE.MeshBasicMaterial({visible:false}));hit.userData={d,g,mesh};mesh.add(hit);g.add(mesh);
 const sg=new THREE.Group();d.sym.forEach((s,i)=>{const sp=sprite(s,d.c),a=i/d.sym.length*6.283;sp.position.set(Math.cos(a)*9,(Math.random()-.5)*4,Math.sin(a)*9);sg.add(sp);});g.add(sg);
-scene3.add(g);planets.push({mesh,g,sg,base:new THREE.Vector3(...d.pos)});});
+let sparks=null;if(d.logo){const N=70,ph=[],pa=new Float32Array(N*3);for(let i=0;i<N;i++)ph.push({a:Math.random()*6.283,r:7+Math.random()*3,y:(Math.random()-.5)*10,s:.4+Math.random()*.8});
+const dc=document.createElement('canvas');dc.width=dc.height=32;const dx=dc.getContext('2d'),dg=dx.createRadialGradient(16,16,0,16,16,16);dg.addColorStop(0,'rgba(255,255,255,1)');dg.addColorStop(1,'rgba(255,255,255,0)');dx.fillStyle=dg;dx.fillRect(0,0,32,32);
+const sgeo=new THREE.BufferGeometry();sgeo.setAttribute('position',new THREE.BufferAttribute(pa,3));
+sparks=new THREE.Points(sgeo,new THREE.PointsMaterial({color:d.c,size:.7,map:new THREE.CanvasTexture(dc),transparent:true,opacity:0,blending:THREE.AdditiveBlending,depthWrite:false}));sparks.userData.ph=ph;sparks.frustumCulled=false;g.add(sparks);}
+scene3.add(g);planets.push({mesh,g,sg,sparks,base:new THREE.Vector3(...d.pos)});});
 
 // ===== Museum gallery: floor grid & dual wings =====
 function label(text,color,w,h,fs){const c=document.createElement('canvas');c.width=w;c.height=h;const x=c.getContext('2d');x.font=`600 ${fs}px 'Fira Code',monospace`;x.fillStyle=color;x.textAlign='center';x.textBaseline='middle';x.shadowColor=color;x.shadowBlur=10;x.fillText(text,w/2,h/2);
@@ -337,7 +468,7 @@ const grid=new THREE.GridHelper(260,44,0x3a4f99,0x1a2348);grid.position.y=-14;gr
 const signMath = label('🏛️ KHU VỰC TOÁN HỌC CỔ ĐIỂN & HIỆN ĐẠI', '#6cc4dc', 1024, 80, 28);
 signMath.scale.set(28, 2.8, 1); signMath.position.set(0, 18, -15); scene3.add(signMath);
 
-const signAI = label('⚡ KHU VỰC ỨNG DỤNG AI HÀNG ĐẦU (CHATGPT, CLAUDE, GEMINI, MIDJOURNEY)', '#10a37f', 1280, 80, 26);
+const signAI = label('⚡ KHU VỰC ỨNG DỤNG AI HÀNG ĐẦU', '#10a37f', 1280, 80, 26);
 signAI.scale.set(34, 2.8, 1); signAI.position.set(0, 18, -55); scene3.add(signAI);
 
 const beamMats = [];
@@ -411,8 +542,8 @@ el.addEventListener('pointerdown',e=>{initAudio();down={x:e.clientX,y:e.clientY,
 el.addEventListener('pointerup',e=>{if(!down)return;const tap=Math.hypot(e.clientX-down.x,e.clientY-down.y)<10&&performance.now()-down.t<500;down=null;if(!tap||state===S.WARP)return;
 setMouse(e);if(state===S.S1)warpForward();else if(state===S.S2){const h=pick();if(h.length)openPanel(h[0].object);else{const n=performance.now();if(n-lastTap<400){lastTap=0;warpBackward();}else lastTap=n;}}});
 el.addEventListener('pointermove',e=>{if(e.pointerType!=='mouse'||state!==S.S2)return;setMouse(e);const h=pick();
-if(h.length){if(hov!==h[0].object){hov=h[0].object;document.body.style.cursor='pointer';gsap.to(hov.scale,{x:1.05,y:1.05,z:1.05,duration:.3});sfxHover();}}
-else if(hov){document.body.style.cursor='default';gsap.to(hov.scale,{x:1,y:1,z:1,duration:.3});hov=null;}});
+if(h.length){if(hov!==h[0].object){if(hov){gsap.to(hov.scale,{x:1,y:1,z:1,duration:.3});gsap.to(hov.material.uniforms.hover,{value:0,duration:.6});}hov=h[0].object;document.body.style.cursor='pointer';gsap.to(hov.scale,{x:1.05,y:1.05,z:1.05,duration:.3});gsap.to(hov.material.uniforms.hover,{value:1,duration:.4});sfxHover();}}
+else if(hov){document.body.style.cursor='default';gsap.to(hov.scale,{x:1,y:1,z:1,duration:.3});gsap.to(hov.material.uniforms.hover,{value:0,duration:.6});hov=null;}});
 addEventListener('keydown',e=>{if(e.key!=='Escape')return;if(state===S.PANEL)closePanel();else if(state===S.S2)warpBackward();});
 const $=id=>document.getElementById(id),show=(id,v)=>{const e=$(id);if(e)e.style.display=v?'block':'none';};$('close').onclick=()=>state===S.PANEL&&closePanel();
 
@@ -420,8 +551,8 @@ let miniR=null,miniScene=null,miniCam=null,miniGrp=null;
 function showMini(d,mesh){const host=document.getElementById('mini');if(!host)return;
 if(!miniR){miniR=new THREE.WebGLRenderer({alpha:true,antialias:true});miniR.setPixelRatio(Math.min(devicePixelRatio,2));miniR.setSize(150,150);miniScene=new THREE.Scene();miniCam=new THREE.PerspectiveCamera(38,1,.1,200);miniCam.position.set(0,9,34);miniCam.lookAt(0,0,0);}
 miniR.domElement.style.cssText='width:150px;height:150px;display:block';host.appendChild(miniR.domElement);
-if(miniGrp)miniScene.remove(miniGrp);miniGrp=new THREE.Group();
-miniGrp.add(new THREE.Mesh(mesh.geometry,mesh.material),axes());
+if(miniGrp)miniScene.remove(miniGrp);miniGrp=new THREE.Group();miniGrp.userData.logo=!!d.logo;
+miniGrp.add(new THREE.Mesh(mesh.geometry,mesh.material));if(!d.logo)miniGrp.add(axes());
 if(d.wire)miniGrp.add(new THREE.Mesh(mesh.geometry,new THREE.MeshBasicMaterial({color:d.col[1],transparent:true,opacity:.16,side:THREE.DoubleSide,depthWrite:false})));
 if(['graph','cube','icoS'].includes(d.shape))miniGrp.add(dots(mesh.geometry,d.c,1.1));
 miniScene.add(miniGrp);}
@@ -446,7 +577,7 @@ tl.to(warp,{speed:0,len:0,duration:1.5,ease:'power2.out'},2.1);
 tl.add(()=>{state=S.S2;controls.enabled=true;show('back',1);},3.6);}
 
 function warpBackward(){state=S.WARP;controls.enabled=false;show('back',0);sfxExit();scene2.add(warpLines);
-if(hov){hov.scale.set(1,1,1);hov=null;document.body.style.cursor='default';}
+if(hov){hov.scale.set(1,1,1);hov.material.uniforms.hover.value=0;hov=null;document.body.style.cursor='default';}
 const far=camera.position.clone().normalize().multiplyScalar(200),tl=gsap.timeline();
 tl.timeScale(.625);tl.to(camera.position,{x:far.x,y:far.y,z:far.z,duration:2,ease:'power3.in'},0);
 tl.to(camera,{fov:150,duration:2,ease:'power3.in',onUpdate:()=>camera.updateProjectionMatrix()},0);
@@ -522,9 +653,11 @@ else{
   mats.forEach(m=>m.uniforms.time.value=t);
   beamMats.forEach(m=>m.uniforms.time.value=t);
   floorMat.uniforms.time.value=t;
-  planets.forEach(p=>{p.mesh.rotation.y+=.004;p.sg.rotation.y-=.005;p.sg.children.forEach(s=>s.quaternion.copy(camera.quaternion));p.g.position.y=p.base.y+Math.sin(t+p.base.x)*1.5;});
+  planets.forEach(p=>{if(p.mesh.userData.d.logo)p.mesh.rotation.y=Math.sin(t*.7+p.base.x)*.8;else p.mesh.rotation.y+=.004;p.sg.rotation.y-=.005;p.sg.children.forEach(s=>s.quaternion.copy(camera.quaternion));p.g.position.y=p.base.y+Math.sin(t+p.base.x)*1.5;
+  if(p.sparks){const h=p.mesh.material.uniforms.hover.value;p.sparks.material.opacity=h;if(h>.01){const ph=p.sparks.userData.ph,a=p.sparks.geometry.attributes.position.array;for(let i=0;i<ph.length;i++){const q=ph[i];q.a+=q.s*.025;const k=i*3;a[k]=Math.cos(q.a)*q.r;a[k+1]=q.y+Math.sin(t*q.s*2+i)*.8;a[k+2]=Math.sin(q.a)*q.r;}p.sparks.geometry.attributes.position.needsUpdate=true;}}
+  });
 }
-updWarp(dt);composer.render();if(miniGrp&&state===S.PANEL){miniGrp.rotation.y+=.012;miniR.render(miniScene,miniCam);}}
+updWarp(dt);composer.render();if(miniGrp&&state===S.PANEL){if(miniGrp.userData.logo)miniGrp.rotation.y=Math.sin(t*.8)*.7;else miniGrp.rotation.y+=.012;miniR.render(miniScene,miniCam);}}
 window.onload=animate;
 </script>
 </body>
