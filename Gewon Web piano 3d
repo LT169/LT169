@@ -682,6 +682,47 @@ window.imgFail = window.imgFail || function(img) {
 };
 </script>
 
+
+<style id="gewon-phrase-motion-styles">
+  /* Cinematic phrase-by-phrase typography: original copy and layout stay intact. */
+  .gm-phrase-target .gm-phrase {
+    display: inline-block;
+    opacity: 0;
+    transform: translate3d(0, .58em, 0) rotateX(-12deg);
+    transform-origin: 50% 100%;
+    filter: blur(4px);
+    transition:
+      opacity .58s ease,
+      transform .72s cubic-bezier(.16, 1, .3, 1),
+      filter .58s ease;
+    transition-delay: var(--gm-phrase-delay, 0ms);
+    backface-visibility: hidden;
+    will-change: opacity, transform, filter;
+  }
+  .gm-phrase-target.gm-phrases-visible .gm-phrase {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) rotateX(0);
+    filter: blur(0);
+  }
+  /* Preserve the original gradient treatment on highlighted brand words. */
+  .accent .gm-phrase {
+    background: inherit;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .gm-phrase-target .gm-phrase,
+    .gm-phrase-target.gm-phrases-visible .gm-phrase {
+      opacity: 1 !important;
+      transform: none !important;
+      filter: none !important;
+      transition: none !important;
+      will-change: auto !important;
+    }
+  }
+</style>
+
 </head>
 <body>
 
@@ -2916,6 +2957,131 @@ document.addEventListener('DOMContentLoaded', ()=>{
   document.addEventListener('keydown', onFirstGesture, true);
   document.addEventListener('DOMContentLoaded', updateButton);
   updateButton();
+})();
+</script>
+
+
+<script id="gewon-phrase-motion-engine">
+(() => {
+  const selector = [
+    '.hero h1', '.hero-sub',
+    '.intro-label', '.intro-title', '.intro-body',
+    '.section-head h2', '.cat-info h3', '.product-info h3',
+    '.page-head h1', '.page-head p',
+    '.detail-info h1', '.detail-short', '.spec-section-title',
+    '.contact-card h4', '.contact-card p', '.contact-card small',
+    '.warranty-hero .big-label', '.warranty-hero p', '.warranty-box h3',
+    '.orders-empty h3', '.orders-empty p', '.order-code',
+    '.success-box h1', '.success-box .sub',
+    '.test-panel-head h3', '.test-panel-head p'
+  ].join(',');
+
+  const reduceMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  let observer = null;
+  if (!reduceMotion && 'IntersectionObserver' in window) {
+    observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('gm-phrases-visible');
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.16, rootMargin: '0px 0px -4% 0px' });
+  }
+
+  function splitNodeIntoPhrases(node, counter) {
+    const text = node.nodeValue;
+    const wordRx = /\S+/g;
+    const words = [];
+    let match;
+    while ((match = wordRx.exec(text)) !== null) {
+      words.push({ start: match.index, end: match.index + match[0].length });
+    }
+    if (!words.length) return;
+
+    const parent = node.parentElement;
+    const isAccent = !!(parent && parent.closest('.accent'));
+    const fragment = document.createDocumentFragment();
+    let cursor = 0;
+    for (let i = 0; i < words.length; i += 2) {
+      const first = words[i];
+      const last = words[Math.min(i + 1, words.length - 1)];
+      if (first.start > cursor) fragment.appendChild(document.createTextNode(text.slice(cursor, first.start)));
+      const phrase = document.createElement('span');
+      phrase.className = isAccent ? 'gm-phrase gm-phrase-accent' : 'gm-phrase';
+      phrase.style.setProperty('--gm-phrase-delay', `${Math.min(counter.value * 56, 672)}ms`);
+      phrase.textContent = text.slice(first.start, last.end);
+      fragment.appendChild(phrase);
+      counter.value += 1;
+      cursor = last.end;
+    }
+    if (cursor < text.length) fragment.appendChild(document.createTextNode(text.slice(cursor)));
+    node.parentNode.replaceChild(fragment, node);
+  }
+
+  function prepareTarget(el) {
+    if (!el || el.dataset.gmPhraseReady === '1') return;
+    // Skip controls or elements whose contents are meant to be interacted with.
+    if (el.closest('#chat-window, .chat-body, .chat-foot, .test-keys, .guitar-wrap, .drum-wrap')) return;
+    el.dataset.gmPhraseReady = '1';
+    const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, {
+      acceptNode(node) {
+        if (!node.nodeValue || !/\S/.test(node.nodeValue)) return NodeFilter.FILTER_REJECT;
+        const p = node.parentElement;
+        if (!p || p.closest('script, style, button, input, textarea, select, svg, .gm-phrase')) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+    const nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    const counter = { value: 0 };
+    nodes.forEach(node => splitNodeIntoPhrases(node, counter));
+    el.classList.add('gm-phrase-target');
+
+    if (reduceMotion || !observer) {
+      el.classList.add('gm-phrases-visible');
+    } else {
+      observer.observe(el);
+    }
+  }
+
+  function prepareActiveView() {
+    const active = document.querySelector('.view.active');
+    if (!active) return;
+    const candidates = [];
+    if (active.matches(selector)) candidates.push(active);
+    candidates.push(...active.querySelectorAll(selector));
+    candidates.forEach(prepareTarget);
+  }
+
+  // Hook the existing router so newly opened views reveal their copy too.
+  const originalGo = window.go;
+  if (typeof originalGo === 'function') {
+    window.go = function() {
+      const result = originalGo.apply(this, arguments);
+      window.setTimeout(prepareActiveView, 120);
+      return result;
+    };
+  }
+
+  // Product filtering and dynamic lists insert new text after the initial render.
+  let pending = false;
+  const mutations = new MutationObserver(records => {
+    if (pending) return;
+    const active = document.querySelector('.view.active');
+    if (!active || !records.some(r => [...r.addedNodes].some(n => n.nodeType === 1 || (n.nodeType === 3 && /\S/.test(n.nodeValue || ''))))) return;
+    pending = true;
+    requestAnimationFrame(() => {
+      pending = false;
+      prepareActiveView();
+    });
+  });
+  mutations.observe(document.body, { childList: true, subtree: true });
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', prepareActiveView, { once: true });
+  } else {
+    setTimeout(prepareActiveView, 0);
+  }
 })();
 </script>
 
