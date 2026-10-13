@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Gewon Music — Premium Catalog</title>
+<title>Gewon Music — Rose Motion Studio</title>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&amp;family=Inter:wght@300;400;500;600;700;800;900&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
@@ -676,7 +676,7 @@ window.imgFail = window.imgFail || function(img) {
   if (!img || (img.dataset && img.dataset.fb)) return;
   if (img.dataset) img.dataset.fb = '1';
   const label = (img.alt || 'Nhạc cụ').replace(/&/g,'&amp;').replace(/</g,'&lt;');
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#260a16"/><stop offset="1" stop-color="#090407"/></linearGradient></defs><rect width="600" height="600" fill="url(#g)"/><circle cx="300" cy="270" r="130" fill="#ff3658" opacity=".08"/><text x="300" y="295" font-size="94" text-anchor="middle">♫</text><text x="300" y="365" font-family="Arial,sans-serif" font-size="24" font-weight="700" fill="#ff8395" text-anchor="middle">GEWON MUSIC</text><text x="300" y="405" font-family="Arial,sans-serif" font-size="15" fill="#cdb7bd" text-anchor="middle">${label}</text></svg>`;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#260a16"/><stop offset="1" stop-color="#090407"/></linearGradient></defs><rect width="600" height="600" fill="url(#g)"/><circle cx="300" cy="270" r="130" fill="#ff3658" opacity=".08"/><g stroke="#ff9bab" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M300 300 C250 296 218 267 232 230 C244 198 279 203 298 238 C306 197 347 189 366 222 C397 203 426 238 402 270 C383 296 341 305 300 300 Z" fill="#ff3658" fill-opacity=".78"/><path d="M285 291 C257 267 267 236 288 240 C306 242 306 264 316 271 C321 245 350 239 362 258 C374 276 348 294 325 298" fill="none"/><path d="M301 304 C303 335 308 352 328 374 M307 341 C277 324 257 333 268 350 C280 365 299 356 307 341 M319 357 C350 331 373 341 362 358 C352 372 332 370 319 357" fill="none" stroke="#ff7189"/></g><text x="300" y="365" font-family="Arial,sans-serif" font-size="24" font-weight="700" fill="#ff8395" text-anchor="middle">GEWON MUSIC</text><text x="300" y="405" font-family="Arial,sans-serif" font-size="15" fill="#cdb7bd" text-anchor="middle">${label}</text></svg>`;
   img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
 };
 </script>
@@ -996,11 +996,134 @@ window.imgFail = window.imgFail || function(img) {
   }
 </style>
 
+
+<style id="gewon-rose-motion-design">
+  /* Rose Motion Studio — original burgundy/black palette, with clearer type contrast. */
+  :root{
+    --text:#fffafb;--text-2:#f2e5e9;--muted:#d7bdc5;--muted-2:#b99ca6;
+    --accent:#ff4968;--accent-2:#ff9aaa;--accent-glow:rgba(255,55,91,.48);
+    --border:rgba(255,222,229,.15);--border-strong:rgba(255,205,215,.28);
+  }
+  body{color:#fffafb}
+  ::selection{background:#ff4968;color:#170309}
+  :focus-visible{outline:2px solid #ffb2bf!important;outline-offset:4px}
+  .rose-emblem{display:block;width:30px;height:34px;flex:0 0 auto;overflow:visible;filter:drop-shadow(0 0 8px rgba(255,55,91,.46));transition:transform .55s cubic-bezier(.2,.8,.2,1),filter .45s ease}
+  .brand:hover .rose-emblem{transform:rotate(-8deg) scale(1.12);filter:drop-shadow(0 0 13px rgba(255,80,112,.78))}
+  .brand{gap:10px;color:#fffafb}
+  .brand-dot{display:none!important}
+  nav{border-bottom-color:rgba(255,125,147,.2);box-shadow:0 8px 28px rgba(0,0,0,.12)}
+  .nav-links a{color:#f0dfe4!important;text-shadow:0 1px 8px rgba(0,0,0,.45)}
+  .nav-links a:hover,.nav-links a.active{color:#fff!important}
+  .nav-links a.active{background:rgba(255,54,88,.17);box-shadow:inset 0 0 0 1px rgba(255,143,162,.34),0 0 18px rgba(255,54,88,.055)}
+  .nav-phone,.btn-primary{background:linear-gradient(115deg,#ff3658 0%,#ff7188 54%,#ff9aaa 100%);color:#25030c!important;border:1px solid rgba(255,226,232,.48);box-shadow:0 8px 30px rgba(222,20,62,.32)}
+  .nav-phone:hover,.btn-primary:hover{color:#170208!important;box-shadow:0 12px 38px rgba(255,55,91,.48)}
+  .hero-bg{filter:brightness(.34) saturate(.86) sepia(.09) hue-rotate(300deg)}
+  .hero::after{background:linear-gradient(180deg,rgba(10,2,6,.34) 0%,rgba(14,3,8,.25) 32%,rgba(9,2,6,.88) 100%),radial-gradient(ellipse 58% 70% at 50% 48%,rgba(165,7,42,.15),transparent 70%),linear-gradient(90deg,rgba(8,2,5,.37),transparent 32%,transparent 68%,rgba(8,2,5,.35))}
+  .hero-label{color:#ffd9e0;background:rgba(87,5,28,.64);border-color:rgba(255,150,167,.42);box-shadow:0 8px 28px rgba(0,0,0,.2)}
+  .hero-label::before{background:#ff8fa2;box-shadow:0 0 15px #ff4968}
+  .hero h1{color:#fffafb;text-shadow:0 4px 22px rgba(0,0,0,.68),0 0 55px rgba(0,0,0,.34)}
+  .hero h1 .accent,.intro-title .accent{
+    background:linear-gradient(105deg,#fff8fa 0%,#ffd0d8 22%,#ff8fa2 50%,#ff4968 78%,#ff3156 100%);
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+    filter:drop-shadow(0 4px 18px rgba(255,54,88,.26));
+  }
+  .hero-sub{color:#fff1f4;text-shadow:0 2px 14px rgba(0,0,0,.9)}
+  .hero-scroll-note{color:#f7dce2;text-shadow:0 1px 6px #090207}
+  .motion-core{background:none;filter:none;box-shadow:none;overflow:visible;width:29%;height:29%}
+  .hero-rose-emblem{width:100%;height:100%;filter:drop-shadow(0 0 14px rgba(255,65,101,.8)) drop-shadow(0 0 36px rgba(255,45,84,.42));animation:roseHeartBeat 5.2s ease-in-out infinite;overflow:visible}
+  @keyframes roseHeartBeat{0%,100%{transform:scale(.94) rotate(-3deg);opacity:.76}50%{transform:scale(1.07) rotate(2deg);opacity:1}}
+  .section-head h2,.intro-title,.page-head h1,.detail-info h1,.contact-card p,.ship-form-box h3,.orders-empty h3,.brand-tile-copy strong{color:#fffafb}
+  .section-head h2::before{background:linear-gradient(90deg,#fff0f3,#ff4968);box-shadow:0 0 18px rgba(255,54,88,.56)}
+  .section-head .view-all{color:#ffc0cb!important;border-color:rgba(255,139,158,.35);background:rgba(255,54,88,.09)}
+  .section-head .view-all:hover{color:#fff!important;background:rgba(255,54,88,.22);border-color:rgba(255,180,194,.56)}
+  .intro-label,.brand-tag,.spec-section-title{color:#ffb0be}
+  .intro-body,.feature-list li,.detail-short,.page-head p,.contact-card small,.ship-form-box>p,.orders-empty p,.order-row,.policy-row,.warranty-box p{color:#f0dfe4}
+  .intro-body strong,.intro-label,.intro-stat span,.intro-badge-label{color:#ffd4dc}
+  .intro-stat strong{background:linear-gradient(110deg,#fffafb,#ffc4cf 78%,#ff6d87);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .intro-badge{background:rgba(15,3,8,.92);border-color:rgba(255,143,162,.4);box-shadow:0 12px 36px rgba(0,0,0,.24)}
+  .intro-badge-num{background:linear-gradient(110deg,#fff8f9,#ff9cad 42%,#ff4968);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 3px 12px rgba(255,54,88,.22))}
+  .cat-card{border-color:rgba(255,168,183,.23);box-shadow:0 10px 32px rgba(0,0,0,.2)}
+  .cat-card::after{background:linear-gradient(180deg,rgba(8,2,5,0) 22%,rgba(8,2,5,.14) 46%,rgba(8,2,5,.93) 100%)}
+  .cat-info h3{color:#fffafb;text-shadow:0 2px 13px rgba(0,0,0,.84)}
+  .cat-info span{color:#ffedf1;text-shadow:0 1px 9px rgba(0,0,0,.9)}
+  .cat-arrow{color:#fffafb;background:rgba(18,3,9,.76);border-color:rgba(255,169,184,.6);box-shadow:0 0 18px rgba(255,54,88,.14)}
+  .cat-card:hover{border-color:rgba(255,125,148,.7);box-shadow:0 22px 55px rgba(0,0,0,.38),0 0 28px rgba(255,54,88,.1)}
+  .product-card,.catalog-grid .product-card{background:linear-gradient(150deg,rgba(35,7,17,.98),rgba(16,3,8,.98));border-color:rgba(255,164,180,.22);box-shadow:0 12px 28px rgba(0,0,0,.24)}
+  .product-card:hover,.catalog-grid .product-card:hover{border-color:rgba(255,128,151,.72);box-shadow:0 23px 46px rgba(0,0,0,.42),0 0 30px rgba(255,54,88,.12)}
+  .product-info h3{color:#fff7f9}
+  .product-info .price,.detail-price,.pp-item span,.order-product span{color:#ff9bad}
+  .detail-price{background:linear-gradient(100deg,#fff6f8,#ffb1bf 44%,#ff4b6b);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 3px 13px rgba(255,54,88,.19))}
+  .detail-price-old,.product-info .price-old{color:#cfb4bd}
+  .product-info .price-old{text-decoration-color:rgba(255,209,219,.48)}
+  .product-badge,.nav-badge{color:#fffafb}
+  .product-badge{background:#e92249;border-color:rgba(255,204,214,.35);box-shadow:0 5px 18px rgba(0,0,0,.28)}
+  .catalog-eyebrow{color:#ffb6c3!important}
+  .catalog-toolbar input,.catalog-toolbar select{color:#fff5f7;border-color:rgba(255,153,172,.32);background:rgba(31,7,16,.96)}
+  .catalog-toolbar input::placeholder{color:#c6a8b1}
+  .catalog-toolbar input:focus,.catalog-toolbar select:focus,.form-field input:focus,.form-field textarea:focus{border-color:#ff9cad;box-shadow:0 0 0 3px rgba(255,75,110,.17)}
+  .catalog-search>span{color:#ffb0bf}
+  .catalog-meta{color:#d4b7c0}
+  .catalog-meta span:first-child{color:#fff0f3}
+  .filter-chip{color:#f1dfe4;border-color:rgba(255,156,174,.28)}
+  .filter-chip.active{color:#25030c!important;background:linear-gradient(110deg,#ff4968,#ff9aaa);border-color:#ffc2ce}
+  .breadcrumb,.breadcrumb span{color:#e7d4da}
+  .breadcrumb a{color:#ffb0bf}
+  .brand-tile-kicker,.brand-tile-link{color:#ffb4c1}
+  .brand-tile-meta{color:#e2cdd3}
+  .form-field label,.fee-row span:first-child,.order-date,.order-row span,.spec-row dt,.tl-label{color:#d5bcc4}
+  .form-field input,.form-field textarea,#chat-in{color:#fffafb;background:#260a15;border-color:rgba(255,153,172,.28)}
+  .form-field input::placeholder,.form-field textarea::placeholder,#chat-in::placeholder{color:#bea1ab}
+  .spec-row dd,.order-row strong,.pp-item strong,.order-code{color:#fffafb}
+  .feature-list li::before{box-shadow:0 0 10px rgba(255,54,88,.19)}
+  .order-status,.order-sent,.btn-cancel{color:#ffeef1}
+  .btn-cancel{border-color:rgba(255,113,139,.5)}
+  .contact-card,.ship-form-box,.warranty-box,.orders-empty,.order-card{border-color:rgba(255,162,179,.22)}
+  footer{border-top-color:rgba(255,112,138,.24)}
+  .brand-big{display:flex;justify-content:center;align-items:center;gap:14px;color:#fffafb}
+  .footer-rose-svg{width:46px;height:49px;filter:drop-shadow(0 0 13px rgba(255,55,91,.48))}
+  .rose-ticker{position:relative;overflow:hidden;padding:15px 0;background:linear-gradient(90deg,rgba(45,4,17,.96),rgba(19,3,9,.96),rgba(45,4,17,.96));border-top:1px solid rgba(255,131,153,.2);border-bottom:1px solid rgba(255,131,153,.2);box-shadow:inset 0 1px 0 rgba(255,240,243,.025)}
+  .rose-ticker::before,.rose-ticker::after{content:"";position:absolute;top:0;bottom:0;width:9vw;z-index:2;pointer-events:none}
+  .rose-ticker::before{left:0;background:linear-gradient(90deg,#16040b,transparent)}
+  .rose-ticker::after{right:0;background:linear-gradient(270deg,#16040b,transparent)}
+  .rose-ticker-track{width:max-content;display:flex;animation:roseTicker 34s linear infinite;will-change:transform}
+  .rose-ticker-group{display:flex;align-items:center;gap:clamp(24px,4vw,64px);padding-right:clamp(24px,4vw,64px);white-space:nowrap}
+  .rose-ticker-group span{font:700 10px/1.4 'Space Grotesk',sans-serif;letter-spacing:.22em;color:#ffeef2}
+  .rose-ticker-group b{font-size:16px;font-weight:400;color:#ff6f89;text-shadow:0 0 12px rgba(255,54,88,.46)}
+  @keyframes roseTicker{to{transform:translateX(-50%)}}
+  .rose-ticker:hover .rose-ticker-track{animation-play-state:paused}
+  .brand-big .footer-rose{display:inline-flex}
+  .hero-label,.section-head .view-all,.btn,.nav-phone,.filter-chip{transition:background .3s ease,border-color .3s ease,color .3s ease,transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s ease}
+  .intro-visual,.cat-card,.product-card,.contact-card,.brand-tile{transition:transform .5s cubic-bezier(.2,.8,.2,1),border-color .45s ease,box-shadow .5s ease}
+  @media(hover:hover) and (pointer:fine){
+    .intro-visual:hover{transform:translateY(-5px) rotate(-.35deg);box-shadow:0 36px 88px rgba(0,0,0,.48),0 0 32px rgba(255,54,88,.08)}
+    .contact-card:hover{transform:translateY(-5px);border-color:rgba(255,133,154,.54);box-shadow:0 22px 45px rgba(0,0,0,.3)}
+  }
+  @media(max-width:680px){
+    .rose-emblem{width:25px;height:29px}
+    .hero-rose-emblem{opacity:.9}
+    .rose-ticker{padding:13px 0}
+    .rose-ticker-group{gap:22px;padding-right:22px}
+    .rose-ticker-group span{font-size:8px;letter-spacing:.15em}
+    .footer-rose-svg{width:34px;height:37px}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .rose-ticker-track,.hero-rose-emblem{animation:none!important}
+    .rose-ticker-track{transform:none}
+    .rose-ticker-group:nth-child(2){display:none}
+  }
+</style>
+
 </head>
 <body>
 <nav>
 <div class="brand" onclick="go('home')">
-<span class="brand-dot"></span>
+<svg class="rose-emblem" viewBox="0 0 64 64" aria-hidden="true">
+  <path d="M31.5 31.5C19.2 31 11.8 23.8 14.7 16.1c2.6-7 10.7-6.7 15.2 1.1C31.8 7.5 41 6 45 13.2c6.7-4.1 13.8 2.6 8.8 10.4-4.2 6.7-13.5 8.6-22.3 7.9Z" fill="#ff647f" fill-opacity=".94" stroke="#ffdce2" stroke-width="1.15" stroke-linejoin="round"/>
+  <path d="M28.8 28.9c-6.8-3.8-8.3-9.5-4.3-12.1 3.3-2.2 7 1.2 8.1 5.2 1.8-5.7 7.5-7.2 10.1-3.1 2.4 3.8-.7 8.6-5.4 11.1 2.8-4.8-1.4-7.9-4.5-5.6-2 1.5-1.4 3.6-4 4.5Z" fill="#e51f4a" stroke="#ffb9c5" stroke-width=".9" stroke-linejoin="round"/>
+  <path d="M32 31c-.6 8.5 1.6 15.3 5.1 24" fill="none" stroke="#ff7c94" stroke-width="2.8" stroke-linecap="round"/>
+  <path d="M34.2 43.1c-8.6-5.5-13.8-3.7-12.4 1.7 1.4 4.5 8.8 4.4 12.4-1.7Z" fill="#ff607c" stroke="#ffc4ce" stroke-width=".9" stroke-linejoin="round"/>
+  <path d="M36 49.7c7.1-8.1 13.5-7.1 12.1-1.5-1.3 4.7-7.8 6.2-12.1 1.5Z" fill="#db2048" stroke="#ff9cad" stroke-width=".9" stroke-linejoin="round"/>
+</svg>
 <span>Gewon Music</span>
 </div>
 <button class="mobile-menu-toggle" id="mobile-menu-toggle" type="button" aria-controls="mobile-nav-links" aria-expanded="false" aria-label="Mở danh mục">
@@ -1028,7 +1151,13 @@ window.imgFail = window.imgFail || function(img) {
 <span class="motion-ring ring-one"></span>
 <span class="motion-ring ring-two"></span>
 <span class="motion-ring ring-three"></span>
-<span class="motion-core"></span>
+<span class="motion-core" aria-hidden="true"><svg class="hero-rose-emblem" viewBox="0 0 64 64" aria-hidden="true">
+  <path d="M31.5 31.5C19.2 31 11.8 23.8 14.7 16.1c2.6-7 10.7-6.7 15.2 1.1C31.8 7.5 41 6 45 13.2c6.7-4.1 13.8 2.6 8.8 10.4-4.2 6.7-13.5 8.6-22.3 7.9Z" fill="#ff647f" fill-opacity=".94" stroke="#ffdce2" stroke-width="1.15" stroke-linejoin="round"/>
+  <path d="M28.8 28.9c-6.8-3.8-8.3-9.5-4.3-12.1 3.3-2.2 7 1.2 8.1 5.2 1.8-5.7 7.5-7.2 10.1-3.1 2.4 3.8-.7 8.6-5.4 11.1 2.8-4.8-1.4-7.9-4.5-5.6-2 1.5-1.4 3.6-4 4.5Z" fill="#e51f4a" stroke="#ffb9c5" stroke-width=".9" stroke-linejoin="round"/>
+  <path d="M32 31c-.6 8.5 1.6 15.3 5.1 24" fill="none" stroke="#ff7c94" stroke-width="2.8" stroke-linecap="round"/>
+  <path d="M34.2 43.1c-8.6-5.5-13.8-3.7-12.4 1.7 1.4 4.5 8.8 4.4 12.4-1.7Z" fill="#ff607c" stroke="#ffc4ce" stroke-width=".9" stroke-linejoin="round"/>
+  <path d="M36 49.7c7.1-8.1 13.5-7.1 12.1-1.5-1.3 4.7-7.8 6.2-12.1 1.5Z" fill="#db2048" stroke="#ff9cad" stroke-width=".9" stroke-linejoin="round"/>
+</svg></span>
 <span class="motion-spark spark-one"></span>
 <span class="motion-spark spark-two"></span>
 <span class="motion-spark spark-three"></span>
@@ -1045,6 +1174,13 @@ window.imgFail = window.imgFail || function(img) {
 </div>
 <div class="hero-scroll-note"><span class="scroll-line"></span><span>CUỘN ĐỂ CẢM NHẬN</span><span class="scroll-line"></span></div>
 </section>
+
+<div class="rose-ticker" aria-hidden="true">
+  <div class="rose-ticker-track">
+    <div class="rose-ticker-group"><span>CHẠM VÀO ÂM THANH</span><b>✳</b><span>PIANO · GUITAR · TRỐNG</span><b>✳</b><span>ĐÁNH THỨC CẢM XÚC</span><b>✳</b><span>GEWON MUSIC</span><b>✳</b></div>
+    <div class="rose-ticker-group"><span>CHẠM VÀO ÂM THANH</span><b>✳</b><span>PIANO · GUITAR · TRỐNG</span><b>✳</b><span>ĐÁNH THỨC CẢM XÚC</span><b>✳</b><span>GEWON MUSIC</span><b>✳</b></div>
+  </div>
+</div>
 <section class="section">
 <div class="intro-grid">
 <div class="intro-visual">
@@ -1423,7 +1559,13 @@ window.imgFail = window.imgFail || function(img) {
 </div>
 </main>
 <footer>
-<div class="brand-big">Gewon Music</div>
+<div class="brand-big"><span class="footer-rose" aria-hidden="true"><svg class="rose-emblem footer-rose-svg" viewBox="0 0 64 64" aria-hidden="true">
+  <path d="M31.5 31.5C19.2 31 11.8 23.8 14.7 16.1c2.6-7 10.7-6.7 15.2 1.1C31.8 7.5 41 6 45 13.2c6.7-4.1 13.8 2.6 8.8 10.4-4.2 6.7-13.5 8.6-22.3 7.9Z" fill="#ff647f" fill-opacity=".94" stroke="#ffdce2" stroke-width="1.15" stroke-linejoin="round"/>
+  <path d="M28.8 28.9c-6.8-3.8-8.3-9.5-4.3-12.1 3.3-2.2 7 1.2 8.1 5.2 1.8-5.7 7.5-7.2 10.1-3.1 2.4 3.8-.7 8.6-5.4 11.1 2.8-4.8-1.4-7.9-4.5-5.6-2 1.5-1.4 3.6-4 4.5Z" fill="#e51f4a" stroke="#ffb9c5" stroke-width=".9" stroke-linejoin="round"/>
+  <path d="M32 31c-.6 8.5 1.6 15.3 5.1 24" fill="none" stroke="#ff7c94" stroke-width="2.8" stroke-linecap="round"/>
+  <path d="M34.2 43.1c-8.6-5.5-13.8-3.7-12.4 1.7 1.4 4.5 8.8 4.4 12.4-1.7Z" fill="#ff607c" stroke="#ffc4ce" stroke-width=".9" stroke-linejoin="round"/>
+  <path d="M36 49.7c7.1-8.1 13.5-7.1 12.1-1.5-1.3 4.7-7.8 6.2-12.1 1.5Z" fill="#db2048" stroke="#ff9cad" stroke-width=".9" stroke-linejoin="round"/>
+</svg></span>Gewon Music</div>
 <div class="footer-info">
 <span>📞 <a href="tel:0385730766">0385 730 766</a></span>
 <span>💬 Zalo/SMS: 0385 730 766</span>
@@ -1652,6 +1794,7 @@ function go(view, push=true){
   const navEl = document.querySelector(`.nav-links a[data-nav="${view}"]`);
   if(navEl) navEl.classList.add('active');
   currentView = view;
+  if (window.GewonBackend && typeof window.GewonBackend.trackPageView === 'function') window.GewonBackend.trackPageView(view);
   if (typeof window.setMusicForView === 'function') window.setMusicForView(view);
   if(view === 'shop') { populateShopBrands(); renderShop(); }
   if(view === 'deals') renderDeals();
@@ -1866,6 +2009,7 @@ function openDetail(id){
   const p = DB[id];
   if(!p) return;
   currentId = id;
+  if (window.GewonBackend && typeof window.GewonBackend.trackProductView === 'function') window.GewonBackend.trackProductView(p, id);
   document.getElementById('gallery-main').innerHTML = p.images.map((src,i)=>
     `<img src="${src}" class="${i===0?'active':''}" alt="${p.name}" loading="${i===0?'eager':'lazy'}" decoding="async" width="900" height="900" onerror="imgFail(this)">`
   ).join('');
@@ -1931,7 +2075,7 @@ function updateMapFromAddress(address){
   }
 }
 
-function confirmShipping(){
+async function confirmShipping(){
   const name = (document.getElementById('ship-name')?.value || '').trim();
   const phone = (document.getElementById('ship-phone')?.value || '').trim();
   const address = (document.getElementById('ship-address')?.value || '').trim();
@@ -1949,6 +2093,14 @@ function confirmShipping(){
   const list = getOrders();
   list.unshift(order);
   saveOrders(list);
+  if (window.GewonBackend && window.GewonBackend.ready && typeof window.GewonBackend.submitOrder === 'function') {
+    const cloudSaved = await window.GewonBackend.submitOrder(order);
+    if (!cloudSaved) {
+      saveOrders(getOrders().filter(o => o.code !== code));
+      alert('Đơn chưa được đồng bộ lên hệ thống quản trị nên chưa thể xác nhận. Vui lòng thử lại sau hoặc liên hệ cửa hàng.');
+      return;
+    }
+  }
   pendingProduct = null;
   renderPendingProduct();
   document.getElementById('s-name').textContent = name;
@@ -2050,10 +2202,14 @@ function showCancelConfirm(code){
   overlay.onclick = (e) => { if(e.target === overlay) overlay.remove(); };
 }
 
-function doCancelOrder(code){
+async function doCancelOrder(code){
   const orders = getOrders();
   const idx = orders.findIndex(o => o.code === code);
   if(idx === -1) return;
+  if (window.GewonBackend && window.GewonBackend.ready && typeof window.GewonBackend.requestCancellation === 'function') {
+    const cloudCancelled = await window.GewonBackend.requestCancellation({code: orders[idx].code, phone: orders[idx].phone});
+    if (!cloudCancelled) return;
+  }
   orders.splice(idx, 1);
   saveOrders(orders);
   ensureChatOpen();
@@ -3579,5 +3735,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
 })();
 </script>
 
+
+<!-- Gewon Music shared backend. Configure supabase-config.js before deployment. -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="./supabase-config.js"></script>
+<script src="./gewon-supabase-bridge.js"></script>
 </body>
 </html>
