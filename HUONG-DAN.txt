@@ -1,0 +1,34 @@
+GEWON MUSIC - HƯỚNG DẪN CHẠY (2 trang index.html và staff.html chạy độc lập, dùng chung 1 máy chủ)
+
+CẦN CÓ: Node.js bản 18 trở lên (tải tại https://nodejs.org). Không cần "npm install".
+
+CHẠY TRÊN MÁY BẠN
+1. Giải nén thư mục gewon-music.
+2. Mở Terminal trong thư mục đó (đúng thư mục có file server.js và package.json).
+   Gõ "ls" (Mac) hoặc "dir" (Windows) để chắc là thấy server.js.
+3. Gõ:   npm start        (hoặc: npm run dev)
+4. Mở trình duyệt:
+   - Khách hàng:  http://localhost:3000/
+   - Nhân viên:   http://localhost:3000/staff.html
+5. Lần đầu mở trang nhân viên sẽ hiện "Thiết lập lần đầu": tạo tài khoản Quản lý
+   (mật khẩu tối thiểu 8 ký tự). Sau đó vào mục "Tài khoản" để tạo thêm nhân viên.
+
+Đổi cổng:  PORT=8080 npm start   (Windows PowerShell:  $env:PORT=8080; npm start)
+
+CÁC FILE
+- server.js          máy chủ (đăng nhập, đơn hàng, tin nhắn, sản phẩm, đánh giá)
+- public/index.html  trang cửa hàng       public/staff.html  trang nhân viên
+  (muốn sửa giao diện thì sửa 2 file này, rồi tải lại trang, không cần khởi động lại)
+- data/db.json       dữ liệu thật, tự tạo khi chạy. HÃY SAO LƯU file này định kỳ.
+
+LƯU Ý
+- 9 sản phẩm ban đầu được đánh dấu "Dữ liệu mẫu" (giống thiết kế gốc). Vào staff.html > Sản phẩm
+  để sửa giá/tồn kho thật rồi bỏ dấu "Dữ liệu mẫu". Đơn chứa sản phẩm mẫu sẽ hiện là "đơn thử nghiệm".
+- Tồn kho để trống = chưa xác nhận (vẫn cho đặt). Nhập số thì hệ thống tự trừ khi có đơn và hoàn lại khi hủy.
+- Trợ lý chat trả lời theo danh mục cửa hàng (không dùng AI bên ngoài). Gợi ý địa chỉ dùng bản đồ mở.
+- Nhập sai mật khẩu 5 lần sẽ bị khóa 10 phút.
+
+ĐƯA LÊN INTERNET (link công khai)
+Đưa CẢ thư mục lên dịch vụ chạy được Node.js (Render, Railway, Fly.io...). Lệnh khởi động: npm start.
+Quan trọng: gắn ổ đĩa lưu trữ (persistent disk/volume) và đặt biến DATA_DIR trỏ vào ổ đó,
+nếu không dữ liệu sẽ mất mỗi lần dịch vụ khởi động lại. Nên dùng HTTPS (các dịch vụ trên đều có sẵn).
