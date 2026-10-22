@@ -457,18 +457,25 @@ async function handleApi(req, res, u) {
   }
 }
 
+const ROOT_PAGES = new Set(['/index.html', '/staff.html']); // cho phép để 2 trang này cạnh server.js (không cần thư mục public)
+function sendFile(req, res, file, st) {
+  const ext = path.extname(file).toLowerCase();
+  res.writeHead(200, { 'Content-Type': MIME[ext] || 'application/octet-stream', 'Content-Length': st.size, 'Cache-Control': ext === '.html' ? 'no-cache' : 'public, max-age=3600', ...SECURITY_HEADERS });
+  if (req.method === 'HEAD') return res.end();
+  fs.createReadStream(file).pipe(res);
+}
 function serveStatic(req, res, u) {
   if (req.method !== 'GET' && req.method !== 'HEAD') return sendJson(res, 405, { error: 'Phương thức không được hỗ trợ.' });
   let rel; try { rel = decodeURIComponent(u.pathname); } catch (_) { return sendJson(res, 400, { error: 'Đường dẫn không hợp lệ.' }); }
   if (rel === '/') rel = '/index.html'; else if (rel === '/staff') rel = '/staff.html';
   const file = path.normalize(path.join(PUBLIC_DIR, rel));
   if (!file.startsWith(PUBLIC_DIR + path.sep)) return sendJson(res, 403, { error: 'Không được phép.' });
+  const notFound = () => { res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8', ...SECURITY_HEADERS }); res.end('Không tìm thấy trang này. Hãy kiểm tra index.html và staff.html đã được tải lên cùng server.js (hoặc nằm trong thư mục public).'); };
   fs.stat(file, (err, st) => {
-    if (err || !st.isFile()) { res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8', ...SECURITY_HEADERS }); return res.end('Không tìm thấy trang này.'); }
-    const ext = path.extname(file).toLowerCase();
-    res.writeHead(200, { 'Content-Type': MIME[ext] || 'application/octet-stream', 'Content-Length': st.size, 'Cache-Control': ext === '.html' ? 'no-cache' : 'public, max-age=3600', ...SECURITY_HEADERS });
-    if (req.method === 'HEAD') return res.end();
-    fs.createReadStream(file).pipe(res);
+    if (!err && st.isFile()) return sendFile(req, res, file, st);
+    if (!ROOT_PAGES.has(rel)) return notFound();
+    const alt = path.join(__dirname, rel.slice(1));
+    fs.stat(alt, (e2, st2) => (!e2 && st2.isFile()) ? sendFile(req, res, alt, st2) : notFound());
   });
 }
 
