@@ -83,7 +83,7 @@ a.tel{color:var(--green);font-weight:700}
 
 <section class="login-wrap" id="loginView" hidden>
   <form class="login-card" id="loginForm" autocomplete="on">
-    <div class="brand">GEWON MUSIC<small>Khu vực nhân viên</small></div>
+    <div class="brand">GEWON<small>Khu vực nhân viên</small></div>
     <h1 id="loginTitle">Đăng nhập</h1>
     <p class="sub" id="loginSub">Chỉ nhân viên được phép truy cập. Hãy đăng nhập để quản lý đơn hàng và nhắn tin với khách.</p>
     <div class="field" id="nameField" hidden><label for="lName">Họ tên hiển thị</label><input id="lName" autocomplete="name" placeholder="Ví dụ: Quản lý Gewon"></div>
@@ -98,7 +98,7 @@ a.tel{color:var(--green);font-weight:700}
 
 <div id="appView" hidden>
   <header class="top">
-    <div class="top-in"><div class="brand">GEWON MUSIC<small>Quản lý cửa hàng</small></div><div class="grow"></div>
+    <div class="top-in"><div class="brand">GEWON<small>Quản lý cửa hàng</small></div><div class="grow"></div>
       <div class="who" id="who"></div><a class="btn ghost sm" href="index.html" target="_blank" rel="noopener">Xem cửa hàng ↗</a><button class="btn ghost sm" id="refreshAll" type="button" title="Tải lại đơn hàng, tin nhắn và sản phẩm mới nhất">Làm mới ↻</button><button class="btn ghost sm" id="logoutBtn" type="button">Đăng xuất</button></div>
     <nav class="tabs" aria-label="Chức năng">
       <button class="tab active" data-tab="orders">Đơn hàng<span class="bd" id="bdOrders" hidden>0</span></button>
@@ -145,7 +145,7 @@ const STATUS={pending:'Chờ xác nhận',confirmed:'Đã xác nhận',preparing
 const NEXT={pending:['confirmed','Xác nhận đơn'],confirmed:['preparing','Bắt đầu chuẩn bị'],preparing:['shipped','Giao cho vận chuyển'],shipped:['delivered','Đã giao xong']};
 let csrf='',me=null,mode='server',tab='orders',timers=[];
 let orders=[],knownOrders=new Set(),ordersReady=false,oSig='';
-let chats=[],selChat=null,lastSeen={},custPrev={},chatReady=false,cSig='',tSig='',sending=false;
+let chats=[],selChat=null,lastSeen={},custPrev={},chatReady=false,cSig='',tSig='';
 function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('show'),3500)}
 function ask(title,text,okLabel,danger,ico){return new Promise(res=>{const d=$('#dlg'),y=$('#dlgYes'),n=$('#dlgNo');$('#dlgTitle').textContent=title;$('#dlgText').textContent=text;$('#dlgIco').textContent=ico||(danger?'🗑️':'⚠️');y.textContent=okLabel||'Đồng ý';y.className='btn'+(danger?' danger':'');d.hidden=false;n.focus();
   const done=v=>{d.hidden=true;y.onclick=n.onclick=null;d.onclick=null;document.removeEventListener('keydown',kd,true);res(v)};const kd=e=>{if(e.key==='Escape'){e.stopPropagation();done(false)}};document.addEventListener('keydown',kd,true);y.onclick=()=>done(true);n.onclick=()=>done(false);d.onclick=e=>{if(e.target===d)done(false)}})}
@@ -247,16 +247,16 @@ function renderThread(force){const h=chats.find(x=>x.id===selChat),host=$('#cthr
   const box=el('div','msgs');(h.messages||[]).forEach(m=>{const b=el('div','b '+m.from);b.append(el('small','',(m.from==='customer'?'Khách':m.from==='staff'?(m.name||'Nhân viên'):'Tự động')+' · '+when(m.at)),document.createTextNode(m.text));box.append(b)});host.append(box);box.scrollTop=box.scrollHeight;
   const f=el('form','compose'),ta=el('textarea');ta.placeholder=h.status==='open'?'Nhập câu trả lời cho khách… (Enter để gửi, Shift+Enter xuống dòng)':'Cuộc trò chuyện đã hoàn tất. Gửi tin sẽ mở lại.';ta.maxLength=1000;ta.dataset.h=h.id;ta.value=draft;ta.rows=1;
   const sb=el('button','btn','Gửi');sb.type='submit';f.append(ta,sb);host.append(f);if(hadFocus||force)ta.focus();
-  const go=async()=>{if(sending)return;const t=ta.value.trim();if(!t)return;sending=true;ta.value='';sb.disabled=true;try{await api('/api/staff/handoffs/'+h.id+'/reply',{method:'POST',body:JSON.stringify({text:t})});lastSeen[h.id]=Infinity;await loadChats();lastSeen[h.id]=(chats.find(x=>x.id===h.id)||{messages:[]}).messages.length;renderChatList(true);renderThread(true)}catch(e){if(!ta.value)ta.value=t;toast(e.message)}finally{sending=false;sb.disabled=false}};
-  f.addEventListener('submit',e=>{e.preventDefault();go()});ta.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();if(e.isComposing||e.keyCode===229||e.repeat)return;go()}})}
+  const go=async()=>{const t=ta.value.trim();if(!t)return;sb.disabled=true;try{await api('/api/staff/handoffs/'+h.id+'/reply',{method:'POST',body:JSON.stringify({text:t})});ta.value='';lastSeen[h.id]=Infinity;await loadChats();lastSeen[h.id]=(chats.find(x=>x.id===h.id)||{messages:[]}).messages.length;renderChatList(true);renderThread(true)}catch(e){toast(e.message)}finally{sb.disabled=false}};
+  f.addEventListener('submit',e=>{e.preventDefault();go()});ta.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();go()}})}
 $('#cClear').addEventListener('click',async()=>{const n=chats.filter(h=>h.status==='done').length;if(!n)return;if(!(await ask('Xóa '+n+' cuộc trò chuyện đã hoàn tất?','Các cuộc trò chuyện đã bấm “Hoàn tất hỗ trợ” sẽ bị xóa vĩnh viễn. Cuộc trò chuyện đang mở được giữ nguyên.','Xóa '+n+' cuộc',true)))return;try{const r=await api('/api/staff/handoffs',{method:'DELETE',body:'{}'});if(!chats.some(h=>h.id===selChat&&h.status!=='done'))selChat=null;toast('Đã xóa '+r.removed+' cuộc trò chuyện.');await loadChats();renderChatList(true);renderThread(true)}catch(e){toast(e.message)}});
 document.addEventListener('visibilitychange',()=>{if(!document.hidden&&tab==='chat'){markSeen();badges();renderChatList(true)}});
 
 /* ---------- sản phẩm ---------- */
-const CATS=[['piano','Piano / keyboard'],['guitar','Guitar & bass'],['drums','Trống'],['strings','Nhạc cụ dây'],['woodwind','Sáo / kèn hơi'],['accessories','Phụ kiện / thu âm']];
-function addForm(){const d=el('details','card addp'),sm=el('summary','','＋ Thêm sản phẩm mới (Yamaha, Casio, Victor, Master…)');d.append(sm);
+const CATS=[['outer','Áo khoác'],['tops','Áo'],['bottoms','Quần'],['shoes','Giày'],['acc','Phụ kiện']];
+function addForm(){const d=el('details','card addp'),sm=el('summary','','＋ Thêm sản phẩm mới');d.append(sm);
   const f=el('form'),g=el('div','pgrid');const fld=(lab,name,type,cls,ph)=>{const w=el('div',cls||'');w.append(el('label','',lab));const i=el('input');i.name=name;i.type=type||'text';if(ph)i.placeholder=ph;if(type==='number')i.inputMode='numeric';w.append(i);g.append(w);return i};
-  fld('Tên sản phẩm *','name','text','name','vd: Piano điện Yamaha P-125').required=true;fld('Hãng','brand','text','','Yamaha');const pr=fld('Giá (VND) *','price','number');pr.required=true;pr.min=0;fld('Tồn kho','stock','number');
+  fld('Tên sản phẩm *','name','text','name','vd: Áo khoác denim').required=true;fld('Thương hiệu','brand','text','','Gewon');const pr=fld('Giá (VND) *','price','number');pr.required=true;pr.min=0;fld('Tồn kho','stock','number');
   const cw=el('div');cw.append(el('label','','Danh mục'));const cs=el('select');cs.name='category';CATS.forEach(([v,tx])=>cs.append(new Option(tx,v)));cw.append(cs);g.append(cw);
   const dw=el('div','full');dw.append(el('label','','Mô tả / thông số đã xác minh'));const ds=el('textarea');ds.name='description';ds.maxLength=1600;dw.append(ds);g.append(dw);
   const iw=fld('URL ảnh thật (https://…)','imageUrl','text','full','https://…');iw.maxLength=1000;f.append(g);
@@ -265,8 +265,8 @@ function addForm(){const d=el('details','card addp'),sm=el('summary','','＋ Th�
 async function loadProducts(){const host=$('#products');host.replaceChildren(el('div','empty','Đang tải…'));
   try{const d=await api('/api/staff/products');host.replaceChildren(addForm());(d.products||[]).forEach(p=>{const c=el('article','card'),h=el('div','row');h.append(el('h3','',p.name),el('span','pill',p.isSample?'DỮ LIỆU MẪU':(p.active?'Đang hiển thị':'Đang ẩn')));c.append(h);
     const g=el('div','pgrid');const fld=(lab,key,val,type,cls)=>{const w=el('div',cls||'');w.append(el('label','',lab));const i=el('input');i.type=type||'text';i.value=val==null?'':val;i.dataset.k=key;if(type==='number')i.inputMode='numeric';w.append(i);g.append(w);return i};
-    fld('Tên sản phẩm','name',p.name,'text','name');fld('Hãng (Yamaha, Casio, Victor…)','brand',p.brand||'','text');fld('Giá (VND)','price',p.price,'number');fld('Tồn kho','stock',p.stock,'number');
-    const cw=el('div');cw.append(el('label','','Danh mục'));const cs=el('select');cs.dataset.k='category';[['piano','Piano / keyboard'],['guitar','Guitar'],['drums','Trống'],['strings','Nhạc cụ dây'],['woodwind','Sáo / nhạc cụ hơi'],['accessories','Phụ kiện']].forEach(([v,t])=>{const o=new Option(t,v);o.selected=v===p.category;cs.append(o)});cw.append(cs);g.append(cw);
+    fld('Tên sản phẩm','name',p.name,'text','name');fld('Thương hiệu','brand',p.brand||'','text');fld('Giá (VND)','price',p.price,'number');fld('Tồn kho','stock',p.stock,'number');
+    const cw=el('div');cw.append(el('label','','Danh mục'));const cs=el('select');cs.dataset.k='category';CATS.forEach(([v,t])=>{const o=new Option(t,v);o.selected=v===p.category;cs.append(o)});cw.append(cs);g.append(cw);
     const dw=el('div','full');dw.append(el('label','','Mô tả / thông số đã xác minh'));const ds=el('textarea');ds.dataset.k='description';ds.value=p.description||'';ds.maxLength=1600;dw.append(ds);g.append(dw);
     const w=fld('Bảo hành (nếu đã xác minh)','warranty',p.warranty,'text','full');w.maxLength=500;const im=fld('URL ảnh (https://… hoặc images/…)','imageUrl',p.imageUrl,'text','full');im.maxLength=1000;c.append(g);
     const ck=el('div','checks'),a=el('label'),ai=el('input');ai.type='checkbox';ai.checked=!!p.active;a.append(ai,'Hiển thị trên web');const s=el('label'),si=el('input');si.type='checkbox';si.checked=!!p.isSample;s.append(si,'Dữ liệu mẫu');ck.append(a,s);c.append(ck);
